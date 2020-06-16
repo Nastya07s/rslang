@@ -1,0 +1,6 @@
+class View  {
+    constructor() {
+        
+    }
+   
+}

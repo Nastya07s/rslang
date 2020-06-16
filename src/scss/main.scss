@@ -1,0 +1,203 @@
+@import "utils/_libs";
+@import "utils/_vars";
+@import "utils/_mixins";
+@import "utils/_fonts";
+@import "utils/_media";
+@import "./checkers.scss";
+@import "./header.scss";
+@import "./word.scss";
+@import "./words-panel.scss";
+@import "./helper-panel.scss";
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  
+    &::before, &::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  
+  .loader-box {
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    top: 0;
+    left: 0;
+    background: #000000;
+    transition: all .25s;
+  }
+  
+  .loader {
+    width: 20em;
+    height: 20em;
+    margin: 0 auto;
+    font-size: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    .face {
+      position: absolute;
+      border-radius: 50%;
+      border-style: solid;
+      animation: animate 3s linear infinite;
+  
+      &:nth-child(1) {
+        width: 100%;
+        height: 100%;
+        color: #6cafd9;
+        border-color: currentColor transparent transparent currentColor;
+        border-width: 0.2em 0.2em 0em 0em;
+        --deg:-45deg;
+        animation-direction: normal;
+      }
+  
+      &:nth-child(2) {
+        width: 70%;
+        height: 70%;
+        color: #d96666;
+        border-color: currentColor currentColor transparent transparent;
+        border-width: 0.2em 0em 0em 0.2em;
+        --deg:-135deg;
+        animation-direction: reverse;
+      }
+  
+      .circle {
+        position: absolute;
+        width: 50%;
+        height: 0.1em;
+        top: 50%;
+        left: 50%;
+        background-color: transparent;
+        transform: rotate(var(--deg));
+        transform-origin: left;
+  
+        &::before {
+          position: absolute;
+          top: -0.5em;
+          right: -0.5em;
+          content: '';
+          width: 1em;
+          height: 1em;
+          background-color: currentColor;
+          border-radius: 50%;
+          box-shadow: 0 0 2em, 0 0 4em, 0 0 6em, 0 0 8em, 0 0 10em, 0 0 0 0.5em rgba(255, 255, 0, 0.1);
+        }
+      }
+    }
+  }
+  
+  @keyframes animate {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+  
+  .levels {
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    background: linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%),
+    url('https://raw.githubusercontent.com/Gabriellji/vectors/master/48.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all .25s;
+  }
+  
+  .logo {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+  
+    img {
+      width: 140px;
+    }
+  }
+  
+  .wrapper {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 100%;
+    padding: 30px;
+  }
+  
+  .phrases {
+    padding: 0 1rem;
+    background: linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%);
+  }
+  
+  .word {
+    background: #5e97be;
+    height: fit-content;
+    font-size: 2rem;
+    color: #fff;
+    border: 3px solid #6cafd9;
+    padding: 7px;
+    border-radius: 5px;
+    margin: 10px 10px;
+  }
+  
+  .incorrect {
+    box-shadow: 0px 0px 15px #d91c1c, 0px 0px 17px #fff;
+  }
+  
+  .correct {
+    box-shadow: 0px 0px 15px #1cd922, 0px 0px 17px #fff;
+  }
+  
+  .words-boxes {
+    padding: 20px;
+  }
+  
+  .words {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 155px;
+  }
+  
+  .boxes {
+    display: flex;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 155px;
+    border: 2px solid #ffffff59;
+    border-radius: 5px;
+    background: #ffffff7a;
+  }
+  
+  .drag-out {
+    cursor: grab;
+    display: flex;
+    height: fit-content;
+  
+    &:active {
+      cursor: grabbing;
+    }
+  }
+  
+  .feedback {
+    display: flex;
+    height: fit-content;
+  }
+  
+  .shadow-drop-2-center {
+    transition: all .25s;
+  
+    &:hover {
+      box-shadow: 0px 0px 15px #fff, 0px 0px 17px #fff;
+    }
+  }
