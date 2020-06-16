@@ -1,0 +1,64 @@
+.sidebar {
+  position: absolute;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.3rem 1.7rem;
+
+
+  background-color: $sidebar-background;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 3.7rem 0 0.6rem;
+  ul.main-list {
+    li {
+      padding-bottom: 3.5rem;
+      list-style: none;
+    }
+  }
+
+  ul.settings-list {
+    li {
+      padding-top: 2rem;
+      list-style: none;
+    }
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.9rem;
+
+  font-family: "Montserrat";
+
+  border-bottom: 0.1rem solid #cdccc345;
+  &__img {
+    padding: 0.4rem 1rem 0.3rem;
+    font-size: 2.1rem;
+    color: white;
+    background-color: black;
+  }
+  &__title {
+    padding-left: 2.4rem;
+    font-size: 2.1rem;
+  }
+}
+
+.stack {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &__link {
+    padding-left: 2.4rem;
+    font-size: 1.3rem;
+    font-family: "Montserrat";
+  }
+}

@@ -1,0 +1,148 @@
+.slider-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10rem 10rem 10rem 21rem;
+
+}
+
+.slider {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 2.6rem;
+
+  background-color: $card-background;
+  border-radius: 1rem;
+
+  font-family: "Montserrat";
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__progress-difficulty {
+    display: flex;
+  }
+
+  &__body {
+    display: flex;
+  }
+
+  &__img {
+    width: 40%;
+    img{
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-left: 1.8rem
+  }
+
+}
+
+.button-base {
+  outline: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.circle {
+  border: 0.5rem solid  #C4C4C4;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+
+  &.circle-active {
+    border-color: #FF934D;
+  }
+}
+
+.exercise-text {
+  padding-bottom: 10rem;
+
+  &__original {
+    font-size: 4.3rem;
+    line-height: 5.2rem;
+    border-bottom: 0.1rem solid #cdccc345;
+
+    &-select {
+      color: #0000003b;
+      background: #C4C4C4;
+      border-radius: 3px;
+    }
+  }
+
+  &__translate {
+    font-size: 2.3rem;
+    line-height: 2.8rem;
+    color: #6776AC;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.3rem;
+    font-size: 2.3rem;
+    line-height: 2.8rem;
+  }
+
+  &__original-value {
+    font-size: 1.7rem;
+    line-height: 2.1rem;
+    padding-bottom: 0.6rem;
+  }
+
+  &__translate-value {
+    font-size: 1.7rem;
+    line-height: 2.1rem;
+    color: #6776AC;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__transcription {
+    font-size: 1.7rem;
+    line-height: 2.1rem;
+  }
+}
+
+.difficulty {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    font-size: 2.3rem;
+    line-height: 2.8rem;
+    padding-bottom: 0.6rem;
+  }
+
+  &__level {
+    display: flex;
+
+    div {
+      margin-right: 0.6rem;
+    }
+  }
+
+  &__transcription {
+    font-size: 2.3rem;
+    line-height: 2.8rem;
+  }
+}

@@ -2,3 +2,8 @@
   width: $width;
   height: $height;
 }
+
+@mixin pseudo-elem {
+  content: "";
+  display: block;
+}
