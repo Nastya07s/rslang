@@ -5,12 +5,14 @@
 @import "utils/_media";
 @import "./checkers.scss";
 @import "./header.scss";
+@import "./menu.scss";
 @import "./word.scss";
 @import "./words-panel.scss";
 @import "./helper-panel.scss";
 
 
 * {
+    font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     margin: 0;
     padding: 0;

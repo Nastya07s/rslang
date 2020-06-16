@@ -1,34 +1,46 @@
+import Puzzle from './Puzzle';
+
 class Round {
-    constructor() {
+  constructor() {
+    this.puzzle = new Puzzle();
+  }
 
-    }
+  initRound(data) {
+    this.drawWord(data.word, data.transcript);
+    this.drawTranslation(data.translation);
+    this.drawEnPhrase(data.englishPhrase);
+    this.drawRuPhrase(data.russianPhrase);
+    this.puzzle.reDrawPuzzle(data.words, []);
+  }
 
-    switchLoader() {
-        const $loader = document.querySelector('.loader');
-        const style = $loader.style.display;
-        $loader.style.display = style === 'none' ? 'flex' : 'none';
-    }
-    
-    setText(selector, content) {
-        const $elem = document.querySelector(selector);
-        $elem.innerText = content;
-    }
+  // eslint-disable-next-line class-methods-use-this
+  switchLoader() {
+    const $loader = document.querySelector('.loader');
+    const style = $loader.style.display;
+    $loader.style.display = style === 'none' ? 'flex' : 'none';
+  }
 
-    drawWord(word) {
-        this.setText('#transcript', word);
-    }
+  // eslint-disable-next-line class-methods-use-this
+  setText(selector, content) {
+    const $elem = document.querySelector(selector);
+    $elem.innerText = content;
+  }
 
-    drawTranslation(word) {
-        this.setText('#translation', word);
-    }
+  drawWord(word, transcript) {
+    this.setText('#transcript', (word, transcript));
+  }
 
-    drawEnPhrase(phrase) {
-        this.setText('.data-translate', phrase);
-    }
+  drawTranslation(word) {
+    this.setText('#translation', word);
+  }
 
-    drawRuPhrase(phrase) {
-        this.setText('english-translate', phrase);
-    }
+  drawEnPhrase(phrase) {
+    this.setText('.data-translate', phrase);
+  }
+
+  drawRuPhrase(phrase) {
+    this.setText('.english-translate', phrase);
+  }
 }
 
 export default Round;
