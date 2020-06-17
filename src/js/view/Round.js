@@ -1,16 +1,23 @@
 import Puzzle from './Puzzle';
+import EventMixin from '../mixins/eventMixin';
 
 class Round {
   constructor() {
     this.puzzle = new Puzzle();
+    this.puzzle.on('droped', (e) => { this.emit('droped', e); });
   }
 
   initRound(data) {
-    this.drawWord(data.word, data.transcript);
+    this.drawWord(data.word);
+    this.drawTranscript(data.transcript);
     this.drawTranslation(data.translation);
     this.drawEnPhrase(data.englishPhrase);
     this.drawRuPhrase(data.russianPhrase);
-    this.puzzle.reDrawPuzzle(data.words, []);
+    this.puzzleReload(data.words, []);
+  }
+
+  puzzleReload(inArr, outArr) {
+    this.puzzle.reDrawPuzzle(inArr, outArr);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -26,8 +33,12 @@ class Round {
     $elem.innerText = content;
   }
 
-  drawWord(word, transcript) {
-    this.setText('#transcript', (word, transcript));
+  drawWord(word) {
+    this.setText('#transcript', word);
+  }
+
+  drawTranscript(word) {
+    this.setText('#transcript-2', word);
   }
 
   drawTranslation(word) {
@@ -43,4 +54,5 @@ class Round {
   }
 }
 
+Object.assign(Round.prototype, EventMixin);
 export default Round;
