@@ -43,4 +43,33 @@ round.on('droped', (e) => {
   round.puzzleReload(textData.words, textData.phrase);
 });
 
+round.on('dont-know', () => {
+  const englishPhrase = document.querySelector('.english-translate');
+  englishPhrase.classList.add('tracking-in-expand-fwd');
+});
+
+round.on('check', () => {
+  let isCorrect;
+  const expectedArr = textData.englishPhrase.split(' ');
+  const puzzle = document.querySelectorAll('.word');
+  textData.phrase = textData.phrase.map((word, i) => {
+    if (word.word === expectedArr[i]) {
+      puzzle.forEach((el) => {
+        if (el.textContent === word.word) {
+          el.classList.add('correct');
+          isCorrect = true;
+        }
+      });
+    } else {
+      puzzle.forEach((el) => {
+        if (el.textContent !== word.word) {
+          el.classList.add('incorrect');
+          isCorrect = false;
+        }
+      });
+    }
+    return isCorrect;
+  });
+});
+
 round.initRound(textData);

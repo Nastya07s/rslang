@@ -5,6 +5,16 @@ class Round {
   constructor() {
     this.puzzle = new Puzzle();
     this.puzzle.on('droped', (e) => { this.emit('droped', e); });
+
+    this.checkButton = document.querySelector('.check');
+    this.checkButton.addEventListener('click', () => {
+      this.emit('check');
+    });
+
+    this.dontKnowButton = document.querySelector('.i-dont-know');
+    this.dontKnowButton.addEventListener('click', () => {
+      this.emit('dont-know');
+    });
   }
 
   initRound(data) {
@@ -46,11 +56,11 @@ class Round {
   }
 
   drawEnPhrase(phrase) {
-    this.setText('.data-translate', phrase);
+    this.setText('.english-translate', phrase);
   }
 
   drawRuPhrase(phrase) {
-    this.setText('.english-translate', phrase);
+    this.setText('.data-translate', phrase);
   }
 }
 
