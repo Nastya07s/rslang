@@ -54,8 +54,8 @@ export default class Api {
   }
 
 
-  getWords(group= 0, page = 0) {
-        return Api.request(`${this.basicUrl}/words?page=${page}&group=${group}`, 'GET');
+  getWords(group = 0, page = 0) {
+    return Api.request(`${this.basicUrl}/words?page=${page}&group=${group}`, 'GET');
   }
 
   getWordsCount(group = 0, wordsPerExampleSentenceLTE = 0, wordsPerPage = 10) {
@@ -89,7 +89,7 @@ export default class Api {
    */
 
   updateUser(id, user) {
-        return this.requestWithToken(`${this.basicUrl}/users/${id}`, 'PUT', user);
+    return this.requestWithToken(`${this.basicUrl}/users/${id}`, 'PUT', user);
   }
 
   deleteUser(id) {
