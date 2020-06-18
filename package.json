@@ -5,11 +5,20 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --config ./build/webpack.dev.conf.js",
-    "build": "webpack --open --config ./build/webpack.build.conf.js"
+    "build": "webpack --open --config ./build/webpack.build.conf.js",
+    "lint": "eslint ./src --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js)": ["npm run lint"]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Antowa-qq/rslang.git"
+    "url": "git+https://github.com/Nastya07s/rslang.git"
   },
   "keywords": [
     "webpack",
