@@ -1,5 +1,30 @@
+@import "base/normalize";
+
+// Utils
 @import "utils/_libs";
 @import "utils/_vars";
 @import "utils/_mixins";
 @import "utils/_fonts";
 @import "utils/_media";
+@import "utils/placeholders";
+
+// Base
+@import "base/buttons";
+@import "base/base";
+@import "base/logo";
+@import "base/icons";
+@import "base/hamburger";
+@import "base/tags";
+
+// Layouts
+@import "layouts/wrapper";
+@import "layouts/header";
+@import "layouts/columns";
+@import "layouts/footer";
+
+// Components
+@import "components/promo";
+@import "components/navigation";
+@import "components/tools";
+@import "components/strategies";
+@import "components/about-us";
