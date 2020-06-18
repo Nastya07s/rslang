@@ -1,9 +1,10 @@
-import Puzzle from './Puzzle';
+
 import EventMixin from '../mixins/eventMixin';
 
 class Round {
-  constructor() {
-    this.puzzle = new Puzzle();
+  constructor(puzzle, state) {
+    this.state = state;
+    this.puzzle = puzzle;
     this.puzzle.on('droped', (e) => { this.emit('droped', e); });
 
     this.checkButton = document.querySelector('.check');
@@ -15,6 +16,8 @@ class Round {
     this.dontKnowButton.addEventListener('click', () => {
       this.emit('dont-know');
     });
+
+    this.state.on('wordLoaded', this.initRound.bind(this));
   }
 
   initRound(data) {

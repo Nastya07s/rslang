@@ -54,12 +54,11 @@ export default class Api {
   }
 
 
-  getWords(group, page, wordsPerPage) {
+  getWords(group, page) {
     const groupNumber = group || 0;
     const pageNumber = page || 0;
-    const wordsPerPageNumber = wordsPerPage || 10;
 
-    return Api.request(`${this.basicUrl}/words?page=${pageNumber}&group=${groupNumber}&wordsPerPage=${wordsPerPageNumber}`, 'GET');
+    return Api.request(`${this.basicUrl}/words?page=${pageNumber}&group=${groupNumber}`, 'GET');
   }
 
   getWordsCount(group, wordsPerExampleSentenceLTE, wordsPerPage) {

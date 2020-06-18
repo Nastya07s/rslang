@@ -6,7 +6,10 @@ class Model {
 
   setRoundData() {
     const { group, round, word } = this.state.getRoundInfo();
-    this.state.setWord(this.words.loadWord(group, round, word));
+    this.words.loadWord(group, round, word)
+      .then((wordData) => {
+        this.state.setWord(wordData);
+      });
   }
 }
 

@@ -148,6 +148,22 @@
     padding: 7px;
     border-radius: 5px;
     margin: 10px 10px;
+    cursor: grab;
+    transition: all .25s;
+
+    &:active {
+      cursor: grabbing;
+    }
+
+    &:hover {
+      border: 3px solid #c6e4f6;
+    }
+  }
+
+  
+
+  .dragging {
+    border-radius: 0;
   }
   
   .incorrect {

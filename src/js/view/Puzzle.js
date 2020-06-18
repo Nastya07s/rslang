@@ -24,10 +24,12 @@ class Puzzle {
     $boxWord.innerText = word;
     $boxWord.addEventListener('dragstart', (e) => {
       this.movedWord = e.target.getAttribute('data-id');
+      $boxWord.classList.add('dragging');
     });
     $boxWord.addEventListener('dragover', (e) => {
       this.insertBefore = e.target.getAttribute('data-id');
       e.preventDefault();
+      $boxWord.classList.remove('dragging');
     });
     $boxWord.addEventListener('dblclick', (e) => {
       this.emit('droped', { word: e.target.getAttribute('data-id'), target: null });
