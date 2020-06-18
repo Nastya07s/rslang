@@ -5,18 +5,14 @@ const state = {
   store: {
     roundInfo: { group: 0, round: 0, word: 0 },
     word: {
-      word: 'alien',
-      transcript: '[ey76465we]',
-      translation: 'пришелец',
-      englishPhrase: 'Alien is a good person.',
-      russianPhrase: 'Пришелец хороший человек',
-      words: [
-        { id: 1, word: 'Alien' },
-        { id: 2, word: 'is' },
-        { id: 3, word: 'a' },
-        { id: 4, word: 'good' },
-        { id: 5, word: 'person.' },
-      ],
+      word: '',
+      transcript: '',
+      translation: '',
+      englishPhrase: '',
+      russianPhrase: '',
+      enAudio: '',
+      wordAudio: '',
+      words: [],
       phrase: [],
     },
   },
@@ -35,6 +31,8 @@ const state = {
         .replace('<b>', '')
         .replace('</b>', ''),
       russianPhrase: data.textExampleTranslate,
+      enAudio: `https://raw.githubusercontent.com/Gabriellji/rslang-data/master/${data.audioExample}`,
+      wordAudio: `https://raw.githubusercontent.com/Gabriellji/rslang-data/master/${data.audio}`,
       words: data.textExample
         .replace('<b>', '')
         .replace('</b>', '')
