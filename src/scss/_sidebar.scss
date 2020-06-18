@@ -1,14 +1,23 @@
 .sidebar {
-  position: absolute;
+  position: fixed;
+  top: 0;
   z-index: 100;
 
   display: flex;
   flex-direction: column;
+  
+  width: auto;
   height: 100%;
   padding: 1.3rem 1.7rem;
 
+  overflow: hidden;
+  transition: all .3s ease-in;
 
   background-color: $sidebar-background;
+
+  &:hover {
+    left: 0;
+  }
 }
 
 nav {
@@ -17,17 +26,24 @@ nav {
   justify-content: space-between;
   height: 100%;
   padding: 3.7rem 0 0.6rem;
-  ul.main-list {
-    li {
-      padding-bottom: 3.5rem;
-      list-style: none;
-    }
+  overflow: hidden;
+
+  li {
+
+    width: 100%;
+    list-style: none;
   }
 
-  ul.settings-list {
-    li {
-      padding-top: 2rem;
-      list-style: none;
+  ul {
+    &.main-list {
+      li {
+        padding-bottom: 3.5rem;
+      }
+    }
+    &.settings-list {
+      li {
+        padding-top: 2rem;
+      }
     }
   }
 }
@@ -47,18 +63,36 @@ nav {
     background-color: black;
   }
   &__title {
+    display: none;
     padding-left: 2.4rem;
     font-size: 2.1rem;
   }
 }
 
-.stack {
+.sidebar__item {
   display: flex;
   align-items: center;
+  width: 100%;
   cursor: pointer;
-  &__link {
-    padding-left: 2.4rem;
+
+  svg {
+
+    &:hover{
+      stroke: #75a8ca;
+    }
+  }
+  &_link {
+    display: none;
+    margin-left: 2.4rem;
     font-size: 1.3rem;
     font-family: "Montserrat";
+    border-bottom: 0.1rem solid #ffffff00;
+    &:hover{
+      border-bottom: 0.1rem solid #75a8ca;
+    }
   }
+}
+
+.active {
+  display: block;
 }

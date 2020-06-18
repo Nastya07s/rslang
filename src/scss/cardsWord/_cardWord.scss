@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 10rem 0 21rem;
+
+  padding-left:  21rem;
   height: 100vh;
 }
 
@@ -11,15 +12,18 @@
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  margin-top: 6rem;
+  margin-bottom: 4rem;
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  padding: 2.6rem;
+  padding: 2rem;
 
   background-color: $card-background;
-  border-radius: 1rem;
+  border-radius: 2.1rem;
+  box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
 
   font-family: "Montserrat";
 
@@ -31,6 +35,7 @@
 
   &__progress-difficulty {
     display: flex;
+    margin: 1rem;
   }
 
   &__body {
@@ -60,6 +65,10 @@
   border: 0;
   background: transparent;
   cursor: pointer;
+  box-shadow: red($color: #000000);
+  &:hover {
+    filter: drop-shadow(0 0 3px #6807c2);
+  }
 
   &.button-left {
     padding: 2rem;
@@ -81,12 +90,23 @@
   }
 }
 
-.exercise-text {
-  padding-bottom: 10rem;
+.exercise {
+  margin-left: 1rem;
 
-  &__original {
+  &__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 11.3rem;
+  }
+
+  &__text {
     font-size: 4.3rem;
-    line-height: 5.2rem;
+    line-height: 6.8rem;
     border-bottom: 0.1rem solid #cdccc345;
 
     &-select {
@@ -97,6 +117,7 @@
   }
 
   &__translate {
+    margin-top: 1rem;
     font-size: 2.3rem;
     line-height: 2.8rem;
     color: #6776AC;
@@ -114,46 +135,57 @@
   &__original-value {
     font-size: 1.7rem;
     line-height: 2.1rem;
+    letter-spacing: 0.1px;
     padding-bottom: 0.6rem;
   }
 
   &__translate-value {
     font-size: 1.7rem;
     line-height: 2.1rem;
+    letter-spacing: 0.1px;
     color: #6776AC;
   }
 
   &__footer {
     display: flex;
     justify-content: space-between;
-    padding-top: 10rem;
-  }
+    margin-top: 16.7rem;
+    font-style: normal;
+    font-weight: normal;
 
-  &__transcription {
-    font-size: 1.7rem;
-    line-height: 2.1rem;
+    font-size: 2.3rem;
+    line-height: 2.8rem;
   }
 }
 
 .difficulty {
-  &__title {
-    font-size: 2.3rem;
-    line-height: 2.8rem;
-    padding-bottom: 0.6rem;
+  display: grid;  
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+
+  background: #ffffff;
+  margin: 0rem 7rem;
+  border-radius: 0.5rem;
+
+  font-family: Montserrat;
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.3rem;
+  line-height: 2.8rem;
+
+  li {
+    list-style: none;
   }
 
-  &__level {
-    display: flex;
+  :last-child {
+    border: none;
+  }
 
-    div {
-      margin-right: 0.6rem;
+  &__item {
+    padding-right: 1rem;
+    border-right: 0.1rem solid #000000;
+
     }
-  }
-
-  &__transcription {
-    font-size: 2.3rem;
-    line-height: 2.8rem;
-  }
 }
 
 .progress-bar {
@@ -163,13 +195,16 @@
   padding-top: 8rem;
 
   &__value {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
     font-size: 2rem;
     line-height: 2.5rem;
   }
 }
 
 .line {
-  padding: 0 49rem;
+  padding: 0 51rem;
   font-size: 2rem;
   line-height: 2.5rem;
   height: 1rem;
