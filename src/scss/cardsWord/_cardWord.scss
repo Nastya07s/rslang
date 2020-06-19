@@ -149,7 +149,6 @@
     margin-top: 16.7rem;
     font-style: normal;
     font-weight: normal;
-
     font-size: 2.3rem;
     line-height: 2.8rem;
   }
@@ -158,20 +157,36 @@
 .difficulty {
   display: grid;  
   grid-template-columns: 1fr 1fr 1fr 1fr;
-
   background: #ffffff;
   margin: 0rem 7rem;
   border-radius: 0.5rem;
-
-  font-family: Montserrat;
   text-align: center;
   font-style: normal;
   font-weight: normal;
   font-size: 2.3rem;
   line-height: 2.8rem;
 
+  cursor: pointer;
+
+  :first-child:hover {
+    background: #589963;
+  }
+
+  :nth-child(2):hover {
+    background: #b5c95b;
+  }
+
+  :nth-child(3):hover {
+    background: #554fac;
+  }
+
+  :last-child:hover {
+    background: #ac4f98;
+  }
+
   li {
     list-style: none;
+
   }
 
   :last-child {
@@ -189,10 +204,9 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-top: 8rem;
+  padding: 8rem 2rem;
 
   &__value {
-    font-family: Montserrat;
     font-style: normal;
     font-weight: 500;
     font-size: 2rem;
