@@ -2,6 +2,8 @@ import eventMixin from '../mixins/eventMixin';
 
 const state = {
   isReady: false,
+  isDontKnow: false,
+  isChecked: false,
   store: {
     roundInfo: { group: 0, round: 0, word: 0 },
     word: {
@@ -20,6 +22,10 @@ const state = {
   ready() {
     this.isReady = true;
     this.emit('stateReady');
+  },
+
+  getEnPhrase() {
+    return this.store.word.englishPhrase;
   },
 
   setWord(data) {

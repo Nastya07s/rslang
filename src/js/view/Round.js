@@ -7,6 +7,8 @@ class Round {
     this.puzzle = puzzle;
     this.puzzle.on('droped', (e) => { this.emit('droped', e); });
 
+    this.englishPhrase = document.querySelector('.english-translate');
+
     this.checkButton = document.querySelector('.check');
     this.checkButton.addEventListener('click', () => {
       this.emit('check');
@@ -14,7 +16,7 @@ class Round {
 
     this.dontKnowButton = document.querySelector('.i-dont-know');
     this.dontKnowButton.addEventListener('click', () => {
-      this.emit('dont-know');
+      this.emit('dontKnow');
     });
 
     this.state.on('wordLoaded', this.initRound.bind(this));
@@ -38,6 +40,10 @@ class Round {
     const $loader = document.querySelector('.loader');
     const style = $loader.style.display;
     $loader.style.display = style === 'none' ? 'flex' : 'none';
+  }
+
+  setCorrectMask(mask) {
+    this.puzzle.setCorrectMask(mask);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -64,6 +70,10 @@ class Round {
 
   drawRuPhrase(phrase) {
     this.setText('.data-translate', phrase);
+  }
+
+  showTranslate() {
+    this.englishPhrase.classList.add('tracking-in-expand-fwd');
   }
 }
 

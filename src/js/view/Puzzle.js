@@ -5,6 +5,7 @@ class Puzzle {
     this.movedWord = null;
     this.insertBefore = null;
     this.$phraseBox = document.querySelector('.boxes');
+    this.$puzzle = document.querySelectorAll('.word');
     this.$phraseBox.addEventListener('drop', () => {
       this.emit('droped', { word: this.movedWord, target: this.insertBefore });
       this.movedWord = null;
@@ -12,6 +13,17 @@ class Puzzle {
     });
     this.$phraseBox.addEventListener('dragover', (e) => {
       e.preventDefault();
+    });
+  }
+
+  setCorrectMask(mask) {
+    this.$puzzle = document.querySelectorAll('.word');
+    this.$puzzle.forEach((el, i) => {
+      if (mask[i]) {
+        el.classList.add('correct');
+      } else {
+        el.classList.add('incorrect');
+      }
     });
   }
 

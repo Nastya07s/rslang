@@ -1,7 +1,8 @@
 class Model {
-  constructor(words, state) {
+  constructor(words, statistic, state) {
     this.words = words;
     this.state = state;
+    this.statistic = statistic;
   }
 
   setRoundData() {
@@ -10,6 +11,15 @@ class Model {
       .then((wordData) => {
         this.state.setWord(wordData);
       });
+  }
+
+  setStatistic(word, isCorrect) {
+    if (isCorrect) {
+      this.statistic.addCorrect(word);
+    } else {
+      this.statistic.addIncorrect(word);
+    }
+    console.log(this.statistic.data);
   }
 }
 
