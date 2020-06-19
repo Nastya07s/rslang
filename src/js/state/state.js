@@ -43,8 +43,48 @@ const state = {
     this.emit('wordLoaded', this.store.word);
   },
 
+  getOriginWords() {
+    return this.getWord().words;
+  },
+
+  setOriginWords(arr) {
+    this.store.word.words = arr;
+  },
+
+  getMovedWords() {
+    return this.getWord().phrase;
+  },
+
+  setMovedWords(arr) {
+    this.store.word.phrase = arr;
+  },
+
   getWord() {
     return this.store.word;
+  },
+
+  dropPuzzleWord(word, before) {
+    if (before) {
+      const index = this.getMovedWords().indexOf(
+        this.getMovedWords().find((x) => x.id === before),
+      );
+      const updated = this.getMovedWords();
+      updated.splice(index, 0, word);
+      this.setMovedWords(updated);
+    } else {
+      this.setMovedWords([...this.getMovedWords(), word]);
+    }
+  },
+
+  extractPuzzleWord(id) {
+    let result = this.getOriginWords().find((word) => word.id === id);
+    if (result) {
+      this.setOriginWords(this.getOriginWords().filter((word) => word.id !== id));
+      return result;
+    }
+    result = this.getMovedWords().find((word) => word.id === id);
+    this.setMovedWords(this.getMovedWords().filter((word) => word.id !== id));
+    return result;
   },
 
   setRoundInfo(group, round, word) {
