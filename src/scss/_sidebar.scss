@@ -42,8 +42,13 @@ nav {
     }
     &.settings-list {
       li {
-        padding-top: 2rem;
+        padding-bottom: 3.5rem;
+        li:last-child{
+          padding-top: 2rem;
+          border-top: 0.1rem solid #cdccc345;
+        }
       }
+
     }
   }
 }
@@ -52,9 +57,6 @@ nav {
   display: flex;
   align-items: center;
   padding-bottom: 1.9rem;
-
-  font-family: "Montserrat";
-
   border-bottom: 0.1rem solid #cdccc345;
   &__img {
     padding: 0.4rem 1rem 0.3rem;
@@ -85,7 +87,6 @@ nav {
     display: none;
     margin-left: 2.4rem;
     font-size: 1.3rem;
-    font-family: "Montserrat";
     border-bottom: 0.1rem solid #ffffff00;
     &:hover{
       border-bottom: 0.1rem solid #75a8ca;
