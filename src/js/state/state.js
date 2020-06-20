@@ -61,6 +61,7 @@ const state = {
         .replace('<b>', '')
         .replace('</b>', '')
         .split(' ')
+        .sort(() => 0.5 - Math.random())
         .map((word, id) => ({ word, id })),
       phrase: [],
     };
