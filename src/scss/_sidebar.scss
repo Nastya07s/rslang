@@ -25,26 +25,21 @@ nav {
   overflow: hidden;
 
   li {
-
     width: 100%;
     list-style: none;
+    padding-bottom: 3.5rem;
   }
 
   ul {
-    &.main-list {
-      li {
-        padding-bottom: 3.5rem;
-      }
-    }
     &.settings-list {
       li {
         padding-bottom: 3.5rem;
-        li:last-child{
+        &:last-child {
           padding-top: 2rem;
           border-top: 0.1rem solid #cdccc345;
+          padding-bottom: 0;
         }
       }
-
     }
   }
 }
@@ -74,7 +69,6 @@ nav {
   cursor: pointer;
 
   svg {
-
     &:hover{
       stroke: #75a8ca;
     }
@@ -87,6 +81,12 @@ nav {
     &:hover{
       border-bottom: 0.1rem solid #75a8ca;
     }
+  }
+}
+
+.sidebarUncloseBtn{
+  svg{
+    transform: rotate(180deg);
   }
 }
 

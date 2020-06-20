@@ -62,7 +62,7 @@
   border: 0;
   background: transparent;
   cursor: pointer;
-  box-shadow: red($color: #000000);
+  box-shadow: #000000;
   &:hover {
     filter: drop-shadow(0 0 3px #75a8ca);
   }
@@ -107,8 +107,10 @@
     border-bottom: 0.1rem solid #cdccc345;
 
     &-select {
+      height: 6.8rem;
       color: #0000003b;
-      background: #C4C4C4;
+      background: #C4C4C4;  
+      border: none;
       border-radius: 3px;
     }
   }
@@ -168,20 +170,8 @@
 
   cursor: pointer;
 
-  :first-child:hover {
-    background: #589963;
-  }
-
-  :nth-child(2):hover {
-    background: #b5c95b;
-  }
-
-  :nth-child(3):hover {
-    background: #554fac;
-  }
-
-  :last-child:hover {
-    background: #ac4f98;
+  :hover {
+  color: #000000a9;
   }
 
   li {
@@ -204,7 +194,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 8rem 2rem;
+  padding: 8rem 6rem 0;
 
   &__value {
     font-style: normal;
