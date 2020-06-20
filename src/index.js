@@ -1,17 +1,8 @@
 import './js/main';
 import './scss/main.scss';
+import RenderMainPage from './js/RenderMainPage/RenderMainPage';
 
-const sidebar = document.getElementById('sidebar');
-const items = document.querySelectorAll('.sidebar__item_link');
-
-sidebar.addEventListener('mouseenter', () => {
-  items.forEach(e => {
-    e.classList.add('active');
-  });
-});
-
-sidebar.addEventListener('mouseleave', () => {
-  items.forEach(e => {
-    e.classList.remove('active');
-  });
-});
+const renderMainPage = new RenderMainPage();
+renderMainPage.sidebarRender();
+renderMainPage.settingButtonRender();
+renderMainPage.volumeButtonRender();
