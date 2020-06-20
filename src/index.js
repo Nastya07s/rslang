@@ -6,3 +6,4 @@ const renderMainPage = new RenderMainPage();
 renderMainPage.sidebarRender();
 renderMainPage.settingButtonRender();
 renderMainPage.volumeButtonRender();
+renderMainPage.showTranslateRender();

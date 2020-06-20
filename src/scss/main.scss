@@ -22,3 +22,11 @@ body {
   background-color: $background-color;
   font-family: "Montserrat";
 }
+
+.active {
+  display: block;
+}
+
+.visible {
+  visibility: visible;
+}

@@ -3,6 +3,7 @@ export default class RenderMainPage {
     this.uncloseButton = document.getElementById('sidebarUncloseBtn');
     this.settingButton = document.getElementById('sidebarSettingBtn');
     this.volumeButton = document.getElementById('sidebarVolumeBtn');
+    this.showTranslateButton = document.getElementById('showValueTranslate');
   }
 
   sidebarRender() {
@@ -24,6 +25,14 @@ export default class RenderMainPage {
   volumeButtonRender() {
     this.volumeButton.addEventListener('click', () => {
       console.log('Ok');
+    });
+  }
+
+  showTranslateRender() {
+    const valueTranslate = document.getElementById('valueTranslate');
+    this.showTranslateButton.addEventListener('click', () => {
+      console.log('ok');
+      valueTranslate.classList.toggle('visible');
     });
   }
 }
