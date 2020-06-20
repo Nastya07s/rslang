@@ -1,3 +1,10 @@
+import {
+  Swiper,
+  Navigation,
+} from '../../../node_modules/swiper/js/swiper.esm';
+
+Swiper.use([Navigation]);
+
 export default class RenderMainPage {
   constructor() {
     this.uncloseButton = document.getElementById('sidebarUncloseBtn');
@@ -33,6 +40,15 @@ export default class RenderMainPage {
     this.showTranslateButton.addEventListener('click', () => {
       console.log('ok');
       valueTranslate.classList.toggle('visible');
+    });
+  }
+
+  init() {
+    this.swiper = new Swiper('.swiper-container', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
     });
   }
 }

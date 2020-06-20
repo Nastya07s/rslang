@@ -175,93 +175,95 @@
 
   <main class="slider-wrapper">
 
-    <div class="slider">
-      
-      <button class="button-base button-left">
+    <div class="swiper-container">
+
+      <button class="button-base button-left swiper-button-prev">
         <svg width="34" height="60" viewBox="0 0 34 60" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M1.51485 31.6462L29.2205 59.3519C30.1377 60.2377 31.5993 60.2123 32.4851 59.295C33.3493 58.4003 33.3493 56.9819 32.4851 56.0873L6.41177 30.0139L32.4851 3.94061C33.3865 3.03909 33.3865 1.57751 32.4851 0.675995C31.5834 -0.225384 30.122 -0.225384 29.2205 0.675995L1.51485 28.3816C0.613476 29.2833 0.613476 30.7447 1.51485 31.6462Z" fill="black"/>
         </svg>
       </button>
 
-      <div class="card">
-
-        <div class="card__header">
-          <div class="card__progress-difficulty">
-            <div class="circle circle-active"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-          <button class="button-base card__close">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g clip-path="url(#clip0)">
-              <path d="M11.1047 10.0008L19.7709 1.33448C20.0761 1.02937 20.0761 0.534678 19.7709 0.229601C19.4658 -0.0754772 18.9711 -0.0755163 18.6661 0.229601L9.99975 8.89592L1.33347 0.229601C1.02836 -0.0755163 0.533671 -0.0755163 0.228593 0.229601C-0.0764842 0.534718 -0.0765233 1.0294 0.228593 1.33448L8.89487 10.0008L0.228593 18.6671C-0.0765233 18.9722 -0.0765233 19.4669 0.228593 19.772C0.381132 19.9245 0.581093 20.0008 0.781053 20.0008C0.981014 20.0008 1.18094 19.9245 1.33351 19.772L9.99975 11.1057L18.666 19.772C18.8186 19.9245 19.0185 20.0008 19.2185 20.0008C19.4184 20.0008 19.6184 19.9245 19.7709 19.772C20.0761 19.4668 20.0761 18.9722 19.7709 18.6671L11.1047 10.0008Z" fill="black"/>
-              </g>
-              <defs>
-              <clipPath id="clip0">
-              <rect width="20" height="20" fill="white"/>
-              </clipPath>
-              </defs>
-            </svg>
-          </button>
-        </div>
-
-        <div class="card__body">
-
-          <div class="card__img">
-            <img src="/src/img/slider/card_img.png">
-          </div>
-
-          <div class="exercise">
-
-            <div class="exercise__header">
-              <div class="exercise__text">The students <span><input type="text" size="10" class="exercise__text-select"></span> they have too much homework</div>
-              <div class="exercise__translate">Студенты согласны, что у них слишком много домашней работы</div>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide card">
+  
+          <div class="card__header">
+            <div class="card__progress-difficulty">
+              <div class="circle circle-active"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
+              <div class="circle"></div>
             </div>
-
-            <div class="exercise__body">
-              <div class="exercise__button">
-                <div>Показать объяснение значения слова</div>
-                <button class="button-base" id="showValueTranslate">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0)">
-                    <path d="M10.5488 15.1617L19.784 5.92649C20.0792 5.62075 20.0708 5.13356 19.765 4.83829C19.4668 4.55023 18.994 4.55023 18.6958 4.83829L10.0047 13.5294L1.31355 4.83829C1.01305 4.53783 0.525854 4.53783 0.225349 4.83829C-0.0751114 5.13884 -0.0751114 5.62598 0.225349 5.92649L9.46056 15.1617C9.76111 15.4622 10.2483 15.4622 10.5488 15.1617Z" fill="black"/>
-                    </g>
-                    <defs>
-                    <clipPath id="clip0">
-                    <rect width="20" height="20" fill="white" transform="translate(20) rotate(90)"/>
-                    </clipPath>
-                    </defs>
-                  </svg>
-                </button>
+            <button class="button-base card__close">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0)">
+                <path d="M11.1047 10.0008L19.7709 1.33448C20.0761 1.02937 20.0761 0.534678 19.7709 0.229601C19.4658 -0.0754772 18.9711 -0.0755163 18.6661 0.229601L9.99975 8.89592L1.33347 0.229601C1.02836 -0.0755163 0.533671 -0.0755163 0.228593 0.229601C-0.0764842 0.534718 -0.0765233 1.0294 0.228593 1.33448L8.89487 10.0008L0.228593 18.6671C-0.0765233 18.9722 -0.0765233 19.4669 0.228593 19.772C0.381132 19.9245 0.581093 20.0008 0.781053 20.0008C0.981014 20.0008 1.18094 19.9245 1.33351 19.772L9.99975 11.1057L18.666 19.772C18.8186 19.9245 19.0185 20.0008 19.2185 20.0008C19.4184 20.0008 19.6184 19.9245 19.7709 19.772C20.0761 19.4668 20.0761 18.9722 19.7709 18.6671L11.1047 10.0008Z" fill="black"/>
+                </g>
+                <defs>
+                <clipPath id="clip0">
+                <rect width="20" height="20" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg>
+            </button>
+          </div>
+  
+          <div class="card__body">
+  
+            <div class="card__img">
+              <img src="/src/img/slider/card_img.png">
+            </div>
+  
+            <div class="exercise">
+  
+              <div class="exercise__header">
+                <div class="exercise__text">The students <span><input type="text" size="10" class="exercise__text-select"></span> they have too much homework</div>
+                <div class="exercise__translate">Студенты согласны, что у них слишком много домашней работы</div>
               </div>
   
-              <div class="exercise__value" id="valueTranslate">
-                <div class="exercise__original-value">To <i>agree</i> is to have the same opinion or belief as another person.</div>
-                <div class="exercise__translate-value">Согласиться - значит иметь то же мнение или убеждение, что и другой человек</div>
+              <div class="exercise__body">
+                <div class="exercise__button">
+                  <div>Показать объяснение значения слова</div>
+                  <button class="button-base" id="showValueTranslate">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0)">
+                      <path d="M10.5488 15.1617L19.784 5.92649C20.0792 5.62075 20.0708 5.13356 19.765 4.83829C19.4668 4.55023 18.994 4.55023 18.6958 4.83829L10.0047 13.5294L1.31355 4.83829C1.01305 4.53783 0.525854 4.53783 0.225349 4.83829C-0.0751114 5.13884 -0.0751114 5.62598 0.225349 5.92649L9.46056 15.1617C9.76111 15.4622 10.2483 15.4622 10.5488 15.1617Z" fill="black"/>
+                      </g>
+                      <defs>
+                      <clipPath id="clip0">
+                      <rect width="20" height="20" fill="white" transform="translate(20) rotate(90)"/>
+                      </clipPath>
+                      </defs>
+                    </svg>
+                  </button>
+                </div>
+    
+                <div class="exercise__value" id="valueTranslate">
+                  <div class="exercise__original-value">To <i>agree</i> is to have the same opinion or belief as another person.</div>
+                  <div class="exercise__translate-value">Согласиться - значит иметь то же мнение или убеждение, что и другой человек</div>
+                </div>
               </div>
+  
+              <div class="exercise__footer">
+                <div class="exercise__title">
+                  Сложное слово
+                  <input type="checkbox">
+                </div>
+                <div class="exercise__transcription">Agree - [əgríː] - согласен</div>
             </div>
-
-            <div class="exercise__footer">
-              <div class="exercise__title">
-                Сложное слово
-                <input type="checkbox">
-              </div>
-              <div class="exercise__transcription">Agree - [əgríː] - согласен</div>
+  
           </div>
-
+  
         </div>
-
+  
+        </div>
       </div>
 
-    </div>
-
-    <button class="button-base button-right">
-      <svg width="34" height="60" viewBox="0 0 34 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1.51485 31.6462L29.2205 59.3519C30.1377 60.2377 31.5993 60.2123 32.4851 59.295C33.3493 58.4003 33.3493 56.9819 32.4851 56.0873L6.41177 30.0139L32.4851 3.94061C33.3865 3.03909 33.3865 1.57751 32.4851 0.675995C31.5834 -0.225384 30.122 -0.225384 29.2205 0.675995L1.51485 28.3816C0.613476 29.2833 0.613476 30.7447 1.51485 31.6462Z" fill="black"/>
-      </svg>
-    </button>
+      <button class="button-base button-right swiper-button-next">
+        <svg width="34" height="60" viewBox="0 0 34 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.51485 31.6462L29.2205 59.3519C30.1377 60.2377 31.5993 60.2123 32.4851 59.295C33.3493 58.4003 33.3493 56.9819 32.4851 56.0873L6.41177 30.0139L32.4851 3.94061C33.3865 3.03909 33.3865 1.57751 32.4851 0.675995C31.5834 -0.225384 30.122 -0.225384 29.2205 0.675995L1.51485 28.3816C0.613476 29.2833 0.613476 30.7447 1.51485 31.6462Z" fill="black"/>
+        </svg>
+      </button>
     </div>
 
     <ul class="difficulty">
