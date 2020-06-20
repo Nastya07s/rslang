@@ -23,8 +23,12 @@
 }
 
 .promo__image {
+    background-image: url('/assets/img/promo/promo.png');
     clip-path: circle(85.1% at 81% 50%);
-    width: 600px;
+    background-repeat: no-repeat;
+    width: 771px;
+    height: 520px;
+    background-size: cover;
 }
 
 .promo__title {
