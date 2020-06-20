@@ -19,6 +19,8 @@
 
 .swiper-wrapper {
   display: flex;
+  margin: 1rem;
+  width: 90%;
 }
 
 .card {
@@ -102,7 +104,7 @@
 }
 
 .exercise {
-  margin-left: 1rem;
+  margin-left: 2rem;
 
   &__header {
     display: flex;
@@ -119,6 +121,10 @@
     font-size: 4.3rem;
     line-height: 6.8rem;
     border-bottom: 0.1rem solid #cdccc345;
+
+    input {
+      font-size: 4.3rem;
+    }
 
     &-select {
       height: 4.8rem;
