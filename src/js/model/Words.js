@@ -12,6 +12,8 @@ class Words {
             this.cache[group][round] = result;
             resolve(this.cache[group][round]);
           });
+      } else {
+        resolve(this.cache[group][round]);
       }
     });
   }

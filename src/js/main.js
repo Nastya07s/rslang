@@ -1,5 +1,3 @@
-/* eslint-disable linebreak-style */
-
 import Api from './api';
 import EnglishPuzzle from './EnglishPuzzle';
 
@@ -13,3 +11,4 @@ api.checkLogin().then((user) => {
 });
 
 const englishPuzzle = new EnglishPuzzle(api);
+console.log(englishPuzzle);

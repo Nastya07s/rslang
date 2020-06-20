@@ -14,13 +14,21 @@ class EnglishPuzzle {
     this.round.on('dontKnow', this.onDontKnow.bind(this));
     this.round.on('check', this.onCheck.bind(this));
 
+    this.round.on('sayWord', (() => {
+      new Audio(state.getAudioWord()).play();
+    }));
+    this.round.on('sayPhrase', (() => {
+      new Audio(state.getAudioPhrase()).play();
+    }));
+
+    state.setRoundInfo(0, 0, 0);
+
     this.init();
   }
 
   init() {
     state.isDontKnow = false;
     state.isChecked = false;
-    state.setRoundInfo(0, 0, 0);
     this.model.setRoundData();
   }
 
@@ -39,14 +47,24 @@ class EnglishPuzzle {
       });
       this.round.setCorrectMask(correctMask);
 
+      const isCorrect = correctMask.reduce((acc, el) => acc && el, true);
+
       if (!state.isChecked) {
         this.model.setStatistic(
           state.getWord(),
-          correctMask.reduce((acc, el) => acc && el, true) && !state.isDontKnow,
+          isCorrect && !state.isDontKnow,
         );
         state.isChecked = true;
       }
+      if (isCorrect) {
+        setTimeout(this.nextWord.bind(this), 2000);
+      }
     }
+  }
+
+  nextWord() {
+    state.nextWord();
+    this.init();
   }
 
   onDropped(e) {

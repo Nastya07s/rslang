@@ -54,32 +54,26 @@ export default class Api {
   }
 
 
-  getWords(group, page) {
-    const groupNumber = group || 0;
-    const pageNumber = page || 0;
-
-    return Api.request(`${this.basicUrl}/words?page=${pageNumber}&group=${groupNumber}`, 'GET');
+  getWords(group = 0, page = 0, wordsPerPageNumber = 10) {
+    return Api.request(`${this.basicUrl}/words?page=${page}&group=${group}&wordsPerExampleSentenceLTE=${wordsPerPageNumber},`, 'GET');
   }
 
-  getWordsCount(group, wordsPerExampleSentenceLTE, wordsPerPage) {
-    const groupNumber = group || 0;
-    const wordsPerExampleSentenceLTENumber = wordsPerExampleSentenceLTE || 0;
-    const wordsPerPageNumber = wordsPerPage || 10;
-    return Api.request(`${this.basicUrl}/words/count?group=${groupNumber}&`
-      + `wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTENumber}&`
-      + `wordsPerPage=${wordsPerPageNumber}`, 'GET');
+  getWordsCount(group = 0, wordsPerExampleSentenceLTE = 0, wordsPerPage = 10) {
+    return Api.request(`${this.basicUrl}/words/count?group=${group}&`
+      + `wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}&`
+      + `wordsPerPage=${wordsPerPage}`, 'GET');
   }
 
   getWordById(id) {
     return Api.request(`${this.basicUrl}/words/${id}`, 'GET');
   }
 
-  createUser(email, password) {
-    const user = {
-      email,
-      password,
-    };
-
+  /**
+   *
+   * @param user ({email, password})
+   * @returns {Promise<unknown>}
+   */
+  createUser(user) {
     return Api.request(`${this.basicUrl}/users`, 'POST', user);
   }
 
@@ -87,12 +81,14 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${id}`, 'GET');
   }
 
-  updateUser(id, email, password) {
-    const user = {
-      email,
-      password,
-    };
+  /**
+   *
+   * @param id
+   * @param user ({email, password})
+   * @returns {Promise<unknown>}
+   */
 
+  updateUser(id, user) {
     return this.requestWithToken(`${this.basicUrl}/users/${id}`, 'PUT', user);
   }
 
@@ -100,11 +96,13 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${id}`, 'DELETE');
   }
 
-  loginUser(email, password) {
-    const user = {
-      email,
-      password,
-    };
+  /**
+   *
+   * @param user ({email, password})
+   * @returns {Promise<unknown>}
+   */
+
+  loginUser(user) {
     return Api.request(`${this.basicUrl}/signin`, 'POST', user)
       .then((response) => {
         this.userToken = response.token;
@@ -131,11 +129,13 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words`, 'GET');
   }
 
-  createUserWord(difficulty, optional) {
-    const data = {
-      difficulty,
-      optional,
-    };
+  /**
+   *
+   * @param data ({difficulty, optional})
+   * @returns {Promise<unknown>}
+   */
+
+  createUserWord(data) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words`, 'POST', data);
   }
 
@@ -143,11 +143,14 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'GET');
   }
 
-  updateUserWordById(id, difficulty, optional) {
-    const data = {
-      difficulty,
-      optional,
-    };
+  /**
+   *
+   * @param id
+   * @param data ({difficulty, optional})
+   * @returns {Promise<unknown>}
+   */
+
+  updateUserWordById(id, data) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'PUT', data);
   }
 
@@ -159,11 +162,13 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/statistics`, 'GET');
   }
 
-  upsertStatistics(learnedWords, optional) {
-    const data = {
-      learnedWords,
-      optional,
-    };
+  /**
+   *
+   * @param data ({learnedWords, optional})
+   * @returns {Promise<unknown>}
+   */
+
+  upsertStatistics(data) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/statistics`, 'PUT', data);
   }
 
@@ -171,11 +176,12 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'GET');
   }
 
-  upsertSettings(wordsPerDay, optional) {
-    const data = {
-      wordsPerDay,
-      optional,
-    };
+  /**
+   *
+   * @param data ({wordsPerDay, optional})
+   * @returns {Promise<unknown>}
+   */
+  upsertSettings(data) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'PUT', data);
   }
 }

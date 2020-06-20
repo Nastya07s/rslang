@@ -20,6 +20,21 @@ class Round {
     });
 
     this.state.on('wordLoaded', this.initRound.bind(this));
+
+    this.transcript = document.querySelector('#transcript');
+    this.transcript.addEventListener('click', () => {
+      this.emit('sayWord');
+    });
+
+    this.sayWordBtn = document.querySelector('.btn-sound');
+    this.sayWordBtn.addEventListener('click', () => {
+      this.emit('sayWord');
+    });
+
+    this.sayPhraseBtn = document.querySelector('.btn-play');
+    this.sayPhraseBtn.addEventListener('click', () => {
+      this.emit('sayPhrase');
+    });
   }
 
   initRound(data) {
