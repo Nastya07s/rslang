@@ -41,6 +41,7 @@ class Round {
   }
 
   initRound(data) {
+    this.hideTranslate();
     this.setRoundBg();
     this.drawWord(data.word);
     this.drawTranscript(data.transcript);
@@ -57,6 +58,11 @@ class Round {
   setRoundBg() {
     const max = dataVectors.length;
     const random = Math.floor(Math.random() * max - 1);
+    if (dataVectors === undefined || dataVectors === null) {
+      console.log('image undefined');
+      this.container.style.background = `linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%) center center / cover fixed,
+    url('/assets/img/default.svg')center center / cover fixed`;
+    }
     this.container.style.background = `linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%) center center / cover fixed,
     url(${dataVectors[random].image})center center / cover fixed`;
   }
@@ -100,6 +106,10 @@ class Round {
 
   showTranslate() {
     this.englishPhrase.classList.add('tracking-in-expand-fwd');
+  }
+
+  hideTranslate() {
+    this.englishPhrase.classList.remove('tracking-in-expand-fwd');
   }
 }
 

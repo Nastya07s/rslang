@@ -25,10 +25,6 @@ export default
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/5.svg',
   },
   {
-    id: 6,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/6.svg',
-  },
-  {
     id: 7,
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/7.svg',
   },
@@ -237,16 +233,8 @@ export default
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/58.svg',
   },
   {
-    id: 59,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/59.svg',
-  },
-  {
     id: 60,
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/60.svg',
-  },
-  {
-    id: 70,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/61.svg',
   },
   {
     id: 71,
@@ -255,18 +243,6 @@ export default
   {
     id: 72,
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/63.svg',
-  },
-  {
-    id: 73,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/64.svg',
-  },
-  {
-    id: 74,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/65.svg',
-  },
-  {
-    id: 75,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/66.svg',
   },
   {
     id: 76,
@@ -591,10 +567,6 @@ export default
   {
     id: 156,
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/147.svg',
-  },
-  {
-    id: 157,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/148.svg',
   },
   {
     id: 158,

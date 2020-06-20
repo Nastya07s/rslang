@@ -5,7 +5,7 @@ const state = {
   isDontKnow: false,
   isChecked: false,
   store: {
-    roundInfo: { group: 0, round: 0, word: 0 },
+    roundInfo: { word: 0, round: 0, group: 0 },
     word: {
       word: '',
       transcript: '',
@@ -29,15 +29,15 @@ const state = {
   },
 
   nextWord() {
-    if (this.store.roundInfo.word <= 19) {
+    if (this.store.roundInfo.word < 19) {
       this.store.roundInfo.word += 1;
     } else {
       this.store.roundInfo.word = 0;
-      if (this.store.roundInfo.round <= 29) {
+      if (this.store.roundInfo.round < 29) {
         this.store.roundInfo.round += 1;
       } else {
         this.store.roundInfo.round = 0;
-        if (this.store.roundInfo.group <= 5) {
+        if (this.store.roundInfo.group < 5) {
           this.store.roundInfo.group += 1;
         } else {
           this.store.roundInfo.group = 0;
@@ -66,6 +66,7 @@ const state = {
       phrase: [],
     };
     this.emit('wordLoaded', this.store.word);
+    console.log(this.store.word);
   },
 
   getAudioWord() {
