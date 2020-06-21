@@ -5,6 +5,12 @@
 
   padding-left:  21rem;
   height: 100vh;
+  @media (max-width: 1440px) {
+    padding-right: 11rem;
+  }
+  @media (max-width: 1360px) {
+    padding-right: 36rem;
+  }
 }
 
 .swiper-container {
@@ -12,9 +18,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 6rem;
+  margin-top: 4rem;
   margin-bottom: 4rem;
   overflow: hidden;
+  
 }
 
 .swiper-wrapper {
@@ -32,6 +39,7 @@
   background-color: $card-background;
   border-radius: 2.1rem;
   box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -50,9 +58,19 @@
   &__img {
     width: 40%;
     min-width: 40%;
-    img{
-      width: 100%;
+
+    img {
+      position: absolute;
+      clip: rect(0, 41rem, 62rem, 0);
       height: auto;
+
+      @media (max-width: 1440px) {
+        clip: rect(0, 37rem, 52rem, 0);
+      }
+
+      @media (max-width: 1360px) {
+        clip: rect(0, 28rem, 42rem, 0);
+      }
     }
   }
 
@@ -62,7 +80,6 @@
     justify-content: space-between;
     padding-left: 1.8rem
   }
-
 }
 
 .button-base {
@@ -72,24 +89,31 @@
   cursor: pointer;
   box-shadow: #000000;
   &:hover {
-    filter: drop-shadow(0 0 3px #75a8ca);
+    stroke: #75a8ca;
+    stroke-width: 6%;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   &.button-left {
     position: absolute;
     top: 50%;
     left: 0;
-    padding: 2rem;
     z-index: 99;
+    @media (max-width: 1140px) {
+      display: none;
+    }
   }
 
   &.button-right {
     position: absolute;
     top: 50%;
     right: 0;
-    padding: 2rem;
     transform: rotate(180deg);
     z-index: 99;
+        @media (max-width: 1140px) {
+      display: none;
+    }
   }
 }
 
@@ -104,7 +128,13 @@
 }
 
 .exercise {
-  margin-left: 2rem;
+
+  font-size: 2.3rem;
+  line-height: 2.8rem;
+  @media (max-width: 1360px) {
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+  }
 
   &__header {
     display: flex;
@@ -115,15 +145,29 @@
     display: flex;
     flex-direction: column;
     margin-top: 11.3rem;
+
+    @media (max-width: 1440px) {
+      margin-top: 8rem;
+    }
+    @media (max-width: 1360px) {
+      margin-top: 6rem;
+    }
   }
 
   &__text {
     font-size: 4.3rem;
     line-height: 6.8rem;
     border-bottom: 0.1rem solid #cdccc345;
-
+    @media (max-width: 1360px) {
+      font-size: 3rem;
+      line-height: 4.5rem;
+    }
     input {
-      font-size: 4.3rem;
+      font-family: "Montserrat";
+      font-size: 4rem;
+      @media (max-width: 1360px) {
+        font-size: 3rem;
+      }
     }
 
     &-select {
@@ -137,8 +181,6 @@
 
   &__translate {
     margin-top: 1rem;
-    font-size: 2.3rem;
-    line-height: 2.8rem;
     color: #6776AC;
   }
 
@@ -147,8 +189,6 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 1.3rem;
-    font-size: 2.3rem;
-    line-height: 2.8rem;
   }
 
   &__value {
@@ -175,8 +215,17 @@
     margin-top: 16.7rem;
     font-style: normal;
     font-weight: normal;
-    font-size: 2.3rem;
-    line-height: 2.8rem;
+
+    @media (max-width: 1440px) {
+      margin-top: 10rem;
+    }
+    @media (max-width: 1360px) {
+      margin-top: 7rem;
+    }
+
+    input {
+      border: none;
+    }
   }
 }
 
@@ -184,15 +233,18 @@
   display: grid;  
   grid-template-columns: 1fr 1fr 1fr 1fr;
   background: #ffffff;
-  margin: 0rem 7rem;
+  margin: 0rem 6rem;
   border-radius: 0.5rem;
   text-align: center;
-  font-style: normal;
-  font-weight: normal;
   font-size: 2.3rem;
   line-height: 2.8rem;
   box-shadow: 0px 0.4rem 2rem rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  @media (max-width: 1360px) {
+    margin: 0rem 4.5rem;
+    font-size: 1.8rem;
+    line-height: 2.3rem;
+  }
 
   :hover {
   color: #000000a9;
@@ -218,10 +270,17 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 8rem 6rem 0;
+  padding: 6rem 6rem 1rem;
+
+  @media (max-width: 1440px) {
+    padding: 6rem 5rem 1rem;
+  }
+
+  @media (max-width: 1360px) {
+    padding: 6rem 3rem 1rem;
+  }
 
   &__value {
-    font-style: normal;
     font-weight: 500;
     font-size: 2rem;
     line-height: 2.5rem;
@@ -237,6 +296,13 @@
   background: #C4C4C4;
   border-radius: 0.5rem;
   position: relative;
+
+  @media (max-width: 1440px) {
+    padding: 0 46rem;
+  }
+  @media (max-width: 1360px) {
+    padding: 0 36rem;
+  }
 
   &__color {
     position: absolute;

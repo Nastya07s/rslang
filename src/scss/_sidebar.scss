@@ -21,19 +21,18 @@ nav {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  padding: 3.7rem 0 0.6rem;
+  padding: 2.7rem 0 0.6rem;
   overflow: hidden;
 
   li {
     width: 100%;
     list-style: none;
-    padding-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
   }
 
   ul {
     &.settings-list {
       li {
-        padding-bottom: 3.5rem;
         &:last-child {
           padding-top: 2rem;
           border-top: 0.1rem solid #cdccc345;
@@ -71,6 +70,9 @@ nav {
   svg {
     &:hover{
       stroke: #75a8ca;
+      stroke-width: 3%;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
   }
   &_link {
@@ -82,6 +84,10 @@ nav {
       border-bottom: 0.1rem solid #75a8ca;
     }
   }
+}
+
+.volume {
+  padding: 1rem;
 }
 
 .sidebarUncloseBtn{
