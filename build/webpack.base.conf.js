@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PATH = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
   assets: 'assets',
 };
 
@@ -16,6 +17,7 @@ module.exports = {
   },
   entry: {
     app: PATH.src,
+    sprint: PATH.sprint,
   },
   output: {
     filename: `${PATH.assets}/js/[name].[hash].js`,
@@ -71,6 +73,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATH.src}/index.html`,
       filename: './index.html',
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATH.src}/minigames/sprint/index.html`,
+      filename: './sprint.html',
+      chunks: ['sprint'],
     }),
     new CopyWebpackPlugin([{
       from: `${PATH.src}/img`,
