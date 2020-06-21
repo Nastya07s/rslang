@@ -1,7 +1,7 @@
 .buttons-panel {
     display: flex;
     flex-direction: column;
-    padding: 2rem 2rem 0 2rem;
+    padding: 1rem 2rem 0;
     border-radius: 5px;
     background: linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%);
   }
@@ -173,8 +173,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 2.5rem;
-    margin: 2rem 0 0;
+    font-size: 2rem;
+    margin: 1rem 0 0;
   }
   
   .data-translate {
@@ -208,7 +208,7 @@
     flex-direction: column;
     justify-content: center;
     min-height: 135px;
-     padding: 0 2rem 0 2rem;
+    padding: 0 2rem;
     border-radius: 5px;
     background: -webkit-gradient(linear,left top,left bottom,from(rgba(8,15,26,.39)),to(rgba(17,17,46,.46)));
     background: -o-linear-gradient(rgba(8,15,26,.39) 0,rgba(17,17,46,.46) 100%);
@@ -225,7 +225,7 @@
     color: #fff;
     flex-direction: column;
     align-items: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin: 0rem 0 0;
   }
   
