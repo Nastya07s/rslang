@@ -1,4 +1,5 @@
 import Sprint from './sprint';
+import './sprint.scss';
 
 const sprint = new Sprint('#minigame-sprint');
 // eslint shows errors without console.log (no-unused-vars)

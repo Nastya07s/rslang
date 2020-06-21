@@ -1,1 +1,130 @@
 @import "./src/scss/main";
+body {
+  background: url("/src/img/sprint/background.png") no-repeat center center;
+  background-size: cover;
+}
+.sprint {
+  position: relative;
+  width: 700px;
+  min-width: 320px;
+  height: 100vh;
+  margin: 80px auto;
+  text-align: center;
+}
+.score {
+  display: inline-block;
+  height: 100px;
+  padding: 20px;
+  font-size: 3.5rem;
+  line-height: 80px;
+  color: #179298;
+}
+.timer {
+  position: absolute;
+  right: -160px;
+  width: 100px;
+  height: 100px;
+}
+.progressbar-text {
+  font-size: 2.5rem;
+  color: #179298 !important;
+}
+.card {
+  border: 1px solid #eeeeee;
+  border-radius: 10px;
+  -moz-box-shadow: 0px 0px 5px 2px rgba(50, 50, 50, 0.15);
+  -webkit-box-shadow: 0px 0px 5px 2px rgba(50, 50, 50, 0.15);
+  box-shadow: 0px 0px 5px 2px rgba(50, 50, 50, 0.15);
+  width: 100%;
+  background-color: #C1EFFF;
+}
+.answer-correct {
+  color: white;
+  font-size: 0.8rem;
+}
+.answer-correct__list {
+  display: inline-block;
+  list-style-type: none;
+  margin: 15px auto;
+  padding: 0;
+}
+.answer-correct__list-item {
+  float: left;
+  margin: 10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #179298;
+}
+.progress-images {
+  background: url("../../img/sprint/progress.png") no-repeat center;
+  background-size: contain;
+  height: 100px;
+  background-color: inherit;
+}
+.word,
+.word-translate {
+  height: 80px;
+}
+.word,
+.word-translate {
+  font-size: 2rem;
+  text-transform: lowercase;
+}
+.word {
+  font-weight: bold;
+}
+.answer-incorrect {
+  height: 30px;
+}
+.answer-incorrect.active {
+  width: 30px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #FF7C79;
+  color: white;
+  font-size: 1.35rem;
+}
+.control-buttons {
+  height: 100px;
+  padding-top: 40px;
+  margin: -15px 40px 0;
+  border-top: 1px dotted gray;
+}
+.button {
+  width: 150px;
+  height: 50px;
+  color: white;
+  font-size: 1.5rem;
+  border-radius: 10px;
+  margin: 0 10px;
+ }
+.button-wrong {
+  background-color: #FF7C79;
+}
+.button-right {
+  background-color: #179298;
+}
+.control-arrow {
+  display: inline-block;
+  margin-top: 50px;
+}
+.button-arrow {
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-bottom: 5px;
+  margin: 0 10px;
+  border: 3px double #eeeeee;
+  border-radius: 10px;
+  background-color: #c1efff;
+}
+.image-sound {
+  display: flex;
+  height: 20px;
+  width: 100%;
+  margin-top: -30px;
+  background: url("../../img/sprint/speaker.svg") no-repeat right;
+  background-size: 20px;
+}
