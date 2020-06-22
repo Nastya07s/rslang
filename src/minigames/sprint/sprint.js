@@ -1,4 +1,5 @@
 import ProgressBar from 'progressbar.js';
+import Api from '../../js/api';
 
 export default class Sprint {
   constructor(selector) {
@@ -6,8 +7,13 @@ export default class Sprint {
     this.init();
   }
 
-  init() {
+  async init() {
     this.createElement();
+    this.api = new Api();
+    this.group = 0;
+    this.wordsArrayFull = await this.getWordsList();
+    this.updateCard();
+    this.isGetUserWords = true;
     const bar = new ProgressBar.Circle('#timer', {
       color: '#aaa',
       // This has to be the same size as the maximum width to
@@ -51,8 +57,8 @@ export default class Sprint {
         </ul>
       </div>
       <div class="progress-images"></div>
-      <div class="word">Hello</div>
-      <div class="word-translate">Привет</div>
+      <div class="word"></div>
+      <div class="word-translate"></div>
       <div class="answer-incorrect active">&#10006;</div>
       <div class="control-buttons">
         <button type="button" class="button button-wrong">Неверно</button>
@@ -67,5 +73,54 @@ export default class Sprint {
       <div class="image-sound"></div>
     </div>
     `;
+    this.wordElement = document.querySelector('.word');
+    this.wordTranslateElement = document.querySelector('.word-translate');
+  }
+
+  getWordsList() {
+    if (this.isGetUserWords) {
+      return this.api.getUserWords()
+        .then((response) => {
+          this.isGetUserWords = false;
+          if (response && response.length !== 0) {
+            const wordsListId = response;
+            const promises = wordsListId.map((element) => this.api.getWordById(element.wordId));
+            return Promise.all(promises)
+              .then((responseUserWords) => Sprint.mixWords(responseUserWords));
+          }
+          return this.getRandomWords();
+        });
+    }
+    return this.getRandomWords();
+  }
+
+  getRandomWords() {
+    const pageRandom = Math.floor(Math.random() * 29);
+    return this.api.getWords(this.group, pageRandom)
+      .then((responseRandomWords) => Sprint.mixWords(responseRandomWords));
+  }
+
+  static mixWords(wordsArray) {
+    const randomArray = wordsArray.sort(() => 0.5 - Math.random());
+    return randomArray.map((element, index) => {
+      const correct = 0.5 - Math.random() > 0;
+      if (correct) {
+        return { word: element.word, wordTranslate: element.wordTranslate, correct: true };
+      }
+      let elementIncorrect = randomArray[index + 2];
+      if (elementIncorrect === undefined) {
+        [elementIncorrect] = randomArray;
+      }
+      return { word: element.word, wordTranslate: elementIncorrect.wordTranslate, correct: false };
+    });
+  }
+
+  async updateCard() {
+    this.word = this.wordsArrayFull.shift();
+    if (this.wordsArrayFull.length === 0) {
+      this.wordsArrayFull = await this.getWordsList();
+    }
+    this.wordElement.innerHTML = this.word.word;
+    this.wordTranslateElement.innerHTML = this.word.wordTranslate;
   }
 }
