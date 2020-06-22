@@ -1,31 +1,13 @@
 import Api from './api';
 
 export default class Login {
-  constructor(selector) {
-    this.container = document.querySelector(selector);
-    this.createForm();
-  }
-
-  createForm() {
-    this.container.innerHTML = `
-        <form class="form-login">
-          <header>Войти</header>
-          <div class="form-login__input">
-            <input class="input-email" type="email" placeholder="Почта" required autocomplete="off"/>
-            <div class="form-login__email-error"></div>
-          </div>
-          <div class="form-login__input">
-            <input class="input-password" type="password" placeholder="Пароль" required autocomplete="off"/>
-            <div class="form-login__password-error"></div>
-          </div>
-          <p class="form-login__signup"><a href="#">Создать аккаунт</a></p>
-          <button type="submit" class="button button-block form-login_button-login"/>Войти</button>
-        </form>`;
-    this.inputEmail = this.container.querySelector('.input-email');
-    this.errorEmail = this.container.querySelector('.form-login__email-error');
-    this.inputPassword = this.container.querySelector('.input-password');
-    this.errorPassword = this.container.querySelector('.form-login__password-error');
-    this.formLogin = this.container.querySelector('.form-login');
+  constructor() {
+    this.api = new Api();
+    this.inputEmail = document.querySelector('.input-email');
+    this.errorEmail = document.querySelector('.form-login__email-error');
+    this.inputPassword = document.querySelector('.input-password');
+    this.errorPassword = document.querySelector('.form-login__password-error');
+    this.formLogin = document.querySelector('.form-login');
     this.formLogin.addEventListener('submit', this.onSubmit.bind(this));
   }
 
@@ -34,12 +16,12 @@ export default class Login {
     const email = this.inputEmail.value;
     const password = this.inputPassword.value;
     if (!email) {
-      this.errorEmail.innerHTML = 'Введите почту';
+      this.showEmailErrors('Введите почту');
     } else {
       this.errorEmail.innerHTML = '';
     }
     if (!password) {
-      this.errorPassword.innerHTML = 'Введите пароль';
+      this.showPassErrors('Введите пароль');
     } else {
       this.errorPassword.innerHTML = '';
     }
@@ -51,12 +33,27 @@ export default class Login {
   }
 
   loginRequest(user) {
-    const api = new Api();
-    api.loginUser(user)
+    this.api.loginUser(user)
       .then(() => {
         window.location.href = './app.html';
       }, () => {
-        this.errorPassword.innerHTML = 'Неверная почта или пароль';
+        this.showPassErrors('Неверная почта или пароль');
       });
+  }
+
+  showPassErrors(text) {
+    this.errorPassword.innerHTML = text;
+    this.errorPassword.style.display = 'block';
+    setTimeout(() => {
+      this.errorPassword.style.display = 'none';
+    }, 4000);
+  }
+
+  showEmailErrors(text) {
+    this.errorEmail.innerHTML = text;
+    this.errorEmail.style.display = 'block';
+    setTimeout(() => {
+      this.errorEmail.style.display = 'none';
+    }, 4000);
   }
 }
