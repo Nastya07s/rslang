@@ -12,6 +12,12 @@ class Round {
 
     this.container = document.querySelector('.levels');
 
+    this.progressBar = document.querySelector('.progress-value');
+    this.progressBarNumber = document.querySelector('.end-round');
+
+    this.roundNumber = document.querySelector('.number-round');
+    this.groupNumber = document.querySelector('.number-level');
+
     this.checkButton = document.querySelector('.check');
     this.checkButton.addEventListener('click', () => {
       this.emit('check');
@@ -22,7 +28,11 @@ class Round {
       this.emit('dontKnow');
     });
 
+    this.state.on('setRound', this.drawCurrentInfo.bind(this));
+
     this.state.on('wordLoaded', this.initRound.bind(this));
+
+    this.state.on('changeImage', this.setRoundBg.bind(this));
 
     this.transcript = document.querySelector('#transcript');
     this.transcript.addEventListener('click', () => {
@@ -42,13 +52,19 @@ class Round {
 
   initRound(data) {
     this.hideTranslate();
-    this.setRoundBg();
     this.drawWord(data.word);
     this.drawTranscript(data.transcript);
     this.drawTranslation(data.translation);
     this.drawEnPhrase(data.englishPhrase);
     this.drawRuPhrase(data.russianPhrase);
     this.puzzleReload(data.words, []);
+  }
+
+  drawCurrentInfo(info) {
+    this.progressBar.style.width = `${Number(info.word) * 5}%`;
+    this.progressBarNumber.innerText = Number(info.word) + 1;
+    this.roundNumber.innerText = Number(info.round) + 1;
+    this.groupNumber.innerText = Number(info.group) + 1;
   }
 
   puzzleReload(inArr, outArr) {

@@ -1,0 +1,37 @@
+.progress {
+    background: rgba(255, 255, 255, 0.1);
+    justify-content: flex-start;
+    border-radius: 100px;
+    align-items: center;
+    position: relative;
+    padding: 0 5px;
+    display: flex;
+    height: 40px;
+    width: 500px;
+  }
+  
+  .progress-value {
+    // animation: load 3s normal forwards;
+    box-shadow: 0 10px 40px -10px #fff;
+    border-radius: 100px;
+    background: #fff;
+    height: 30px;
+    width: 0px;
+  }
+  
+//   @keyframes load {
+//     0% {
+//       width: 0;
+//     }
+  
+//     100% {
+//       width: 100%;
+//     }
+//   }
+
+  .numbers {
+    font-size: 1.5rem;
+    margin: 0 1rem;
+    color: #c6e2ff;
+    animation: neon .08s ease-in-out infinite alternate;
+  }

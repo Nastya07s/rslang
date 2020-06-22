@@ -21,7 +21,7 @@ class EnglishPuzzle {
       new Audio(state.getAudioPhrase()).play();
     }));
 
-    state.setRoundInfo(0, 0, 0);
+    state.setRoundInfo(0, 0, 19);
 
     this.init();
   }

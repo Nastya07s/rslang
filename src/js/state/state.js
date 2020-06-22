@@ -35,6 +35,7 @@ const state = {
       this.store.roundInfo.word = 0;
       if (this.store.roundInfo.round < 29) {
         this.store.roundInfo.round += 1;
+        this.emit('changeImage');
       } else {
         this.store.roundInfo.round = 0;
         if (this.store.roundInfo.group < 5) {
@@ -44,6 +45,7 @@ const state = {
         }
       }
     }
+    this.emit('setRound', { group: this.store.roundInfo.group, round: this.store.roundInfo.round, word: this.store.roundInfo.word });
   },
 
   setWord(data) {
@@ -122,6 +124,7 @@ const state = {
   },
 
   setRoundInfo(group, round, word) {
+    this.emit('setRound', { group, round, word });
     this.store.roundInfo = { group, round, word };
   },
 
