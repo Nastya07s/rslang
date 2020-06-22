@@ -3,8 +3,8 @@ import Api from './api';
 export default class Registration {
   constructor() {
     this.api = new Api();
-    this.inputEmail = document.querySelector('.input-email');
-    this.inputPassword = document.querySelector('.input-password');
+    this.inputEmail = document.querySelector('#signup-email');
+    this.inputPassword = document.querySelector('#signup-password');
     this.formRegistration = document.querySelector('.form-registration');
     this.errorEmail = document.querySelector('.form-registration__email-error');
     this.errorPassword = document.querySelector('.form-registration__password-error');
@@ -19,12 +19,12 @@ export default class Registration {
     if (!email) {
       this.showEmailErrors('Введите почту');
     } else {
-      this.errorEmail.innerHTML = '';
+      this.showEmailErrors('');
     }
     if (!password) {
       this.showPassErrors('Введите пароль');
     } else {
-      this.errorPassword.innerHTML = '';
+      this.showPassErrors('');
     }
     const isValidPassword = /[A-ZА-Я]/.test(password) && /[a-zа-я]/.test(password)
       && /\d/.test(password) && /[+\-_@$!%*?&#.,;:[\]{}]/.test(password);
@@ -34,7 +34,7 @@ export default class Registration {
       + 'спецсимвол из +-_@$!%*?&#.,;:[]{}';
       this.showPassErrors(errText);
     } else {
-      this.errorPassword.innerHTML = '';
+      this.showPassErrors('');
     }
     if (!email || !password || !isValidPassword) {
       return false;
@@ -58,18 +58,10 @@ export default class Registration {
   }
 
   showPassErrors(text) {
-    this.errorPassword.innerHTML = text;
-    this.errorPassword.style.display = 'block';
-    setTimeout(() => {
-      this.errorPassword.style.display = 'none';
-    }, 4000);
+    this.inputPassword.setCustomValidity(text);
   }
 
   showEmailErrors(text) {
-    this.errorEmail.innerHTML = text;
-    this.errorEmail.style.display = 'block';
-    setTimeout(() => {
-      this.errorEmail.style.display = 'none';
-    }, 4000);
+    this.inputEmail.setCustomValidity(text);
   }
 }

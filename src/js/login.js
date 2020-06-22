@@ -3,9 +3,9 @@ import Api from './api';
 export default class Login {
   constructor() {
     this.api = new Api();
-    this.inputEmail = document.querySelector('.input-email');
+    this.inputEmail = document.querySelector('#login-email');
     this.errorEmail = document.querySelector('.form-login__email-error');
-    this.inputPassword = document.querySelector('.input-password');
+    this.inputPassword = document.querySelector('#login-password');
     this.errorPassword = document.querySelector('.form-login__password-error');
     this.formLogin = document.querySelector('.form-login');
     this.formLogin.addEventListener('submit', this.onSubmit.bind(this));
@@ -18,12 +18,12 @@ export default class Login {
     if (!email) {
       this.showEmailErrors('Введите почту');
     } else {
-      this.errorEmail.innerHTML = '';
+      this.showEmailErrors('');
     }
     if (!password) {
       this.showPassErrors('Введите пароль');
     } else {
-      this.errorPassword.innerHTML = '';
+      this.showPassErrors('');
     }
     if (!email || !password) {
       return false;
@@ -42,18 +42,10 @@ export default class Login {
   }
 
   showPassErrors(text) {
-    this.errorPassword.innerHTML = text;
-    this.errorPassword.style.display = 'block';
-    setTimeout(() => {
-      this.errorPassword.style.display = 'none';
-    }, 4000);
+    this.inputPassword.setCustomValidity(text);
   }
 
   showEmailErrors(text) {
-    this.errorEmail.innerHTML = text;
-    this.errorEmail.style.display = 'block';
-    setTimeout(() => {
-      this.errorEmail.style.display = 'none';
-    }, 4000);
+    this.inputEmail.setCustomValidity(text);
   }
 }
