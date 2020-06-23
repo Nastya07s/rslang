@@ -14,6 +14,7 @@ class Model {
   }
 
   setStatistic(word, isCorrect) {
+    console.log(isCorrect);
     if (isCorrect) {
       this.statistic.addCorrect(word);
     } else {

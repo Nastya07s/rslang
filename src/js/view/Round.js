@@ -12,8 +12,10 @@ class Round {
 
     this.container = document.querySelector('.levels');
 
+    this.spinner = document.querySelector('.loader__box');
+
     this.progressBar = document.querySelector('.progress-value');
-    this.progressBarNumber = document.querySelector('.end-round');
+    this.progressBarNumber = document.querySelector('.start-round');
 
     this.roundNumber = document.querySelector('.number-round');
     this.groupNumber = document.querySelector('.number-level');
@@ -50,6 +52,14 @@ class Round {
     });
   }
 
+  spinnerOn() {
+    this.spinner.style.display = 'flex';
+  }
+
+  spinnerOff() {
+    this.spinner.style.display = 'none';
+  }
+
   initRound(data) {
     this.hideTranslate();
     this.drawWord(data.word);
@@ -58,6 +68,7 @@ class Round {
     this.drawEnPhrase(data.englishPhrase);
     this.drawRuPhrase(data.russianPhrase);
     this.puzzleReload(data.words, []);
+    this.spinnerOff();
   }
 
   drawCurrentInfo(info) {
@@ -97,6 +108,7 @@ class Round {
   // eslint-disable-next-line class-methods-use-this
   setText(selector, content) {
     const $elem = document.querySelector(selector);
+    $elem.classList.add('tracking-in-expand');
     $elem.innerText = content;
   }
 

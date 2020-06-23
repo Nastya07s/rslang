@@ -4,11 +4,16 @@ import Model from './model/Model';
 import Words from './model/Words';
 import state from './state/state';
 import Statistic from './model/Statistic';
+import QuickStatistic from './view/QuickStatistic';
 
 class EnglishPuzzle {
   constructor(api) {
     this.round = new Round(new Puzzle(), state);
     this.model = new Model(new Words(api), new Statistic(api), state);
+    this.quickStat = new QuickStatistic();
+
+    this.quickStat.on('closeStat', this.nextWord.bind(this));
+
 
     this.round.on('droped', this.onDropped.bind(this));
     this.round.on('dontKnow', this.onDontKnow.bind(this));
@@ -57,7 +62,12 @@ class EnglishPuzzle {
         state.isChecked = true;
       }
       if (isCorrect) {
-        setTimeout(this.nextWord.bind(this), 2000);
+        const { word } = state.getRoundInfo();
+        if (Number(word) === 19) {
+          setTimeout(this.quickStat.show(this.model.statistic.data), 2000);
+        } else {
+          setTimeout(this.nextWord.bind(this), 2000);
+        }
       }
     }
   }
@@ -65,6 +75,7 @@ class EnglishPuzzle {
   nextWord() {
     state.nextWord();
     this.init();
+    this.round.spinnerOn();
   }
 
   onDropped(e) {

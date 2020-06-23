@@ -6,13 +6,41 @@
   <title>RSLang</title>
 </head>
 <body>
-  <div class="levels">		
+  <div class="levels">
+        <div class="loader__box">
+            <div class="loader">
+                <div class="face">
+                    <div class="circle"></div>
+                </div>
+                <div class="face">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>	
     <div class="logo">
       <div class="sign">
         <span class="sign__word">english</span>
         <span class="sign__word">puzzle</span>
       </div>
     </div>
+
+    <div class="progress__box">
+        <span class="numbers start-round">1</span>
+        <div class="progress">
+            <div class="progress-value"></div>
+          </div>
+          <span class="numbers end-round">20</span>
+        </div>
+
+    <div class="statistic">
+       <img src="/assets/img/cancel.svg" alt="" class="close-statistic">
+        <div class="text-box">
+          <div class="know stat">
+          </div>
+          <div class="dont stat">
+          </div>
+        </div>
+      </div>
     <div class="wrapper">
         <div class="main buttons-panel component">
          <div class="help-btn">
@@ -31,25 +59,6 @@
                  0 0 0-32-3.93c-53 0-96 28.66-96 64s43
                  64 96 64 96-28.65 96-64V32a32 32
                  0 0 0-41.62-30.49z">
-                 </path>
-                 </svg>
-             </span>
-             <span class="btn-translate jello-horizontal">
-                 <svg aria-hidden="true" focusable="false"
-                 data-prefix="far" data-icon="file-alt"
-                 class="translate svg-inline--fa fa-file-alt fa-w-12"
-                 role="img" xmlns="http://www.w3.org/2000/svg"
-                 viewBox="0 0 384 512">
-                 <path
-                 d="M288 248v28c0 6.6-5.4 12-12
-                 12H108c-6.6 0-12-5.4-12-12v-28c0-6.6 5.4-12
-                 12-12h168c6.6 0 12 5.4 12 12zm-12 72H108c-6.6
-                 0-12 5.4-12 12v28c0 6.6 5.4 12 12 12h168c6.6
-                 0 12-5.4 12-12v-28c0-6.6-5.4-12-12-12zm108-188.1V464c0
-                 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V48C0 21.5
-                 21.5 0 48 0h204.1C264.8 0 277 5.1 286 14.1L369.9
-                 98c9 8.9 14.1 21.2 14.1 33.9zm-128-80V128h76.1L256
-                 51.9zM336 464V176H232c-13.3 0-24-10.7-24-24V48H48v416h288z">
                  </path>
                  </svg>
              </span>
@@ -98,11 +107,6 @@
           <span class="transcript" id="transcript"></span>
           <span class="transcript" id="transcript-2"></span>
             <span class="transcript" id="translation"></span>
-            <span class="numbers start-round">1</span>
-            <div class="progress">
-                <div class="progress-value"></div>
-              </div>
-              <span class="numbers end-round">20</span>
       </div>
          <div class="translation">
           <p class="data-translate"></p>

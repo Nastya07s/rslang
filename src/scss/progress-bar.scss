@@ -1,3 +1,11 @@
+.progress__box {
+    display: flex;
+    position: absolute;
+    width: inherit;
+    justify-content: center;
+    top: 30px;
+}
+
 .progress {
     background: rgba(255, 255, 255, 0.1);
     justify-content: flex-start;
@@ -6,31 +14,21 @@
     position: relative;
     padding: 0 5px;
     display: flex;
-    height: 40px;
-    width: 500px;
+    height: 16px;
+    width: 30%;
   }
   
   .progress-value {
-    // animation: load 3s normal forwards;
     box-shadow: 0 10px 40px -10px #fff;
     border-radius: 100px;
-    background: #fff;
-    height: 30px;
+    background: rgba(108, 189, 255, 0.98);
+    height: 12px;
     width: 0px;
+    transition: all .25s;
   }
-  
-//   @keyframes load {
-//     0% {
-//       width: 0;
-//     }
-  
-//     100% {
-//       width: 100%;
-//     }
-//   }
 
   .numbers {
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin: 0 1rem;
     color: #c6e2ff;
     animation: neon .08s ease-in-out infinite alternate;
