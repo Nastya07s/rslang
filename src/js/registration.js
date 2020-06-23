@@ -6,8 +6,6 @@ export default class Registration {
     this.inputEmail = document.querySelector('#signup-email');
     this.inputPassword = document.querySelector('#signup-password');
     this.formRegistration = document.querySelector('.form-registration');
-    this.errorEmail = document.querySelector('.form-registration__email-error');
-    this.errorPassword = document.querySelector('.form-registration__password-error');
     this.formLogin = document.querySelector('.form-registration');
     this.formLogin.addEventListener('submit', this.onSubmit.bind(this));
   }

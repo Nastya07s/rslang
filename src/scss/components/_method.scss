@@ -1,0 +1,21 @@
+.method__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 31px;
+    line-height: 41px;
+    color: #2F281E;
+}
+
+.method-small__title {
+    justify-content: flex-end;
+    text-align: end;
+}
+
+.track__baground {
+    height: 915.66px;
+    width: 100%;
+    margin: 0 auto;
+    background-image: url('/assets/img/backgrounds/track.png');
+    background-position-x: center;
+    background-repeat: no-repeat;
+}

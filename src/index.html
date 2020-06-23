@@ -12,7 +12,7 @@
         <div class="header__logo-line">
             <span class="header__hamburger hamburger"><span class="hamburger__line"></span></span>
             <a href="#" class="logo">
-                <object type="image/svg+xml" data="./src/img/Logo.svg" class="logo-object">
+                <object type="image/svg+xml" data="/assets/img/Logo.svg" class="logo-object">
                     Your browser does not support SVG
                  </object>
             </a>
@@ -46,20 +46,16 @@
             </div>
         </div>
         <div class="promo__image">
-            <div class="registration">
-                <div class="log-in">
                     <div class="forms">
                         <div class="form-wrapper box-login is-active">
-                          <form class="form form-login">
+                          <form class="form form-login" autocomplete="off">
                             <fieldset>
                                 <p class="form-login__text">ВОЙТИ</p>
                               <div class="input-block">
-                                <input class="input-email" id="login-email" type="email" required placeholder="Почта">
-                                <div class="errors form-login__email-error"></div>
+                                <input class="input-email" id="login-email" type="email" autocomplete="off" required placeholder="Почта">
                               </div>
                               <div class="input-block">
-                                <input class="input-password" id="login-password" type="password" required placeholder="Пароль">
-                                <div class="errors form-login__password-error"></div>
+                                <input class="input-password" id="login-password" type="password" autocomplete="off" required placeholder="Пароль">
                               </div>
                               <button type="submit" class="btn-login">ВОЙТИ</button>
                               <span class="inner-switch switcher-signup">СОЗДАТЬ АККАУНТ</span>
@@ -68,16 +64,14 @@
                           </form>
                         </div>
                         <div class="form-wrapper box-signup">
-                          <form action="/" method="post" class="form form-signup form-registration">
+                          <form action="/" method="post" class="form form-signup form-registration" autocomplete="off">
                             <fieldset>
                                 <p class="form-login__text">РЕГИСТРАЦИЯ</p>
                               <div class="input-block">
-                                <input id="signup-email" type="email" required placeholder="Почта">
-                                <div class="errors form-registration__email-error"></div>
+                                <input id="signup-email" type="email" autocomplete="off" required placeholder="Почта">
                               </div>
                               <div class="input-block">
-                                <input class="input-password" id="signup-password" type="password" required placeholder="Пароль">
-                                <div class="errors form-registration__password-error"></div>
+                                <input class="input-password" id="signup-password" type="password" autocomplete="off" required placeholder="Пароль">
                               </div>
                               <button type="submit" class="btn-signup">СОЗДАТЬ АККАУНТ</button>
                               <span class="inner-switch switcher-login">У МЕНЯ УЖЕ ЕСТЬ АККАУНТ</span>
@@ -85,7 +79,31 @@
                           </form>
                         </div>
                       </div>
-            </div>
+        </div>
+    </div>
+</section>
+<section class="method">
+    <div class="wrapper method__wrapper">
+        <div class="method__text">
+            <h2 class="method__title">
+                <object type="image/svg+xml" data="/assets/img/icons/info-icon.svg" class="method-object">
+                    Your browser does not support SVG
+                 </object>
+                Что такое метод интервального повторения?</h2>
+            <h3 class="method-small__title">
+                <object type="image/svg+xml" data="/assets/img/icons/info-icon.svg" class="method-object">
+                    Your browser does not support SVG
+                 </object>
+                Способ помогающий быстро пополнить словарный запас,
+                <br>засчёт повторения слов с определённым интервалом</h3>
+        </div>
+        <div class="track__baground">
+            <div class="steps">
+                <div class="first-step"></div>
+                <div class="second-step"></div>
+                <div class="thirth-step"></div>
+                <div class="fourth-step"></div>
+                <div class="fifth-step"></div>
             </div>
         </div>
     </div>

@@ -17,7 +17,16 @@
   
   .forms {
     display: flex;
+    // position: absolute;
     align-items: flex-start;
+    left: 44%;
+    margin-top: 3rem;
+    @media (max-width: 1200px) {
+      left: 37%;
+    }
+    @media (max-width: 1020px) {
+      left: 30%;
+    }
   }
   
   .form-wrapper {
@@ -66,41 +75,7 @@
     transform: translateX(0);
     transition: all .3s ease-out;
   }
-  
-  .underline {
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    overflow: hidden;
-    pointer-events: none;
-    width: 100%;
-    height: 2px;
-  
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: inherit;
-      display: block;
-      width: inherit;
-      height: inherit;
-      background-color: currentColor;
-      transition: transform .2s ease-out;
-    }
-  }
-  
-  .switcher-login .underline::before {
-    transform: translateX(101%);
-  }
-  
-  .switcher-signup .underline::before {
-    transform: translateX(-101%);
-  }
-  
-  .form-wrapper.is-active .underline::before {
-    transform: translateX(0);
-  }
-  
+
   .form {
     display: flex;
     flex-direction: column;
@@ -113,7 +88,7 @@
     padding: 45px 45px;
     border-radius: 20px;
     transform-origin: top;
-    background-color: rgba(196, 196, 196, 0.4)!important;
+    background-color: hsla(0, 0%, 100%, 0.54)!important;
 
     &.invisible {
       visibility: hidden;
@@ -188,7 +163,7 @@
   
     100% {
       background-color: #fff;
-      transform: translate(-35%, -20px) scaleY(1);
+      transform: translate(-60%,-20px) scaleY(1);
     }
   }
   
@@ -204,7 +179,7 @@
   
     100% {
       background: #d7e7f1;
-      transform: translate(-40%, 10px) scaleY(0.8);
+      transform: translate(-66%,10px) scaleY(.8);
     }
   }
   
@@ -316,42 +291,3 @@
     box-shadow: 0 4px 4px rgba(0,0,0,.25);
     transform: translateX(30%);
   }
-
-  .errors {
-    display: none;
-    font-size: 13px;
-    background: #ff9900;
-    padding: 10px;
-    position: absolute;
-    line-height: 16px;
-    z-index: 2;
-    left: 100;
-    transition: all .25s;
-    -webkit-animation: errors 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	  animation: errors 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
-
-@-webkit-keyframes errors {
-  0% {
-    -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
-}
-@keyframes errors {
-  0% {
-    -webkit-transform: translateZ(-80px);
-            transform: translateZ(-80px);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateZ(0);
-            transform: translateZ(0);
-    opacity: 1;
-  }
-}

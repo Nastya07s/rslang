@@ -4,9 +4,7 @@ export default class Login {
   constructor() {
     this.api = new Api();
     this.inputEmail = document.querySelector('#login-email');
-    this.errorEmail = document.querySelector('.form-login__email-error');
     this.inputPassword = document.querySelector('#login-password');
-    this.errorPassword = document.querySelector('.form-login__password-error');
     this.formLogin = document.querySelector('.form-login');
     this.formLogin.addEventListener('submit', this.onSubmit.bind(this));
   }
