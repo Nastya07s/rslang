@@ -15,7 +15,7 @@
 }
 
 .header__navigation {
-    @include media-tablet {
+    @media (max-width: 980px) {
         display: none;
     }
 }

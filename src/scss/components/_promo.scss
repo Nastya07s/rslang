@@ -15,7 +15,7 @@
     justify-content: space-between;
     align-items: center;
     @include media-mobile {
-        flex-direction: column-reverse;
+        flex-direction: column;
     }
 }
 
@@ -28,7 +28,7 @@
     }
 }
 
-.promo__image {
+.form__register {
     width: 771px;
     height: 520px;
 }
@@ -83,7 +83,7 @@
     }
 }
 
-.promo__image {
+.form__register {
     @include media-mobile {
         max-width: 100%;
         margin-bottom: 16px;

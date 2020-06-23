@@ -89,6 +89,9 @@
     border-radius: 20px;
     transform-origin: top;
     background-color: hsla(0, 0%, 100%, 0.54)!important;
+    @media (max-width: 960px) {
+      width: 280px;
+    }
 
     &.invisible {
       visibility: hidden;

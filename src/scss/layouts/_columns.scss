@@ -9,6 +9,14 @@
         width:30%;
         display: block;
     }
+    @media (max-width: 1019px) {
+        @include columns($width: 45%);
+      }
+
+      @media (max-width: 767px) {
+        @include columns($width: 100%);
+        justify-content: center;
+      }
 }
 
 .layout-2-column {
