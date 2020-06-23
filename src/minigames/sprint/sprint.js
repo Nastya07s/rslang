@@ -1,6 +1,11 @@
 import ProgressBar from 'progressbar.js';
 import Api from '../../js/api';
 
+const INCREASE_SCORE_EVERY = 4;
+const AUDIO_RIGHT = '/audio/right.mp3';
+const AUDIO_WRONG = '/audio/wrong.mp3';
+const MUTE = 'mute';
+
 export default class Sprint {
   constructor(selector) {
     this.container = document.querySelector(selector);
@@ -11,6 +16,10 @@ export default class Sprint {
     this.createElement();
     this.api = new Api();
     this.group = 0;
+    this.countCorrectAnswer = 0;
+    this.totalScore = 0;
+    this.mute = localStorage.getItem(MUTE) || false;
+    this.currentScorePlus = this.getCurrentScorePlus();
     this.wordsArrayFull = await this.getWordsList();
     this.updateCard();
     this.isGetUserWords = true;
@@ -46,23 +55,32 @@ export default class Sprint {
   createElement() {
     this.container.classList.add('sprint');
     this.container.innerHTML = `
-    <div class="score">10</div>
+    <div class="score">0</div>
     <div id="timer" class="timer"></div>
     <div class="card">
       <div class="answer-correct">
         <ul class="answer-correct__list">
-          <li class="answer-correct__list-item">&#10004;</li>
+          <li class="answer-correct__list-item"></li>
           <li class="answer-correct__list-item"></li>
           <li class="answer-correct__list-item"></li>
         </ul>
       </div>
+      <div class="bonus fadeInDown hidden">
+        <ul class="answer-correct__list">
+          <li class="answer-correct__list-item active"></li>
+        </ul>
+        <div class="current-bonus">
+            +<span class="current-score-plus"></span> очков
+        </div>
+      </div>
       <div class="progress-images"></div>
       <div class="word"></div>
       <div class="word-translate"></div>
-      <div class="answer-incorrect active">&#10006;</div>
+      <div class="answer-incorrect invisible">&#10006;</div>
       <div class="control-buttons">
         <button type="button" class="button button-wrong">Неверно</button>
         <button type="button" class="button button-right">Верно</button>
+        <div class="image-sound"></div>
       </div>
     </div>
     <div class="addition">
@@ -70,11 +88,37 @@ export default class Sprint {
         <button type="button" class="button-arrow left">&larr;</button>
         <button type="button" class="button-arrow right">&rarr;</button>
       </div>
-      <div class="image-sound"></div>
     </div>
     `;
-    this.wordElement = document.querySelector('.word');
-    this.wordTranslateElement = document.querySelector('.word-translate');
+    this.wordElement = this.container.querySelector('.word');
+    this.wordTranslateElement = this.container.querySelector('.word-translate');
+    this.countScore = this.container.querySelector('.score');
+    this.buttonRight = this.container.querySelector('.button-right');
+    this.buttonWrong = this.container.querySelector('.button-wrong');
+    this.buttonRight.addEventListener('click', this.onAnswerClick.bind(this));
+    this.buttonWrong.addEventListener('click', this.onAnswerClick.bind(this));
+    this.blockBonus = this.container.querySelector('.bonus');
+    this.blockCurrentScorePlus = this.container.querySelector('.current-score-plus');
+    this.answerIncorrect = this.container.querySelector('.answer-incorrect');
+    this.answerCorrectList = this.container.querySelectorAll('.answer-correct .answer-correct__list-item');
+    document.addEventListener('keydown', (event) => {
+      console.log(event.key);
+      if (event.key === 'ArrowLeft') {
+        this.buttonWrong.click();
+      }
+      if (event.key === 'ArrowRight') {
+        this.buttonRight.click();
+      }
+    });
+    this.sound = this.container.querySelector('.image-sound');
+    this.sound.addEventListener('click', () => {
+      this.mute = !this.mute;
+      localStorage.setItem(MUTE, this.mute);
+    });
+  }
+
+  getCurrentScorePlus() {
+    return 10 * (2 ** Math.floor((this.countCorrectAnswer) / INCREASE_SCORE_EVERY));
   }
 
   getWordsList() {
@@ -122,5 +166,61 @@ export default class Sprint {
     }
     this.wordElement.innerHTML = this.word.word;
     this.wordTranslateElement.innerHTML = this.word.wordTranslate;
+  }
+
+  onAnswerClick(event) {
+    const isCorrectButton = event.target.classList.contains('button-right');
+    const isCorrectAnswer = isCorrectButton === this.word.correct;
+    if (isCorrectButton) {
+      this.buttonRight.classList.add('tada');
+      setTimeout(() => {
+        this.buttonRight.classList.remove('tada');
+      }, 1000);
+    } else {
+      this.buttonWrong.classList.add('tada');
+      setTimeout(() => {
+        this.buttonWrong.classList.remove('tada');
+      }, 1000);
+    }
+    if (isCorrectAnswer) {
+      this.totalScore += this.getCurrentScorePlus();
+      this.countScore.innerHTML = this.totalScore;
+      this.countCorrectAnswer += 1;
+      const correctAnswers = this.countCorrectAnswer % INCREASE_SCORE_EVERY;
+      this.playSound(AUDIO_RIGHT);
+      if (correctAnswers === 0) {
+        this.blockCurrentScorePlus.innerHTML = this.getCurrentScorePlus();
+        this.blockBonus.classList.remove('hidden');
+        this.answerCorrectList.forEach((element) => {
+          element.classList.remove('active');
+        });
+        setTimeout(() => {
+          this.blockBonus.classList.add('hidden');
+        }, 1000);
+      } else {
+        this.answerCorrectList[correctAnswers - 1].classList.add('active');
+      }
+      this.updateCard();
+    } else {
+      this.countCorrectAnswer = 0;
+      this.playSound(AUDIO_WRONG);
+      this.answerIncorrect.classList.remove('invisible');
+      this.answerIncorrect.classList.add('tada');
+      setTimeout(() => {
+        this.answerIncorrect.classList.add('invisible');
+        this.answerIncorrect.classList.remove('tada');
+      }, 1000);
+      this.answerCorrectList.forEach((element) => {
+        element.classList.remove('active');
+      });
+    }
+  }
+
+  playSound(src) {
+    if (this.mute) {
+      return;
+    }
+    const audio = new Audio(src);
+    audio.play();
   }
 }

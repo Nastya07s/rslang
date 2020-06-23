@@ -3,6 +3,9 @@
   background: url("/src/img/sprint/background.png") no-repeat center center;
   background-size: cover;
 }
+.hidden {
+  display: none !important;
+}
 .sprint {
   position: relative;
   width: 700px;
@@ -30,6 +33,7 @@
   color: #179298 !important;
 }
 .card {
+  position: relative;
   border: 1px solid #eeeeee;
   border-radius: 10px;
   -moz-box-shadow: 0px 0px 5px 2px rgba(50, 50, 50, 0.15);
@@ -37,10 +41,12 @@
   box-shadow: 0px 0px 5px 2px rgba(50, 50, 50, 0.15);
   width: 100%;
   background-color: #C1EFFF;
+  overflow: hidden;
 }
 .answer-correct {
   color: white;
   font-size: 0.8rem;
+  height: 120px;
 }
 .answer-correct__list {
   display: inline-block;
@@ -55,6 +61,59 @@
   height: 20px;
   border-radius: 50%;
   background-color: #179298;
+
+  &.active:after {
+    content: '✔';
+  }
+}
+.bonus {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #03BDE3;
+  color: white;
+  border-radius: 10px 10px 0 0;
+  .answer-correct__list {
+    margin-bottom: 0;
+  }
+}
+.current-bonus {
+  font-size: 1.5rem;
+}
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeInDown {
+  0% {
+    //opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    //opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+@keyframes fadeInDown {
+  0% {
+    //opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    //opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
 }
 .progress-images {
   background: url("../../img/sprint/progress.png") no-repeat center;
@@ -76,8 +135,6 @@
 }
 .answer-incorrect {
   height: 30px;
-}
-.answer-incorrect.active {
   width: 30px;
   margin: 0 auto;
   border-radius: 50%;
@@ -86,6 +143,7 @@
   font-size: 1.35rem;
 }
 .control-buttons {
+  position: relative;
   height: 100px;
   padding-top: 40px;
   margin: -15px 40px 0;
@@ -98,6 +156,7 @@
   font-size: 1.5rem;
   border-radius: 10px;
   margin: 0 10px;
+  cursor: pointer;
  }
 .button-wrong {
   background-color: #FF7C79;
@@ -108,6 +167,7 @@
 .control-arrow {
   display: inline-block;
   margin-top: 50px;
+  cursor: pointer;
 }
 .button-arrow {
   width: 50px;
@@ -120,11 +180,69 @@
   border-radius: 10px;
   background-color: #c1efff;
 }
+.tada {
+  -webkit-animation-name: tada;
+  animation-name: tada;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes tada {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  10%, 20% {
+    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%, 60%, 80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes tada {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  10%, 20% {
+    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%, 60%, 80% {
+    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 .image-sound {
-  display: flex;
-  height: 20px;
-  width: 100%;
-  margin-top: -30px;
+  position: absolute;
+  right: 5%;
+  top: 45px;
+  height: 40px;
+  width: 40px;
   background: url("../../img/sprint/speaker.svg") no-repeat right;
-  background-size: 20px;
+  background-size: 40px;
+  cursor: pointer;
+}
+.invisible {
+  visibility: hidden;
 }
