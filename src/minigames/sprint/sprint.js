@@ -5,6 +5,7 @@ const INCREASE_SCORE_EVERY = 4;
 const AUDIO_RIGHT = '/audio/right.mp3';
 const AUDIO_WRONG = '/audio/wrong.mp3';
 const MUTE = 'mute';
+const PROGRESS_CLASS = 'icon-progress_';
 
 export default class Sprint {
   constructor(selector) {
@@ -90,6 +91,7 @@ export default class Sprint {
       </div>
     </div>
     `;
+    this.progressImages = this.container.querySelector('.progress-images');
     this.wordElement = this.container.querySelector('.word');
     this.wordTranslateElement = this.container.querySelector('.word-translate');
     this.countScore = this.container.querySelector('.score');
@@ -189,6 +191,7 @@ export default class Sprint {
       const correctAnswers = this.countCorrectAnswer % INCREASE_SCORE_EVERY;
       this.playSound(AUDIO_RIGHT);
       if (correctAnswers === 0) {
+        this.switchImages(Math.floor(this.countCorrectAnswer / INCREASE_SCORE_EVERY) + 1);
         this.blockCurrentScorePlus.innerHTML = this.getCurrentScorePlus();
         this.blockBonus.classList.remove('hidden');
         this.answerCorrectList.forEach((element) => {
@@ -203,6 +206,7 @@ export default class Sprint {
       this.updateCard();
     } else {
       this.countCorrectAnswer = 0;
+      this.switchImages(1);
       this.playSound(AUDIO_WRONG);
       this.answerIncorrect.classList.remove('invisible');
       this.answerIncorrect.classList.add('tada');
@@ -222,5 +226,16 @@ export default class Sprint {
     }
     const audio = new Audio(src);
     audio.play();
+  }
+
+  switchImages(level) {
+    let l = level;
+    if (l > 5) {
+      l = 5;
+    }
+    for (let i = 1; i <= 5; i += 1) {
+      this.progressImages.classList.remove(PROGRESS_CLASS + i);
+    }
+    this.progressImages.classList.add(PROGRESS_CLASS + l);
   }
 }
