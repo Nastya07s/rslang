@@ -1,0 +1,95 @@
+.page-intro {
+  & {
+    min-height: inherit;
+    min-width: inherit;
+    height: 100%;
+    width: 100%;
+
+    transition: opacity 1s ease-out;
+  }
+
+  &_hidden {
+    position: absolute;
+    opacity: 0;
+
+    pointer-events: none;
+  }
+
+  &__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    min-height: inherit;
+    min-width: inherit;
+
+    background-image: url("/assets/img/speakit/bg-intro.svg");
+    background-blend-mode: soft-light;
+    background-position: 70%;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  &__text-container {
+    font-size: 4rem;
+    @include for-phone { font-size: 5rem; }
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px black;
+    color: $default-color;
+    text-align: center;
+
+    transition: font-size 0.25s ease-out;
+  }
+  
+  &__app-name {
+    font-size: 2em;
+    font-weight: 400;
+  }
+
+  &__app-description {
+    margin-bottom: 20px;
+
+    font-size: 0.3em;
+    font-weight: 300;
+
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &__app-how-to-use {
+    & {
+      margin-bottom: 10px;
+
+      text-transform: initial;
+      font-size: 0.5em;
+      font-weight: 300;
+    }
+  }
+
+  &__start-button {
+    & {
+      margin-top: 30px;
+      padding: 20px 40px;
+
+
+      border: none;
+      border-radius: 5px;
+  
+      font-size: 0.5em;
+      font-weight: 400;
+      text-transform: uppercase;
+      text-shadow: 1px 1px 2px black;
+      color: $default-color;
+  
+      cursor: pointer;
+      transition: box-shadow 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 4px 0px white;
+    }
+
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+}

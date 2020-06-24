@@ -1,0 +1,65 @@
+@import "app/scss/main";
+// @import "app/scss/utils/_libs";
+// @import "app/scss/utils/_vars";
+// @import "app/scss/utils/_mixins";
+// @import "app/scss/utils/_reset-css";
+// @import "app/scss/utils/_fonts";
+// @import "app/scss/_animations";
+
+html {
+  box-sizing: border-box;
+
+  font-size: 10px;
+}
+
+body {
+  min-width: $small-phone-width;
+  min-height: 100vh;
+
+  font: {
+    family: $main-font;
+    weight: $main-font-weight;
+  }
+
+  overflow-x: hidden;
+}
+
+.wrapper {
+  margin: 0 auto;
+
+  transition: padding 0.5s ease-out, margin 0.5s ease-out;
+
+  @include for-small-phone { padding: 0 10px; }
+  @include for-tablet { padding: 0 20px; }
+  @include for-desktop { padding: 0 40px; }
+}
+
+.hidden {
+  display: none;
+  // opacity: 0;
+}
+
+.loader {
+  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit;
+    min-width: inherit;
+
+    transition: opacity 0.35s ease-out;
+  }
+
+  &_hidden {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+  
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@import "./components/page-intro/page-intro";
+@import "./components/page-main/page-main";
