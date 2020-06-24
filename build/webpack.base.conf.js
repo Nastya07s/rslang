@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  speakit: path.join(__dirname, '../src/minigames/speakit'),
   assets: 'assets',
 };
 
@@ -17,11 +18,13 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
+      speakit: PATHS.speakit,
     },
     extensions: ['.js'],
   },
   entry: {
-    app: PATHS.src,
+    app: `${PATHS.src}/index.js`,
+    speakit: `${PATHS.speakit}/speakit.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -85,6 +88,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
+      // to exclude mini-games' chunks & prevent running their code in the main app '/'
+      excludeChunks: ['speakit'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.speakit}/index.html`,
+      filename: './speakit/index.html',
+      inject: true, // if true - to insert link & script tags into html
+      chunks: ['speakit', 'vendors', 'app'], // include exact this chunk of needed code
     }),
     new CopyWebpackPlugin([
       {
