@@ -1,6 +1,10 @@
 /* eslint-disable linebreak-style */
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import './js/main';
 import './scss/main.scss';
+import Login from './js/login';
+import Registration from './js/registration';
 import RenderMainPage from './js/RenderMainPage/RenderMainPage';
 
 const render = new RenderMainPage();
@@ -148,3 +152,9 @@ accordionShow.forEach(() => {
   });
   openI2 = 0;
 });
+
+const login = new Login('#login');
+const registration = new Registration('#registration');
+// eslint shows errors without console.log (no-unused-vars)
+console.log(login);
+console.log(registration)
