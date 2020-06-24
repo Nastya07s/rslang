@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 import {
   Swiper,
   Navigation,
@@ -44,11 +45,14 @@ export default class RenderMainPage {
   }
 
   init() {
-    this.swiper = new Swiper('.swiper-container', {
+    this.mySwiper = new Swiper('.swiper-container', {
+      slidesPerView: 1,
+      loop: false,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      onlyExternal: true,
     });
   }
 }
