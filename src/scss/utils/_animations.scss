@@ -1,0 +1,48 @@
+/* ---------------- ANIMATIONS ------------- */
+/* ---------------- COMMON ----------------- */
+@keyframes change-colors {
+  0% {
+    background-color: rgba(32, 178, 170, 0.75);
+  }
+  50% {
+    background-color: rgba(184, 134, 11, 0.75);
+  }
+  100% {
+    background-color: rgba(240, 128, 128, 0.75);
+  }
+}
+
+.animation-change-colors {
+  animation: change-colors 10s linear alternate-reverse infinite;
+}
+
+@keyframes rainbow {
+  /* credits to Anna Stoma */
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+.rainbow {
+  background-size: 300% 300%;
+  animation: rainbow 5s ease-out infinite;
+}
+
+.rainbow_color_color1 {
+  background-image: linear-gradient(
+    45deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%
+  ), linear-gradient(
+    90deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%
+  );
+}
+
+.rainbow_color_color2 {
+  background-image: linear-gradient(45deg, lightyellow 0%, lightblue 100%);
+}
+/* ---------------- ANIMATIONS END ---------------- */
