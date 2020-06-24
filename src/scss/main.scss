@@ -3,3 +3,99 @@
 @import "utils/_mixins";
 @import "utils/_fonts";
 @import "utils/_media";
+@import "header.scss";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  // height: 100%;
+  font-size: 10px;
+  // background: url(../img/temp_bg.svg);
+  background-image: linear-gradient(
+    to top,
+    rgb(214, 125, 255),
+    rgb(211, 121, 253),
+    rgb(207, 117, 250),
+    rgb(204, 113, 248),
+    rgb(201, 109, 246),
+    rgb(198, 105, 244),
+    rgb(194, 100, 241),
+    rgb(191, 96, 239),
+    rgb(188, 92, 237),
+    rgb(185, 88, 235),
+    rgb(181, 84, 232),
+    rgb(178, 80, 230)
+  );
+  // background-position-y: 100%;
+  // background-position-x: center;
+  // background-repeat: no-repeat;
+  position: relative;
+  transition: all 1s ease;
+}
+.wrapper {
+  margin: 0 auto;
+  max-width: 1290px;
+  padding: 0 10px;
+}
+
+.main__wrapper {
+  // margin-top: 50px;
+  height: 100%;
+  width: 100%;
+  // margin: 50px auto;
+}
+
+.game-start {
+  // height: 100%;
+  padding: 100px 0;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  & .game-start__title {
+    font-weight: 600;
+    font-size: 6em;
+    text-align: center;
+  }
+
+  & .game-start__description {
+    font-size: 28px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  & .game-start__start {
+    color: white;
+    border: none;
+    width: 290px;
+    height: 60px;
+    background: rgba(178, 80, 230, 0.671);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 50px;
+    font-size: 3.2em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 6px;
+  }
+  .controllers .icon {
+    width: 30px;
+    height: 30px;
+  }
+  .controllers .controllers__right .options__settings {
+    width: 200px;
+    height: 140px;
+    top: 50px;
+    right: -26.5px;
+  }
+}

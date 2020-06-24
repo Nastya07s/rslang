@@ -1,0 +1,112 @@
+header {
+  padding-top: 30px;
+}
+.header__wrapper {
+  width: 100%;
+  height: 55px;
+}
+
+.controllers {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .icon.icon_inactive {
+    display: none;
+  }
+
+  & .controllers__left {
+    width: 50%;
+
+    & .audio {
+      background-image: url(../img/speaker.svg);
+    }
+    & .audio_silence {
+      background-image: url(../img/silence.svg);
+    }
+  }
+
+  & .controllers__right {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    & > .icon {
+      margin-left: 15px;
+    }
+    & .close {
+      background-image: url(../img/close.svg);
+    }
+    & .options {
+      background-image: url(../img/option.svg);
+      position: relative;
+    }
+    & .options__settings {
+      cursor: default;
+      top: 80px;
+      right: -16.5px;
+      background: white;
+      position: absolute;
+      width: 300px;
+      height: 180px;
+      border-radius: 18px;
+      color: black;
+      padding: 20px;
+      font-size: 2.2em;
+
+      &:before {
+        content: " ";
+        position: absolute;
+        width: 0;
+        height: 0;
+        right: 16px;
+        top: -4px;
+        border: 25px solid;
+        border-color: white transparent transparent white;
+        transform: rotate(44deg);
+      }
+      &.options__settings_inactive {
+        display: none;
+      }
+      & .options__levels-title {
+        margin-top: 20px;
+      }
+      & .options__levels {
+        margin-top: 5px;
+        & select {
+          width: 70px;
+          border: 1px solid black;
+          border-radius: 2px;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      & .options__difficulties {
+        margin-top: 5px;
+      }
+
+      & .stars {
+        width: 55%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        // height: 100%;
+        & .star {
+          cursor: pointer;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
