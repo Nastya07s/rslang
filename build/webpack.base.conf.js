@@ -14,6 +14,12 @@ module.exports = {
   externals: {
     paths: PATHS,
   },
+  resolve: {
+    alias: {
+      app: PATHS.src,
+    },
+    extensions: ['.js'],
+  },
   entry: {
     app: PATHS.src,
   },
