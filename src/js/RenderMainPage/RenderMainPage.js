@@ -46,12 +46,12 @@ export default class RenderMainPage {
 
   init() {
     this.mySwiper = new Swiper('.swiper-container', {
-      slidesPerView: 1,
-      loop: false,
+      slidesPerView: 'auto',
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
+      loop: false,
       onlyExternal: true,
     });
   }

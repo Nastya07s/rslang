@@ -1,263 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
-  <title>RSLang</title>
-</head>
-<body>
-	<div class="wrapper">
-		<section class="block">
-			<div class="block__slider slider-block">
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-container swiper-no-swiping">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide card">
-							<div class="slider-block__complexity">
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-							</div>
-							<div class="slider-block__info">
-								<div class="slider-block__img"><img src="/src/img/people.jpg" alt=""></div>
-								<div class="slider-block__body slider-b-body">
-									<div class="slider-b-body__top">
-										<div class="slider-b-body__title"> The students <input type="text" placeholder="agree">
-											they have too much homework.</div>
-										<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы
-										</div>
-									</div>
-									<div class="slider-b-body__center">
-										<div class="slider-b-body__show">
-											<span>Показать объяснение значения слова</span>
-											<img class="slider-b-body__accordionshow" src="/src/img/arrowDown.png" alt="1">
-										</div>
-										<div class="slider-b-body__goshow">
-											<div class="slider-b-body__example">To <i>agree</i> is to have the same opinion or
-												belief
-												as
-												another person.</div>
-											<div class="slider-b-body__text">Согласиться - значит иметь то же мнение или убеждение,
-												что и
-												другой человек</div>
-										</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- <link rel="stylesheet" href="css/style.min.css"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css" />
+    <title>Nastya</title>
+  </head>
 
-									</div>
-									<div class="slider-b-body__bottom">
-										<div class="slider-b-body__get">
-											<span>Добавить в<br> сложные слова</span>
-											<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes">
-											<label for="happy"></label>
+  <body>
+    <main class="flex">
+      <section class="menu">
+        <div class="menu__info">
+          <div class="menu__logo">
+            <a href=""><img src="/assets/img/logo.png" alt="" /></a>
+            <div class="menu__tеxtlogo"><a href="">RSLang</a></div>
+          </div>
+          <div class="menu__nav nav-menu">
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/learn.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">Обучение</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/speak.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">SpeakIt</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/puzzleIcon.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">EnglishPuzzle</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/music.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">Аудиовызов</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/savanna.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">Саванна</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/run.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">Спринт</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/book.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">Словарь</a></div>
+            </div>
+            <div class="nav-menu__item">
+              <div class="nav-menu__image">
+                <a href=""><img src="/assets/img/graph.png" alt="" /></a>
+              </div>
+              <div class="nav-menu__about"><a href="">Статистика</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="menu__opportunities opportunities-menu">
+          <div class="opportunities-menu__item opportunities-menu__item-on">
+            <div class="opportunities-menu__image">
+              <img src="/assets/img/off.png" alt="" />
+            </div>
+            <div class="opportunities-menu__about">Звук&nbsp;выкл.</div>
+          </div>
+          <div class="opportunities-menu__item opportunities-menu__item-off">
+            <div class="opportunities-menu__image">
+              <img src="/assets/img/speaker.png" alt="" />
+            </div>
+            <div class="opportunities-menu__about">Звук&nbsp;вкл.</div>
+          </div>
+          <div class="opportunities-menu__item">
+            <div class="opportunities-menu__image">
+              <a href=""><img src="/assets/img/gear.png" alt="" /></a>
+            </div>
+            <div class="opportunities-menu__about"><a href="">Наcтройки</a></div>
+          </div>
+          <div class="opportunities-menu__item opportunities-menu__item-open">
+            <div class="opportunities-menu__image openArrow">
+              <img src="/assets/img/open.png" alt="" />
+            </div>
+            <div class="opportunities-menu__about"><a href="">Свернуть</a></div>
+          </div>
+        </div>
+      </section>
+      <div class="wrapper">
+        <section class="block">
+					<div class="block-wrapper">
+						<div class="block__slider slider-block">
+							<div class="swiper-container swiper-no-swiping">
+								<div class="swiper-wrapper">
+									<div class="swiper-slide card">
+										<div class="slider-block__complexity">
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
 										</div>
-										<div class="slider-b-body__more">
-											<span>Agree - [əgríː] - согласна</span>
+										<div class="slider-block__info">
+											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
+											<div class="slider-block__body slider-b-body">
+												<div class="slider-b-body__top">
+													<div class="slider-b-body__title">
+														The students <input type="text" placeholder="agree" /> they have too much homework.
+													</div>
+													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
+												</div>
+												<div class="slider-b-body__center">
+													<div class="slider-b-body__show">
+														<span>Показать объяснение значения слова</span>
+														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+													</div>
+													<div class="slider-b-body__goshow">
+														<div class="slider-b-body__example">
+															To <i>agree</i> is to have the same opinion or belief as another person.
+														</div>
+														<div class="slider-b-body__text">
+															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
+														</div>
+													</div>
+												</div>
+												<div class="slider-b-body__bottom">
+													<div class="slider-b-body__get">
+														<span
+															>Добавить в<br />
+															сложные слова</span
+														>
+														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
+														<label for="happy"></label>
+													</div>
+													<div class="slider-b-body__more">
+														<span>Agree - [əgríː] - согласна</span>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
+
+									<div class="swiper-slide card">
+										<div class="slider-block__complexity">
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+										</div>
+										<div class="slider-block__info">
+											<!-- <div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div> -->
+											<div class="slider-block__body slider-b-body">
+												<div class="slider-b-body__top">
+													<div class="slider-b-body__title">
+														The students <input type="text" placeholder="agree" /> they have too much homework.
+													</div>
+													<div class="slider-b-body__sub">ы</div>
+												</div>
+												<div class="slider-b-body__center">
+													<div class="slider-b-body__show">
+														<span>Показать объяснение значения слова</span>
+														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+													</div>
+													<div class="slider-b-body__goshow">
+														<div class="slider-b-body__example">
+															To <i>agree</i> is to have the same opinion or belief as another person.
+														</div>
+														<div class="slider-b-body__text">
+															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
+														</div>
+													</div>
+												</div>
+												<div class="slider-b-body__bottom">
+													<div class="slider-b-body__get">
+														<span
+															>Добавить в<br />
+															сложные слова</span
+														>
+														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
+														<label for="happy"></label>
+													</div>
+													<div class="slider-b-body__more">
+														<span>Agree - [əgríː] - согласна</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="swiper-slide card">
+										<div class="slider-block__complexity">
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+										</div>
+										<div class="slider-block__info">
+											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
+											<div class="slider-block__body slider-b-body">
+												<div class="slider-b-body__top">
+													<div class="slider-b-body__title">
+														The students <input type="text" placeholder="agree" /> they have too much homework.
+													</div>
+													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
+												</div>
+												<div class="slider-b-body__center">
+													<div class="slider-b-body__show">
+														<span>Показать объяснение значения слова</span>
+														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+													</div>
+													<div class="slider-b-body__goshow">
+														<div class="slider-b-body__example">
+															To <i>agree</i> is to have the same opinion or belief as another person.
+														</div>
+														<div class="slider-b-body__text">
+															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
+														</div>
+													</div>
+												</div>
+												<div class="slider-b-body__bottom">
+													<div class="slider-b-body__get">
+														<span
+															>Добавить в<br />
+															сложные слова</span
+														>
+														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
+														<label for="happy"></label>
+													</div>
+													<div class="slider-b-body__more">
+														<span>Agree - [əgríː] - согласна</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-slide card">
+										<div class="slider-block__complexity">
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+										</div>
+										<div class="slider-block__info">
+											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
+											<div class="slider-block__body slider-b-body">
+												<div class="slider-b-body__top">
+													<div class="slider-b-body__title">
+														The students <input type="text" placeholder="agree" /> they have too much homework.
+													</div>
+													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
+												</div>
+												<div class="slider-b-body__center">
+													<div class="slider-b-body__show">
+														<span>Показать объяснение значения слова</span>
+														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+													</div>
+													<div class="slider-b-body__goshow">
+														<div class="slider-b-body__example">
+															To <i>agree</i> is to have the same opinion or belief as another person.
+														</div>
+														<div class="slider-b-body__text">
+															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
+														</div>
+													</div>
+												</div>
+												<div class="slider-b-body__bottom">
+													<div class="slider-b-body__get">
+														<span
+															>Добавить в<br />
+															сложные слова</span
+														>
+														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
+														<label for="happy"></label>
+													</div>
+													<div class="slider-b-body__more">
+														<span>Agree - [əgríː] - согласна</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="swiper-slide card">
+										<div class="slider-block__complexity">
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+											<span class="slider-block__circle"></span>
+										</div>
+										<div class="slider-block__info">
+											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
+											<div class="slider-block__body slider-b-body">
+												<div class="slider-b-body__top">
+													<div class="slider-b-body__title">
+														The students <input type="text" placeholder="agree" /> they have too much homework.
+													</div>
+													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
+												</div>
+												<div class="slider-b-body__center">
+													<div class="slider-b-body__show">
+														<span>Показать объяснение значения слова</span>
+														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+													</div>
+													<div class="slider-b-body__goshow">
+														<div class="slider-b-body__example">
+															To <i>agree</i> is to have the same opinion or belief as another person.
+														</div>
+														<div class="slider-b-body__text">
+															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
+														</div>
+													</div>
+												</div>
+												<div class="slider-b-body__bottom">
+													<div class="slider-b-body__get">
+														<span
+															>Добавить в<br />
+															сложные слова</span
+														>
+														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
+														<label for="happy"></label>
+													</div>
+													<div class="slider-b-body__more">
+														<span>Agree - [əgríː] - согласна</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+								
+							</div>
+							<div class="swiper-button-next"></div>
+								<div class="swiper-button-prev"></div>
+						</div>
+							
+						<div class="block__lvl lvl-block">
+							<div class="lvl-block__item"><span>Снова</span></div>
+							<div class="lvl-block__item"><span>Легко</span></div>
+							<div class="lvl-block__item"><span>Хорошо</span></div>
+							<div class="lvl-block__item"><span>Трудно</span></div>
+						</div>
+						<div class="block__bar bar-block">
+							<div class="bar-block__numone">01</div>
+							<div class="bar-block__line">
+								<div class="bar-block__linebar"></div>
+							</div>
+							<div class="bar-block__numtwo">50</div>
+						</div>
+					</div>
+					
+        </section>
+
+        <!-- 
+			<section class="settings">
+				<div class="settings__set">
+					Настройки
+				</div>
+				<div class="settings__other">
+					<div class="settings__item">
+						<div class="settings__text">Количество новых слов</div>
+						<input type="text" class="settings__square-big">
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Количество карточке в день</div>
+						<input type="text" class="settings__square-big">
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Предложение с объяснением</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy" name="happy"
+							value="yes">
+						<label for="happy" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Пример использования</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy2" name="happy2"
+							value="yes">
+						<label for="happy2" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Перевод слова</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy3" name="happy4"
+							value="yes">
+						<label for="happy3" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Картинка-ассоциация</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy4" name="happy4"
+							value="yes">
+						<label for="happy4" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Транскрипция</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy5" name="happy5"
+							value="yes">
+						<label for="happy5" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Кнопка показать ответ</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy6" name="happy6"
+							value="yes">
+						<label for="happy6" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Кнопка удалить</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy7" name="happy7"
+							value="yes">
+						<label for="happy7" class="settings__custoncheckbox"></label>
+					</div>
+					<div class="settings__item">
+						<div class="settings__text">Кнопка добавить в сложные слова</div>
+						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy8" name="happy8"
+							value="yes">
+						<label for="happy8" class="settings__custoncheckbox"></label>
+					</div>
+				</div>
+				<div class="settings__logout"><a href="">Выйти из аккаунта</a></div>
+			</section> -->
+
+        <!-- <section class="vocabulary">
+				<div class="vocabulary__title">
+					<div class="vocabulary__about">Словарь</div>
+					<div class="vocabulary__trening"><a href="">Тренировать выбранные слова</a></div>
+				</div>
+				<div class="vocabulary__info">
+					<div class="vocabulary__info-title"><a href="">Изучаемые&nbsp;слова</a></div>
+					<div class="vocabulary__info-title"><a href="">Сложные</a></div>
+					<div class="vocabulary__info-title"><a href="">Удалённые</a></div>
+				</div>
+				<div class="vocabulary__num">Всeго слов: 330</div>
+				<div class="vocabulary__template template-vocabulary">
+
+					<div class="template-vocabulary__body">
+						<div class="template-vocabulary__title">
+							<div class="template-vocabulary__lvl">
+								<div class="complexity">
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
 								</div>
 							</div>
+							<div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
 						</div>
-
-						<div class="swiper-slide card">
-							<div class="slider-block__complexity">
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-							</div>
-							<div class="slider-block__info">
-								<div class="slider-block__img"><img src="/src/img/people.jpg" alt=""></div>
-								<div class="slider-block__body slider-b-body">
-									<div class="slider-b-body__top">
-										<div class="slider-b-body__title"> The students <input type="text" placeholder="agree">
-											they have too much homework.</div>
-										<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы
-										</div>
-									</div>
-									<div class="slider-b-body__center">
-										<div class="slider-b-body__show">
-											<span>Показать объяснение значения слова</span>
-											<img class="slider-b-body__accordionshow" src="/src/img/arrowDown.png" alt="1">
-										</div>
-										<div class="slider-b-body__goshow">
-											<div class="slider-b-body__example">To <i>agree</i> is to have the same opinion or
-												belief
-												as
-												another person.</div>
-											<div class="slider-b-body__text">Согласиться - значит иметь то же мнение или убеждение,
-												что и
-												другой человек</div>
-										</div>
-
-									</div>
-									<div class="slider-b-body__bottom">
-										<div class="slider-b-body__get">
-											<span>Добавить в<br> сложные слова</span>
-											<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes">
-											<label for="happy"></label>
-										</div>
-										<div class="slider-b-body__more">
-											<span>Agree - [əgríː] - согласна</span>
-										</div>
-									</div>
+						<div class="template-vocabulary__all">
+							<div class="template-vocabulary__info">
+								<div class="template-vocabulary__word">
+									<span>Agree - [əgríː] - согласна</span>
+									<img src="/assets/img/on.png" alt="">
+								</div>
+								<div class="template-vocabulary__example">
+									<span>Пример:</span>
+									<span>The students <b>agree</b> they have too much homework.</span>
+								</div>
+								<div class="template-vocabulary__value">
+									<span>Значение:</span>
+									<span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+								</div>
+								<div class="template-vocabulary__time">
+									<div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+									<div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+									<div class="template-vocabulary__num">Повторения: 6</div>
 								</div>
 							</div>
+							<div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt=""></div>
 						</div>
+					</div>
 
-						<div class="swiper-slide card">
-							<div class="slider-block__complexity">
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-								<span class="slider-block__circle"></span>
-							</div>
-							<div class="slider-block__info">
-								<div class="slider-block__img"><img src="/src/img/people.jpg" alt=""></div>
-								<div class="slider-block__body slider-b-body">
-									<div class="slider-b-body__top">
-										<div class="slider-b-body__title"> The students <input type="text" placeholder="agree">
-											they have too much homework.</div>
-										<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы
-										</div>
-									</div>
-									<div class="slider-b-body__center">
-										<div class="slider-b-body__show">
-											<span>Показать объяснение значения слова</span>
-											<img class="slider-b-body__accordionshow" src="/src/img/arrowDown.png" alt="1">
-										</div>
-										<div class="slider-b-body__goshow">
-											<div class="slider-b-body__example">To <i>agree</i> is to have the same opinion or
-												belief
-												as
-												another person.</div>
-											<div class="slider-b-body__text">Согласиться - значит иметь то же мнение или убеждение,
-												что и
-												другой человек</div>
-										</div>
-
-									</div>
-									<div class="slider-b-body__bottom">
-										<div class="slider-b-body__get">
-											<span>Добавить в<br> сложные слова</span>
-											<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes">
-											<label for="happy"></label>
-										</div>
-										<div class="slider-b-body__more">
-											<span>Agree - [əgríː] - согласна</span>
-										</div>
-									</div>
+					<div class="template-vocabulary__body">
+						<div class="template-vocabulary__title">
+							<div class="template-vocabulary__lvl">
+								<div class="complexity">
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
 								</div>
 							</div>
+							<div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+						</div>
+						<div class="template-vocabulary__all">
+							<div class="template-vocabulary__info">
+								<div class="template-vocabulary__word">
+									<span>Agree - [əgríː] - согласна</span>
+									<img src="/assets/img/on.png" alt="">
+								</div>
+								<div class="template-vocabulary__example">
+									<span>Пример:</span>
+									<span>The students <b>agree</b> they have too much homework.</span>
+								</div>
+								<div class="template-vocabulary__value">
+									<span>Значение:</span>
+									<span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+								</div>
+								<div class="template-vocabulary__time">
+									<div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+									<div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+									<div class="template-vocabulary__num">Повторения: 6</div>
+								</div>
+							</div>
+							<div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt=""></div>
+						</div>
+					</div>
+					<div class="template-vocabulary__body">
+						<div class="template-vocabulary__title">
+							<div class="template-vocabulary__lvl">
+								<div class="complexity">
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+									<span class="complexity__circle"></span>
+								</div>
+							</div>
+							<div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+						</div>
+						<div class="template-vocabulary__all">
+							<div class="template-vocabulary__info">
+								<div class="template-vocabulary__word">
+									<span>Agree - [əgríː] - согласна</span>
+									<img src="/assets/img/on.png" alt="">
+								</div>
+								<div class="template-vocabulary__example">
+									<span>Пример:</span>
+									<span>The students <b>agree</b> they have too much homework.</span>
+								</div>
+								<div class="template-vocabulary__value">
+									<span>Значение:</span>
+									<span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+								</div>
+								<div class="template-vocabulary__time">
+									<div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+									<div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+									<div class="template-vocabulary__num">Повторения: 6</div>
+								</div>
+							</div>
+							<div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt=""></div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="block__lvl lvl-block">
-				<div class="lvl-block__item"><span>Снова</span></div>
-				<div class="lvl-block__item"><span>Легко</span></div>
-				<div class="lvl-block__item"><span>Хорошо</span></div>
-				<div class="lvl-block__item"><span>Трудно</span></div>
-			</div>
-			<div class="block__bar bar-block">
-				<div class="bar-block__numone">01</div>
-				<div class="bar-block__line">
-					<div class="bar-block__linebar"></div>
+			</section> -->
+        <!-- 
+			<section class="statistics">
+				<div class="statistics__title">Статистика</div>
+				<div class="statistics__graph">
+					<div class="statistics__text">Место для графика</div>
 				</div>
-				<div class="bar-block__numtwo">50</div>
-			</div>
-		</section>
-	</div>
-	<div class="menu__burger">
-		<span></span>
-	</div>
-	<section class="menu">
-		<div class="menu__info">
-			<div class="menu__logo">
-				<a href=""><img src="/src/img/logo.png" alt=""></a>
-				<div class="menu__tеxtlogo"><a href="">RSLang</a></div>
-			</div>
-			<div class="menu__nav nav-menu">
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/learn.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">Обучение</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/speak.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">SpeakIt</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/puzzleIcon.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">EnglishPuzzle</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/music.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">Аудиовызов</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/savanna.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">Саванна</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/run.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">Спринт</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/book.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">Словарь</a></div>
-				</div>
-				<div class="nav-menu__item">
-					<div class="nav-menu__image">
-						<a href=""><img src="/src/img/graph.png" alt=""></a>
-					</div>
-					<div class="nav-menu__about"><a href="">Статистика</a></div>
-				</div>
-			</div>
-		</div>
-		<div class="menu__opportunities opportunities-menu">
-			<div class="opportunities-menu__item  opportunities-menu__item-on">
-				<div class="opportunities-menu__image">
-					<img src="/src/img/off.png" alt="">
-				</div>
-				<div class="opportunities-menu__about">Звук&nbsp;выкл.</div>
-			</div>
-			<div class="opportunities-menu__item opportunities-menu__item-off">
-				<div class="opportunities-menu__image">
-					<img src="/src/img/speaker.png" alt="">
-				</div>
-				<div class="opportunities-menu__about">Звук&nbsp;вкл.</div>
-			</div>
-			<div class="opportunities-menu__item">
-				<div class="opportunities-menu__image">
-					<a href=""><img src="/src/img/gear.png" alt=""></a>
-				</div>
-				<div class="opportunities-menu__about"><a href="">Наcтройки</a></div>
-			</div>
-			<div class="opportunities-menu__item opportunities-menu__item-open">
-				<div class="opportunities-menu__image openArrow">
-					<img src="/src/img/open.png" alt="">
-				</div>
-				<div class="opportunities-menu__about"><a href="">Свернуть</a></div>
-			</div>
-		</div>
-	</section>
-</body>
+			</section> -->
+      </div>
+      <div class="menu__burger">
+        <span></span>
+      </div>
+    </main>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+    <!-- <script src="js/script.min.js"></script> -->
+  </body>
 </html>
