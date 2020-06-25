@@ -1,3 +1,6 @@
+# Package
+package-lock.json
+
 # Logs
 logs
 *.log
@@ -81,6 +84,10 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+<<<<<<< HEAD
+=======
+public/
+>>>>>>> webpack-chore-aliases
 
 # Gatsby files
 .cache/
