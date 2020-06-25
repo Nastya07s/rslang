@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
   assets: 'assets',
 };
 
@@ -17,11 +18,13 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
+      englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
   },
   entry: {
-    app: PATHS.src,
+    app: `${PATHS.src}/index.js`,
+    englishpuzzle: `${PATHS.englishpuzzle}/english-puzzle.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -85,6 +88,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
+      // to exclude mini-games' chunks & prevent running their code in the main app '/'
+      excludeChunks: ['englishpuzzle'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.englishpuzzle}/index.html`,
+      filename: './englishpuzzle/index.html',
+      inject: true, // if true - to insert link & script tags into html
+      chunks: ['englishpuzzle', 'vendors', 'app'], // include exact this chunk of needed code
     }),
     new CopyWebpackPlugin([
       {

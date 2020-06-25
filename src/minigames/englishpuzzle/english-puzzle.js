@@ -1,10 +1,10 @@
-import Round from './view/Round';
-import Puzzle from './view/Puzzle';
-import Model from './model/Model';
-import Words from './model/Words';
-import state from './state/state';
-import Statistic from './model/Statistic';
-import QuickStatistic from './view/QuickStatistic';
+import Round from './js/view/Round';
+import Puzzle from './js/view/Puzzle';
+import Model from './js/model/Model';
+import Words from './js/model/Words';
+import state from './js/state/state';
+import Statistic from './js/model/Statistic';
+import QuickStatistic from './js/view/QuickStatistic';
 
 class EnglishPuzzle {
   constructor(api) {

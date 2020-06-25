@@ -1,5 +1,5 @@
 import Api from './api';
-import EnglishPuzzle from './EnglishPuzzle';
+import EnglishPuzzle from '../minigames/englishpuzzle/english-puzzle';
 
 const api = new Api();
 
