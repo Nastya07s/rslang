@@ -6,6 +6,7 @@ const AUDIO_RIGHT = '/audio/right.mp3';
 const AUDIO_WRONG = '/audio/wrong.mp3';
 const MUTE = 'mute';
 const PROGRESS_CLASS = 'icon-progress_';
+const MAX_SCORE = 'max-score';
 
 export default class Sprint {
   constructor(selector) {
@@ -20,6 +21,10 @@ export default class Sprint {
     this.countCorrectAnswer = 0;
     this.totalScore = 0;
     this.mute = localStorage.getItem(MUTE) || false;
+    if (this.mute) {
+      this.sound.classList.add('active');
+    }
+    this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
     this.currentScorePlus = this.getCurrentScorePlus();
     this.wordsArrayFull = await this.getWordsList();
     this.updateCard();
@@ -30,8 +35,7 @@ export default class Sprint {
       // prevent clipping
       strokeWidth: 4,
       trailWidth: 1,
-      easing: 'easeInOut',
-      duration: 1400,
+      duration: 60000,
       text: {
         autoStyleContainer: false,
       },
@@ -50,7 +54,7 @@ export default class Sprint {
         }
       },
     });
-    bar.animate(1.0); // Number from 0.0 to 1.0
+    bar.animate(1.0, {}, this.finishGame.bind(this)); // Number from 0.0 to 1.0
   }
 
   createElement() {
@@ -116,6 +120,11 @@ export default class Sprint {
     this.sound.addEventListener('click', () => {
       this.mute = !this.mute;
       localStorage.setItem(MUTE, this.mute);
+      if (this.mute) {
+        this.sound.classList.add('active');
+      } else {
+        this.sound.classList.remove('active');
+      }
     });
   }
 
@@ -237,5 +246,24 @@ export default class Sprint {
       this.progressImages.classList.remove(PROGRESS_CLASS + i);
     }
     this.progressImages.classList.add(PROGRESS_CLASS + l);
+  }
+
+  finishGame() {
+    this.container.innerHTML = `
+    <div class="card finish">
+      <span class="finish-header">Поздравляем!!!</span> 
+      <div class="image-smile"></div>
+      <div class="total-score_row">Вы набрали - <span class="score-end-of-game">0</span> баллов</div>
+      <div class="max-score_row">Ваш рекорд - <span class="max-score"></span> баллов</div>
+    </div>`;
+    this.totalScoreEndOfGame = this.container.querySelector('.score-end-of-game');
+    this.maxScoreElement = this.container.querySelector('.max-score');
+    this.totalScoreEndOfGame.innerHTML = this.totalScore;
+
+    if (this.maxScore < this.totalScore) {
+      this.maxScore = this.totalScore;
+      localStorage.setItem(MAX_SCORE, this.maxScore);
+    }
+    this.maxScoreElement.innerHTML = this.maxScore;
   }
 }
