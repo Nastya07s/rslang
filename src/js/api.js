@@ -135,8 +135,8 @@ export default class Api {
    * @returns {Promise<unknown>}
    */
 
-  createUserWord(data) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words`, 'POST', data);
+  createUserWord(wordId, data) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${wordId}`, 'POST', data);
   }
 
   getUserWordById(id) {

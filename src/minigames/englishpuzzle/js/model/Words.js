@@ -16,6 +16,18 @@ class Words {
           .then((result) => {
             this.stdCache[group][round] = result;
             resolve(this.stdCache[group][round]);
+            result.forEach((word) => {
+              this.api.createUserWord(word.id, {
+                difficulty: String(group),
+                optional: {
+                  isHard: false,
+                  isDelete: false,
+                  isReadyToRepeat: false,
+                  countRepetition: 0,
+                  lastRepetition: Date.now(),
+                },
+              });
+            });
           });
       } else {
         resolve(this.stdCache[group][round]);
@@ -40,18 +52,23 @@ class Words {
   }
 
   loadUserList() {
+    console.log('loadList', this.api);
     return new Promise((resolve) => {
       if (!this.usrCache.length) {
         this.api.getUserWords()
-          .then((result) => result.filter((word) => word.countRepetition < 4))
           .then((result) => Promise.all(
             result.reduce(
-              (acc, word) => acc.push(this.api.getUserWordById(word.wordId)),
+              (acc, word) => [...acc, this.api.getUserWordById(word.wordId)],
               [],
             ),
           ))
           .then((result) => {
-            this.usrCache = result;
+            this.usrCache = result.filter((word) => {
+              if (!word.optional) {
+                return false;
+              }
+              return word.optional.countRepetition < 4;
+            });
             resolve(this.usrCache);
           });
       }
