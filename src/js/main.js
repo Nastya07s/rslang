@@ -1,5 +1,4 @@
 import Api from './api';
-import EnglishPuzzle from '../minigames/englishpuzzle/english-puzzle';
 
 const api = new Api();
 
@@ -9,6 +8,3 @@ api.checkLogin().then((user) => {
 }, () => {
   // Redirect to login
 });
-
-const englishPuzzle = new EnglishPuzzle(api);
-console.log(englishPuzzle);

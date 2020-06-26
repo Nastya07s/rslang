@@ -26,15 +26,67 @@ class EnglishPuzzle {
       new Audio(state.getAudioPhrase()).play();
     }));
 
-    state.setRoundInfo(0, 0, 19);
+    this.model.setGameMode('auto');
+    state.setRoundInfo(0, 0, 0);
+
+    this.modal = document.querySelector('.start-wrapper');
+    this.close = document.querySelector('.game-start__start');
+
+    this.wrap = document.querySelector('.wrapper');
+
+    this.close.addEventListener('click', () => {
+      this.fadeOut(this.modal, 200);
+      this.fadeIn(this.modal, 600);
+    });
 
     this.init();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   init() {
     state.isDontKnow = false;
     state.isChecked = false;
-    this.model.setRoundData();
+    // this.model.setRoundData();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  fadeIn(nodeCopy, duration) {
+    const node = nodeCopy;
+    if (getComputedStyle(node).display !== 'none') return;
+    if (node.style.display === 'none') {
+      node.style.display = '';
+    } else {
+      node.style.display = 'block';
+    }
+    node.style.opacity = 0;
+    const start = performance.now();
+    requestAnimationFrame(function tick(timestamp) {
+      const easing = (timestamp - start) / duration;
+      node.style.opacity = Math.min(easing, 1);
+      if (easing < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        node.style.opacity = '';
+      }
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  fadeOut(node, duration) {
+    const nodeCopy = node;
+    nodeCopy.style.opacity = 1;
+    const start = performance.now();
+
+    requestAnimationFrame(function tick(timestamp) {
+      const easing = (timestamp - start) / duration;
+      nodeCopy.style.opacity = Math.max(1 - easing, 0);
+      if (easing < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        nodeCopy.style.opacity = '';
+        nodeCopy.style.display = 'none';
+      }
+    });
   }
 
   onDontKnow() {

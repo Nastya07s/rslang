@@ -24,7 +24,7 @@ module.exports = {
   },
   entry: {
     app: `${PATHS.src}/index.js`,
-    englishpuzzle: `${PATHS.englishpuzzle}/english-puzzle.js`,
+    englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -95,7 +95,7 @@ module.exports = {
       template: `${PATHS.englishpuzzle}/index.html`,
       filename: './englishpuzzle/index.html',
       inject: true, // if true - to insert link & script tags into html
-      chunks: ['englishpuzzle', 'vendors', 'app'], // include exact this chunk of needed code
+      chunks: ['englishpuzzle', 'vendors'], // include exact this chunk of needed code
     }),
     new CopyWebpackPlugin([
       {

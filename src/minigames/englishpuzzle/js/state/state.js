@@ -5,6 +5,11 @@ const state = {
   isDontKnow: false,
   isChecked: false,
   store: {
+    settings: {
+      quantityGroup: 6,
+      quantityRound: 30,
+      quantityWord: 20,
+    },
     roundInfo: { word: 0, round: 0, group: 0 },
     word: {
       word: '',
@@ -19,6 +24,10 @@ const state = {
     },
   },
 
+  setSettings(quantityGroup, quantityRound, quantityWord) {
+    this.store.settings = { quantityGroup, quantityRound, quantityWord };
+  },
+
   ready() {
     this.isReady = true;
     this.emit('stateReady');
@@ -29,18 +38,19 @@ const state = {
   },
 
   nextWord() {
-    if (this.store.roundInfo.word < 19) {
+    if (this.store.roundInfo.word < this.store.settings.quantityWord - 1) {
       this.store.roundInfo.word += 1;
     } else {
       this.store.roundInfo.word = 0;
-      if (this.store.roundInfo.round < 29) {
+      if (this.store.roundInfo.round < this.store.settings.quantityRound - 1) {
         this.store.roundInfo.round += 1;
         this.emit('changeImage');
       } else {
         this.store.roundInfo.round = 0;
-        if (this.store.roundInfo.group < 5) {
+        if (this.store.roundInfo.group < this.store.settings.quantityGroup - 1) {
           this.store.roundInfo.group += 1;
         } else {
+          this.emit('gameOver');
           this.store.roundInfo.group = 0;
         }
       }
