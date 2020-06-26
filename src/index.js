@@ -153,6 +153,9 @@ accordionShow.forEach(() => {
   openI2 = 0;
 });
 
+const currentSlide = document.querySelector('.bar-block__numone');
+currentSlide.textContent = render.mySwiper.activeIndex;
+
 const login = new Login('#login');
 const registration = new Registration('#registration');
 // eslint shows errors without console.log (no-unused-vars)

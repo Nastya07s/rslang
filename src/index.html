@@ -96,7 +96,7 @@
         </div>
       </section>
       <div class="wrapper">
-        <section class="block">
+        <!-- <section class="block">
 					<div class="block-wrapper">
 						<div class="block__slider slider-block">
 							<div class="swiper-container swiper-no-swiping">
@@ -158,7 +158,7 @@
 											<span class="slider-block__circle"></span>
 										</div>
 										<div class="slider-block__info">
-											<!-- <div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div> -->
+											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div> 
 											<div class="slider-block__body slider-b-body">
 												<div class="slider-b-body__top">
 													<div class="slider-b-body__title">
@@ -362,205 +362,283 @@
 						</div>
 					</div>
 					
-        </section>
+        </section> -->
 
-        <!-- 
-			<section class="settings">
-				<div class="settings__set">
-					Настройки
+        <!-- <section class="settings">
+				<div class="card settings__card">
+					<div class="settings__set">
+						Настройки
+					</div>
+					<div class="settings__other">
+						<div class="settings__item">
+							<div class="settings__text">Режим изучения слов</div>
+							<select class="settings__mode">
+								<option value="random">Вперемешку</option>
+								<option value="onlyNew">Только новые слова</option>
+								<option value="onlyLerning">Только изучаемые слова</option>
+							</select>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Количество новых слов</div>
+							<input type="text" class="settings__square-big">
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Количество карточке в день</div>
+							<input type="text" class="settings__square-big">
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Предложение с объяснением</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy" name="happy"
+								value="yes">
+							<label for="happy" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Пример использования</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy2" name="happy2"
+								value="yes">
+							<label for="happy2" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Перевод слова</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy3" name="happy4"
+								value="yes">
+							<label for="happy3" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Картинка-ассоциация</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy4" name="happy4"
+								value="yes">
+							<label for="happy4" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Транскрипция</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy5" name="happy5"
+								value="yes">
+							<label for="happy5" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Кнопка показать ответ</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy6" name="happy6"
+								value="yes">
+							<label for="happy6" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Кнопка удалить</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy7" name="happy7"
+								value="yes">
+							<label for="happy7" class="settings__custoncheckbox"></label>
+						</div>
+						<div class="settings__item">
+							<div class="settings__text">Кнопка добавить в сложные слова</div>
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy8" name="happy8"
+								value="yes">
+							<label for="happy8" class="settings__custoncheckbox"></label>
+						</div>
+					</div>
+					<div class="settings__logout"><a href="">Выйти из аккаунта</a></div>
 				</div>
-				<div class="settings__other">
-					<div class="settings__item">
-						<div class="settings__text">Количество новых слов</div>
-						<input type="text" class="settings__square-big">
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Количество карточке в день</div>
-						<input type="text" class="settings__square-big">
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Предложение с объяснением</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy" name="happy"
-							value="yes">
-						<label for="happy" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Пример использования</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy2" name="happy2"
-							value="yes">
-						<label for="happy2" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Перевод слова</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy3" name="happy4"
-							value="yes">
-						<label for="happy3" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Картинка-ассоциация</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy4" name="happy4"
-							value="yes">
-						<label for="happy4" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Транскрипция</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy5" name="happy5"
-							value="yes">
-						<label for="happy5" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Кнопка показать ответ</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy6" name="happy6"
-							value="yes">
-						<label for="happy6" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Кнопка удалить</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy7" name="happy7"
-							value="yes">
-						<label for="happy7" class="settings__custoncheckbox"></label>
-					</div>
-					<div class="settings__item">
-						<div class="settings__text">Кнопка добавить в сложные слова</div>
-						<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy8" name="happy8"
-							value="yes">
-						<label for="happy8" class="settings__custoncheckbox"></label>
-					</div>
-				</div>
-				<div class="settings__logout"><a href="">Выйти из аккаунта</a></div>
-			</section> -->
+			</section>  -->
+        <!-- <section class="vocabulary card">
+          <div class="vocabulary__title">
+            <div class="vocabulary__about">Словарь</div>
+          </div>
+          <div class="vocabulary__info">
+            <div class="vocabulary__info-title"><a href="">Изучаемые&nbsp;слова</a></div>
+            <div class="vocabulary__info-title"><a href="">Сложные</a></div>
+            <div class="vocabulary__info-title"><a href="">Удалённые</a></div>
+          </div>
+          <div class="vocabulary__num">Всeго слов: 330</div>
+          <div class="vocabulary__template template-vocabulary">
+            <div class="template-vocabulary__body">
+              <div class="template-vocabulary__title">
+                <div class="template-vocabulary__lvl">
+                  <div class="complexity">
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                  </div>
+                </div>
+                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+              </div>
+              <div class="template-vocabulary__all">
+                <div class="template-vocabulary__info">
+                  <div class="template-vocabulary__word">
+                    <span>Agree - [əgríː] - согласна</span>
+                    <img src="/assets/img/on.png" alt="" />
+                  </div>
+                  <div class="template-vocabulary__example">
+                    <span>Пример:</span>
+                    <span>The students <b>agree</b> they have too much homework.</span>
+                  </div>
+                  <div class="template-vocabulary__value">
+                    <span>Значение:</span>
+                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+                  </div>
+                  <div class="template-vocabulary__time">
+                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+                    <div class="template-vocabulary__num">Повторения: 6</div>
+                  </div>
+                </div>
+                <div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
+              </div>
+            </div>
+            <div class="template-vocabulary__body">
+              <div class="template-vocabulary__title">
+                <div class="template-vocabulary__lvl">
+                  <div class="complexity">
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                  </div>
+                </div>
+                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+              </div>
+              <div class="template-vocabulary__all">
+                <div class="template-vocabulary__info">
+                  <div class="template-vocabulary__word">
+                    <span>Agree - [əgríː] - согласна</span>
+                    <img src="/assets/img/on.png" alt="" />
+                  </div>
+                  <div class="template-vocabulary__example">
+                    <span>Пример:</span>
+                    <span>The students <b>agree</b> they have too much homework.</span>
+                  </div>
+                  <div class="template-vocabulary__value">
+                    <span>Значение:</span>
+                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+                  </div>
+                  <div class="template-vocabulary__time">
+                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+                    <div class="template-vocabulary__num">Повторения: 6</div>
+                  </div>
+                </div>
+                <div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
+              </div>
+            </div>
+            <div class="template-vocabulary__body">
+              <div class="template-vocabulary__title">
+                <div class="template-vocabulary__lvl">
+                  <div class="complexity">
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                  </div>
+                </div>
+                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+              </div>
+              <div class="template-vocabulary__all">
+                <div class="template-vocabulary__info">
+                  <div class="template-vocabulary__word">
+                    <span>Agree - [əgríː] - согласна</span>
+                    <img src="/assets/img/on.png" alt="" />
+                  </div>
+                  <div class="template-vocabulary__example">
+                    <span>Пример:</span>
+                    <span>The students <b>agree</b> they have too much homework.</span>
+                  </div>
+                  <div class="template-vocabulary__value">
+                    <span>Значение:</span>
+                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+                  </div>
+                  <div class="template-vocabulary__time">
+                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+                    <div class="template-vocabulary__num">Повторения: 6</div>
+                  </div>
+                </div>
+                <div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
+              </div>
+            </div>
 
-        <!-- <section class="vocabulary">
-				<div class="vocabulary__title">
-					<div class="vocabulary__about">Словарь</div>
-					<div class="vocabulary__trening"><a href="">Тренировать выбранные слова</a></div>
-				</div>
-				<div class="vocabulary__info">
-					<div class="vocabulary__info-title"><a href="">Изучаемые&nbsp;слова</a></div>
-					<div class="vocabulary__info-title"><a href="">Сложные</a></div>
-					<div class="vocabulary__info-title"><a href="">Удалённые</a></div>
-				</div>
-				<div class="vocabulary__num">Всeго слов: 330</div>
-				<div class="vocabulary__template template-vocabulary">
-
-					<div class="template-vocabulary__body">
-						<div class="template-vocabulary__title">
-							<div class="template-vocabulary__lvl">
-								<div class="complexity">
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-								</div>
-							</div>
-							<div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-						</div>
-						<div class="template-vocabulary__all">
-							<div class="template-vocabulary__info">
-								<div class="template-vocabulary__word">
-									<span>Agree - [əgríː] - согласна</span>
-									<img src="/assets/img/on.png" alt="">
-								</div>
-								<div class="template-vocabulary__example">
-									<span>Пример:</span>
-									<span>The students <b>agree</b> they have too much homework.</span>
-								</div>
-								<div class="template-vocabulary__value">
-									<span>Значение:</span>
-									<span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-								</div>
-								<div class="template-vocabulary__time">
-									<div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-									<div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-									<div class="template-vocabulary__num">Повторения: 6</div>
-								</div>
-							</div>
-							<div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt=""></div>
-						</div>
-					</div>
-
-					<div class="template-vocabulary__body">
-						<div class="template-vocabulary__title">
-							<div class="template-vocabulary__lvl">
-								<div class="complexity">
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-								</div>
-							</div>
-							<div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-						</div>
-						<div class="template-vocabulary__all">
-							<div class="template-vocabulary__info">
-								<div class="template-vocabulary__word">
-									<span>Agree - [əgríː] - согласна</span>
-									<img src="/assets/img/on.png" alt="">
-								</div>
-								<div class="template-vocabulary__example">
-									<span>Пример:</span>
-									<span>The students <b>agree</b> they have too much homework.</span>
-								</div>
-								<div class="template-vocabulary__value">
-									<span>Значение:</span>
-									<span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-								</div>
-								<div class="template-vocabulary__time">
-									<div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-									<div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-									<div class="template-vocabulary__num">Повторения: 6</div>
-								</div>
-							</div>
-							<div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt=""></div>
-						</div>
-					</div>
-					<div class="template-vocabulary__body">
-						<div class="template-vocabulary__title">
-							<div class="template-vocabulary__lvl">
-								<div class="complexity">
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-									<span class="complexity__circle"></span>
-								</div>
-							</div>
-							<div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-						</div>
-						<div class="template-vocabulary__all">
-							<div class="template-vocabulary__info">
-								<div class="template-vocabulary__word">
-									<span>Agree - [əgríː] - согласна</span>
-									<img src="/assets/img/on.png" alt="">
-								</div>
-								<div class="template-vocabulary__example">
-									<span>Пример:</span>
-									<span>The students <b>agree</b> they have too much homework.</span>
-								</div>
-								<div class="template-vocabulary__value">
-									<span>Значение:</span>
-									<span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-								</div>
-								<div class="template-vocabulary__time">
-									<div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-									<div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-									<div class="template-vocabulary__num">Повторения: 6</div>
-								</div>
-							</div>
-							<div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt=""></div>
-						</div>
-					</div>
-				</div>
-			</section> -->
-        <!-- 
-			<section class="statistics">
+            <div class="template-vocabulary__body">
+              <div class="template-vocabulary__title">
+                <div class="template-vocabulary__lvl">
+                  <div class="complexity">
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                  </div>
+                </div>
+                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+              </div>
+              <div class="template-vocabulary__all">
+                <div class="template-vocabulary__info">
+                  <div class="template-vocabulary__word">
+                    <span>Agree - [əgríː] - согласна</span>
+                    <img src="/assets/img/on.png" alt="" />
+                  </div>
+                  <div class="template-vocabulary__example">
+                    <span>Пример:</span>
+                    <span>The students <b>agree</b> they have too much homework.</span>
+                  </div>
+                  <div class="template-vocabulary__value">
+                    <span>Значение:</span>
+                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+                  </div>
+                  <div class="template-vocabulary__time">
+                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+                    <div class="template-vocabulary__num">Повторения: 6</div>
+                  </div>
+                </div>
+                <div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
+              </div>
+            </div>
+            <div class="template-vocabulary__body">
+              <div class="template-vocabulary__title">
+                <div class="template-vocabulary__lvl">
+                  <div class="complexity">
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                    <span class="complexity__circle"></span>
+                  </div>
+                </div>
+                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+              </div>
+              <div class="template-vocabulary__all">
+                <div class="template-vocabulary__info">
+                  <div class="template-vocabulary__word">
+                    <span>Agree - [əgríː] - согласна</span>
+                    <img src="/assets/img/on.png" alt="" />
+                  </div>
+                  <div class="template-vocabulary__example">
+                    <span>Пример:</span>
+                    <span>The students <b>agree</b> they have too much homework.</span>
+                  </div>
+                  <div class="template-vocabulary__value">
+                    <span>Значение:</span>
+                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
+                  </div>
+                  <div class="template-vocabulary__time">
+                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
+                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
+                    <div class="template-vocabulary__num">Повторения: 6</div>
+                  </div>
+                </div>
+                <div claas="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
+              </div>
+            </div>
+          </div>
+        </section> -->
+        
+			<section class="statistics card">
 				<div class="statistics__title">Статистика</div>
 				<div class="statistics__graph">
 					<div class="statistics__text">Место для графика</div>
 				</div>
-			</section> -->
+			</section>
       </div>
       <div class="menu__burger">
         <span></span>

@@ -3,14 +3,16 @@
 @import "utils/_fonts";
 
 .flex {
-	display: flex;
+  display: flex;
 }
 
-.d-none{
-	display: none;
+.d-none {
+  display: none;
 }
 
-body {
+body,
+select,
+option {
   font-family: "Montserrat", sans-serif;
 }
 
@@ -19,17 +21,20 @@ body {
   // position: absolute;
   width: 100%;
   // height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .menu {
-	width: 67px;
+  width: 67px;
   height: fit-content;
   background-color: #f4f1e0;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-	justify-content: space-between;
-	
+  justify-content: space-between;
+
   &__burger {
     display: none;
     width: 30px;
@@ -172,26 +177,26 @@ body {
 
 .block {
   display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   &__slider {
-		position: relative;
+    position: relative;
   }
 }
 
-.swiper-wrapper{
+.swiper-wrapper {
   max-width: 1088px;
 }
 
 .swiper-slide {
-	background: #fefefe;
-	box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-	border-radius: 21px;
-	padding: 26px;
-	width: 1048px;
-	position: initial;
+  background: #fefefe;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 21px;
+  padding: 26px;
+  width: 1048px;
+  position: initial;
 }
 .slider-block {
   &__complexity {
@@ -373,6 +378,11 @@ body {
   // max-width: 1048px;
   // margin: 0 auto;
   margin-top: 55px;
+  &__numone,
+  &__numtwo {
+    width: 12px;
+  }
+
   &__numone {
     font-weight: 500;
     font-size: 20.6px;
@@ -421,12 +431,11 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   top: 56%;
-	transform: translateY(-100%);
-	
+  transform: translateY(-100%);
 }
 
-.swiper-slide{
-	margin: 20px 20px;
+.swiper-slide {
+  margin: 20px 20px;
 }
 
 .swiper-button-next::after,
@@ -442,7 +451,7 @@ body {
 
 .slider-block .swiper-button-next,
 .swiper-container-rtl .swiper-button-prev {
-	right: -48px;
+  right: -48px;
   left: auto;
 }
 
@@ -453,16 +462,25 @@ body {
 // settings----------------------------------------------------------------------------
 .settings {
   color: #000000;
-  background: #fefefe;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-  border-radius: 21px;
-  display: inline-block;
-  position: absolute;
-  left: calc(50% - 150px);
-  top: 50%;
-  transform: translate(0, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 26px 37px;
-  overflow: scroll;
+
+  &__card {
+    width: 600px;
+  }
+
+  &__mode {
+    border: 1px solid #c4c4c4;
+    font-size: 14px;
+    height: 29px;
+    padding: 0 5px;
+    option {
+      height: 29px;
+    }
+  }
   &__set {
     font-size: 35px;
     line-height: 43px;
@@ -486,6 +504,9 @@ body {
     line-height: 26px;
   }
   &__square-big {
+    font-size: 21px;
+    line-height: 26px;
+    text-align: center;
     width: 52px;
     height: 29px;
     background: #ffffff;
@@ -503,10 +524,12 @@ body {
   &__logout {
     margin-top: 50px;
     a {
+      width: 100%;
+      padding: 10px;
+      text-align: center;
       font-size: 21px;
       line-height: 26px;
       color: #000000;
-      padding: 10px 114px;
       background: #f4f1e0;
       box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
       border-radius: 5px;
@@ -531,17 +554,9 @@ body {
   overflow: -moz-scrollbars-none;
 }
 .vocabulary {
-  overflow: scroll;
-  background: #fefefe;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-  border-radius: 21px;
-  position: absolute;
-  top: 50%;
-  left: calc(50% + 100px);
-  transform: translate(-50%, -50%);
+  
   color: #000000;
-  display: inline-block;
-  padding: 30px;
+  // padding: 30px;
   &__title {
     display: flex;
     justify-content: space-between;
@@ -552,18 +567,18 @@ body {
     line-height: 43px;
   }
 
-  &__trening {
-    a {
-      font-size: 18px;
-      line-height: 22px;
-      color: #000000;
-      padding: 12px 41px;
-      background: #f4f1e0;
-      box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-      display: inline-block;
-    }
-  }
+  // &__trening {
+  //   a {
+  //     font-size: 18px;
+  //     line-height: 22px;
+  //     color: #000000;
+  //     padding: 12px 41px;
+  //     background: #f4f1e0;
+  //     box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  //     border-radius: 5px;
+  //     display: inline-block;
+  //   }
+  // }
 
   &__info {
     display: flex;
@@ -602,6 +617,8 @@ body {
   }
 
   &__template {
+    max-height: 490px;
+    overflow: auto;
   }
 }
 .template-vocabulary {
@@ -728,15 +745,6 @@ body {
 }
 
 .statistics {
-  padding: 26px 37px;
-  background: #fefefe;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-  border-radius: 21px;
-  position: absolute;
-  display: inline-block;
-  top: 50%;
-  left: calc(50% + 100px);
-  transform: translate(-50%, -50%);
   &__title {
     font-size: 35px;
     line-height: 43px;
@@ -765,3 +773,10 @@ body {
   }
 }
 // statistics----------------------------------------------------------------------/////////////
+
+.card {
+  background: #fefefe;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 21px;
+  padding: 26px;
+}
