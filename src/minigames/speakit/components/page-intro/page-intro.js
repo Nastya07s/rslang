@@ -7,6 +7,9 @@ class PageIntro {
     this.classes = {
       ROOT: props.rootClassName,
       START_BUTTON: 'page-intro__start-button',
+      CONTROLS_AUDIO_BUTTON: 'controls-container__audio-button',
+      CONTROLS_SETTINGS_BUTTON: 'controls-container__settings-button',
+      CONTROLS_CLOSE_BUTTON: 'controls-container__close-button',
     };
   }
 
@@ -22,6 +25,19 @@ class PageIntro {
 
     template.innerHTML = `
       <div class="page-intro animation-change-colors visually-hidden">
+        <header class="page-intro__controls-block">
+          <div class="wrapper">
+            <ul class="controls-container">
+              <li class="controls-container__group">
+                <button class="controls-container__audio-button">AUDIO</button>
+              </li>
+              <li class="controls-container__group">
+                <button class="controls-container__settings-button">SETTINGS</button>
+                <button class="controls-container__close-button">CLOSE</button>
+              </li>
+            </ul>
+          </div>
+        </header>
         <main class="page-intro__main">
           <div class="wrapper">
             <div class="page-intro__text-container">
@@ -54,12 +70,15 @@ class PageIntro {
   initElements() {
     const { root } = this.elements;
     const {
+      CONTROLS_CLOSE_BUTTON,
       START_BUTTON,
     } = this.classes;
+    const [closeButton] = root.getElementsByClassName(CONTROLS_CLOSE_BUTTON);
     const [startButton] = root.getElementsByClassName(START_BUTTON);
 
     this.elements = {
       ...this.elements,
+      closeButton,
       startButton,
     };
   }
@@ -67,6 +86,7 @@ class PageIntro {
   initHandlers() {
     const {
       root,
+      closeButton,
       startButton,
     } = this.elements;
 
@@ -82,6 +102,10 @@ class PageIntro {
       root.remove();
     });
 
+    // Control Buttons Handlers
+    closeButton.addEventListener('click', () => {
+      window.location.href = '/';
+    });
 
     // Start Button Handlers
     startButton.addEventListener('click', async () => {
