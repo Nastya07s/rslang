@@ -21,8 +21,8 @@ class PageIntro {
     const template = document.createElement('template');
 
     template.innerHTML = `
-      <div class="page-intro">
-        <main class="page-intro__main animation-change-colors">
+      <div class="page-intro animation-change-colors visually-hidden">
+        <main class="page-intro__main">
           <div class="wrapper">
             <div class="page-intro__text-container">
               <h1 class="page-intro__app-name">SpeakIt</h1>
@@ -66,40 +66,12 @@ class PageIntro {
 
   initHandlers() {
     const {
-      // root,
+      root,
       startButton,
     } = this.elements;
 
-    // const animationTransition = (e) => {
-    //   const { target } = e;
-    //   const isRoot = target === root;
-
-    //   if (!isRoot) {
-    //     return;
-    //   }
-
-    //   console.log('Animation is end!');
-    //   root.remove();
-    // };
-
-    // root.addEventListener('transitionend', animationTransition);
-
-    startButton.addEventListener('click', this.handlerStartButton.bind(this));
-  }
-
-  async handlerStartButton() {
-    const pageMain = new PageMain({
-      page: 0,
-    });
-
-    await pageMain.init();
-    this.hide();
-  }
-
-  hide() {
-    const { root } = this.elements;
-
-    const animationTransition = (e) => {
+    // Intro Page Handlers
+    root.addEventListener('transitionend', (e) => {
       const { target } = e;
       const isRoot = target === root;
 
@@ -107,11 +79,23 @@ class PageIntro {
         return;
       }
 
-      console.log('Animation is end!');
       root.remove();
-    };
+    });
 
-    root.addEventListener('transitionend', animationTransition);
+
+    // Start Button Handlers
+    startButton.addEventListener('click', async () => {
+      const pageMain = new PageMain({
+        page: 0,
+      });
+
+      await pageMain.init();
+      this.hide();
+    });
+  }
+
+  hide() {
+    const { root } = this.elements;
 
     root.classList.toggle('page-intro_hidden');
   }

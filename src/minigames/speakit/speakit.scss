@@ -39,25 +39,30 @@ body {
   // opacity: 0;
 }
 
+.visually-hidden {
+  visibility: hidden;
+}
+
 .loader {
   & {
+    position: absolute;
+
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: inherit;
     min-width: inherit;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+
+    background-color: #ffffff;
 
     transition: opacity 0.35s ease-out;
   }
 
   &_hidden {
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-  
     opacity: 0;
-    visibility: hidden;
   }
 }
 
