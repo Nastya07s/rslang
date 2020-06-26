@@ -1,0 +1,277 @@
+.crystal {
+  display: block;
+  width: 114px;
+  height: 114px;
+  position: absolute;
+  bottom: 20px;
+  
+  &.crytal_state-1 .crystal__bg,
+  &.crytal_state-1 .crystal__bg-items {
+    width: 20px;
+    height: 35px;
+  }
+
+  &.crytal_state-2 .crystal__bg,
+  &.crytal_state-2 .crystal__bg-items {
+    width: 30px;
+    height: 45px;
+  }
+
+  &.crytal_state-3 .crystal__bg,
+  &.crytal_state-3 .crystal__bg-items {
+    width: 40px;
+    height: 64px;
+  }
+
+  &.crytal_state-4 .crystal__bg,
+  &.crytal_state-4 .crystal__bg-items {
+    width: 50px;
+    height: 74px;
+  }
+}
+
+.crystal__imgs {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: animate-vertical 2s linear infinite;
+
+  .crystal__bg {
+    position: absolute;
+    background: url(../img/crystal.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 1;
+    visibility: hidden;
+    transition: all 0.2 ease, visibility 1.4s ease;
+    transform-origin: 50% 50%;
+  }
+  .crystal__bg-items {
+    position: relative;
+    transition: all 0.2s ease;
+    & i {
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      position: absolute;
+      animation: animate-iamge 6s linear infinite;
+    }
+    .crystal__bg-item1 {
+      animation-delay: 0s;
+      background: url(../img/crystal.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .crystal__bg-item2 {
+      animation-delay: 1.5s;
+      background: url(../img/crystal-2.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .crystal__bg-item3 {
+      animation-delay: 3s;
+      background: url(../img/crystal-3.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .crystal__bg-item4 {
+      animation-delay: 4.5s;
+      background: url(../img/crystal-4.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+}
+.crytal__point {
+  top: 0px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  i {
+    height: 3px;
+    width: 3px;
+    border-radius: 3px;
+    background-color: white;
+    position: absolute;
+  }
+
+  .crystal__point-1 {
+    left: 39px;
+    top: 46px;
+    animation: animate-point1 2s linear infinite;
+  }
+  .crystal__point-2 {
+    left: 43px;
+    top: 50px;
+    transform-origin: 20px 20px;
+    animation: animate-point2 4s linear infinite;
+    animation-delay: 0.7s;
+  }
+  .crystal__point-3 {
+    left: 47px;
+    top: 65px;
+    transform-origin: 15px 15px;
+    animation: animate-point2 4s linear infinite;
+    animation-delay: 0.4s;
+  }
+  .crystal__point-4 {
+    left: 79px;
+    top: 74px;
+    animation: animate-point1 2s linear infinite;
+    animation-delay: 0.5s;
+  }
+  .crystal__point-5 {
+    left: 73px;
+    top: 85px;
+    animation: animate-point1 2s linear infinite;
+    animation-delay: 0.7s;
+  }
+  .crystal__point-6 {
+    left: 67px;
+    top: 57px;
+    transform-origin: -10px -10px;
+    animation: animate-point6 2s linear infinite;
+    animation-delay: 0.7s;
+  }
+  .crystal__point-7 {
+    left: 76px;
+    top: 76px;
+    transform-origin: -7px -8px;
+    animation: animate-point6 2s linear infinite;
+    animation-delay: 0.9s;
+  }
+  .crystal__point-8 {
+    left: 67px;
+    top: 51px;
+    transform-origin: -7px -8px;
+    animation: animate-point8 2s linear infinite;
+    animation-delay: 0.5s;
+  }
+  .crystal__point-9 {
+    left: 65px;
+    top: 94px;
+    animation: animate-point1 2s linear infinite;
+    animation-delay: 0.9s;
+  }
+  .crystal__point-10 {
+    left: 43px;
+    top: 35px;
+    animation: animate-point1 2s linear infinite;
+    animation-delay: 0.9s;
+  }
+}
+@keyframes animate-iamge {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  35% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes animate-vertical {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes animate-point1 {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  30% {
+    opacity: 1;
+  }
+  65% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+@keyframes animate-point2 {
+  0% {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+    transform: rotate(-20deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+}
+@keyframes animate-point6 {
+  0% {
+    opacity: 0;
+    transform: rotate(-20deg);
+  }
+  10% {
+    opacity: 1;
+    transform: rotate(-20deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+    transform: rotate(-110deg);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(-20deg);
+  }
+}
+@keyframes animate-point8 {
+  0% {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+  10% {
+    opacity: 1;
+    transform: rotate(-90deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0;
+    transform: rotate(-180deg);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(-90deg);
+  }
+}
