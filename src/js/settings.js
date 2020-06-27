@@ -6,7 +6,9 @@ class Settings {
     this.api = new Api();
 
     this.minigames = {
-      speakit: {},
+      speakit: {
+        isMute: undefined, // false
+      },
       englishPuzzle: {},
       savannah: {},
       audioCall: {},
@@ -51,7 +53,11 @@ class Settings {
     const {
       wordsPerDay = 20,
       optional: {
-        minigames = {},
+        minigames = {
+          speakit: {
+            isMute: false,
+          },
+        },
         learningMode = 'mix',
         countNewWords = 10,
         definitionSentence = false,
@@ -84,9 +90,9 @@ class Settings {
    * @param {String} key name of the field which must be updated @see localUpdates()
    * @param {*} value what must be set
    */
-  update(key, value) {
+  async update(key, value) {
     this.localUpdates(key, value);
-    this.postUpdates();
+    await this.postUpdates();
   }
 
   localUpdates(key, value) {

@@ -45,7 +45,7 @@ class PageIntro {
           <div class="wrapper">
             <ul class="controls-container">
               <li class="controls-container__group">
-                <button class="controls-container__audio-button">AUDIO</button>
+                <button class="controls-container__audio-button">${this.settings.minigames.speakit.isMute ? 'MUTED' : 'NOT MUTED'}</button>
               </li>
               <li class="controls-container__group">
                 ${renderSettings()}
@@ -86,9 +86,11 @@ class PageIntro {
   initElements() {
     const { root } = this.elements;
     const {
+      CONTROLS_AUDIO_BUTTON,
       CONTROLS_CLOSE_BUTTON,
       START_BUTTON,
     } = this.classes;
+    const [audioButton] = root.getElementsByClassName(CONTROLS_AUDIO_BUTTON);
     const [closeButton] = root.getElementsByClassName(CONTROLS_CLOSE_BUTTON);
     const [startButton] = root.getElementsByClassName(START_BUTTON);
 
@@ -102,6 +104,7 @@ class PageIntro {
 
     this.elements = {
       ...this.elements,
+      audioButton,
       closeButton,
       startButton,
     };
@@ -110,6 +113,7 @@ class PageIntro {
   async initHandlers() {
     const {
       root,
+      audioButton,
       closeButton,
       settingsButton,
       startButton,
@@ -131,6 +135,18 @@ class PageIntro {
     await utils.loadImage('/assets/img/speakit/bg-intro.svg');
 
     // Control Buttons Handlers
+    audioButton.addEventListener('click', async () => {
+      const { minigames: { speakit } } = this.settings;
+
+      speakit.isMute = !speakit.isMute;
+
+      audioButton.textContent = speakit.isMute ? 'MUTED' : 'NOT MUTED';
+
+      await this.settings.update('speakit', speakit);
+
+      // console.log();
+    });
+
     // If 'learning' mode is set -> unset settingsButton
     if (settingsButton) {
       settingsButton.addEventListener('click', () => {
