@@ -51,6 +51,7 @@ export default class Sprint {
   createElement() {
     this.container.classList.add('sprint');
     this.container.innerHTML = `
+    <div class="close-game"></div>
     <div class="score">0</div>
     <div id="timer" class="timer"></div>
     <div class="card">
@@ -92,7 +93,7 @@ export default class Sprint {
       // prevent clipping
       strokeWidth: 4,
       trailWidth: 1,
-      duration: 60000,
+      duration: 600,
       text: {
         autoStyleContainer: false,
       },
@@ -146,6 +147,10 @@ export default class Sprint {
     if (this.mute) {
       this.sound.classList.add('active');
     }
+    this.buttonClose = this.container.querySelector('.close-game');
+    this.buttonClose.addEventListener('click', () => {
+      document.location.href = '/';
+    });
     this.updateCard();
   }
 
@@ -276,15 +281,26 @@ export default class Sprint {
       <div class="image-smile"></div>
       <div class="total-score_row">Вы набрали - <span class="score-end-of-game">0</span> баллов</div>
       <div class="max-score_row">Ваш рекорд - <span class="max-score"></span> баллов</div>
+      <div class="control-buttons control-buttons__end-of-game">
+        <button type="button" class="button button-wrong button-start">Повторить</button>
+        <button type="button" class="button button-right button-close">Выход</button>
+      </div>
     </div>`;
     this.totalScoreEndOfGame = this.container.querySelector('.score-end-of-game');
     this.maxScoreElement = this.container.querySelector('.max-score');
     this.totalScoreEndOfGame.innerHTML = this.totalScore;
-
     if (this.maxScore < this.totalScore) {
       this.maxScore = this.totalScore;
       localStorage.setItem(MAX_SCORE, this.maxScore);
     }
     this.maxScoreElement.innerHTML = this.maxScore;
+    this.buttonClose = this.container.querySelector('.button-close');
+    this.buttonClose.addEventListener('click', () => {
+      document.location.href = '/';
+    });
+    this.buttonStart = this.container.querySelector('.button-start');
+    this.buttonStart.addEventListener('click', () => {
+      document.location.href = '/sprint.html';
+    });
   }
 }
