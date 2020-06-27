@@ -1,4 +1,4 @@
-@import "./src/scss/main";
+@import "../../scss/main";
 .body-sprint {
   background: url("/src/img/sprint/background.png") no-repeat center center;
   background-size: cover;
@@ -161,6 +161,7 @@
   background-color: #FF7C79;
   color: white;
   font-size: 1.35rem;
+  line-height: 30px;
 }
 .control-buttons {
   position: relative;
