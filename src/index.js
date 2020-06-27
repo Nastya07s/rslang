@@ -59,7 +59,7 @@ function open() {
   } else {
     tеxtlogo.style.display = 'block';
     arrow.style.transform = 'rotate(0deg)';
-    menu.style.width = '201px';
+    menu.style.width = '230px';
     openNum = 0;
     openI = 0;
     GoNon.forEach(() => {
