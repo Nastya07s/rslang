@@ -43,7 +43,7 @@ class Model {
   setStatistic(word, isCorrect) {
     console.log(isCorrect);
     if (isCorrect) {
-      this.statistic.addCorrect(word);
+      this.statistic.addCorrect(word, this.state.getRoundInfo().group);
     } else {
       this.statistic.addIncorrect(word);
     }

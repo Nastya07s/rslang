@@ -59,8 +59,15 @@ const state = {
   },
 
   setWord(data) {
+    let repetition = 0;
+    if (data.userWord && data.userWord.optional && data.userWord.optional.countRepetition) {
+      repetition = data.userWord.optional.countRepetition;
+    }
+    const i = '_id';
     this.store.word = {
+      id: data[i] || data.id,
       word: data.word,
+      countRepetition: repetition,
       transcript: data.transcription,
       translation: data.wordTranslate,
       englishPhrase: data.textExample

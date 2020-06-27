@@ -1,3 +1,7 @@
+
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+
 import Api from '../../js/api';
 import EnglishPuzzle from './english-puzzle';
 

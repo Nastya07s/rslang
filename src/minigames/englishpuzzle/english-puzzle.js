@@ -12,6 +12,10 @@ class EnglishPuzzle {
     this.model = new Model(new Words(api), new Statistic(api), state);
     this.quickStat = new QuickStatistic();
 
+    state.on('gameOver', () => {
+      window.location.href = '/';
+    });
+
     this.quickStat.on('closeStat', this.nextWord.bind(this));
 
 
@@ -115,7 +119,7 @@ class EnglishPuzzle {
       }
       if (isCorrect) {
         const { word } = state.getRoundInfo();
-        if (Number(word) === 19) {
+        if (Number(word) === state.store.settings.quantityWord - 1) {
           setTimeout(this.quickStat.show(this.model.statistic.data), 2000);
         } else {
           setTimeout(this.nextWord.bind(this), 2000);
@@ -127,6 +131,7 @@ class EnglishPuzzle {
   nextWord() {
     state.nextWord();
     this.init();
+    this.model.setRoundData();
     this.round.spinnerOn();
   }
 

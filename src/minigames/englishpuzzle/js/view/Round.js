@@ -50,6 +50,8 @@ class Round {
     this.sayPhraseBtn.addEventListener('click', () => {
       this.emit('sayPhrase');
     });
+
+    this.setRoundBg();
   }
 
   spinnerOn() {

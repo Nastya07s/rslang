@@ -55,24 +55,23 @@ class Words {
     console.log('loadList', this.api);
     return new Promise((resolve) => {
       if (!this.usrCache.length) {
-        this.api.getUserWords()
-          .then((result) => Promise.all(
-            result.reduce(
-              (acc, word) => [...acc, this.api.getUserWordById(word.wordId)],
-              [],
-            ),
-          ))
+        this.api.getUsersAggregatedWords()
           .then((result) => {
-            this.usrCache = result.filter((word) => {
-              if (!word.optional) {
+            this.usrCache = result[0].paginatedResults.filter((word) => {
+              if (!word.userWord) {
                 return false;
               }
-              return word.optional.countRepetition < 4;
+              if (!word.userWord.optional) {
+                return false;
+              }
+              return word.userWord.optional.countRepetition < 4;
             });
             resolve(this.usrCache);
           });
+      } else {
+        resolve(this.usrCache);
       }
-      return this.usrCache;
+      // return this.usrCache;
     });
   }
 }
