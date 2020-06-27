@@ -1,5 +1,7 @@
 import ProgressBar from 'progressbar.js';
 import Api from '../../js/api';
+import Settings from './settings';
+import StartPage from './components/start-page/start-page';
 
 const INCREASE_SCORE_EVERY = 4;
 const AUDIO_RIGHT = 'assets/audio/sprint/right.mp3';
@@ -15,46 +17,35 @@ export default class Sprint {
   }
 
   async init() {
-    this.createElement();
     this.api = new Api();
+    // this.api.loginUser({
+    //   email: 'ta.nusha@mail.ru',
+    //   password: '123Leo*!',
+    // });
+    this.settings = new Settings();
+    await this.settings.getSettings();
     this.group = 0;
     this.countCorrectAnswer = 0;
     this.totalScore = 0;
     this.mute = localStorage.getItem(MUTE) || false;
-    if (this.mute) {
-      this.sound.classList.add('active');
-    }
     this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
     this.currentScorePlus = this.getCurrentScorePlus();
     this.wordsArrayFull = await this.getWordsList();
-    this.updateCard();
     this.isGetUserWords = true;
-    const bar = new ProgressBar.Circle('#timer', {
-      color: '#aaa',
-      // This has to be the same size as the maximum width to
-      // prevent clipping
-      strokeWidth: 4,
-      trailWidth: 1,
-      duration: 60000,
-      text: {
-        autoStyleContainer: false,
-      },
-      from: { color: '#aaa', width: 1 },
-      to: { color: '#179298', width: 4 },
-      // Set default step function for all animate calls
-      step(state, circle) {
-        circle.path.setAttribute('stroke', state.color);
-        circle.path.setAttribute('stroke-width', state.width);
+    this.createStartPage();
+  }
 
-        const value = Math.round(circle.value() * 60);
-        if (value === 0) {
-          circle.setText('');
-        } else {
-          circle.setText(value);
-        }
-      },
+  createStartPage() {
+    this.startPage = new StartPage({
+      selector: '#minigame-sprint',
+      name: 'Спринт',
+      description: 'Языковой Cпринт потребует от тебя организованности и регулярности.<br>'
+        + ' Помни, что с каждым пройденным уроком ты становишься ближе к своей цели. '
+        + 'Брось себе вызов, и потом ты сможешь заслуженно гордиться результатами проделанной работы.',
+      onGameStart: this.createElement.bind(this),
+      settings: this.settings,
+      gameNameInSettings: 'sprint',
     });
-    bar.animate(1.0, {}, this.finishGame.bind(this)); // Number from 0.0 to 1.0
   }
 
   createElement() {
@@ -95,6 +86,32 @@ export default class Sprint {
       </div>
     </div>
     `;
+    const bar = new ProgressBar.Circle('#timer', {
+      color: '#aaa',
+      // This has to be the same size as the maximum width to
+      // prevent clipping
+      strokeWidth: 4,
+      trailWidth: 1,
+      duration: 60000,
+      text: {
+        autoStyleContainer: false,
+      },
+      from: { color: '#aaa', width: 1 },
+      to: { color: '#179298', width: 4 },
+      // Set default step function for all animate calls
+      step(state, circle) {
+        circle.path.setAttribute('stroke', state.color);
+        circle.path.setAttribute('stroke-width', state.width);
+
+        const value = Math.round(circle.value() * 60);
+        if (value === 0) {
+          circle.setText('');
+        } else {
+          circle.setText(value);
+        }
+      },
+    });
+    bar.animate(1.0, {}, this.finishGame.bind(this)); // Number from 0.0 to 1.0
     this.progressImages = this.container.querySelector('.progress-images');
     this.wordElement = this.container.querySelector('.word');
     this.wordTranslateElement = this.container.querySelector('.word-translate');
@@ -126,6 +143,10 @@ export default class Sprint {
         this.sound.classList.remove('active');
       }
     });
+    if (this.mute) {
+      this.sound.classList.add('active');
+    }
+    this.updateCard();
   }
 
   getCurrentScorePlus() {

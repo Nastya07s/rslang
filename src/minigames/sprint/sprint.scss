@@ -1,4 +1,6 @@
 @import "../../scss/main";
+@import "components/start-page/start-page";
+
 .body-sprint {
   background: url("/src/img/sprint/background.png") no-repeat center center;
   background-size: cover;
@@ -62,6 +64,7 @@
   height: 20px;
   border-radius: 50%;
   background-color: #179298;
+  line-height: 20px;
 
   &.active:after {
     content: '✔';
@@ -306,4 +309,15 @@
   background-size: 150px;
   width: 150px;
   height: 150px;
+}
+.game-start__title,
+.game-start__description {
+  color: #444444;
+}
+.game-start__description {
+  background-color: #C1EFFFab;
+  border-radius: 10px;
+}
+.game-start .game-start__start {
+  background-color: #179298;
 }
