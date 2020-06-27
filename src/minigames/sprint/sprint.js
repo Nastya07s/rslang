@@ -2,8 +2,8 @@ import ProgressBar from 'progressbar.js';
 import Api from '../../js/api';
 
 const INCREASE_SCORE_EVERY = 4;
-const AUDIO_RIGHT = '/audio/right.mp3';
-const AUDIO_WRONG = '/audio/wrong.mp3';
+const AUDIO_RIGHT = 'assets/audio/sprint/right.mp3';
+const AUDIO_WRONG = 'assets/audio/sprint/wrong.mp3';
 const MUTE = 'mute';
 const PROGRESS_CLASS = 'icon-progress_';
 const MAX_SCORE = 'max-score';
