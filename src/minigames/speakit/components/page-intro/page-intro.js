@@ -100,7 +100,6 @@ class PageIntro {
       this.elements.settingsButton = settingsButton;
     }
 
-
     this.elements = {
       ...this.elements,
       closeButton,
@@ -132,14 +131,14 @@ class PageIntro {
     await utils.loadImage('/assets/img/speakit/bg-intro.svg');
 
     // Control Buttons Handlers
-    closeButton.addEventListener('click', () => {
     // If 'learning' mode is set -> unset settingsButton
-      if (settingsButton) {
-        settingsButton.addEventListener('click', () => {
-          console.log('Showed up modal');
-        });
-      }
+    if (settingsButton) {
+      settingsButton.addEventListener('click', () => {
+        console.log('Showed up modal');
+      });
+    }
 
+    closeButton.addEventListener('click', () => {
       window.location.href = '/';
     });
 
