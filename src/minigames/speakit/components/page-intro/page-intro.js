@@ -17,7 +17,7 @@ class PageIntro {
   }
 
   async init() {
-    this.isDefaultMode = this.settings.learningWordsMode !== 'learning';
+    this.isDefaultMode = this.settings.learningMode !== 'old';
     this.render();
     this.initElements();
     await this.initHandlers();

@@ -5,7 +5,6 @@ class Settings {
   constructor() {
     this.api = new Api();
 
-    this.wordsPerDay = undefined;
     this.minigames = {
       speakit: {},
       englishPuzzle: {},
@@ -14,9 +13,25 @@ class Settings {
       sprint: {},
       ourGame: {},
     };
-    this.learningWordsMode = undefined;
+    this.wordsPerDay = undefined; // 20
+    this.learningMode = undefined; // new|old|mix
+    this.countNewWords = undefined; // 10
+    this.definitionSentence = undefined; // false
+    this.exampleSentence = undefined; // false
+    this.translateWord = undefined; // false
+    this.associationImage = undefined; // false
+    this.transcription = undefined; // false
+    this.answerButton = undefined; // false
+    this.deleteButton = undefined; // false
+    this.addToHardWordsButton = undefined; // false
+  }
 
-    // add more settings
+  /**
+   * Use this if you need to initialize settings for new user.
+   */
+  async initSettings() {
+    this.setSettings();
+    await this.postUpdates();
   }
 
   async getSettings() {
@@ -27,20 +42,48 @@ class Settings {
     }
   }
 
-  setSettings(settings) {
+  /**
+   * Parses the given settings & sets their fields with data into instance of class.
+   * @param {Object} settings stores settings usually from backend
+   */
+  setSettings(settings = {}) {
+    console.log(settings);
     const {
-      wordsPerDay = 1,
+      wordsPerDay = 20,
       optional: {
         minigames = {},
-        learningWordsMode = 'random',
-      },
+        learningMode = 'mix',
+        countNewWords = 10,
+        definitionSentence = false,
+        exampleSentence = false,
+        translateWord = false,
+        associationImage = false,
+        transcription = false,
+        answerButton = false,
+        deleteButton = false,
+        addToHardWordsButton = false,
+      } = {},
     } = settings;
 
     this.wordsPerDay = wordsPerDay;
     this.minigames = minigames;
-    this.learningWordsMode = learningWordsMode;
+    this.learningMode = learningMode;
+    this.countNewWords = countNewWords;
+    this.definitionSentence = definitionSentence;
+    this.exampleSentence = exampleSentence;
+    this.translateWord = translateWord;
+    this.associationImage = associationImage;
+    this.transcription = transcription;
+    this.answerButton = answerButton;
+    this.deleteButton = deleteButton;
+    this.addToHardWordsButton = addToHardWordsButton;
   }
 
+  /**
+   * Update local instance of class & send these update to the server.
+   * @param {String} key name of the field which must be updated @see localUpdates()
+   * @param {*} value what must be set
+   */
   update(key, value) {
     this.localUpdates(key, value);
     this.postUpdates();
@@ -62,18 +105,39 @@ class Settings {
     }
   }
 
+  /**
+   * Synchronizes settings with backend API.
+   */
   async postUpdates() {
     const {
       wordsPerDay,
       minigames,
-      learningWordsMode,
+      learningMode,
+      countNewWords,
+      definitionSentence,
+      exampleSentence,
+      translateWord,
+      associationImage,
+      transcription,
+      answerButton,
+      deleteButton,
+      addToHardWordsButton,
     } = this;
 
     const settings = {
       wordsPerDay,
       optional: {
         minigames,
-        learningWordsMode,
+        learningMode,
+        countNewWords,
+        definitionSentence,
+        exampleSentence,
+        translateWord,
+        associationImage,
+        transcription,
+        answerButton,
+        deleteButton,
+        addToHardWordsButton,
       },
     };
 
