@@ -13,9 +13,11 @@ class PageIntro {
     };
 
     this.settings = props.settings;
+    this.isDefaultMode = null;
   }
 
   async init() {
+    this.isDefaultMode = this.settings.learningWordsMode !== 'learning';
     this.render();
     this.initElements();
     await this.initHandlers();
@@ -27,6 +29,16 @@ class PageIntro {
     const fragment = new DocumentFragment();
     const template = document.createElement('template');
 
+    // Control Buttons Logic (unset/set settings button)
+    const renderSettings = () => {
+      // If 'learning' mode is set -> unset settingsButton
+      const ret = this.isDefaultMode
+        ? '<button class="controls-container__settings-button">SETTINGS</button>'
+        : '';
+
+      return ret;
+    };
+
     template.innerHTML = `
       <div class="page-intro animation-change-colors visually-hidden" style="background-image: url(/assets/img/speakit/bg-intro.svg)">
         <header class="page-intro__controls-block">
@@ -36,7 +48,7 @@ class PageIntro {
                 <button class="controls-container__audio-button">AUDIO</button>
               </li>
               <li class="controls-container__group">
-                <button class="controls-container__settings-button">SETTINGS</button>
+                ${renderSettings()}
                 <button class="controls-container__close-button">CLOSE</button>
               </li>
             </ul>
@@ -80,6 +92,15 @@ class PageIntro {
     const [closeButton] = root.getElementsByClassName(CONTROLS_CLOSE_BUTTON);
     const [startButton] = root.getElementsByClassName(START_BUTTON);
 
+    // If 'learning' mode is set -> unset settingsButton
+    if (this.isDefaultMode) {
+      const { CONTROLS_SETTINGS_BUTTON } = this.classes;
+      const [settingsButton] = root.getElementsByClassName(CONTROLS_SETTINGS_BUTTON);
+
+      this.elements.settingsButton = settingsButton;
+    }
+
+
     this.elements = {
       ...this.elements,
       closeButton,
@@ -91,6 +112,7 @@ class PageIntro {
     const {
       root,
       closeButton,
+      settingsButton,
       startButton,
     } = this.elements;
 
@@ -111,6 +133,13 @@ class PageIntro {
 
     // Control Buttons Handlers
     closeButton.addEventListener('click', () => {
+    // If 'learning' mode is set -> unset settingsButton
+      if (settingsButton) {
+        settingsButton.addEventListener('click', () => {
+          console.log('Showed up modal');
+        });
+      }
+
       window.location.href = '/';
     });
 

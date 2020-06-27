@@ -14,6 +14,7 @@ class Settings {
       sprint: {},
       ourGame: {},
     };
+    this.learningWordsMode = undefined;
 
     // add more settings
   }
@@ -31,11 +32,13 @@ class Settings {
       wordsPerDay = 1,
       optional: {
         minigames = {},
+        learningWordsMode = 'random',
       },
     } = settings;
 
     this.wordsPerDay = wordsPerDay;
     this.minigames = minigames;
+    this.learningWordsMode = learningWordsMode;
   }
 
   update(key, value) {
@@ -63,12 +66,14 @@ class Settings {
     const {
       wordsPerDay,
       minigames,
+      learningWordsMode,
     } = this;
 
     const settings = {
       wordsPerDay,
       optional: {
         minigames,
+        learningWordsMode,
       },
     };
 
