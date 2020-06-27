@@ -1,9 +1,10 @@
-const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const PATH = {
+const path = require('path');
+
+const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
   sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
@@ -11,24 +12,29 @@ const PATH = {
 };
 
 module.exports = {
-
   externals: {
-    paths: PATH,
+    paths: PATHS,
+  },
+  resolve: {
+    alias: {
+      app: PATHS.src,
+    },
+    extensions: ['.js'],
   },
   entry: {
-    app: PATH.src,
-    sprint: PATH.sprint,
+    app: PATHS.src,
+    sprint: PATHS.sprint,
   },
   output: {
-    filename: `${PATH.assets}/js/[name].[hash].js`,
-    path: PATH.dist,
+    filename: `${PATHS.assets}/js/[name].[hash].js`,
+    path: PATHS.dist,
   },
   optimization: {
     splitChunks: {
       cacheGroups: {
         vendor: {
           name: 'vendors',
-          test: /node_modules/,
+          test: /[\\/]node_modules[\\/]/,
           chunks: 'all',
           enforce: true,
         },
@@ -38,14 +44,10 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
+      exclude: [
+        /(node_modules|dist|public)/,
+      ],
       use: ['babel-loader', 'eslint-loader'],
-      exclude: '/node_modules/',
-    }, {
-      test: /\.(png|jpg|gif|svg|webp)$/,
-      loader: 'file-loader',
-      options: {
-        name: '[name].[ext]',
-      },
     }, {
       test: /\.scss$/,
       use: [
@@ -64,29 +66,46 @@ module.exports = {
           options: { sourceMap: true },
         },
       ],
+    }, {
+      test: /\.(png|jpe?g|gif|svg|webp)$/i,
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]',
+      },
+    }, {
+      test: /\.(wav|mp3)$/i,
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]',
+      },
     }],
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `${PATH.assets}/css/[name].[contenthash].css`,
+      filename: `${PATHS.assets}/css/[name].[contenthash].css`,
     }),
     new HtmlWebpackPlugin({
-      template: `${PATH.src}/index.html`,
+      template: `${PATHS.src}/index.html`,
       filename: './index.html',
     }),
     new HtmlWebpackPlugin({
-      template: `${PATH.src}/minigames/sprint/index.html`,
+      template: `${PATHS.src}/minigames/sprint/index.html`,
       filename: './sprint.html',
       chunks: ['sprint'],
     }),
-    new CopyWebpackPlugin([{
-      from: `${PATH.src}/img`,
-      to: `${PATH.assets}/img`,
-    },
-    {
-      from: `${PATH.src}/static`,
-      to: '',
-    },
+    new CopyWebpackPlugin([
+      {
+        from: `${PATHS.src}/img`,
+        to: `${PATHS.assets}/img`,
+      },
+      {
+        from: `${PATHS.src}/audio`,
+        to: `${PATHS.assets}/audio`,
+      },
+      {
+        from: `${PATHS.src}/static`,
+        to: '',
+      },
     ]),
   ],
 };
