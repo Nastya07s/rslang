@@ -58,14 +58,11 @@ class PageIntro {
           <div class="wrapper">
             <div class="page-intro__text-container">
               <h1 class="page-intro__app-name">SpeakIt</h1>
-              <h2 class="page-intro__app-description">An application where you can listen to the pronunciation of English
-                words and to check your pronunciation</h2>
-              <p class="page-intro__app-how-to-use"><b class="page-intro__first-word">Click</b> on the words to hear their sound.</p>
-              <p class="page-intro__app-how-to-use"><b class="page-intro__first-word">Click</b> on the button and say the
-                words into the microphone.</p>
-              <p class="page-intro__app-how-to-use"><b class="page-intro__first-word">Click</b> on the button below to get
-                started.</p>
-              <button class="page-intro__start-button animation-change-colors">Yes, but speak what?</button>
+              <h2 class="page-intro__app-description">Приложение, в котором вы можете прослушать произношение слов английского языка и проверить правильно ли вы произносите эти слова</h2>
+              <p class="page-intro__app-how-to-use"><b class="page-intro__first-word">Нажмите</b> на кнопку и произносите слова на экране.</p>
+              <p class="page-intro__app-how-to-use"><b class="page-intro__first-word">Нажмите</b> на слово, чтобы услышать произношение.</p>
+              <p class="page-intro__app-how-to-use"><b class="page-intro__first-word">Нажмите</b> на кнопку ниже, чтобы начать игру.</p>
+              <button class="page-intro__start-button animation-change-colors">Начать</button>
             </div>
           </div>
         </main>
