@@ -9,6 +9,10 @@
   display: none;
 }
 
+body{
+  min-height: 100vh;
+}
+
 body,
 select,
 option {
@@ -17,6 +21,7 @@ option {
 
 main{
   height: 100%;
+  min-height: 100vh;
 }
 
 .wrapper {
@@ -468,7 +473,7 @@ main{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 26px 37px;
+  // padding: 26px 37px;
 
   &__card {
     width: 600px;
