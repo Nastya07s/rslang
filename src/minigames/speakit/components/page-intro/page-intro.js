@@ -1,22 +1,26 @@
 // import loader from 'app/js/loader';
+import utils from 'app/js/utils/utils';
 import PageMain from '../page-main/page-main';
 
 class PageIntro {
   constructor(props) {
     this.elements = {};
     this.classes = {
-      ROOT: props.rootClassName,
       START_BUTTON: 'page-intro__start-button',
       CONTROLS_AUDIO_BUTTON: 'controls-container__audio-button',
       CONTROLS_SETTINGS_BUTTON: 'controls-container__settings-button',
       CONTROLS_CLOSE_BUTTON: 'controls-container__close-button',
     };
+
+    this.settings = props.settings;
   }
 
-  init() {
+  async init() {
     this.render();
     this.initElements();
-    this.initHandlers();
+    await this.initHandlers();
+
+    console.log(this.settings);
   }
 
   render() {
@@ -24,7 +28,7 @@ class PageIntro {
     const template = document.createElement('template');
 
     template.innerHTML = `
-      <div class="page-intro animation-change-colors visually-hidden">
+      <div class="page-intro animation-change-colors visually-hidden" style="background-image: url(/assets/img/speakit/bg-intro.svg)">
         <header class="page-intro__controls-block">
           <div class="wrapper">
             <ul class="controls-container">
@@ -83,7 +87,7 @@ class PageIntro {
     };
   }
 
-  initHandlers() {
+  async initHandlers() {
     const {
       root,
       closeButton,
@@ -101,6 +105,9 @@ class PageIntro {
 
       root.remove();
     });
+
+    // Load image using async/await
+    await utils.loadImage('/assets/img/speakit/bg-intro.svg');
 
     // Control Buttons Handlers
     closeButton.addEventListener('click', () => {
