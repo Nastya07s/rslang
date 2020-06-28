@@ -157,4 +157,4 @@ const login = new Login('#login');
 const registration = new Registration('#registration');
 // eslint shows errors without console.log (no-unused-vars)
 console.log(login);
-console.log(registration)
+console.log(registration);
