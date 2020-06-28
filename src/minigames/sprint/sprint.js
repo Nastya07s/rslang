@@ -1,5 +1,6 @@
 import ProgressBar from 'progressbar.js';
 import Words from 'app/js/words';
+import Statistics from 'app/js/statistics';
 import Api from '../../js/api';
 import Settings from './settings';
 import StartPage from './components/start-page/start-page';
@@ -36,6 +37,7 @@ export default class Sprint {
     this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
     this.wordsArrayFull = await this.getWordsList();
     this.createStartPage();
+    this.statisticsService = new Statistics();
   }
 
   createStartPage() {
@@ -301,5 +303,6 @@ export default class Sprint {
       document.location.href = '/sprint.html';
       this.wordsService.resetToSettings();
     });
+    this.statisticsService.updateGameResult(SPRINT, this.totalScore);
   }
 }
