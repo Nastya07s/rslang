@@ -1,15 +1,5 @@
 // import loader from '../../js/loader';
-
-const getTranslation = async (word) => {
-  const baseUrl = 'https://translate.yandex.net/api/v1.5/tr.json/translate?key=';
-  const key = 'trnsl.1.1.20200427T065631Z.0c10983194239a87.e571e7bd7d82365b43142a166f902ab5f37ea1dd';
-  const params = `&text=${word}&lang=en-ru`;
-  const url = `${baseUrl}${key}${params}`;
-  const res = await fetch(url);
-  const json = await res.json();
-
-  return json;
-};
+import yandexTranslator from 'app/js/api/services/yandex-translate';
 
 class PageMain {
   constructor(props = {}) {
@@ -388,21 +378,23 @@ class PageMain {
     gallery.src = `${this.baseUrl}${imageSrc}`;
   }
 
+  /**
+   * Translate word using Yandex Translator API.
+   * Set "translation" element textContent equal to the translated word in russian.
+   * @param {HTMLElement} card card with the given word
+   */
   async translateWord(card) {
     const { WORD } = this.classes;
     const [word] = card.getElementsByClassName(WORD);
 
-    const response = await getTranslation(word.textContent);
-    let translation = '';
-    const isSuccess = response.code === 200;
+    const response = await yandexTranslator.getTranslation(word.textContent);
 
-    if (isSuccess) {
-      [translation] = response.text;
+    if (response) {
+      const [translationText] = response;
+      const { translation } = this.elements;
+
+      translation.textContent = translationText;
     }
-
-    const { translation: translationEl } = this.elements;
-
-    translationEl.textContent = translation;
   }
 
   increaseScore() {
