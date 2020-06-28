@@ -85,7 +85,7 @@
       font-size: 0.5em;
       font-weight: 400;
       text-transform: uppercase;
-      text-shadow: 1px 1px 2px black;
+      text-shadow: 1px 1px 2px #000000;
       color: $default-color;
   
       cursor: pointer;
@@ -93,7 +93,7 @@
     }
 
     &:hover {
-      box-shadow: 0px 0px 4px 0px white;
+      box-shadow: 0px 0px 4px 0px #ffffff;
     }
 
     &:active {
@@ -103,6 +103,26 @@
 }
 
 .controls-container {
-  display: flex;
-  justify-content: space-between;
+  & {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  %cursor-pointer {
+    cursor: pointer;
+  }
+
+  &__audio-button,
+  &__settings-button,
+  &__close-button {
+    @extend %cursor-pointer;
+  }
 }
+
+@import "../tooltip/tooltip";
+@import "../pagination/pagination";

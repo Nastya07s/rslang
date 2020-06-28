@@ -12,6 +12,10 @@ class PageIntro {
       CONTROLS_AUDIO_BUTTON: 'controls-container__audio-button',
       CONTROLS_SETTINGS_BUTTON: 'controls-container__settings-button',
       CONTROLS_CLOSE_BUTTON: 'controls-container__close-button',
+      PAGE_INTRO_PAGINATION: 'page-intro__pagination',
+      PAGINATION: 'pagination__list',
+      DIFFICULTY: 'pagination__item',
+      ACTIVE_DIFFICULTY: 'pagination__item_active',
     };
 
     this.api = props.api;
@@ -36,7 +40,21 @@ class PageIntro {
     const renderSettings = () => {
       // If 'learning' mode is set -> unset settingsButton
       const ret = this.isDefaultMode
-        ? '<button class="controls-container__settings-button">SETTINGS</button>'
+        ? `<div class="tooltip">
+            <button class="controls-container__settings-button">SETTINGS</button>
+            <div class="tooltip-content-left tooltip-content_hidden">
+              <div class="page-intro__pagination pagination">
+                <ul class="pagination__list">
+                  <li class="pagination__item">Изи</li>
+                  <li class="pagination__item">Легко</li>
+                  <li class="pagination__item">Норм</li>
+                  <li class="pagination__item">Чёт трудно</li>
+                  <li class="pagination__item">Ля... не души</li>
+                  <li class="pagination__item">Тупа жесть!</li>
+                </ul>
+              </div>
+            </div>
+          </div>`
         : '';
 
       return ret;
@@ -74,13 +92,36 @@ class PageIntro {
 
     const root = template.content.firstElementChild;
 
-    fragment.append(template.content);
-    document.body.append(fragment);
-
     this.elements = {
       ...this.elements,
       root,
     };
+
+    // Render custom state
+    if (this.isDefaultMode) {
+      const {
+        PAGINATION,
+        ACTIVE_DIFFICULTY,
+      } = this.classes;
+      const [pagination] = root.getElementsByClassName(PAGINATION);
+      const {
+        minigames: {
+          speakit: {
+            difficulty,
+          },
+        },
+      } = this.settings;
+
+      pagination.children[difficulty].classList.add(ACTIVE_DIFFICULTY);
+
+      this.elements = {
+        ...this.elements,
+        pagination,
+      };
+    }
+
+    fragment.append(template.content);
+    document.body.append(fragment);
   }
 
   initElements() {
@@ -94,12 +135,20 @@ class PageIntro {
     const [closeButton] = root.getElementsByClassName(CONTROLS_CLOSE_BUTTON);
     const [startButton] = root.getElementsByClassName(START_BUTTON);
 
-    // If 'learning' mode is set -> unset settingsButton
+    // If '!mix' mode is set -> unset settingsButton
     if (this.isDefaultMode) {
-      const { CONTROLS_SETTINGS_BUTTON } = this.classes;
+      const {
+        CONTROLS_SETTINGS_BUTTON,
+        PAGE_INTRO_PAGINATION,
+      } = this.classes;
       const [settingsButton] = root.getElementsByClassName(CONTROLS_SETTINGS_BUTTON);
+      const [pageIntroPagination] = root.getElementsByClassName(PAGE_INTRO_PAGINATION);
 
-      this.elements.settingsButton = settingsButton;
+      this.elements = {
+        ...this.elements,
+        settingsButton,
+        pageIntroPagination,
+      };
     }
 
     this.elements = {
@@ -131,10 +180,10 @@ class PageIntro {
       root.remove();
     });
 
-    // Load image using async/await
-    await utils.loadImage('/assets/img/speakit/bg-intro.svg');
+    await utils.loadImage('/assets/img/speakit/bg-intro.svg'); // Load image using async/await
 
     // Control Buttons Handlers
+    // Audio handler
     audioButton.addEventListener('click', async () => {
       const { minigames: { speakit } } = this.settings;
 
@@ -143,15 +192,20 @@ class PageIntro {
       audioButton.textContent = speakit.isMute ? 'MUTED' : 'NOT MUTED';
 
       await this.settings.update('speakit', speakit);
-
-      // console.log();
     });
 
-    // If 'learning' mode is set -> unset settingsButton
+    // If '!mix' mode is set -> unset settingsButton
     if (settingsButton) {
       settingsButton.addEventListener('click', () => {
-        console.log('Showed up modal');
+        const { pageIntroPagination } = this.elements;
+
+        // show/hide pop-up with settings
+        pageIntroPagination.parentElement.classList.toggle('tooltip-content_hidden');
       });
+
+      const { pagination } = this.elements;
+
+      pagination.addEventListener('click', this.handlerSwitchDifficulty.bind(this));
     }
 
     closeButton.addEventListener('click', () => {
@@ -160,10 +214,20 @@ class PageIntro {
 
     // Start Button Handlers
     startButton.addEventListener('click', async () => {
+      const {
+        minigames: {
+          speakit: {
+            isMute,
+            round,
+            difficulty,
+          },
+        },
+      } = this.settings;
       const pageMain = new PageMain({
         api: this.api,
-        round: this.isDefaultMode ? this.settings.minigames.speakit.round : -1,
-        difficulty: this.isDefaultMode ? this.settings.minigames.speakit.difficulty : -1,
+        round: this.isDefaultMode ? round : -1,
+        difficulty: this.isDefaultMode ? difficulty : -1,
+        volume: isMute ? 0 : 0.5,
       });
 
       await pageMain.init();
@@ -183,6 +247,32 @@ class PageIntro {
     const { VISUALLY_HIDDEN } = this.classes;
 
     root.classList.toggle(VISUALLY_HIDDEN);
+  }
+
+  async handlerSwitchDifficulty(event) {
+    const { DIFFICULTY, ACTIVE_DIFFICULTY } = this.classes;
+    const { pagination } = this.elements;
+    const { target } = event;
+    const hasDifficultyClassName = target.classList.contains(DIFFICULTY);
+    const isActiveDifficulty = target.classList.contains(ACTIVE_DIFFICULTY);
+
+    if (event.target && hasDifficultyClassName && !isActiveDifficulty) {
+      // Find chosen difficulty
+      const chosenDifficulty = Array.prototype.findIndex.call(pagination.children,
+        (item) => event.target === item);
+
+      const { minigames: { speakit } } = this.settings;
+
+      // Remove previous active difficulty class
+      pagination.children[speakit.difficulty].classList.remove(ACTIVE_DIFFICULTY);
+      // Add new active difficulty class
+      pagination.children[chosenDifficulty].classList.add(ACTIVE_DIFFICULTY);
+
+      // Update difficulty on the backend
+      speakit.difficulty = chosenDifficulty;
+
+      await this.settings.update('speakit', speakit);
+    }
   }
 }
 

@@ -16,13 +16,6 @@
       repeating-linear-gradient(-45deg, white, white 80px, #ffecef 80px,#ffecef 160px);
   }
 
-  &__pagination {
-    & {
-      margin-top: 50px;
-      margin-bottom: 50px;
-    }
-  }
-
   &__score {
     & {
       margin-bottom: 20px;
@@ -38,35 +31,6 @@
   &__words-container {
     & {
       margin-bottom: 10px;
-    }
-  }
-}
-
-.pagination {
-  &__list {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  &__item {
-    & {
-      padding: 10px;
-      margin-right: 5px;
-
-      border: 1px solid black;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    &:not(&_active):hover {
-      background-color: rgba(0, 0, 0, 0.25);
-    }
-
-    &_active {
-      & {
-        background-color: lightcoral;
-      }
     }
   }
 }

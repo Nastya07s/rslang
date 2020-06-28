@@ -13,17 +13,15 @@ class PageMain {
       IMAGE: 'current-word-container__image',
       TRANSLATION: 'current-word-container__translation',
       WORD: 'words-container__word',
-      PAGINATION: 'pagination__list',
-      DIFFICULTY: 'pagination__item',
-      ACTIVE_DIFFICULTY: 'pagination__item_active',
       RESTART_BUTTON: 'controls__restart-button',
       BUTTON_DISABLED: 'controls__button_disabled',
       SCORE: 'score__total',
     };
     this.elements = {};
+    this.api = props.api;
     this.difficulty = props.difficulty;
     this.round = props.round;
-    this.api = props.api;
+    this.volume = props.volume;
     this.data = null;
     this.baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/data/';
     this.speechRecognition = null;
@@ -83,16 +81,6 @@ class PageMain {
       <div class="page-main" style="background-image: url(/assets/img/speakit/bg-intro.svg)">
         <main class="page-main__main">
           <div class="wrapper">
-            <div class="page-main__pagination pagination">
-              <ul class="pagination__list">
-                <li class="pagination__item">Very Easy</li>
-                <li class="pagination__item">Easy</li>
-                <li class="pagination__item">Normal</li>
-                <li class="pagination__item">Hard</li>
-                <li class="pagination__item">Very hard</li>
-                <li class="pagination__item">You truly speak english!</li>
-              </ul>
-            </div>
             <div class="page-main__score score">
               <p class="score__title">Счёт:</p>
               <div class="score__total">
@@ -121,17 +109,9 @@ class PageMain {
     const root = template.content.firstElementChild;
 
     const {
-      PAGINATION,
       WORDS_CONTAINER,
-      ACTIVE_DIFFICULTY,
     } = this.classes;
-    const [pagination] = root.getElementsByClassName(PAGINATION);
     const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
-
-    // FIXME: перенести подсвечивание сложностей в другую страницу
-    if (this.isDefaultMode) {
-      pagination.children[this.difficulty].classList.add(ACTIVE_DIFFICULTY);
-    }
 
     this.data.forEach((item) => {
       const {
@@ -150,13 +130,13 @@ class PageMain {
       `;
       wordsContainer.append(cardTemplate.content);
     });
+
     fragment.append(template.content);
     document.body.append(fragment);
 
     this.elements = {
       ...this.elements,
       root,
-      pagination,
       wordsContainer,
     };
   }
@@ -194,51 +174,17 @@ class PageMain {
       restartButton,
       speakButton,
       wordsContainer,
-      pagination,
       audioPlayer,
     } = this.elements;
 
     // set default volume
-    audioPlayer.volume = 0.2;
+    audioPlayer.volume = this.volume;
 
     restartButton.addEventListener('click', this.handlerRestartButton.bind(this));
     speakButton.addEventListener('click', this.handlerSpeakButton.bind(this));
     wordsContainer.children.forEach((card) => {
       card.addEventListener('click', this.handlerCardClick.bind(this));
     });
-    pagination.addEventListener('click', this.handlerSwitchDifficulty.bind(this));
-  }
-
-  handlerSwitchDifficulty(event) {
-    const {
-      DIFFICULTY,
-      ACTIVE_DIFFICULTY,
-    } = this.classes;
-    const {
-      root,
-      pagination,
-    } = this.elements;
-    const { target } = event;
-    const hasDifficultyClassName = target.classList.contains(DIFFICULTY);
-    const isActiveDifficulty = target.classList.contains(ACTIVE_DIFFICULTY);
-
-    if (event.target && hasDifficultyClassName && !isActiveDifficulty) {
-      const chosenDifficulty = Array.prototype.findIndex.call(pagination.children,
-        (item) => event.target === item);
-
-      this.handlerRestartButton(); // remove added handlers to speech recognition
-      root.remove(); // remove the whole page
-
-      // loader.toggleLoader(); // place loader gif
-
-      const mainPage = new PageMain({
-        api: this.api,
-        difficulty: chosenDifficulty,
-        round: 0,
-      });
-
-      mainPage.init();
-    }
   }
 
   handlerRestartButton() {
@@ -252,13 +198,16 @@ class PageMain {
 
       this.speechRecognition.abort();
       this.speechRecognition.removeEventListener('end', this.speechRecognition.start);
+      // Reset score & make visual changes
       this.score = 0;
       score.textContent = this.score;
 
+      // Remove colored correct/failed cards' appearance
       [...wordsContainer.children].forEach((card) => {
         card.removeAttribute('style');
       });
 
+      // Reset buttons to the default state
       restartButton.classList.add(this.classes.BUTTON_DISABLED);
       speakButton.classList.remove(this.classes.BUTTON_DISABLED);
     }
@@ -309,9 +258,8 @@ class PageMain {
 
     if (searchCard) {
       const [word] = searchCard.getElementsByClassName(WORD);
-      const wordText = word.textContent;
 
-      translation.textContent = wordText;
+      translation.textContent = word.textContent;
       this.changeImage(searchCard);
 
       const searchCardStyle = searchCard.getAttribute('style');
