@@ -10,7 +10,7 @@
 <body>
   <header>
     <div class="wrapper header__wrapper">
-      <div class="controllers">
+      <div class="controllers inactive">
         <div class="controllers__left">
           <div class="audio  icon">
 
@@ -143,8 +143,41 @@
 
   <main>
     <div class="wrapper wrapper__main">
-      <div class="prelaunch">
+      <div class="backdrop">
+        <div class="loader-data">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+      <div class="prelaunch inactive">
         <div class="loader">
+          <div class="crystal crytal_state-1">
+            <div class="crystal__imgs">
+              <div class="crystal__bg">
+              </div>
+              <div class="crystal__bg-items">
+                <i class="crystal__bg-item1"></i>
+                <i class="crystal__bg-item2"></i>
+                <i class="crystal__bg-item3"></i>
+                <i class="crystal__bg-item4"></i>
+              </div>
+            </div>
+            <div class="crytal__point">
+              <i class="crystal__point-1"></i>
+              <i class="crystal__point-2"></i>
+              <i class="crystal__point-3"></i>
+              <i class="crystal__point-4"></i>
+              <i class="crystal__point-5"></i>
+              <i class="crystal__point-6"></i>
+              <i class="crystal__point-7"></i>
+              <i class="crystal__point-8"></i>
+              <i class="crystal__point-9"></i>
+              <i class="crystal__point-10"></i>
+            </div>
+          </div>
           <div class="loader__counter">
           </div>
           <div class="loader__items">
@@ -163,7 +196,7 @@
           </div>
         </div>
       </div>
-      <div class="game-start">
+      <div class="game-start inactive">
         <div class="game-start__title">
           САВАННА
         </div>
@@ -174,7 +207,7 @@
           Начать
         </button>
       </div>
-      <div class="game">
+      <div class="game inactive">
         <div class="game__answers">
           <button class="game__answer">
           </button>
@@ -212,7 +245,7 @@
           </div>
         </div>
       </div>
-      <div class="savannah__statistics">
+      <div class="savannah__statistics inactive">
 
         <div class="finish-statistics">
           <div class="finish-statistics__title">
@@ -221,13 +254,11 @@
           <div class="wrapper__answers">
             <div class="finish-statistics__answers">
               <div class="finish-statistics__answers-invalid-title">
-                <!-- ОШИБОК: 5 -->
               </div>
               <div class="finish-statistics__answers-invalid">
               </div>
               <div class="finish-statistics__answers-line"></div>
               <div class="finish-statistics__answers-valid-title">
-                <!-- ЗНАЮ: 5 -->
               </div>
               <div class="finish-statistics__answers-valid">
               </div>
@@ -238,8 +269,15 @@
             <button class="finish-training">В галвное меню</button>
           </div>
         </div>
-
-
+      </div>
+      <div class="drop-game">
+        <div class="drop-game__window">
+          <div class="drop-game-window__title">Тренировка не закончена!</div>
+          <div class="drop-game-window__description">Если вы вернетесь в главное меню,ваши результаты не буду сохранены
+          </div>
+          <button class="drop-game-window__exit">Закрыть</button>
+          <button class="drop-game-window__cancel">Отмена</button>
+        </div>
       </div>
     </div>
   </main>
