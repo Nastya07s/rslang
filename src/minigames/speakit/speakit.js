@@ -19,10 +19,16 @@ api.checkLogin().then(async (user) => {
   await settings.getSettings();
   console.log(JSON.stringify(settings));
 
-  // settings.update('learningWordsMode', 'learning');
+  // const { minigames: { speakit } } = settings;
+
+  // speakit.difficulty = 4;
+
+  // await settings.update('speakit', speakit);
+  // await settings.update('learningMode', 'mix');
 
   // 3. Start render of the page
   const pageIntro = new PageIntro({
+    api,
     settings,
   });
 

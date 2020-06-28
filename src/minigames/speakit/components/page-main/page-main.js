@@ -1,13 +1,5 @@
 // import loader from '../../js/loader';
 
-const getWords = async (page, group) => {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group}`;
-  const res = await fetch(url);
-  const json = await res.json();
-
-  return json.slice(0, 10);
-};
-
 const getTranslation = async (word) => {
   const baseUrl = 'https://translate.yandex.net/api/v1.5/tr.json/translate?key=';
   const key = 'trnsl.1.1.20200427T065631Z.0c10983194239a87.e571e7bd7d82365b43142a166f902ab5f37ea1dd';
@@ -40,17 +32,18 @@ class PageMain {
       SCORE: 'score__total',
     };
     this.elements = {};
+    this.difficulty = props.difficulty;
+    this.round = props.round;
+    this.api = props.api;
     this.data = null;
     this.baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/data/';
     this.speechRecognition = null;
+    this.score = null;
+    this.isDefaultMode = this.difficulty !== -1;
   }
 
   async init() {
-    const isRoundOutOfBound = this.props.page > 5 || this.props.page < 0;
-    const startPage = isRoundOutOfBound ? 0 : this.props.page;
-
-    this.props.page = startPage;
-    this.score = 0;
+    this.initArguments();
 
     await this.initData();
     this.render();
@@ -58,8 +51,30 @@ class PageMain {
     this.initHandlers();
   }
 
+  /**
+   * Processing & initializing or resetting the arguments of the class.
+   */
+  initArguments() {
+    if (this.isDefaultMode) {
+      const isDifficultyOutOfBound = this.difficulty > 5 || this.difficulty < 0;
+
+      if (isDifficultyOutOfBound) {
+        this.difficulty = 0;
+      }
+    }
+
+    // Set or reset the score
+    this.score = 0;
+  }
+
   async initData() {
-    this.data = await getWords(0, this.props.page);
+    if (this.isDefaultMode) {
+      this.data = await this.api.getWords(this.round, this.difficulty);
+    } else {
+      // TODO: логика на работу с другим режимом!
+      this.data = await this.api.getWords(0, 0);
+    }
+
     this.data = await this.data.map((item) => {
       const processedItem = item;
 
@@ -209,7 +224,7 @@ class PageMain {
     const isActivePage = event.target.classList.contains(ACTIVE_PAGE);
 
     if (event.target && isPage && !isActivePage) {
-      const currentPage = Array.prototype.findIndex.call(pagination.children,
+      const chosenDifficulty = Array.prototype.findIndex.call(pagination.children,
         (item) => event.target === item);
 
       this.handlerRestartButton(); // remove added handlers to speech recognition
@@ -218,7 +233,9 @@ class PageMain {
       // loader.toggleLoader(); // place loader gif
 
       const mainPage = new PageMain({
-        page: currentPage,
+        api: this.api,
+        difficulty: chosenDifficulty,
+        round: 0,
       });
 
       mainPage.init();

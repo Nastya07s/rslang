@@ -8,6 +8,8 @@ class Settings {
     this.minigames = {
       speakit: {
         isMute: undefined, // false
+        round: undefined, // 0
+        difficulty: undefined, // 0
       },
       englishPuzzle: {},
       savannah: {},
@@ -56,6 +58,8 @@ class Settings {
         minigames = {
           speakit: {
             isMute: false,
+            round: 0,
+            difficulty: 0,
           },
         },
         learningMode = 'mix',

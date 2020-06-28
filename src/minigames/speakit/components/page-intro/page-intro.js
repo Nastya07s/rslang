@@ -12,6 +12,7 @@ class PageIntro {
       CONTROLS_CLOSE_BUTTON: 'controls-container__close-button',
     };
 
+    this.api = props.api;
     this.settings = props.settings;
     this.isDefaultMode = null;
   }
@@ -158,7 +159,9 @@ class PageIntro {
     // Start Button Handlers
     startButton.addEventListener('click', async () => {
       const pageMain = new PageMain({
-        page: 0,
+        api: this.api,
+        round: this.isDefaultMode ? this.settings.minigames.speakit.round : -1,
+        difficulty: this.isDefaultMode ? this.settings.minigames.speakit.difficulty : -1,
       });
 
       await pageMain.init();
