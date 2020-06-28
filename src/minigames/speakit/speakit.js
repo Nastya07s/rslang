@@ -17,6 +17,7 @@ api.checkLogin().then(async (user) => {
   const settings = new Settings();
 
   await settings.getSettings();
+  // await settings.initSettings();
   console.log(JSON.stringify(settings));
 
   // const { minigames: { speakit } } = settings;
