@@ -1,4 +1,5 @@
 import ProgressBar from 'progressbar.js';
+import Words from 'app/js/words';
 import Api from '../../js/api';
 import Settings from './settings';
 import StartPage from './components/start-page/start-page';
@@ -9,6 +10,7 @@ const AUDIO_WRONG = 'assets/audio/sprint/wrong.mp3';
 const MUTE = 'mute';
 const PROGRESS_CLASS = 'icon-progress_';
 const MAX_SCORE = 'max-score';
+const SPRINT = 'sprint';
 
 export default class Sprint {
   constructor(selector) {
@@ -24,14 +26,15 @@ export default class Sprint {
     // });
     this.settings = new Settings();
     await this.settings.getSettings();
-    this.group = 0;
+    this.wordsService = new Words({
+      settings: this.settings,
+      gameNameInSettings: SPRINT,
+    });
     this.countCorrectAnswer = 0;
     this.totalScore = 0;
     this.mute = localStorage.getItem(MUTE) || false;
     this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
-    this.currentScorePlus = this.getCurrentScorePlus();
     this.wordsArrayFull = await this.getWordsList();
-    this.isGetUserWords = true;
     this.createStartPage();
   }
 
@@ -44,8 +47,9 @@ export default class Sprint {
         + 'Брось себе вызов, и потом ты сможешь заслуженно гордиться результатами проделанной работы.',
       onGameStart: this.createElement.bind(this),
       settings: this.settings,
-      gameNameInSettings: 'sprint',
+      gameNameInSettings: SPRINT,
     });
+    this.wordsService.resetToSettings();
   }
 
   createElement() {
@@ -126,7 +130,6 @@ export default class Sprint {
     this.answerIncorrect = this.container.querySelector('.answer-incorrect');
     this.answerCorrectList = this.container.querySelectorAll('.answer-correct .answer-correct__list-item');
     document.addEventListener('keydown', (event) => {
-      console.log(event.key);
       if (event.key === 'ArrowLeft') {
         this.buttonWrong.click();
       }
@@ -149,7 +152,8 @@ export default class Sprint {
     }
     this.buttonClose = this.container.querySelector('.close-game');
     this.buttonClose.addEventListener('click', () => {
-      document.location.href = '/';
+      document.location.href = '/sprint.html';
+      this.wordsService.resetToSettings();
     });
     this.updateCard();
   }
@@ -158,41 +162,34 @@ export default class Sprint {
     return 10 * (2 ** Math.floor((this.countCorrectAnswer) / INCREASE_SCORE_EVERY));
   }
 
-  getWordsList() {
-    if (this.isGetUserWords) {
-      return this.api.getUserWords()
-        .then((response) => {
-          this.isGetUserWords = false;
-          if (response && response.length !== 0) {
-            const wordsListId = response;
-            const promises = wordsListId.map((element) => this.api.getWordById(element.wordId));
-            return Promise.all(promises)
-              .then((responseUserWords) => Sprint.mixWords(responseUserWords));
-          }
-          return this.getRandomWords();
-        });
-    }
-    return this.getRandomWords();
+  async getWordsList() {
+    const words = await this.wordsService.getWords(true);
+    return Sprint.getGameWords(words);
   }
 
-  getRandomWords() {
-    const pageRandom = Math.floor(Math.random() * 29);
-    return this.api.getWords(this.group, pageRandom)
-      .then((responseRandomWords) => Sprint.mixWords(responseRandomWords));
-  }
-
-  static mixWords(wordsArray) {
-    const randomArray = wordsArray.sort(() => 0.5 - Math.random());
-    return randomArray.map((element, index) => {
+  static getGameWords(wordsArray) {
+    return wordsArray.map((element, index) => {
       const correct = 0.5 - Math.random() > 0;
       if (correct) {
-        return { word: element.word, wordTranslate: element.wordTranslate, correct: true };
+        return {
+          wordId: element.id,
+          word: element.word,
+          wordTranslate: element.wordTranslate,
+          correct: true,
+          wordData: element,
+        };
       }
-      let elementIncorrect = randomArray[index + 2];
+      let elementIncorrect = wordsArray[index + 2];
       if (elementIncorrect === undefined) {
-        [elementIncorrect] = randomArray;
+        [elementIncorrect] = wordsArray;
       }
-      return { word: element.word, wordTranslate: elementIncorrect.wordTranslate, correct: false };
+      return {
+        wordId: element.id,
+        word: element.word,
+        wordTranslate: elementIncorrect.wordTranslate,
+        correct: false,
+        wordData: element,
+      };
     });
   }
 
@@ -225,6 +222,7 @@ export default class Sprint {
       this.countCorrectAnswer += 1;
       const correctAnswers = this.countCorrectAnswer % INCREASE_SCORE_EVERY;
       this.playSound(AUDIO_RIGHT);
+      this.wordsService.updateRepetition(this.word.wordId, this.word.wordData.group.toString());
       if (correctAnswers === 0) {
         this.switchImages(Math.floor(this.countCorrectAnswer / INCREASE_SCORE_EVERY) + 1);
         this.blockCurrentScorePlus.innerHTML = this.getCurrentScorePlus();
@@ -238,7 +236,6 @@ export default class Sprint {
       } else {
         this.answerCorrectList[correctAnswers - 1].classList.add('active');
       }
-      this.updateCard();
     } else {
       this.countCorrectAnswer = 0;
       this.switchImages(1);
@@ -253,6 +250,7 @@ export default class Sprint {
         element.classList.remove('active');
       });
     }
+    this.updateCard();
   }
 
   playSound(src) {
@@ -301,6 +299,7 @@ export default class Sprint {
     this.buttonStart = this.container.querySelector('.button-start');
     this.buttonStart.addEventListener('click', () => {
       document.location.href = '/sprint.html';
+      this.wordsService.resetToSettings();
     });
   }
 }

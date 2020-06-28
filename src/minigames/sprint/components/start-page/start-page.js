@@ -15,13 +15,13 @@ export default class StartPage {
 
   init() {
     this.gameSettings = {
-      level: 0,
+      difficulty: 0,
       round: 0,
     };
     this.gameSettings = Object.assign(this.gameSettings,
       this.config.settings.minigames[this.config.gameNameInSettings]);
     this.render();
-    this.fillStars(this.gameSettings.level);
+    this.fillStars(this.gameSettings.difficulty);
   }
 
   render() {
@@ -215,11 +215,12 @@ export default class StartPage {
       if (index >= 0) {
         this.fillStars(index);
       }
-      this.gameSettings.level = index;
+      this.gameSettings.difficulty = index;
       this.config.settings.localUpdates(this.config.gameNameInSettings, this.gameSettings);
       this.config.settings.postUpdates();
     });
     this.roundSelect = this.container.querySelector('.options__levels select');
+    this.roundSelect.value = this.gameSettings.round;
     this.roundSelect.addEventListener('change', (event) => {
       this.gameSettings.round = event.target.value;
       this.config.settings.localUpdates(this.config.gameNameInSettings, this.gameSettings);
@@ -227,8 +228,8 @@ export default class StartPage {
     });
   }
 
-  fillStars(level) {
-    for (let i = 0; i <= level; i += 1) {
+  fillStars(difficulty) {
+    for (let i = 0; i <= difficulty; i += 1) {
       this.starsArray[i].classList.add('active');
     }
   }
