@@ -9,7 +9,7 @@
   display: none;
 }
 
-body{
+body {
   min-height: 100vh;
 }
 
@@ -19,7 +19,7 @@ option {
   font-family: "Montserrat", sans-serif;
 }
 
-main{
+main {
   height: 100%;
   min-height: 100vh;
 }
@@ -462,7 +462,7 @@ main{
 .slider-block .swiper-button-disabled {
   display: none;
 }
-.swiper-container{
+.swiper-container {
   // margin-top: 145px;
 }
 
@@ -547,21 +547,25 @@ main{
 // settings----------------------------------------------------------------------/////////////
 // vocabulary----------------------------------------------------------------------/////////////
 /* хром, сафари */
-.vocabulary::-webkit-scrollbar {
-  width: 0;
+.vocabulary__template::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color:#c4c4c4;
+}
+
+.vocabulary__template::-webkit-scrollbar{
+  width: 8px;
 }
 
 /* ie 10+ */
-.vocabulary {
-  -ms-overflow-style: none;
-}
+// .vocabulary {
+//   -ms-overflow-style: none;
+// }
 
 /* фф (свойство больше не работает, других способов тоже нет)*/
 .vocabulary {
   overflow: -moz-scrollbars-none;
 }
 .vocabulary {
-  
   color: #000000;
   // padding: 30px;
   &__title {
@@ -665,32 +669,23 @@ main{
 
   &__example {
     margin-top: 15px;
-    span:nth-child(1) {
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 22px;
-    }
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 22px;
     span:nth-child(2) {
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 22px;
       color: #6776ac;
     }
   }
 
   &__value {
-    span:nth-child(1) {
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 22px;
-    }
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 8px;
+
     span:nth-child(2) {
-      font-weight: 300;
-      font-size: 18px;
-      line-height: 22px;
       color: #6776ac;
     }
-    margin-bottom: 8px;
   }
 
   &__time {
@@ -705,6 +700,7 @@ main{
     display: flex;
     justify-content: space-between;
     margin-top: 12px;
+    margin-right: 20px;
   }
   &__body {
     border-bottom: 1px solid rgba(205, 204, 195, 0.56);
