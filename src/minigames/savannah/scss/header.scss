@@ -120,9 +120,9 @@ header {
 .hearts {
   // width: 11.5em;
   // height: 1.6em;
-  display: none;
-  &.active {
-    display: flex;
+  display: flex;
+  &.inactive {
+    display: none;
   }
 }
 

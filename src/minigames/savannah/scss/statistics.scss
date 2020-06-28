@@ -2,9 +2,11 @@
   margin: 0 auto;
   max-width: 750px;
   height: 600px;
-  display: none;
-  &.active {
-    display: block;
+  // display: none;
+  display: block;
+
+  &.inactive {
+    display: none;
   }
 }
 .finish-statistics {

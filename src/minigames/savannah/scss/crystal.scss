@@ -1,10 +1,12 @@
+.game .crystal {
+  bottom: 20px;
+}
 .crystal {
   display: block;
   width: 114px;
   height: 114px;
   position: absolute;
-  bottom: 20px;
-  
+
   &.crytal_state-1 .crystal__bg,
   &.crytal_state-1 .crystal__bg-items {
     width: 20px;

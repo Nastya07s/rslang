@@ -1,12 +1,14 @@
 .prelaunch {
   width: 100%;
   margin-top: 10%;
-  display: none;
+  // display: none;
+  display: flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  &.active {
-    display: flex;
+  &.inactive {
+    display: none;
   }
 }
 
