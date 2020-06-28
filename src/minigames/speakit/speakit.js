@@ -38,7 +38,7 @@ api.checkLogin().then(async (user) => {
   await document.fonts.ready;
 
   // Page Intro is loaded
-  pageIntro.elements.root.classList.toggle('visually-hidden');
+  pageIntro.show();
   loader.toggle();
 }, () => {
   // Redirect to login

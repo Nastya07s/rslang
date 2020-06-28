@@ -12,8 +12,7 @@ const getTranslation = async (word) => {
 };
 
 class PageMain {
-  constructor(props) {
-    this.props = props;
+  constructor(props = {}) {
     this.classes = {
       ROOT: 'page-main',
       SPEAK_BUTTON: 'controls__speak-button',
@@ -25,8 +24,8 @@ class PageMain {
       TRANSLATION: 'current-word-container__translation',
       WORD: 'words-container__word',
       PAGINATION: 'pagination__list',
-      PAGE: 'pagination__item',
-      ACTIVE_PAGE: 'pagination__item_active',
+      DIFFICULTY: 'pagination__item',
+      ACTIVE_DIFFICULTY: 'pagination__item_active',
       RESTART_BUTTON: 'controls__restart-button',
       BUTTON_DISABLED: 'controls__button_disabled',
       SCORE: 'score__total',
@@ -91,7 +90,7 @@ class PageMain {
     const template = document.createElement('template');
 
     template.innerHTML = `
-      <div class="page-main">
+      <div class="page-main" style="background-image: url(/assets/img/speakit/bg-intro.svg)">
         <main class="page-main__main">
           <div class="wrapper">
             <div class="page-main__pagination pagination">
@@ -105,7 +104,7 @@ class PageMain {
               </ul>
             </div>
             <div class="page-main__score score">
-              <p class="score__title">Score:</p>
+              <p class="score__title">Счёт:</p>
               <div class="score__total">
                 ${this.score}
               </div>
@@ -114,14 +113,14 @@ class PageMain {
               <div class="current-word-container__image-container">
                 <img class="current-word-container__image" src="/assets/img/speakit/bg-intro.jpg" alt="your word">
               </div>
-              <p class="current-word-container__translation">Your pronunciation or translation will be here</p>
+              <p class="current-word-container__translation">Ваше произношение или перевод появится здесь 😁</p>
             </div>
             <div class="page-main__words-container words-container">
             </div>
             <div class="page-main__controls controls">
-              <button class="controls__button controls__restart-button controls__button_disabled">Restart</button>
+              <button class="controls__button controls__restart-button controls__button_disabled">Заново</button>
               <button class="controls__button controls__speak-button">Speak it</button>
-              <button class="controls__button controls__results-button controls__button_disabled">Results</button>
+              <button class="controls__button controls__results-button controls__button_disabled">Результаты</button>
             </div>
             <audio class="audio-player" preload="none" src=""></audio>
           </div>
@@ -134,12 +133,15 @@ class PageMain {
     const {
       PAGINATION,
       WORDS_CONTAINER,
-      ACTIVE_PAGE,
+      ACTIVE_DIFFICULTY,
     } = this.classes;
     const [pagination] = root.getElementsByClassName(PAGINATION);
     const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
 
-    pagination.children[this.props.page].classList.add(ACTIVE_PAGE);
+    // FIXME: перенести подсвечивание сложностей в другую страницу
+    if (this.isDefaultMode) {
+      pagination.children[this.difficulty].classList.add(ACTIVE_DIFFICULTY);
+    }
 
     this.data.forEach((item) => {
       const {
@@ -218,12 +220,19 @@ class PageMain {
   }
 
   handlerSwitchDifficulty(event) {
-    const { PAGE, ACTIVE_PAGE } = this.classes;
-    const { pagination, root } = this.elements;
-    const isPage = event.target.classList.contains(PAGE);
-    const isActivePage = event.target.classList.contains(ACTIVE_PAGE);
+    const {
+      DIFFICULTY,
+      ACTIVE_DIFFICULTY,
+    } = this.classes;
+    const {
+      root,
+      pagination,
+    } = this.elements;
+    const { target } = event;
+    const hasDifficultyClassName = target.classList.contains(DIFFICULTY);
+    const isActiveDifficulty = target.classList.contains(ACTIVE_DIFFICULTY);
 
-    if (event.target && isPage && !isActivePage) {
+    if (event.target && hasDifficultyClassName && !isActiveDifficulty) {
       const chosenDifficulty = Array.prototype.findIndex.call(pagination.children,
         (item) => event.target === item);
 
@@ -351,6 +360,10 @@ class PageMain {
     this.translateWord(target);
   }
 
+  /**
+   * Set audio src to the audioPlayer to play the given card's pronunciation.
+   * @param {HTMLElement} card card with the given word
+   */
   playSound(card) {
     const { audioPlayer } = this.elements;
     const audioSrc = card.dataset.audio;
@@ -364,6 +377,10 @@ class PageMain {
     }
   }
 
+  /**
+   * Change main image with the clicked card's image.
+   * @param {HTMLElement} card card with the given word
+   */
   changeImage(card) {
     const { gallery } = this.elements;
     const imageSrc = card.dataset.image;

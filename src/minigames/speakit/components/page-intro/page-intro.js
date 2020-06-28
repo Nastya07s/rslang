@@ -6,6 +6,8 @@ class PageIntro {
   constructor(props) {
     this.elements = {};
     this.classes = {
+      PAGE_INTRO_HIDDEN: 'page-intro_hidden',
+      VISUALLY_HIDDEN: 'visually-hidden',
       START_BUTTON: 'page-intro__start-button',
       CONTROLS_AUDIO_BUTTON: 'controls-container__audio-button',
       CONTROLS_SETTINGS_BUTTON: 'controls-container__settings-button',
@@ -171,8 +173,16 @@ class PageIntro {
 
   hide() {
     const { root } = this.elements;
+    const { PAGE_INTRO_HIDDEN } = this.classes;
 
-    root.classList.toggle('page-intro_hidden');
+    root.classList.toggle(PAGE_INTRO_HIDDEN);
+  }
+
+  show() {
+    const { root } = this.elements;
+    const { VISUALLY_HIDDEN } = this.classes;
+
+    root.classList.toggle(VISUALLY_HIDDEN);
   }
 }
 
