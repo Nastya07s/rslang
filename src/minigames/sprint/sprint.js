@@ -39,13 +39,15 @@ export default class Sprint {
         this.wordsArrayFull = await this.getWordsList();
         this.createStartPage();
         this.statisticsService = new Statistics();
+        this.arrayCorrectAnswer = [];
+        this.arrayIncorrectAnswer = [];
       }, () => {
         // document.location.href = '/';
         console.log('Логин');
-        // this.api.loginUser({
-        //   email: 'ta.nusha@mail.ru',
-        //   password: '123Leo*!',
-        // });
+        this.api.loginUser({
+          email: 'ta.nusha@mail.ru',
+          password: '123Leo*!',
+        });
       });
   }
 
@@ -162,9 +164,22 @@ export default class Sprint {
       this.sound.classList.add('active');
     }
     this.buttonClose = this.container.querySelector('.close-game');
+    this.dropGame = document.querySelector('.drop-game');
+    this.dropGameWindowExit = document.querySelector('.drop-game-window__exit');
+    this.dropGameWindowCansel = document.querySelector('.drop-game-window__cancel');
+    let progressBarTime;
     this.buttonClose.addEventListener('click', () => {
-      document.location.href = '/sprint.html';
+      this.dropGame.classList.remove('hidden');
+      bar.stop();
+      progressBarTime = bar.value();
+    });
+    this.dropGameWindowExit.addEventListener('click', () => {
+      document.location.href = '/';
       this.wordsService.resetToSettings();
+    });
+    this.dropGameWindowCansel.addEventListener('click', () => {
+      this.dropGame.classList.add('hidden');
+      bar.animate(1 - progressBarTime, {}, this.finishGame.bind(this));
     });
     this.updateCard();
   }
@@ -234,6 +249,7 @@ export default class Sprint {
       const correctAnswers = this.countCorrectAnswer % INCREASE_SCORE_EVERY;
       this.playSound(AUDIO_RIGHT);
       this.wordsService.updateRepetition(this.word.wordId, this.word.wordData.group.toString());
+      this.arrayCorrectAnswer.push(this.word.wordData);
       if (correctAnswers === 0) {
         this.switchImages(Math.floor(this.countCorrectAnswer / INCREASE_SCORE_EVERY) + 1);
         this.blockCurrentScorePlus.innerHTML = this.getCurrentScorePlus();
@@ -260,6 +276,7 @@ export default class Sprint {
       this.answerCorrectList.forEach((element) => {
         element.classList.remove('active');
       });
+      this.arrayIncorrectAnswer.push(this.word.wordData);
     }
     this.updateCard();
   }
@@ -290,6 +307,16 @@ export default class Sprint {
       <div class="image-smile"></div>
       <div class="total-score_row">Вы набрали - <span class="score-end-of-game">0</span> баллов</div>
       <div class="max-score_row">Ваш рекорд - <span class="max-score"></span> баллов</div>
+      <div class="word-list-of-game">
+        <div class="word-list-of-game__words">
+            <div class="bold">Правильные ответы</div>
+            <ul class="word-list-of-game__words-correct"></ul>
+        </div>
+        <div class="word-list-of-game__words">
+            <div class="bold">Неправильные ответы</div>
+            <ul class="word-list-of-game__words-incorrect"></ul>
+        </div>
+      </div>
       <div class="control-buttons control-buttons__end-of-game">
         <button type="button" class="button button-wrong button-start">Повторить</button>
         <button type="button" class="button button-right button-close">Выход</button>
@@ -313,5 +340,25 @@ export default class Sprint {
       this.wordsService.resetToSettings();
     });
     this.statisticsService.updateGameResult(SPRINT, this.totalScore);
+    this.listCorrect = this.container.querySelector('.word-list-of-game__words-correct');
+    this.listIncorrect = this.container.querySelector('.word-list-of-game__words-incorrect');
+    this.listCorrect.innerHTML = '';
+    this.listIncorrect.innerHTML = '';
+    this.arrayCorrectAnswer.forEach((element) => {
+      this.listCorrect.innerHTML += `
+      <li class="word-item">
+        <span class="image-sound"></span>
+        <span class="bold">${element.word}</span>
+        <span>${element.wordTranslate}</span>
+      </li>`;
+    });
+    this.arrayIncorrectAnswer.forEach((element) => {
+      this.listIncorrect.innerHTML += `
+      <li class="word-item">
+        <span class="image-sound"></span>
+        <span class="bold">${element.word}</span>
+        <span>${element.wordTranslate}</span>
+      </li>`;
+    });
   }
 }
