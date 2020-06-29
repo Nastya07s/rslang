@@ -25,8 +25,11 @@ export default class Sprint {
     //   email: 'ta.nusha@mail.ru',
     //   password: '123Leo*!',
     // });
+    this.loaderSprint = document.querySelector('.loader-sprint');
+    this.loaderSprint.classList.remove('hidden');
     this.settings = new Settings();
     await this.settings.getSettings();
+    this.loaderSprint.classList.add('hidden');
     this.wordsService = new Words({
       settings: this.settings,
       gameNameInSettings: SPRINT,
