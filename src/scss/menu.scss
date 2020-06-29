@@ -1,0 +1,153 @@
+.menu {
+  width: 67px;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $lightYellow;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+
+  &__burger {
+    display: none;
+    width: 30px;
+    height: 20px;
+    z-index: 20;
+    cursor: pointer;
+
+    span {
+      width: 100%;
+      height: 2px;
+      background-color: #000000;
+      position: absolute;
+      top: 9px;
+    }
+
+    &::after,
+    &::before {
+      content: "";
+      transition: 0.3s;
+      background-color: #000000;
+      width: 100%;
+      height: 2px;
+      position: absolute;
+    }
+
+    &::after {
+      top: 0;
+    }
+
+    &::before {
+      bottom: 0;
+    }
+  }
+
+  &__logo {
+    align-items: center;
+    padding: 13px 9px 19px;
+    border-bottom: 1px solid rgba($lightGrey, 0.27);
+    margin: 0 8px;
+  }
+
+  &__tеxtlogo {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20.6px;
+    line-height: 25px;
+    margin-left: 22px;
+    display: none;
+
+    a {
+      color: #1d2570;
+    }
+  }
+}
+
+.nav-menu {
+  margin-top: 37px;
+
+  &__image {
+    width: 35px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 44px;
+    margin-left: 16px;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__about {
+    margin-left: 22px;
+    font-size: 13.6px;
+    line-height: 17px;
+    display: none;
+
+    a {
+      color: #000000;
+    }
+  }
+}
+
+.opportunities-menu {
+  &__image {
+    width: 35px;
+    cursor: pointer;
+  }
+
+  &__item {
+    align-items: center;
+    margin-left: 16px;
+
+    &:nth-child(1) {
+      margin-bottom: 44px;
+    }
+
+    &:nth-child(2) {
+      margin-bottom: 44px;
+    }
+
+    &:nth-child(3) {
+      margin-bottom: 17px;
+    }
+
+    &:nth-child(3):hover {
+      margin-bottom: 17px;
+
+      img {
+        animation: rotateSettings 3s Linear infinite;
+      }
+    }
+  }
+
+  &__item-off {
+    display: none;
+  }
+
+  &__about {
+    margin-left: 22px;
+    font-size: 13.6px;
+    line-height: 17px;
+    display: none;
+
+    a {
+      color: #000000;
+    }
+  }
+
+  &__item-open {
+    padding: 25px 9px;
+    border-top: 1px solid rgba($lightGrey, 0.27);
+    margin: 0 8px;
+  }
+}
+
+@keyframes rotateSettings {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
