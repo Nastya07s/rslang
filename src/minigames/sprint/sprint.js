@@ -21,26 +21,32 @@ export default class Sprint {
 
   async init() {
     this.api = new Api();
-    // this.api.loginUser({
-    //   email: 'ta.nusha@mail.ru',
-    //   password: '123Leo*!',
-    // });
     this.loaderSprint = document.querySelector('.loader-sprint');
     this.loaderSprint.classList.remove('hidden');
-    this.settings = new Settings();
-    await this.settings.getSettings();
-    this.loaderSprint.classList.add('hidden');
-    this.wordsService = new Words({
-      settings: this.settings,
-      gameNameInSettings: SPRINT,
-    });
-    this.countCorrectAnswer = 0;
-    this.totalScore = 0;
-    this.mute = localStorage.getItem(MUTE) || false;
-    this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
-    this.wordsArrayFull = await this.getWordsList();
-    this.createStartPage();
-    this.statisticsService = new Statistics();
+    this.api.checkLogin()
+      .then(async () => {
+        this.settings = new Settings();
+        await this.settings.getSettings();
+        this.loaderSprint.classList.add('hidden');
+        this.wordsService = new Words({
+          settings: this.settings,
+          gameNameInSettings: SPRINT,
+        });
+        this.countCorrectAnswer = 0;
+        this.totalScore = 0;
+        this.mute = localStorage.getItem(MUTE) || false;
+        this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
+        this.wordsArrayFull = await this.getWordsList();
+        this.createStartPage();
+        this.statisticsService = new Statistics();
+      }, () => {
+        // document.location.href = '/';
+        console.log('Логин');
+        // this.api.loginUser({
+        //   email: 'ta.nusha@mail.ru',
+        //   password: '123Leo*!',
+        // });
+      });
   }
 
   createStartPage() {
