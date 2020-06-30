@@ -3,7 +3,6 @@
     flex-direction: column;
     padding: 1rem 2rem 0;
     border-radius: 5px;
-    background: linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%);
   }
   
   .help-btn {
@@ -11,6 +10,9 @@
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: space-between;
+    @media (max-width: 437px) {
+      justify-content: center;
+  }
   }
   
   .trans {
@@ -18,6 +20,9 @@
     flex-wrap: wrap;
     width: 100%;
     align-items: center;
+    @media (max-width: 437px) {
+      justify-content: center;
+  }
   }
 
   #transcript {
@@ -198,6 +203,7 @@
 
     @media (max-width: 500px) {
       font-size: 1rem;
+      min-height: 30px;
     }
   }
 
@@ -208,9 +214,6 @@
     min-height: 135px;
     padding: 0 2rem;
     border-radius: 5px;
-    background: -webkit-gradient(linear,left top,left bottom,from(rgba(8,15,26,.39)),to(rgba(17,17,46,.46)));
-    background: -o-linear-gradient(rgba(8,15,26,.39) 0,rgba(17,17,46,.46) 100%);
-    background: linear-gradient(rgba(8,15,26,.39),rgba(17,17,46,.46));
   }
 
   

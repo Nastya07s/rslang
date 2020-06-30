@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-const eventMixin = {
+export default {
   on(eventName, handler) {
     if (!this._eventHandlers) this._eventHandlers = {};
     if (!this._eventHandlers[eventName]) {
@@ -23,5 +23,3 @@ const eventMixin = {
     this._eventHandlers[eventName].forEach((handler) => handler.apply(this, args));
   },
 };
-
-export default eventMixin;

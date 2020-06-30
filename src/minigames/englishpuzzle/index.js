@@ -1,12 +1,13 @@
-
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import './scss/main.scss';
 
-import Api from '../../js/api';
-import EnglishPuzzle from './english-puzzle';
+import Api from 'app/js/api';
+import Settings from 'app/js/Settings';
+import state from './js/state';
+import englishpuzzle from './js/englishpuzzle';
 
-import '../../scss/main.scss';
 
 const api = new Api();
-const game = new EnglishPuzzle(api);
-console.log(game);
+const settings = new Settings();
+englishpuzzle.init(state, api, settings);

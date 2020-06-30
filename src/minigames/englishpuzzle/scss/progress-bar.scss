@@ -4,6 +4,9 @@
     width: inherit;
     justify-content: center;
     top: 30px;
+    @media (max-width: 510px) {
+      justify-content: flex-end;
+  }
 }
 
 .progress {

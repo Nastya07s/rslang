@@ -43,6 +43,12 @@ class EnglishPuzzle {
       this.fadeIn(this.modal, 600);
     });
 
+    this.settingsIcon = document.querySelector('.options');
+
+    // this.model.on('repeatMode', (() => {
+    //   this.settingsIcon.display = 'none';
+    // }));
+
     this.init();
   }
 

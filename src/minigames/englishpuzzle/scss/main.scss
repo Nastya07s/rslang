@@ -1,19 +1,19 @@
-@import "scss/utils/_libs";
-@import "scss/utils/_vars";
-@import "scss/utils/_mixins";
-@import "scss/utils/_fonts";
-@import "scss/utils/media";
-@import "./scss/checkers.scss";
-@import "./scss/header.scss";
-@import "./scss/menu.scss";
-@import "./scss/word.scss";
-@import "./scss/words-panel.scss";
-@import "./scss/helper-panel.scss";
-@import "./scss/logo.scss";
-@import "./scss/progress-bar.scss";
-@import "./scss/statistic.scss";
-@import "./scss/loader.scss";
-@import "./scss/start-page.scss";
+@import "./utils/_libs";
+@import "./utils/_vars";
+@import "./utils/_mixins";
+@import "./utils/_fonts";
+@import "./utils/media";
+@import "./checkers.scss";
+@import "./header.scss";
+@import "./menu.scss";
+@import "./word.scss";
+@import "./words-panel.scss";
+@import "./helper-panel.scss";
+@import "./logo.scss";
+@import "./progress-bar.scss";
+@import "./statistic.scss";
+@import "./loader.scss";
+@import "./start-page.scss";
 
 
 * {
@@ -124,15 +124,15 @@
   }
   
   .wrapper {
-    margin: 0 auto;
     max-width: 1280px;
     width: 100%;
-    padding: 76px 30px 30px;
+    border-radius: 5px;
+    margin: 76px 30px 76px 30px;
+    background: linear-gradient(rgba(8,15,26,.39),rgba(17,17,46,.46));
   }
   
   .phrases {
     padding: 0 1rem;
-    background: linear-gradient(rgba(8, 15, 26, 0.39) 0%, rgba(17, 17, 46, 0.46) 100%);
   }
   
   .word {

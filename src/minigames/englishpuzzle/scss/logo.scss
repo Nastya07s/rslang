@@ -2,6 +2,10 @@
     position: absolute;
     top: 10px;
     left: 25px;
+
+    @media (max-width: 380px) {
+      top: 25px;
+    }
   }
 
 .sign {
@@ -17,6 +21,9 @@
       line-height: 1;
       color: #c6e2ff;
       animation: neon .08s ease-in-out infinite alternate;
+        @media (max-width: 380px) {
+          font-size: 1rem;
+      }
     }
   
   }

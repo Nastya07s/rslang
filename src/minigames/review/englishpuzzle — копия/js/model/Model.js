@@ -16,6 +16,7 @@ class Model {
         this.words.setMode('repeat');
         this.state.setSettings(...options);
         this.setRoundData();
+        // this.emit('repeatMode');
         break;
       default:
         this.checkMode();
