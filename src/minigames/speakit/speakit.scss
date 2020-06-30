@@ -16,6 +16,16 @@ body {
   }
 
   overflow-x: hidden;
+
+  /* styling scrollbar */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color:#dd8680;
+  }
+
+  &::-webkit-scrollbar{
+    width: 8px;
+  }
 }
 
 .wrapper {

@@ -46,8 +46,10 @@
   }
   
   &__app-name {
-    font-size: 2em;
     font-weight: 400;
+
+    @include for-small-phone { font-size: 1.6em; }
+    @include for-phone { font-size: 2em; }
   }
 
   &__app-description {

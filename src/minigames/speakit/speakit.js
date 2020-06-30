@@ -3,7 +3,7 @@ import './speakit.scss';
 import Api from 'app/js/api';
 import Settings from 'app/js/settings';
 
-import loader from 'app/js/loader';
+import loader from 'app/js/utils/loader';
 import PageIntro from './components/page-intro/page-intro';
 
 // 1. Check login

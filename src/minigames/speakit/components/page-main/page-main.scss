@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    padding: 25px 0;
     min-height: inherit;
     min-width: inherit;
 
@@ -128,7 +128,6 @@
   & {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 50px;
   }
 
   &__button {
