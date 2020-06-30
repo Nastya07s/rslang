@@ -1,8 +1,8 @@
-// import loader from '../../js/loader';
 import yandexTranslator from 'app/js/api/services/yandex-translate';
 
 class PageMain {
   constructor(props = {}) {
+    this.elements = {};
     this.classes = {
       ROOT: 'page-main',
       SPEAK_BUTTON: 'controls__speak-button',
@@ -17,8 +17,8 @@ class PageMain {
       BUTTON_DISABLED: 'controls__button_disabled',
       SCORE: 'score__total',
     };
-    this.elements = {};
-    this.api = props.api;
+
+    this.eventBus = props.eventBus;
     this.difficulty = props.difficulty;
     this.round = props.round;
     this.volume = props.volume;
@@ -55,22 +55,27 @@ class PageMain {
   }
 
   async initData() {
-    if (this.isDefaultMode) {
-      this.data = await this.api.getWords(this.round, this.difficulty);
-    } else {
-      // TODO: логика на работу с другим режимом!
-      this.data = await this.api.getWords(0, 0);
-    }
+    let callback = async ({ api }) => {
+      if (this.isDefaultMode) {
+        this.data = await api.getWords(this.round, this.difficulty);
+      } else {
+        // TODO: логика на работу с другим режимом!
+        this.data = await api.getWords(0, 0);
+      }
+    };
 
-    this.data = await this.data.map((item) => {
+    callback = callback.bind(this);
+
+    await this.eventBus.emit('pageMain.initData', { callback });
+
+    // Remove 'files/' from path of the audio & image sources retrieved from backend
+    this.data = this.data.map((item) => {
       const processedItem = item;
 
       processedItem.audio = processedItem.audio.replace('files/', '');
       processedItem.image = processedItem.image.replace('files/', '');
       return processedItem;
     });
-
-    // loader.toggleLoader();
   }
 
   render() {
