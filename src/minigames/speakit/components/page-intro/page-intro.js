@@ -36,7 +36,7 @@ class PageIntro {
     this.initElements();
 
     // Restore state of the elements
-    this.eventBus.emit('pageIntro.restoreState', {
+    await this.eventBus.emit('pageIntro.restoreState', {
       callback: this.restoreState.bind(this),
     });
 
@@ -210,10 +210,7 @@ class PageIntro {
       pagination.addEventListener('click', async (event) => {
         const callback = this.handlerSwitchDifficulty.bind(this);
 
-        await this.eventBus.emit('pageIntro.changeDifficulty', {
-          event,
-          callback,
-        });
+        await this.eventBus.emit('pageIntro.changeDifficulty', { event, callback });
       });
     }
 
