@@ -1,6 +1,6 @@
 .footer {
     background: $color-background;
-    padding: 60px 0 70px;
+    padding: 20px 0 20px;
     @include media-mobile {
         padding: 31px 0;
     }
@@ -8,8 +8,12 @@
 
 .footer__wrapper {
     display: flex;
+    margin-left: 12rem;
     @include media-tablet {
         flex-direction: column;
+    }
+    a {
+        margin: 0;
     }
 }
 

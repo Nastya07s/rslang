@@ -9,22 +9,78 @@ api.checkLogin().then((user) => {
   // Redirect to login
 });
 
-const login = document.querySelectorAll('.switcher-login');
-const signup = document.querySelectorAll('.switcher-signup');
+// Scroll
 
-const wrapperLogin = document.querySelector('.box-login');
-const wrapperSignup = document.querySelector('.box-signup');
+const anchors = document.querySelectorAll('.hover-target');
+const topOffset = document.querySelector('.header').offsetHeight;
 
-signup.forEach((el) => {
-  el.addEventListener('click', () => {
-    wrapperLogin.classList.remove('is-active');
-    wrapperSignup.classList.add('is-active');
+anchors.forEach((link) => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const href = this.getAttribute('href').substring(1);
+    const scrollTarget = document.getElementById(href);
+    const elementPosition = scrollTarget.getBoundingClientRect().top;
+    const offsetPosition = elementPosition - topOffset;
+    window.scrollBy({
+      top: offsetPosition,
+      behavior: 'smooth',
+      block: 'start',
+    });
   });
 });
 
-login.forEach((el) => {
+const login = document.querySelector('.switcher-login');
+const signup = document.querySelector('.switcher-signup');
+
+const switchLink = document.querySelectorAll('.toggler');
+const flipForm = document.querySelector('.wrap');
+
+switchLink.forEach((el) => {
   el.addEventListener('click', () => {
-    wrapperSignup.classList.remove('is-active');
-    wrapperLogin.classList.add('is-active');
+    flipForm.classList.toggle('flipped');
   });
 });
+
+login.addEventListener('click', () => {
+  if (flipForm.classList.contains('flipped')) {
+    flipForm.classList.remove('flipped');
+  }
+});
+
+signup.addEventListener('click', () => {
+  if (!flipForm.classList.contains('flipped')) {
+    flipForm.classList.add('flipped');
+  }
+});
+
+const app = () => {
+  let body;
+  let menu;
+  const menuItems = document.querySelectorAll('.nav__list-item');
+  const toggleClass = (element, stringClass) => {
+    if (element.classList.contains(stringClass)) {
+      element.classList.remove(stringClass);
+    } else {
+      element.classList.add(stringClass);
+    }
+  };
+
+  menuItems.forEach((link) => {
+    link.addEventListener('click', () => {
+      body.classList.remove('nav-active');
+    });
+  });
+
+  const applyListeners = () => {
+    menu.addEventListener('click', () => {
+      toggleClass(body, 'nav-active');
+    });
+  };
+  const init = () => {
+    body = document.querySelector('body');
+    menu = document.querySelector('.menu-icon');
+    applyListeners();
+  };
+  init();
+};
+app();

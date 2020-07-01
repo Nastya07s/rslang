@@ -9,29 +9,39 @@
 <body>
   <header class="header">
     <div class="wrapper header__wrapper">
+        <div class="nav-but-wrap">
+            <div class="menu-icon hover-target">
+                <span class="menu-icon__line menu-icon__line-left"></span>
+                <span class="menu-icon__line"></span>
+                <span class="menu-icon__line menu-icon__line-right"></span>
+            </div>					
+        </div>
+        <div class="nav">
+            <div class="nav__content">
+                <ul class="nav__list">
+                    <li class="nav__list-item active-nav"><a href="#home" class="hover-target">Домой</a></li>
+                    <li class="nav__list-item"><a href="#mini-games" class="hover-target">Мини-игры</a></li>
+                    <li class="nav__list-item"><a href="#about-us" class="hover-target">О нас</a></li>
+                    <li class="nav__list-item"><a href="#our-app" class="hover-target">Наше приложение</a></li>
+                </ul>
+            </div>
+        </div>
+
+
         <div class="header__logo-line">
-            <span class="header__hamburger hamburger"><span class="hamburger__line"></span></span>
             <a href="#" class="logo">
                 <object type="image/svg+xml" data="/assets/img/Logo.svg" class="logo-object">
                     Your browser does not support SVG
                  </object>
             </a>
-        </div>
-        <nav class="header__navigation">
-            <ul class="navigation">
-                <li class="navigation__link">Домой</li>
-                <li class="navigation__link">Мини-игры</li>
-                <li class="navigation__link">О нас</li>
-                <li class="navigation__link">Наше приложение</li>
-            </ul>
-        </nav>
         <div class="header__buttons">
-            <button class="button button_bordered switcher-login">Войти</button>
-            <button class="button button_colored switcher-signup">Регистрация</button>
+            <button class="button button_bordered switcher-login"><a href="#home" class="hover-target">Войти</a></button>
+            <button class="button button_colored switcher-signup"><a href="#home" class="hover-target">Регистрация</a></button>
         </div>
     </div>
 </header>
-<section class="promo">
+
+<section class="promo"  id="home">
     <div class="wrapper promo__wrapper">
         <div class="promo__content">
             <h1 class="promo__title">Приложение<br>RSLang</h1>
@@ -45,44 +55,47 @@
                 </a>
             </div>
         </div>
-        <div class="form__register">
-                    <div class="forms">
-                        <div class="form-wrapper box-login is-active">
-                          <form class="form form-login" autocomplete="off">
-                            <fieldset>
-                                <p class="form-login__text">ВОЙТИ</p>
-                              <div class="input-block">
-                                <input class="input-email" id="login-email" type="email" autocomplete="off" required placeholder="Почта">
-                              </div>
-                              <div class="input-block">
-                                <input class="input-password" id="login-password" type="password" autocomplete="off" required placeholder="Пароль">
-                              </div>
-                              <button type="submit" class="btn-login">ВОЙТИ</button>
-                              <span class="inner-switch switcher-signup">СОЗДАТЬ АККАУНТ</span>
-                            </fieldset>
-                            
-                          </form>
-                        </div>
-                        <div class="form-wrapper box-signup">
-                          <form action="/" method="post" class="form form-signup form-registration" autocomplete="off">
-                            <fieldset>
-                                <p class="form-login__text">РЕГИСТРАЦИЯ</p>
-                              <div class="input-block">
-                                <input id="signup-email" type="email" autocomplete="off" required placeholder="Почта">
-                              </div>
-                              <div class="input-block">
-                                <input class="input-password" id="signup-password" type="password" autocomplete="off" required placeholder="Пароль">
-                              </div>
-                              <button type="submit" class="btn-signup">СОЗДАТЬ АККАУНТ</button>
-                              <span class="inner-switch switcher-login">У МЕНЯ УЖЕ ЕСТЬ АККАУНТ</span>
-                            </fieldset>
-                          </form>
-                        </div>
+        <div class="wrap">
+            <div class="login front">
+                <form class="form form-login">
+                        <p class="form-login__text">ВОЙТИ</p>
+                      <div class="input-block">
+                        <input class="input-email" id="login-email" type="email" autocomplete="off" required placeholder="Почта">
                       </div>
+                      <div class="input-block">
+                        <input class="input-password" id="login-password" type="password" autocomplete="off" required placeholder="Пароль">
+                      </div>
+                      <div class="form-btn">
+                        <button type="submit" class="btn-login">ВОЙТИ</button>
+                      </div>
+                      <div class="links">
+                        <a href="#" class="inner-switch toggler">СОЗДАТЬ АККАУНТ</a>
+                    </div>
+                  </form>
+            </div>
+            <div class="register back">
+                <form action="/" method="post" class="form form-signup form-registration">
+                        <p class="form-login__text">РЕГИСТРАЦИЯ</p>
+                      <div class="input-block">
+                        <input id="signup-email" type="email" autocomplete="off" required placeholder="Почта">
+                      </div>
+                      <div class="input-block">
+                        <input class="input-password" id="signup-password" type="password" autocomplete="off" required placeholder="Пароль">
+                      </div>
+                      <button type="submit" class="btn-signup">СОЗДАТЬ АККАУНТ</button>
+                    <div class="links">
+                        <a href="#" class="inner-switch toggler">У МЕНЯ УЖЕ ЕСТЬ АККАУНТ</a>
+                    </div>
+                  </form>
+             
+            </div>
+        </div>
+        <div class="arrow-down">
+            <a href="#our-app" class="hover-target shake-vertical"><img class="arrow" src="/assets/img/promo/download.svg" alt=""></a>
         </div>
     </div>
 </section>
-<section class="method">
+<section class="method" id="our-app">
     <div class="wrapper method__wrapper">
         <div class="method__text">
             <h2 class="method__title">
@@ -178,11 +191,11 @@
             </div>
         </div>
         <div class="tools__button">
-            <button class="button button_colored">Зарегистрироваться сейчас</button>
+            <button class="button button_colored"><a href="#home" class="hover-target">Зарегистрироваться сейчас</a></button>
         </div>
     </div>
 </section>
-<section class="strategies">
+<section class="strategies" id="mini-games">
     <div class="wrapper">
         <h2 class="strategies__title">Мини-игры</h2>
         <p class="strategies__description">Join 40,000+ other marketers and get proven strategies on email marketing</p>
@@ -254,7 +267,7 @@
         </div>
     </div>
 </section>
-<section class="about-us">
+<section class="about-us" id="about-us">
     <div class="wrapper">
         <h2 class="about-us__title">Наша команда</h2>
         <p class="about-us__description">Your About Us page is vital. It’s often the first stop in any user’s journey through a website or blog. It also shouldn’t be their last, because first impressions count online just as much as they do in the real world. If your visitors aren’t impressed, you can expect them to leave without reading your awesome content or completing a conversion action (e.g., signing up for your newsletter, making a purchase).</p>
@@ -318,35 +331,6 @@
                 Your browser does not support SVG
              </object>
         </a>
-        <div class="footer-navigation layout-3-column">
-            <div class="footer-navigation__column">
-                <h4 class="footer-navigation__title">Quick Links</h4>
-                <ul class="footer-navigation__links">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-navigation__column">
-                <h4 class="footer-navigation__title">Legal Stuff</h4>
-                <ul class="footer-navigation__links">
-                    <li><a href="#">Disclamer</a></li>
-                    <li><a href="#">Financing</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-            <div class="footer-navigation__column">
-                <h4 class="footer-navigation__title">Quick Links</h4>
-                <ul class="footer-navigation__links">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-        </div>
     </div>
 </footer>
 </body>
