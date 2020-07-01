@@ -1,14 +1,17 @@
 .promo {
     padding: 15rem 0 0rem;
     overflow: hidden;
-    background-image: url(/assets/img/promo/3.png);
+    background-image: url(/assets/img/promo/5294.png);
     background-size: 80%;
+    background-size: contain;
     background-position: bottom;
     background-repeat: no-repeat;
-    background-color: #ffffff;
-    height: 100vh;
+    background-color: #fff;
+    min-height: 100vh;
     @media (max-width: 970px) {
         background-size: cover;
+        background-position-x: center;
+        background-position-y: 70px;
         background-repeat: no-repeat;
       }
 }
@@ -27,6 +30,9 @@
 }
 
 .promo__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     @include media-tablet {
         padding-right: 0;
     }
@@ -42,6 +48,9 @@
 
 .promo__title {
     margin: 0 0 30px;
+    @media (max-width: 970px) {
+        text-align: center;
+      }
 }
 
 .promo__buttons {
@@ -80,7 +89,14 @@
 .promo__text {
     max-width: 487px;
     margin: 0 0 45px;
+    padding: 10px;
+    background: #ffffffb3;
+    border: 2px solid #ddd;
+    border-radius: 5px;
     @extend %font-add;
+    @media (max-width: 970px) {
+        text-align: center;
+      }
     @include font($size: 1.8rem, $height: 2.8rem, $weight: 500);
     @include media-tablet {
         width: 380px;
@@ -101,7 +117,12 @@
     width: 100%;
     display: flex;
     padding-left: 24rem;
-    padding-top: 20rem;
+    padding-top: 5rem;
+    @media (max-width: 970px) {
+        display: flex;
+        justify-content: center;
+        padding: 5rem 0rem 5rem 0rem;
+      }
     @include media-tablet {
         display: none;
     }

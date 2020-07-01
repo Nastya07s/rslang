@@ -137,6 +137,13 @@
     position: relative;
     transform-style: preserve-3d;
     transition: transform 1s;
+    @media (max-width: 970px) {
+      margin: 2rem 0;
+    }
+    @media (max-width: 420px) {
+      width: 265px;
+      height: 255px;
+    }
 }
 
 .login,
@@ -176,4 +183,8 @@
     flex-direction: column;
     font-size: 14px;
     width: 100%;
+}
+
+.switcher-login a{
+  color: #2F281E;
 }

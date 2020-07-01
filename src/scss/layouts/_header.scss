@@ -38,12 +38,19 @@
 .header__buttons {
     >.button {
         margin-left: 14px;
+        @media (max-width: 620px) {
+            padding: 10px;
+            font-size: 1.2rem;
+        } 
         &:first-child {
             margin-left: 14px;
-            margin-left: 0;
+            margin-left: 0;  
         }
     }
     @include media-mobile {
+        display: none;
+    }
+    @media (max-width: 480px) {
         display: none;
     }
 }

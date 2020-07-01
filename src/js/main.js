@@ -9,8 +9,6 @@ api.checkLogin().then((user) => {
   // Redirect to login
 });
 
-// Scroll
-
 const anchors = document.querySelectorAll('.hover-target');
 const topOffset = document.querySelector('.header').offsetHeight;
 
