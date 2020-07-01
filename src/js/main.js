@@ -33,6 +33,16 @@ const signup = document.querySelector('.switcher-signup');
 const switchLink = document.querySelectorAll('.toggler');
 const flipForm = document.querySelector('.wrap');
 
+const modalWrap = document.querySelector('.modal-wrapper');
+const preStartButton = document.querySelector('.modal_wrap');
+
+preStartButton.addEventListener('click', () => {
+  modalWrap.classList.add('show_modal');
+  setTimeout(() => {
+    modalWrap.classList.remove('show_modal');
+  }, 6000);
+});
+
 switchLink.forEach((el) => {
   el.addEventListener('click', () => {
     flipForm.classList.toggle('flipped');

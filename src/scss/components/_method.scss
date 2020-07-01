@@ -1,3 +1,25 @@
+.method__wrapper {
+    height: fit-content;
+    padding: 2rem 0;
+    .steps {
+        width: 100%;
+    }
+    .steps-mob {
+        display: none;
+        width: 100%;
+    }
+    @media (max-width: 769px) {
+        .steps {
+            display: none;
+        }
+        .steps-mob {
+            display: unset;
+        }
+    } 
+}
+
+
+
 .method__title {
     font-style: normal;
     font-weight: 600;
