@@ -9,7 +9,7 @@
     width: 100%;
     min-height: 100vh;
     font-size: 10px;
-    background: url(../img/start-page.svg);
+    background: url(/assets/img/start-page.svg);
     background-position-y: 100%;
     background-position-x: center;
     background-repeat: no-repeat;
@@ -39,7 +39,7 @@
       display: flex;
       
       & .go-home {
-        background-image: url(../img/homepage.svg);
+        background-image: url(/assets/img/homepage.svg);
         margin-right: 10px;
         width: 34px;
         height: 34px;
@@ -48,10 +48,10 @@
       }
   
       & .audio {
-        background-image: url(../img/speaker.svg);
+        background-image: url(/assets/img/speaker.svg);
       }
       & .audio_silence {
-        background-image: url(../img/silence.svg);
+        background-image: url(/assets/img/silence.svg);
       }
     }
   
@@ -62,13 +62,13 @@
         margin-left: 15px;
       }
       & .close {
-        background-image: url(../img/close.svg);
+        background-image: url(/assets/img/close.svg);
         width: 28px;
         height: 28px;
         align-self: center;
       }
       & .options {
-        background-image: url(../img/option.svg);
+        background-image: url(/assets/img/option.svg);
         position: relative;
       }
       & .options__settings {
