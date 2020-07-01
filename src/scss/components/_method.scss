@@ -1,6 +1,6 @@
 .method__wrapper {
     height: fit-content;
-    padding: 2rem 0;
+    padding: 4rem;
     .steps {
         width: 100%;
     }
@@ -25,7 +25,7 @@
     font-weight: 600;
     font-size: 31px;
     line-height: 41px;
-    color: #2F281E;
+    color: $color-text;
 }
 
 .method-small__title {
@@ -63,7 +63,7 @@
             font-size: 18px;
             line-height: 22px;
             text-align: center;
-            color: #2f281e;
+            color: $color-text;
         }
         p {
             margin: 0;

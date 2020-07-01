@@ -9,7 +9,7 @@
     cursor: pointer;
     @extend %transition;
      a {
-         color: #fff;
+         color: $color-light;
          text-decoration: none;
      }
     &_bordered {

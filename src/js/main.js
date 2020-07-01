@@ -9,8 +9,33 @@ api.checkLogin().then((user) => {
   // Redirect to login
 });
 
-const anchors = document.querySelectorAll('.hover-target');
 const topOffset = document.querySelector('.header').offsetHeight;
+const anchors = document.querySelectorAll('.hover-target');
+
+function onScroll() {
+  const currentPosition = window.scrollY;
+  const sections = document.querySelectorAll('section');
+  const lastLink = document.querySelector('.last-link');
+
+  sections.forEach((el) => {
+    if ((el.offsetTop - topOffset) <= currentPosition
+    && (el.offsetTop + el.offsetHeight - topOffset) > currentPosition) {
+      anchors.forEach((a) => {
+        a.parentElement.classList.remove('active-nav');
+        if (el.getAttribute('id') === a.getAttribute('href').substring(1)) {
+          a.parentElement.classList.add('active-nav');
+        }
+        if (currentPosition + 1 >= document.documentElement.scrollHeight
+          - document.documentElement.clientHeight) {
+          a.parentElement.classList.remove('active-nav');
+          lastLink.parentElement.classList.add('active-nav');
+        }
+      });
+    }
+  });
+}
+
+document.addEventListener('scroll', onScroll);
 
 anchors.forEach((link) => {
   link.addEventListener('click', function (e) {

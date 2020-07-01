@@ -7,7 +7,7 @@
     &:after{
         content:'';
         width:30%;
-        display: block;
+        display: none;
     }
     @media (max-width: 1019px) {
         @include columns($width: 45%);

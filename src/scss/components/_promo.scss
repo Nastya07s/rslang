@@ -47,6 +47,7 @@
 }
 
 .promo__title {
+    color: $color-text;
     margin: 0 0 30px;
     @media (max-width: 970px) {
         text-align: center;
@@ -58,12 +59,15 @@
     align-items: center;
     >* {
         margin: 0 44px 20px 0;
+        &:focus {
+            outline: none;
+        }
         &:last-child {
             margin-right: 0;
             max-height: 50px;
             min-width: fit-content;
             background: #fcf5f2;
-            border: 2px solid #f90;
+            border: 2px solid $color-primary;
             padding: 11px 25px 13px;
             font-style: normal;
             font-weight: 600;
@@ -90,8 +94,8 @@
     max-width: 487px;
     margin: 0 0 45px;
     padding: 10px;
-    background: #ffffffb3;
-    border: 2px solid #ddd;
+    background: $color-transperent-white;
+    border: 2px solid $color-border;
     border-radius: 5px;
     @extend %font-add;
     @media (max-width: 970px) {
