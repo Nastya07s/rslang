@@ -5,6 +5,10 @@
   background-color: $lightYellow;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
 
+  &__extended {
+    width: 230px;
+  }
+
   &__burger {
     display: none;
     width: 30px;
@@ -52,7 +56,6 @@
     font-size: 20.6px;
     line-height: 25px;
     margin-left: 22px;
-    display: none;
 
     a {
       color: #1d2570;
@@ -82,7 +85,6 @@
     margin-left: 22px;
     font-size: 13.6px;
     line-height: 17px;
-    display: none;
 
     a {
       color: #000000;
@@ -93,13 +95,21 @@
 .opportunities-menu {
   &__image {
     width: 35px;
-    cursor: pointer;
   }
 
   &__item {
     align-items: center;
     margin-left: 16px;
+    cursor: pointer;
 
+    a {
+      color: #000000;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+    
     &:nth-child(1) {
       margin-bottom: 44px;
     }
@@ -121,19 +131,14 @@
     }
   }
 
-  &__item-off {
-    display: none;
-  }
-
   &__about {
     margin-left: 22px;
     font-size: 13.6px;
     line-height: 17px;
-    display: none;
 
-    a {
-      color: #000000;
-    }
+    // p {
+    //   color: #000000;
+    // }
   }
 
   &__item-open {

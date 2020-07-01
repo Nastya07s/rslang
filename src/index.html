@@ -15,56 +15,56 @@
         <div class="menu__info">
           <div class="menu__logo flex">
             <a href=""><img src="/assets/img/logo.png" alt="" /></a>
-            <div class="menu__tеxtlogo"><a href="">RSLang</a></div>
+            <div class="menu__tеxtlogo d-none"><a href="">RSLang</a></div>
           </div>
           <div class="menu__nav nav-menu">
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/learn.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">Обучение</a></div>
+              <div class="nav-menu__about d-none"><a href="">Обучение</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/speak.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">SpeakIt</a></div>
+              <div class="nav-menu__about d-none"><a href="">SpeakIt</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/puzzleIcon.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">EnglishPuzzle</a></div>
+              <div class="nav-menu__about d-none"><a href="">EnglishPuzzle</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/music.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">Аудиовызов</a></div>
+              <div class="nav-menu__about d-none"><a href="">Аудиовызов</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/savanna.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">Саванна</a></div>
+              <div class="nav-menu__about d-none"><a href="">Саванна</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/run.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">Спринт</a></div>
+              <div class="nav-menu__about d-none"><a href="">Спринт</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/book.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">Словарь</a></div>
+              <div class="nav-menu__about d-none"><a href="">Словарь</a></div>
             </div>
             <div class="nav-menu__item">
               <div class="nav-menu__image center">
                 <a href=""><img src="/assets/img/graph.png" alt="" /></a>
               </div>
-              <div class="nav-menu__about"><a href="">Статистика</a></div>
+              <div class="nav-menu__about d-none"><a href="">Статистика</a></div>
             </div>
           </div>
         </div>
@@ -73,25 +73,25 @@
             <div class="opportunities-menu__image center">
               <img src="/assets/img/off.png" alt="" />
             </div>
-            <div class="opportunities-menu__about">Звук&nbsp;выкл.</div>
+            <div class="opportunities-menu__about d-none">Звук&nbsp;выкл.</div>
           </div>
-          <div class="opportunities-menu__item flex opportunities-menu__item-off">
+          <div class="opportunities-menu__item flex opportunities-menu__item-off d-none">
             <div class="opportunities-menu__image center">
               <img src="/assets/img/speaker.png" alt="" />
             </div>
-            <div class="opportunities-menu__about">Звук&nbsp;вкл.</div>
+            <div class="opportunities-menu__about d-none">Звук&nbsp;вкл.</div>
           </div>
           <div class="opportunities-menu__item flex">
             <div class="opportunities-menu__image center">
               <a href=""><img src="/assets/img/gear.png" alt="" /></a>
             </div>
-            <div class="opportunities-menu__about"><a href="">Наcтройки</a></div>
+            <div class="opportunities-menu__about d-none"><a href="">Наcтройки</a></div>
           </div>
           <div class="opportunities-menu__item flex opportunities-menu__item-open">
             <div class="opportunities-menu__image center openArrow">
               <img src="/assets/img/open.png" alt="" />
             </div>
-            <div class="opportunities-menu__about"><a href="">Свернуть</a></div>
+            <div class="opportunities-menu__about d-none"><p>Свернуть</p></div>
           </div>
         </div>
       </section>
@@ -121,9 +121,9 @@
 												<div class="slider-b-body__center">
 													<div class="slider-b-body__show flex">
 														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
 													</div>
-													<div class="slider-b-body__goshow">
+													<div class="slider-b-body__goshow opacity-0">
 														<div class="slider-b-body__example">
 															To <i>agree</i> is to have the same opinion or belief as another person.
 														</div>
@@ -137,9 +137,10 @@
 														<span
 															>Добавить в<br />
 															сложные слова</span
-														>
-														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
-														<label for="happy"></label>
+														><label >
+																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+																<span></span>
+														</label>
 													</div>
 													<div class="slider-b-body__more">
 														<span>Agree - [əgríː] - согласна</span>
@@ -169,9 +170,9 @@
 												<div class="slider-b-body__center">
 													<div class="slider-b-body__show flex">
 														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
 													</div>
-													<div class="slider-b-body__goshow">
+													<div class="slider-b-body__goshow opacity-0">
 														<div class="slider-b-body__example">
 															To <i>agree</i> is to have the same opinion or belief as another person.
 														</div>
@@ -186,8 +187,10 @@
 															>Добавить в<br />
 															сложные слова</span
 														>
-														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
-														<label for="happy"></label>
+														<label >
+																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+																<span></span>
+														</label>
 													</div>
 													<div class="slider-b-body__more">
 														<span>Agree - [əgríː] - согласна</span>
@@ -217,9 +220,9 @@
 												<div class="slider-b-body__center">
 													<div class="slider-b-body__show flex">
 														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
 													</div>
-													<div class="slider-b-body__goshow">
+													<div class="slider-b-body__goshow opacity-0">
 														<div class="slider-b-body__example">
 															To <i>agree</i> is to have the same opinion or belief as another person.
 														</div>
@@ -234,8 +237,10 @@
 															>Добавить в<br />
 															сложные слова</span
 														>
-														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
-														<label for="happy"></label>
+														<label >
+																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+																<span></span>
+														</label>
 													</div>
 													<div class="slider-b-body__more">
 														<span>Agree - [əgríː] - согласна</span>
@@ -264,9 +269,9 @@
 												<div class="slider-b-body__center">
 													<div class="slider-b-body__show flex">
 														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
 													</div>
-													<div class="slider-b-body__goshow">
+													<div class="slider-b-body__goshow opacity-0">
 														<div class="slider-b-body__example">
 															To <i>agree</i> is to have the same opinion or belief as another person.
 														</div>
@@ -281,8 +286,10 @@
 															>Добавить в<br />
 															сложные слова</span
 														>
-														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
-														<label for="happy"></label>
+														<label >
+																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+																<span></span>
+														</label>
 													</div>
 													<div class="slider-b-body__more">
 														<span>Agree - [əgríː] - согласна</span>
@@ -312,9 +319,9 @@
 												<div class="slider-b-body__center">
 													<div class="slider-b-body__show flex">
 														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow" src="/assets/img/arrowDown.png" alt="1" />
+														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
 													</div>
-													<div class="slider-b-body__goshow">
+													<div class="slider-b-body__goshow opacity-0">
 														<div class="slider-b-body__example">
 															To <i>agree</i> is to have the same opinion or belief as another person.
 														</div>
@@ -329,8 +336,10 @@
 															>Добавить в<br />
 															сложные слова</span
 														>
-														<input type="checkbox" class="custom-checkbox" id="happy" name="happy" value="yes" />
-														<label for="happy"></label>
+														<label >
+																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+																<span></span>
+														</label>
 													</div>
 													<div class="slider-b-body__more">
 														<span>Agree - [əgríː] - согласна</span>
@@ -354,11 +363,11 @@
 							<div class="lvl-block__item"><span>Трудно</span></div>
 						</div>
 						<div class="block__bar bar-block flex">
-							<div class="bar-block__numone">01</div>
+							<div class="bar-block__numone"></div>
 							<div class="bar-block__line">
 								<div class="bar-block__linebar"></div>
 							</div>
-							<div class="bar-block__numtwo">50</div>
+							<div class="bar-block__numtwo"></div>
 						</div>
 					</div>
 					
@@ -388,7 +397,7 @@
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Предложение с объяснением</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy" name="happy"
+							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" name="happy"
 								value="yes">
 							<label for="happy" class="settings__custoncheckbox"></label>
 						</div>
