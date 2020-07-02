@@ -20,15 +20,15 @@ class EventBus {
   }
 
   async emit(event, ...args) {
-    if (!this.listeners[event]) {
-      throw new Error('Couldn\'t find subscribers with this event');
+    const hasEventListener = this.listeners[event];
+
+    if (hasEventListener) {
+      const promises = [];
+
+      this.listeners[event].forEach((callback) => promises.push(callback(...args)));
+
+      await Promise.all(promises);
     }
-
-    const promises = [];
-
-    this.listeners[event].forEach((callback) => promises.push(callback(...args)));
-
-    await Promise.all(promises);
   }
 }
 
