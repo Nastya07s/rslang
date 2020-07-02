@@ -52,12 +52,10 @@
     height: 328px;
   }
   .vocabulary__info-title a {
-    width: 312px;
+    width: 316px;
   }
   .vocabulary {
     max-height: 690px;
-  }
-  .swiper-wrapper {
   }
 }
 @media (max-width: 1108px) {
@@ -134,6 +132,9 @@
   .menu {
     width: 0px;
     overflow: hidden;
+    &__extended {
+      min-width: 187px;
+    }
   }
   .menu__burger {
     display: block;
@@ -149,7 +150,7 @@
     }
     &::after {
       transform: rotate(45deg);
-      top: 9px;
+      top: 8px;
     }
   }
 
@@ -439,6 +440,10 @@
     position: absolute;
     top: 15px;
     left: 15px;
+
+    &-open{
+      left: 200px
+    }
   }
   .custom-checkbox + label:before {
     width: 15px;
@@ -610,8 +615,15 @@
     font-size: 14px;
   }
 
+  .template-vocabulary__body {
+    margin-bottom: 20px;
+  }
   .template-vocabulary__time {
     font-size: 16px;
+  }
+  .template-vocabulary__restore {
+    font-size: 14px;
+    line-height: 18px;
   }
   .template-vocabulary__image {
     margin-bottom: 33px;

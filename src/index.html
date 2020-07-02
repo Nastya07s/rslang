@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link rel="stylesheet" href="css/style.min.css"> -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css" />
     <title>Nastya</title>
@@ -96,7 +95,7 @@
         </div>
       </section>
       <div class="wrapper center">
-      	<section class="block center">
+        <!-- 	<section class="block center">
 					<div class="block-wrapper">
 						<div class="block__slider slider-block">
 							<div class="swiper-container swiper-no-swiping">
@@ -371,7 +370,7 @@
 						</div>
 					</div>
 					
-        </section> 
+        </section>  -->
 
         <!-- <section class="settings center">
 				<div class="card settings__card">
@@ -397,64 +396,72 @@
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Предложение с объяснением</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" name="happy"
-								value="yes">
-							<label for="happy" class="settings__custoncheckbox"></label>
+							<label >
+									<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+									<span></span>
+								</label>		
 						</div>
-						<div class="settings__item flex">
+						<div class="settings__item flex">			
 							<div class="settings__text">Пример использования</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy2" name="happy2"
-								value="yes">
-							<label for="happy2" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Перевод слова</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy3" name="happy4"
-								value="yes">
-							<label for="happy3" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Картинка-ассоциация</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy4" name="happy4"
-								value="yes">
-							<label for="happy4" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Транскрипция</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy5" name="happy5"
-								value="yes">
-							<label for="happy5" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Кнопка показать ответ</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy6" name="happy6"
-								value="yes">
-							<label for="happy6" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Кнопка удалить</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy7" name="happy7"
-								value="yes">
-							<label for="happy7" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 						<div class="settings__item flex">
 							<div class="settings__text">Кнопка добавить в сложные слова</div>
-							<input type="checkbox" class="custom-checkbox settings__custoncheckbox" id="happy8" name="happy8"
-								value="yes">
-							<label for="happy8" class="settings__custoncheckbox"></label>
+							<label >
+								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+								<span></span>
+							</label>
 						</div>
 					</div>
-					<div class="settings__logout"><a href="">Выйти из аккаунта</a></div>
+					<div class="settings__logout"><a>Выйти из аккаунта</a></div>
 				</div>
 			</section>  -->
-        <!-- <section class="vocabulary card">
+        <section class="vocabulary card">
           <div class="vocabulary__title flex">
             <div class="vocabulary__about">Словарь</div>
           </div>
           <div class="vocabulary__info flex">
-            <div class="vocabulary__info-title"><a href="">Изучаемые&nbsp;слова</a></div>
-            <div class="vocabulary__info-title"><a href="">Сложные</a></div>
-            <div class="vocabulary__info-title"><a href="">Удалённые</a></div>
+            <div class="vocabulary__info-title vocabulary__info-title-active"><a>Изучаемые&nbsp;слова</a></div>
+            <div class="vocabulary__info-title"><a>Сложные</a></div>
+            <div class="vocabulary__info-title"><a>Удалённые</a></div>
           </div>
           <div class="vocabulary__num">Всeго слов: 330</div>
           <div class="vocabulary__template template-vocabulary">
@@ -475,7 +482,23 @@
                 <div class="template-vocabulary__info">
                   <div class="template-vocabulary__word flex">
                     <span>Agree - [əgríː] - согласна</span>
-                    <img src="/assets/img/on.png" alt="" />
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                    </svg>
                   </div>
                   <div class="template-vocabulary__example">
                     <span>Пример:</span>
@@ -495,7 +518,7 @@
               </div>
             </div>
             <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title">
+              <div class="template-vocabulary__title flex">
                 <div class="template-vocabulary__lvl">
                   <div class="complexity flex">
                     <span class="complexity__circle"></span>
@@ -511,7 +534,23 @@
                 <div class="template-vocabulary__info">
                   <div class="template-vocabulary__word flex">
                     <span>Agree - [əgríː] - согласна</span>
-                    <img src="/assets/img/on.png" alt="" />
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                    </svg>
                   </div>
                   <div class="template-vocabulary__example">
                     <span>Пример:</span>
@@ -531,7 +570,7 @@
               </div>
             </div>
             <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title">
+              <div class="template-vocabulary__title flex">
                 <div class="template-vocabulary__lvl">
                   <div class="complexity flex">
                     <span class="complexity__circle"></span>
@@ -547,7 +586,23 @@
                 <div class="template-vocabulary__info">
                   <div class="template-vocabulary__word flex">
                     <span>Agree - [əgríː] - согласна</span>
-                    <img src="/assets/img/on.png" alt="" />
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                    </svg>
                   </div>
                   <div class="template-vocabulary__example">
                     <span>Пример:</span>
@@ -568,7 +623,7 @@
             </div>
 
             <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title">
+              <div class="template-vocabulary__title flex">
                 <div class="template-vocabulary__lvl">
                   <div class="complexity flex">
                     <span class="complexity__circle"></span>
@@ -584,7 +639,23 @@
                 <div class="template-vocabulary__info">
                   <div class="template-vocabulary__word flex">
                     <span>Agree - [əgríː] - согласна</span>
-                    <img src="/assets/img/on.png" alt="" />
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                    </svg>
                   </div>
                   <div class="template-vocabulary__example">
                     <span>Пример:</span>
@@ -604,7 +675,7 @@
               </div>
             </div>
             <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title">
+              <div class="template-vocabulary__title flex">
                 <div class="template-vocabulary__lvl">
                   <div class="complexity flex">
                     <span class="complexity__circle"></span>
@@ -620,7 +691,23 @@
                 <div class="template-vocabulary__info">
                   <div class="template-vocabulary__word flex">
                     <span>Agree - [əgríː] - согласна</span>
-                    <img src="/assets/img/on.png" alt="" />
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                      <path
+												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
+												stroke="black"
+      									stroke-opacity="0.56"
+                      />
+                    </svg>
                   </div>
                   <div class="template-vocabulary__example">
                     <span>Пример:</span>
@@ -640,9 +727,9 @@
               </div>
             </div>
           </div>
-        </section> -->
-        
-			<!-- <section class="statistics card">
+        </section>
+
+        <!-- <section class="statistics card">
 				<div class="statistics__title">Статистика</div>
 				<div class="statistics__graph">
 					<div class="statistics__text">Место для графика</div>

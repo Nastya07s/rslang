@@ -27,6 +27,8 @@
   }
 
   &__info-title {
+    cursor: pointer;
+
     a {
       color: #000000;
       padding: 7px 71px;
@@ -48,6 +50,10 @@
     }
   }
 
+  &__info-title-active {
+    background-color: rgba($lightGrey, 0.56);
+  }
+
   &__num {
     border-bottom: 1px solid rgba($lightGrey, 0.56);
     padding-bottom: 9px;
@@ -66,15 +72,19 @@
   &__title {
     justify-content: space-between;
     align-items: center;
+    margin-right: 20px;
   }
 
   &__restore {
-    display: none;
-
     a {
       font-weight: 300;
-      text-decoration-line: underline;
+      text-decoration-line: none;
       color: #000000;
+    }
+
+    a:hover {
+      opacity: 0.7;
+      text-decoration-line: underline;
     }
   }
 
@@ -89,6 +99,15 @@
       margin-right: 10px;
       font-size: 20px;
       line-height: 24px;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+
+    svg:hover path {
+      fill: black;
+      fill-opacity: 0.56;
     }
   }
 
