@@ -1,5 +1,9 @@
 .page-intro {
   & {
+    position: absolute;
+    top: 0;
+    left: 0;
+
     min-height: inherit;
     min-width: inherit;
     height: 100%;
@@ -126,5 +130,4 @@
   }
 }
 
-@import "../tooltip/tooltip";
 @import "../pagination/pagination";

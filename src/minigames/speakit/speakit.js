@@ -63,17 +63,18 @@ api.checkLogin().then(async (user) => {
       volume: isMute ? 0 : 0.8,
     });
 
-    // Main Page subscribers
-    eventBus.subscribe('pageMain.initData', ({ callback }) => callback({ api }));
-
     await pageMain.init();
   });
+  eventBus.subscribe('pageMain.ready', () => { pageIntro.hide(); });
   eventBus.subscribe('pageIntro.changeDifficulty', ({
     event,
     callback,
   }) => callback({ event, settings }));
   eventBus.subscribe('pageIntro.changeIsMute', ({ callback }) => callback({ settings }));
   eventBus.subscribe('pageIntro.restoreState', ({ callback }) => callback({ settings }));
+
+  // Main Page subscribers
+  eventBus.subscribe('pageMain.initData', ({ callback }) => callback({ api }));
 
   // Be sure that background image is loaded
   await pageIntro.init();

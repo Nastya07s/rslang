@@ -224,8 +224,6 @@ class PageIntro {
       await this.eventBus.emit('pageIntro.startGame', {
         isDefaultMode: this.isDefaultMode,
       });
-
-      this.hide();
     });
   }
 

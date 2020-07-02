@@ -30,6 +30,7 @@ body {
 
 .wrapper {
   margin: 0 auto;
+  width: 100vw;
 
   transition: padding 0.5s ease-out, margin 0.5s ease-out;
 
@@ -50,6 +51,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 100;
 
   padding: 5px;
 
@@ -63,6 +65,7 @@ body {
 .loader {
   & {
     position: absolute;
+    z-index: 10;
 
     display: flex;
     justify-content: center;
@@ -83,5 +86,6 @@ body {
   }
 }
 
+@import "./components/tooltip/tooltip";
 @import "./components/page-intro/page-intro";
 @import "./components/page-main/page-main";

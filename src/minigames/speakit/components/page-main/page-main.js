@@ -1,5 +1,6 @@
 import yandexTranslator from 'app/js/api/services/yandex-translate';
 import performRequests from 'app/js/utils/perform-requests';
+// import loader from 'app/js/utils/loader';
 
 class PageMain {
   constructor(props = {}) {
@@ -9,7 +10,10 @@ class PageMain {
       SPEAK_BUTTON: 'controls__speak-button',
       WORDS_CONTAINER: 'words-container',
       WORD_CARD: 'words-container__card',
+      WORD_CARD_HIDDEN: 'words-container__card_hidden',
       WORD_CARD_ACTIVE: 'words-container__card_active',
+      WORD_CARD_CORRECT: 'words-container__card_answer_correct',
+      WORD_CARD_WRONG: 'words-container__card_answer_wrong',
       AUDIO_PLAYER: 'audio-player',
       IMAGE: 'current-word-container__image',
       TRANSLATION: 'current-word-container__translation',
@@ -27,16 +31,27 @@ class PageMain {
     this.baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/data/';
     this.speechRecognition = null;
     this.score = null;
+    this.scoreStreak = 0;
     this.isDefaultMode = this.difficulty !== -1;
+    this.currentCardIndex = 0;
   }
 
   async init() {
-    this.initArguments();
+    // loader.toggle();
+    this.initArguments(); // process the arguments (e.g. prevent index out of bounds)
+    await this.initData(); // get data for cards
 
-    await this.initData();
-    this.render();
-    this.initElements();
-    this.initHandlers();
+    // To prevent loading without data (navigator.onLine is not true)
+    if (!this.data) {
+      return this.eventBus.emit('pageMain.error');
+    }
+
+    this.render(); // render main page (get markup)
+    this.initElements(); // find elements by their classnames
+    this.initHandlers(); // add event listeners to the initialized elements
+    await this.createCard(); // create first card (render & init)
+    // loader.toggle();
+    return this.eventBus.emit('pageMain.ready');
   }
 
   /**
@@ -60,6 +75,10 @@ class PageMain {
     let callback = async ({ api }) => {
       if (this.isDefaultMode) {
         this.data = await performRequests([api.getWords.bind(api, this.round, this.difficulty)]);
+
+        if (this.data) {
+          [this.data] = this.data;
+        }
       } else {
         // TODO: логика на работу с другим режимом!
         this.data = await api.getWords(0, 0);
@@ -71,13 +90,22 @@ class PageMain {
     await this.eventBus.emit('pageMain.initData', { callback });
 
     // Remove 'files/' from path of the audio & image sources retrieved from backend
-    this.data = this.data.map((item) => {
-      const processedItem = item;
+    const processData = () => {
+      // To prevent loading without data (navigator.onLine is not true)
+      if (!this.data) {
+        return;
+      }
 
-      processedItem.audio = processedItem.audio.replace('files/', '');
-      processedItem.image = processedItem.image.replace('files/', '');
-      return processedItem;
-    });
+      this.data = this.data.map((item) => {
+        const processedItem = item;
+
+        processedItem.audio = processedItem.audio.replace('files/', '');
+        processedItem.image = processedItem.image.replace('files/', '');
+        return processedItem;
+      });
+    };
+
+    processData();
   }
 
   render() {
@@ -96,7 +124,7 @@ class PageMain {
             </div>
             <div class="page-main__current-word-container current-word-container">
               <div class="current-word-container__image-container">
-                <img class="current-word-container__image" src="/assets/img/speakit/bg-intro.jpg" alt="your word">
+                <img class="current-word-container__image" alt="your word's image">
               </div>
               <p class="current-word-container__translation">Ваше произношение или перевод появится здесь 😁</p>
             </div>
@@ -105,7 +133,7 @@ class PageMain {
             <div class="page-main__controls controls">
               <button class="controls__button controls__restart-button controls__button_disabled">Заново</button>
               <button class="controls__button controls__speak-button">Speak it</button>
-              <button class="controls__button controls__results-button controls__button_disabled">Результаты</button>
+              <button class="controls__button controls__results-button">Результаты</button>
             </div>
             <audio class="audio-player" preload="none" src=""></audio>
           </div>
@@ -115,42 +143,63 @@ class PageMain {
 
     const root = template.content.firstElementChild;
 
-    const {
-      WORDS_CONTAINER,
-    } = this.classes;
-    const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
-
-    this.data.forEach((item) => {
-      const {
-        word, transcription, image, audio,
-      } = item;
-      const cardTemplate = document.createElement('template');
-
-      cardTemplate.innerHTML = `
-        <div class="words-container__card" data-audio="${audio}" data-image="${image}">
-          <span class="words-container__icon"></span>
-          <div class="words-container__word-container">
-            <p class="words-container__word">${word}</p>
-            <p class="words-container__transcription">${transcription}</p>
-          </div>
-        </div>
-      `;
-      wordsContainer.append(cardTemplate.content);
-    });
-
     fragment.append(template.content);
     document.body.append(fragment);
 
     this.elements = {
       ...this.elements,
       root,
-      wordsContainer,
     };
+  }
+
+  async createCard(index = 0) {
+    // Create Markup
+    this.renderCard(index);
+
+    // Init Handlers
+    const { wordsContainer } = this.elements;
+    const card = wordsContainer.firstElementChild;
+
+    card.addEventListener('click', this.handlerCardClick.bind(this));
+
+    // Init Data
+    card.dataset.translation = await this.translateWord(card);
+
+    // Set translation
+    this.changeTranslation(card);
+    // Set image and await image's load event
+    await this.changeImage(card);
+  }
+
+  renderCard(index = 0) {
+    const { wordsContainer } = this.elements;
+
+    // To prevent loading without data (navigator.onLine is not true)
+    if (!this.data) {
+      return;
+    }
+
+    const {
+      word, transcription, image, audio,
+    } = this.data[index];
+    const cardTemplate = document.createElement('template');
+
+    cardTemplate.innerHTML = `
+      <div class="words-container__card" data-audio="${audio}" data-image="${image}">
+        <span class="words-container__icon"></span>
+        <div class="words-container__word-container">
+          <p class="words-container__word">${word}</p>
+          <p class="words-container__transcription">${transcription}</p>
+        </div>
+      </div>
+    `;
+    wordsContainer.append(cardTemplate.content);
   }
 
   initElements() {
     const { root } = this.elements;
     const {
+      WORDS_CONTAINER,
       RESTART_BUTTON,
       SPEAK_BUTTON,
       AUDIO_PLAYER,
@@ -158,6 +207,7 @@ class PageMain {
       TRANSLATION,
       SCORE,
     } = this.classes;
+    const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
     const [restartButton] = root.getElementsByClassName(RESTART_BUTTON);
     const [speakButton] = root.getElementsByClassName(SPEAK_BUTTON);
     const [audioPlayer] = root.getElementsByClassName(AUDIO_PLAYER);
@@ -167,6 +217,7 @@ class PageMain {
 
     this.elements = {
       ...this.elements,
+      wordsContainer,
       restartButton,
       speakButton,
       audioPlayer,
@@ -180,7 +231,6 @@ class PageMain {
     const {
       restartButton,
       speakButton,
-      wordsContainer,
       audioPlayer,
     } = this.elements;
 
@@ -189,30 +239,24 @@ class PageMain {
 
     restartButton.addEventListener('click', this.handlerRestartButton.bind(this));
     speakButton.addEventListener('click', this.handlerSpeakButton.bind(this));
-    wordsContainer.children.forEach((card) => {
-      card.addEventListener('click', this.handlerCardClick.bind(this));
-    });
   }
 
   handlerRestartButton() {
     if (this.speechRecognition) {
       const {
         score,
-        wordsContainer,
         restartButton,
         speakButton,
       } = this.elements;
 
+      // Stop Speech Recognition
       this.speechRecognition.abort();
       this.speechRecognition.removeEventListener('end', this.speechRecognition.start);
-      // Reset score & make visual changes
-      this.score = 0;
-      score.textContent = this.score;
 
-      // Remove colored correct/failed cards' appearance
-      [...wordsContainer.children].forEach((card) => {
-        card.removeAttribute('style');
-      });
+      // Reset score
+      this.initArguments();
+      // Make visual changes
+      score.textContent = this.score;
 
       // Reset buttons to the default state
       restartButton.classList.add(this.classes.BUTTON_DISABLED);
@@ -240,51 +284,92 @@ class PageMain {
     speakButton.classList.add(BUTTON_DISABLED);
   }
 
-  recognize(event) {
+  async recognize(event) {
+    // Get raw translations
     const [translationAlternatives] = [...event.results];
-    const translations = [...translationAlternatives].map((item) => item.transcript.toLowerCase());
+    // Make translation case insensitive
+    let translations = [...translationAlternatives].map((item) => item.transcript.toLowerCase());
+
+    // Get words array from sentences & make Strings[] -> Array(Strings[], Strings[])
+    translations = translations.map((translation) => translation.split(' '));
+    // Make Array(Strings[]) -> Strings[]
+    translations = translations.flat();
+    // Remove duplicated words & return Array
+    translations = Array.from(new Set(translations));
 
     console.log('SOURCE', translations);
 
-    this.checkRecognizedWord(translations);
+    await this.checkRecognizedWord(translations);
   }
 
-  checkRecognizedWord(translations) {
+  async checkRecognizedWord(translations) {
     const { wordsContainer } = this.elements;
-    const { WORD } = this.classes;
+    const {
+      WORD,
+      WORD_CARD_CORRECT,
+      WORD_CARD_WRONG,
+    } = this.classes;
 
-    const searchCard = [...wordsContainer.children].find((card) => {
-      let [cardWordText] = card.getElementsByClassName(WORD);
+    const card = wordsContainer.firstElementChild;
 
-      cardWordText = cardWordText.textContent.toLowerCase();
-
-      return translations.find((translation) => cardWordText === translation);
-    });
+    const [word] = card.getElementsByClassName(WORD);
+    // Check if is correct / wrong
+    const cardWordText = word.textContent.toLowerCase();
+    // Find card word text by the given recognized text to check if it's correct / wrong
+    const isCorrect = Boolean(translations.find((translation) => cardWordText === translation));
 
     const { translation } = this.elements;
 
-    if (searchCard) {
-      const [word] = searchCard.getElementsByClassName(WORD);
-
+    if (isCorrect) {
+      // 1. Change text of the translation block
       translation.textContent = word.textContent;
-      this.changeImage(searchCard);
+      // 2. Change image of the card
+      await this.changeImage(card);
+      // 3. Check for if card is not colored (if it's not answered)
+      // to increase the score if it's correct
+      const isChecked = card.classList.contains(WORD_CARD_CORRECT)
+        || card.classList.contains(WORD_CARD_CORRECT);
 
-      const searchCardStyle = searchCard.getAttribute('style');
-      const isEmpty = searchCardStyle === null || searchCardStyle === '';
-
-      if (isEmpty) {
+      if (!isChecked) {
         this.increaseScore();
       }
 
-      searchCard.style.pointerEvents = 'none';
-      searchCard.style.backgroundColor = '#90ee90';
+      // Mark as correct
+      card.classList.toggle(WORD_CARD_CORRECT);
     } else {
-      [translation.textContent] = translations; // get first recognition
+      [translation.textContent] = translations; // get first recognition & set translation
+      this.scoreStreak = 0;
+      // Mark as wrong
+      card.classList.toggle(WORD_CARD_WRONG);
     }
+
+    // Change Card
+    const {
+      WORD_CARD_HIDDEN,
+    } = this.classes;
+
+    card.classList.toggle(WORD_CARD_HIDDEN);
+    card.ontransitionend = async () => {
+      // 1. Remove previous card
+      card.remove();
+
+      // 2. Increase index by 1
+      this.currentCardIndex += 1;
+      // 3. Check if next card exists
+      const isIndexInBounds = this.currentCardIndex < this.data.length;
+
+      if (isIndexInBounds) {
+        // 4.1. Create new card
+        await this.createCard(this.currentCardIndex);
+      } else {
+        // 4.2. TODO: Show modal of the end of the game with results!
+        console.log(this.score);
+        this.handlerRestartButton();
+      }
+    };
   }
 
-  handlerCardClick(event) {
-    const { wordsContainer } = this.elements;
+  async handlerCardClick(event) {
     const { WORD_CARD, WORD_CARD_ACTIVE } = this.classes;
 
     let { target } = event;
@@ -293,16 +378,15 @@ class PageMain {
       target = target.parentElement;
     }
 
-    if (target) {
-      wordsContainer.children.forEach((wordCard) => {
-        wordCard.classList.remove(WORD_CARD_ACTIVE);
-      });
-      target.classList.add(WORD_CARD_ACTIVE);
+    const card = target;
+
+    if (card) {
+      card.classList.add(WORD_CARD_ACTIVE);
     }
 
-    this.playSound(target);
-    this.changeImage(target);
-    this.translateWord(target);
+    this.playSound(card);
+    await this.changeImage(card);
+    this.changeTranslation(card);
   }
 
   /**
@@ -311,9 +395,12 @@ class PageMain {
    */
   playSound(card) {
     const { audioPlayer } = this.elements;
-    const audioSrc = card.dataset.audio;
+    const audioSrc = `${this.baseUrl}${card.dataset.audio}`;
+    const isCardAudioSourceChanged = audioPlayer.src !== audioSrc;
 
-    audioPlayer.src = `${this.baseUrl}${audioSrc}`;
+    if (isCardAudioSourceChanged) {
+      audioPlayer.src = audioSrc;
+    }
 
     try {
       audioPlayer.play();
@@ -326,11 +413,41 @@ class PageMain {
    * Change main image with the clicked card's image.
    * @param {HTMLElement} card card with the given word
    */
-  changeImage(card) {
+  async changeImage(card) {
     const { gallery } = this.elements;
-    const imageSrc = card.dataset.image;
+    const imageSrc = `${this.baseUrl}${card.dataset.image}`;
+    const isCardImageSourceChanged = gallery.src !== imageSrc;
 
-    gallery.src = `${this.baseUrl}${imageSrc}`;
+    if (isCardImageSourceChanged) {
+      const func = () => new Promise((resolve, reject) => {
+        gallery.src = imageSrc;
+
+        gallery.onload = (data) => {
+          resolve(data);
+          gallery.onload = null;
+        };
+        gallery.onerror = (error) => {
+          reject(error);
+          gallery.onerror = null;
+        };
+      });
+
+      let response = await performRequests([func.bind(this)]);
+
+      if (response) {
+        [response] = response;
+      }
+    }
+  }
+
+  changeTranslation(card) {
+    const { translation } = this.elements;
+    const { dataset: { translation: dataTranslation } } = card;
+    const isCardTranslationChanged = translation.textContent !== dataTranslation;
+
+    if (isCardTranslationChanged) {
+      translation.textContent = dataTranslation;
+    }
   }
 
   /**
@@ -346,17 +463,22 @@ class PageMain {
 
     if (response) {
       const [translationText] = response;
-      const { translation } = this.elements;
 
-      translation.textContent = translationText;
+      return translationText;
     }
+
+    return '';
   }
 
   increaseScore() {
     const { score } = this.elements;
+    // each forth correct word in a row will give a user bonus score
+    const isStreak = this.scoreStreak > 2;
 
-    this.score += 1;
-    score.textContent = this.score;
+    this.scoreStreak += 1; // increase score streak
+    this.score += isStreak ? this.score : 1; // multiply by 2 or by 1
+
+    score.textContent = this.score; // make visual changes
   }
 }
 
