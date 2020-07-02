@@ -60,7 +60,7 @@ class Settings {
   }
 
   async getSettings() {
-    const settings = await performRequests([this.api.getSettings()]);
+    const settings = await performRequests([this.api.getSettings.bind(this.api)]);
 
     if (settings) {
       this.setSettings(...settings); // Promise.all returns array of resolved/rejected promises
@@ -201,7 +201,7 @@ class Settings {
       },
     };
 
-    const response = await performRequests([this.api.upsertSettings(settings)]);
+    const response = await performRequests([this.api.upsertSettings.bind(this.api, settings)]);
 
     if (response) {
       // Promise.all returns array of resolved/rejected promises

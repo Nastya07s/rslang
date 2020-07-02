@@ -29,7 +29,7 @@ const privateGetTranslation = async (sentence, lang = 'en-ru') => {
 };
 
 const getTranslation = async (sentence, lang = 'en-ru') => {
-  let response = await performRequests([privateGetTranslation(sentence, lang)]);
+  let response = await performRequests([privateGetTranslation.bind(null, sentence, lang)]);
 
   if (response) {
     [response] = response; // Promise.all returns array of resolved/rejected promises

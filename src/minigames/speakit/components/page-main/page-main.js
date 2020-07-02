@@ -1,4 +1,5 @@
 import yandexTranslator from 'app/js/api/services/yandex-translate';
+import performRequests from 'app/js/utils/perform-requests';
 
 class PageMain {
   constructor(props = {}) {
@@ -52,12 +53,13 @@ class PageMain {
 
     // Set or reset the score
     this.score = 0;
+    this.scoreStreak = 0;
   }
 
   async initData() {
     let callback = async ({ api }) => {
       if (this.isDefaultMode) {
-        this.data = await api.getWords(this.round, this.difficulty);
+        this.data = await performRequests([api.getWords.bind(api, this.round, this.difficulty)]);
       } else {
         // TODO: логика на работу с другим режимом!
         this.data = await api.getWords(0, 0);
