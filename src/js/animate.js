@@ -3,7 +3,7 @@ import RenderMainPage from './RenderMainPage/RenderMainPage';
 const render = new RenderMainPage();
 render.init();
 
-document.querySelector('.opportunities-menu__item-open').addEventListener('click', () => {
+const toggleMenu = () => {
   document.querySelector('.menu').classList.toggle('menu__extended');
   document.querySelector('.openArrow').classList.toggle('closeArrow');
   document.querySelector('.menu__tеxtlogo').classList.toggle('d-none');
@@ -14,7 +14,9 @@ document.querySelector('.opportunities-menu__item-open').addEventListener('click
   document.querySelectorAll('.opportunities-menu__about').forEach((el) => {
     el.classList.toggle('d-none');
   });
-});
+};
+
+document.querySelector('.opportunities-menu__item-open').addEventListener('click', toggleMenu);
 
 document
   .querySelectorAll('.opportunities-menu__item:first-child,.opportunities-menu__item:nth-child(2)')
@@ -24,6 +26,12 @@ document
       document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none');
     });
   });
+
+document.querySelector('.menu__burger').addEventListener('click', ({ target }) => {
+  target.closest('.menu__burger').classList.toggle('BurgerLock');
+  document.querySelector('.menu__burger').classList.toggle('menu__burger-open');
+  toggleMenu();
+});
 
 // document.querySelectorAll('.slider-block__info').forEach((el) => {
 //   el.querySelector('.slider-b-body__show').addEventListener('click', () => {
@@ -62,19 +70,4 @@ document.querySelector('.vocabulary__info').addEventListener('click', ({ target 
   });
 
   target.closest('.vocabulary__info-title').classList.add('vocabulary__info-title-active');
-});
-
-document.querySelector('.menu__burger').addEventListener('click', ({ target }) => {
-  target.closest('.menu__burger').classList.toggle('BurgerLock');
-  document.querySelector('.menu__burger').classList.toggle('menu__burger-open');
-  document.querySelector('.menu').classList.toggle('menu__extended');
-  document.querySelector('.openArrow').classList.toggle('closeArrow');
-  document.querySelector('.menu__tеxtlogo').classList.toggle('d-none');
-
-  document.querySelectorAll('.nav-menu__about').forEach((el) => {
-    el.classList.toggle('d-none');
-  });
-  document.querySelectorAll('.opportunities-menu__about').forEach((el) => {
-    el.classList.toggle('d-none');
-  });
 });
