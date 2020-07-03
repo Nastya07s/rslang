@@ -1,7 +1,12 @@
-import RenderMainPage from './RenderMainPage/RenderMainPage';
+// import RenderMainPage from './RenderMainPage/RenderMainPage';
 
-const render = new RenderMainPage();
-render.init();
+// const render = new RenderMainPage();
+// render.init();
+
+import mainPage from './mainPage';
+import statisticsPage from './statisticsPage';
+import vocabularyPage from './vocabularyPage';
+import settingsPage from './settingsPage';
 
 const toggleMenu = () => {
   document.querySelector('.menu').classList.toggle('menu__extended');
@@ -31,4 +36,24 @@ document.querySelector('.menu__burger').addEventListener('click', ({ target }) =
   target.closest('.menu__burger').classList.toggle('BurgerLock');
   document.querySelector('.menu__burger').classList.toggle('menu__burger-open');
   toggleMenu();
+});
+
+document.querySelector('.main-page').addEventListener('click', (event) => {
+  event.preventDefault();
+  mainPage.init();
+});
+
+document.querySelector('.statistics-page').addEventListener('click', (event) => {
+  event.preventDefault();
+  statisticsPage.init();
+});
+
+document.querySelector('.settings-page').addEventListener('click', (event) => {
+  event.preventDefault();
+  settingsPage.init();
+});
+
+document.querySelector('.vocabulary-page').addEventListener('click', (event) => {
+  event.preventDefault();
+  vocabularyPage.init();
 });

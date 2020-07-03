@@ -1,9 +1,8 @@
 import markup from './markup';
 
-export default class StatisticsPage {
+class StatisticsPage {
   constructor() {
     this.parent = document.querySelector('.wrapper');
-    this.init();
   }
 
   init() {
@@ -18,3 +17,7 @@ export default class StatisticsPage {
   // initHandlers() {
   // }
 }
+
+const statisticsPage = new StatisticsPage();
+
+export default statisticsPage;

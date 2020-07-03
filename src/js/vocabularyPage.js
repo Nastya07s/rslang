@@ -1,9 +1,8 @@
 import markup from './markup';
 
-export default class VocabularyPage {
+class VocabularyPage {
   constructor() {
     this.parent = document.querySelector('.wrapper');
-    this.init();
   }
 
   init() {
@@ -80,3 +79,7 @@ export default class VocabularyPage {
     });
   }
 }
+
+const vocabularyPage = new VocabularyPage();
+
+export default vocabularyPage;

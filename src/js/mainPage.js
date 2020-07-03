@@ -8,10 +8,9 @@ import markup from './markup';
 
 Swiper.use([Navigation, Keyboard, Pagination]);
 
-export default class MainPage {
+class MainPage {
   constructor() {
     this.parent = document.querySelector('.wrapper');
-    this.init();
   }
 
   init() {
@@ -118,3 +117,7 @@ export default class MainPage {
     });
   }
 }
+
+const mainPage = new MainPage();
+
+export default mainPage;

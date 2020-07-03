@@ -5,7 +5,8 @@ import './scss/main.scss';
 import './js/main';
 import './js/animate';
 
-import StatisticsPage from './js/statisticsPage';
+import mainPage from './js/mainPage';
 
-const example = new StatisticsPage();
-console.log(example);
+// const example = new StatisticsPage();
+// console.log(example);
+mainPage.init();

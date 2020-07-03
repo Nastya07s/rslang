@@ -1,9 +1,8 @@
 import markup from './markup';
 
-export default class SettingsPage {
+class SettingsPage {
   constructor() {
     this.parent = document.querySelector('.wrapper');
-    this.init();
   }
 
   init() {
@@ -25,3 +24,7 @@ export default class SettingsPage {
     });
   }
 }
+
+const settingsPage = new SettingsPage();
+
+export default settingsPage;
