@@ -1,5 +1,6 @@
 .button {
     @extend %font-prim;
+    outline: none;
     padding: 11px 25px 13px;
     font-style: normal;
     font-weight: 600;
@@ -25,6 +26,7 @@
         background: $color-primary;
         color: $color-light;
         border: 1px solid $color-primary;
+        text-decoration: none;
         &:hover {
             background: $color-additional;
             border-color: $color-additional;
@@ -41,7 +43,7 @@
     &:hover {
         color: $color-red;
         .ico_play {
-            background-image: url("../img/icons/play-hover.svg");
+            background-image: url("/assets/img/icons/play-hover.svg");
         }
     }
 }

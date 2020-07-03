@@ -20,7 +20,6 @@
     }
 }
 
-//Strategy
 .strategy-wrapper {
     justify-content: space-between;
     @media (max-width: 750px) {
@@ -69,11 +68,13 @@
 
 .strategy__description {
     margin: 10px 0 11px;
+    text-align: initial;
     font-style: normal;
     font-weight: normal;
 }
 
 .strategy__image {
+    width: 100%;
     @include media-tablet {
         position: absolute;
         top: 0;
