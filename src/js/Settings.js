@@ -56,6 +56,9 @@ class Settings {
           speakit: {
             isMute: false,
           },
+          englishpuzzle: {
+
+          },
         },
         learningMode = 'mix',
         countNewWords = 10,

@@ -21,7 +21,7 @@
     height: 2px;
     width: 30px;
     display: block;
-    background-color: #fff;
+    background-color: $color-light-base;
     margin-bottom: 7px;
     cursor: pointer;
     -webkit-transition: background-color .5s ease, -webkit-transform .2s ease;
@@ -119,7 +119,7 @@
     transition-delay: 0.8s;
     opacity: 0;
     text-align: left;
-    color: #fff;
+    color: $color-light-base;
     overflow: hidden;
     font-family: 'Poppins', sans-serif;
     font-size: 22px;
@@ -192,7 +192,7 @@
     }
   
     .menu-icon__line {
-      background-color: #fff;
+      background-color: $color-light-base;
       -webkit-transform: translate(0px, 0px) rotate(-45deg);
       transform: translate(0px, 0px) rotate(-45deg);
     }

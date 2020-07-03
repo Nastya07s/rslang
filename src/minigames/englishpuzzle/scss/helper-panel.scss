@@ -27,8 +27,12 @@
 
   #transcript {
     cursor: pointer;
+    transition: all .25s;
+    &:hover {
+        box-shadow: 0 0 15px #9dd0ff, 0 0 17px #5b8bb2;
+    }
   }
-  
+
   .help-btn span {
     margin-right: 20px;
     cursor: pointer;
@@ -133,7 +137,7 @@
   
   .translate {
     width: 25px;
-    fill: #d96704;
+    fill: $color-orange;
     transition: all .25s;
   
     &:hover {
@@ -164,7 +168,7 @@
   }
   
   .translation {
-    color: #fff;
+    color: $color-light-base;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -195,7 +199,7 @@
     min-height: 50px;
     font-size: 1.5rem;
     display: flex;
-    color: #fff;
+    color: $color-light-base;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -223,7 +227,7 @@
     justify-content: center;
     text-align: center;
 
-    color: #fff;
+    color: $color-light-base;
     flex-direction: column;
     align-items: center;
     font-size: 2rem;

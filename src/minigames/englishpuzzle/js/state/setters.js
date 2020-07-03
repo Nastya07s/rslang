@@ -1,4 +1,4 @@
-import eventEmitter from '../servises/eventEmitter';
+import eventEmitter from '../services/eventEmitter';
 import store from './store';
 
 import wordTransformer from '../helpers/wordTransformer';

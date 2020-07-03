@@ -1,10 +1,11 @@
 
 import setters from './setters';
 import getters from './getters';
-import eventEmitter from '../servises/eventEmitter';
+import eventEmitter from '../services/eventEmitter';
 
 import calculations from '../helpers/roundCalculations';
-import { filterLearnedWords, createRoundsList } from '../helpers/userWords';
+import createRoundsList from '../helpers/userWords';
+import settingsMode from './settings_options';
 
 export default {
   nextStep() {
@@ -50,23 +51,36 @@ export default {
     }
   },
 
-  async loadOldWords(api) {
-    const userWords = await api.getUsersAggregatedWords();
-    const filteredWords = filterLearnedWords(userWords);
-    const result = createRoundsList(filteredWords);
-
+  async loadWords(api) {
+    const mode = getters.getLearningMode();
+    let filter = {};
+    if (mode === 'old') {
+      filter = settingsMode.old;
+    }
+    if (mode === 'learning') {
+      filter = settingsMode.learning;
+    }
+    if (mode === 'new') {
+      filter = settingsMode.new;
+    }
+    const userWords = await api.getUsersAggregatedWords(0, 20, false, filter);
+    const result = createRoundsList(userWords);
     return setters.setWordsList(result);
   },
 
-  async loadNewWords(api, group, round) {
+  async loadMixWords(api, group, round) {
     const newWords = await api.getWords(group, round);
     setters.addWordsList(group, round, newWords);
-    this.createUserWords(api, group, newWords);
+    // const oldWords = await api.getUsersAggregatedWords(0, 20, false, settingsMode.learning);
+    // if (!oldWords) {
+    //   this.createUserWords(api, group, newWords);
+    // }
   },
 
-  // async loadWord() {
-
-  // },
+  async isUserWord(api, id) {
+    const word = await api.getUsersAggregatedWordsById(id);
+    return word[0].userWord;
+  },
 
   createUserWords(api, group, list) {
     list.forEach((word) => {

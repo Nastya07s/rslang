@@ -4,8 +4,7 @@
     border-radius: 5px;
     justify-content: center;
     align-items: center;
-      
-  
+
     button {
       width: fit-content;
       height: 40px;
@@ -105,29 +104,26 @@
   }
   
   .i-dont-know {
-    background: #d96666;
+    background: $color-pink;
     transition: all .25s;
-  
-    &:active {
-      background: #d94242;
+      &:active {
+        background: #d94242;
     }
   }
   
   .check {
-    background: #d96704;
+    background: $color-orange;
     transition: all .25s;
-  
-    &:active {
-      background: #ff7802;
+      &:active {
+       background: #ff7802;
     }
   }
   
   .result {
     display: none;
-    background: #d96704;
+    background: $color-orange;
     transition: all .25s;
-  
-    &:active {
-      background: #ff7802;
+      &:active {
+        background: #ff7802;
     }
   }

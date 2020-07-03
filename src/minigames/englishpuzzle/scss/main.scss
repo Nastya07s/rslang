@@ -3,6 +3,8 @@
 @import "./utils/_mixins";
 @import "./utils/_fonts";
 @import "./utils/media";
+
+
 @import "./checkers.scss";
 @import "./header.scss";
 @import "./menu.scss";
@@ -71,7 +73,7 @@
       &:nth-child(2) {
         width: 70%;
         height: 70%;
-        color: #d96666;
+        color: $color-pink;
         border-color: currentColor currentColor transparent transparent;
         border-width: 0.2em 0em 0em 0.2em;
         --deg:-135deg;
@@ -139,7 +141,7 @@
     background: #5e97be;
     height: fit-content;
     font-size: 1.8rem;
-    color: #fff;
+    color: $color-light-base;
     border: 3px solid #6cafd9;
     padding: 7px;
     border-radius: 5px;

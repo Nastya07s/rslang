@@ -1,78 +1,15 @@
 import state from '../state';
 import Puzzle from './Puzzle';
-import eventEmitter from '../servises/eventEmitter';
+import eventEmitter from '../services/eventEmitter';
 import dataVectors from '../background/data-vectors';
-
-const helper = {
-  setText(selector, content) {
-    const elem = document.querySelector(selector);
-    elem.innerText = content;
-  },
-
-  drawWord(word) {
-    this.setText('#transcript', word);
-  },
-
-  drawTranscript(word) {
-    this.setText('#transcript-2', word);
-  },
-
-  drawTranslation(word) {
-    this.setText('#translation', word);
-  },
-
-  drawEnPhrase(phrase) {
-    this.setText('.english-translate', phrase);
-  },
-
-  drawRuPhrase(phrase) {
-    this.setText('.data-translate', phrase);
-  },
-
-  fadeIn(nodeCopy, duration) {
-    const node = nodeCopy;
-    if (getComputedStyle(node).display !== 'none') return;
-    if (node.style.display === 'none') {
-      node.style.display = '';
-    } else {
-      node.style.display = 'block';
-    }
-    node.style.opacity = 0;
-    const start = performance.now();
-    requestAnimationFrame(function tick(timestamp) {
-      const easing = (timestamp - start) / duration;
-      node.style.opacity = Math.min(easing, 1);
-      if (easing < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        node.style.opacity = '';
-      }
-    });
-  },
-
-  fadeOut(node, duration) {
-    const nodeCopy = node;
-    nodeCopy.style.opacity = 1;
-    const start = performance.now();
-
-    requestAnimationFrame(function tick(timestamp) {
-      const easing = (timestamp - start) / duration;
-      nodeCopy.style.opacity = Math.max(1 - easing, 0);
-      if (easing < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        nodeCopy.style.opacity = '';
-        nodeCopy.style.display = 'none';
-      }
-    });
-  },
-};
+import helpers from './helpers';
 
 export default class Round {
   constructor() {
     this.state = state;
     this.puzzle = new Puzzle();
     this.audio = new Audio();
+    this.event = eventEmitter;
     this.searchElements();
     this.setListeners();
     this.setRoundBg();
@@ -95,7 +32,7 @@ export default class Round {
     this.sayWordBtn = document.querySelector('.btn-sound');
     this.sayPhraseBtn = document.querySelector('.btn-play');
     this.loader = document.querySelector('.loader');
-    this.settingsForm = document.querySelector('.options__settings');
+    this.settingsForm = document.querySelector('.options');
   }
 
   settingsFormOn() {
@@ -107,42 +44,41 @@ export default class Round {
   }
 
   setListeners() {
-    // this.puzzle.on('droped', (e) => { eventEmitter.emit('droped', e); });
-    // this.checkButton.addEventListener('click', () => {
-    //   eventEmitter.emit('check');
-    // });
-    this.dontKnowButton.addEventListener('click', () => {
-      eventEmitter.emit('dontKnow');
+    this.checkButton.addEventListener('click', () => {
+      this.event.emit('check');
     });
-    eventEmitter.on('changeRound', this.drawCurrentInfo.bind(this));
-    eventEmitter.on('changeWord', this.initRound.bind(this));
-    eventEmitter.on('changeImage', this.setRoundBg.bind(this));
+    this.dontKnowButton.addEventListener('click', () => {
+      this.event.emit('dontKnow');
+    });
+    this.event.on('changeRound', this.drawCurrentInfo.bind(this));
+    this.event.on('changeWord', this.initRound.bind(this));
+    this.event.on('changeImage', this.setRoundBg.bind(this));
     this.transcript.addEventListener('click', () => {
-      eventEmitter.emit('sayWord');
+      this.event.emit('sayWord');
     });
     this.sayWordBtn.addEventListener('click', () => {
-      eventEmitter.emit('sayWord');
+      this.event.emit('sayWord');
     });
     this.sayPhraseBtn.addEventListener('click', () => {
-      eventEmitter.emit('sayPhrase');
+      this.event.emit('sayPhrase');
     });
     this.close.addEventListener('click', () => {
-      eventEmitter.emit('userStart');
+      this.event.emit('userStart');
     });
   }
 
   closeStartScreen() {
-    helper.fadeOut(this.modal, 200);
-    helper.fadeIn(this.modal, 600);
+    helpers.fadeOut(this.modal, 200);
+    helpers.fadeIn(this.modal, 600);
   }
 
   initRound(data) {
     this.hideTranslate();
-    this.drawWord(data.word);
-    this.drawTranscript(data.transcript);
-    this.drawTranslation(data.translation);
-    this.drawEnPhrase(data.englishPhrase);
-    this.drawRuPhrase(data.russianPhrase);
+    helpers.drawWord(data.word);
+    helpers.drawTranscript(data.transcript);
+    helpers.drawTranslation(data.translation);
+    helpers.drawEnPhrase(data.englishPhrase);
+    helpers.drawRuPhrase(data.russianPhrase);
     this.puzzleReload(data.words, []);
     this.spinnerOff();
   }

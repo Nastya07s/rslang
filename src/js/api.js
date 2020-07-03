@@ -165,11 +165,8 @@ export default class Api {
     + `filter=${JSON.stringify(filter)}`, 'GET');
   }
 
-  getUsersAggregatedWordsById(group = 0, wordsPerPage = 20,
-    onlyUserWords = false, filter = {}, wordId) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}?`
-        + `group=${group}&wordsPerPage=${wordsPerPage}&onlyUserWords=${onlyUserWords}&`
-        + `filter=${JSON.stringify(filter)}`, 'GET');
+  getUsersAggregatedWordsById(wordId) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}`, 'GET');
   }
 
   getStatistics() {

@@ -1,4 +1,4 @@
-import eventEmitter from '../servises/eventEmitter';
+import eventEmitter from '../services/eventEmitter';
 
 export default class Puzzle {
   constructor() {

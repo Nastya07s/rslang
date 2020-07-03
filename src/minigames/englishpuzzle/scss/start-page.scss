@@ -70,6 +70,7 @@
       & .options {
         background-image: url(/assets/img/option.svg);
         position: relative;
+        display: none;
       }
       & .options__settings {
         cursor: default;
