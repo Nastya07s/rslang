@@ -33,24 +33,24 @@ document.querySelector('.menu__burger').addEventListener('click', ({ target }) =
   toggleMenu();
 });
 
-// document.querySelectorAll('.slider-block__info').forEach((el) => {
-//   el.querySelector('.slider-b-body__show').addEventListener('click', () => {
-//     el.querySelector('.slider-b-body__goshow').classList.toggle('opacity-0');
-//     el.querySelector('.slider-b-body__accordionshow').classList.toggle('openArrow');
-//     el.querySelector('.slider-b-body__accordionshow').classList.toggle('closeArrow');
-//   });
-// });
+document.querySelectorAll('.slider-block__info').forEach((el) => {
+  el.querySelector('.slider-b-body__show').addEventListener('click', () => {
+    el.querySelector('.slider-b-body__goshow').classList.toggle('opacity-0');
+    el.querySelector('.slider-b-body__accordionshow').classList.toggle('openArrow');
+    el.querySelector('.slider-b-body__accordionshow').classList.toggle('closeArrow');
+  });
+});
 
-// document.querySelector('.lvl-block').addEventListener('click', ({ target }) => {
-//   document.querySelectorAll('.lvl-block__item').forEach((el) => {
-//     el.classList.remove('lvl-block__item-active');
-//   });
+document.querySelector('.lvl-block').addEventListener('click', ({ target }) => {
+  document.querySelectorAll('.lvl-block__item').forEach((el) => {
+    el.classList.remove('lvl-block__item-active');
+  });
 
-//   target.closest('.lvl-block__item').classList.add('lvl-block__item-active');
-// });
+  target.closest('.lvl-block__item').classList.add('lvl-block__item-active');
+});
 
-// document.querySelector('.bar-block__numone').textContent = render.mySwiper.realIndex + 1;
-// document.querySelector('.bar-block__numtwo').textContent = render.mySwiper.slides.length;
+document.querySelector('.bar-block__numone').textContent = render.mySwiper.realIndex + 1;
+document.querySelector('.bar-block__numtwo').textContent = render.mySwiper.slides.length;
 
 // render.mySwiper.on('slideChange', () => {
 //   document.querySelector('.bar-block__numone').textContent = render.mySwiper.realIndex + 1;
@@ -64,10 +64,10 @@ document.querySelector('.menu__burger').addEventListener('click', ({ target }) =
 //   target.closest('.settings__logout').classList.remove('settings__logout-active');
 // });
 
-document.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
-  document.querySelectorAll('.vocabulary__info-title').forEach((el) => {
-    el.classList.remove('vocabulary__info-title-active');
-  });
+// document.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
+//   document.querySelectorAll('.vocabulary__info-title').forEach((el) => {
+//     el.classList.remove('vocabulary__info-title-active');
+//   });
 
-  target.closest('.vocabulary__info-title').classList.add('vocabulary__info-title-active');
-});
+//   target.closest('.vocabulary__info-title').classList.add('vocabulary__info-title-active');
+// });
