@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  fillword: path.join(__dirname, '../src/minigames/fillword'),
   assets: 'assets',
 };
 
@@ -17,11 +18,13 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
+      fillword: PATHS.fillword,
     },
     extensions: ['.js'],
   },
   entry: {
-    app: PATHS.src,
+    app: `${PATHS.src}/index.js`,
+    fillword: `${PATHS.fillword}/fillword.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -85,6 +88,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
+      excludeChunks: ['fillword'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.fillword}/index.html`,
+      filename: './fillword/index.html',
+      chunks: ['fillword', 'vendors', 'app'],
     }),
     new CopyWebpackPlugin([
       {

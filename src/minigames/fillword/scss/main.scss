@@ -1,0 +1,135 @@
+@mixin font($font_name, $file_name, $weight, $style) {
+	@font-face {
+		font-family: $font_name;
+		font-display: swap;
+		src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+		font-weight: #{$weight};
+		font-style: #{$style};
+	}
+}
+
+@import "utils/_media";
+@import "utils/_null";
+@import "utils/_fonts";
+@import "utils/mixins";
+
+html {
+  font-size: 10px; 
+  font-family: "Montserrat", sans-serif;;
+  box-sizing: border-box;
+  background-color: #fefefe;
+}
+
+.containerApp {
+  max-width: 320px;
+  margin: 3rem auto;
+}
+
+.headerApp {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 3rem 0;
+
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+}
+
+.header__title {
+}
+
+.controlBlock {
+  align-self: center;
+  justify-self: center;
+}
+
+.button {
+  color: #fff;
+  background-color: #2FA4E7;
+  border: 1px solid #2FA4E7;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+  cursor: pointer;
+}
+
+.button:active {
+  box-shadow: 0 0 0 0.2rem rgba(78, 178, 235, 0.5);
+}
+
+.refresh {
+  padding: 0.5rem ;
+}
+
+.refresh:hover>svg {
+  animation-name: rotation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.help {
+  padding: 0.5rem ;
+}
+
+@keyframes rotation {
+  0% {
+      transform:rotate(0deg);}
+  100% {
+      transform:rotate(360deg);}
+}
+
+.bodyApp {
+
+}
+
+.word-translate {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  align-self: center;
+  justify-self: center;
+}
+
+.word {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  align-self: center;
+  justify-self: center;
+}
+
+td {
+  width: 6rem;
+  height: 6rem;
+  font-size: 2.5rem;
+  line-height: 5rem;
+  text-align: center;
+  background-color: #c5e6f8;
+  color: #454545;
+  text-transform: uppercase;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+}
+
+.select {
+  background-color: #e3eed7;
+}
+
+.footerApp {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3rem 0;
+}
+
+.footer__title {
+  padding: 0 1rem;
+  align-self: center;
+  justify-self: center;
+  font-size: 2rem;
+  line-height: 4rem;
+  font-weight: 400;
+  color: #ffffff;
+}
+
