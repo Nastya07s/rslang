@@ -1,4 +1,5 @@
 import markup from './markup';
+import api from './api';
 
 class SettingsPage {
   constructor() {
@@ -8,6 +9,7 @@ class SettingsPage {
   init() {
     this.render();
     this.initHandlers();
+    this.getSettings();
   }
 
   render() {
@@ -22,6 +24,13 @@ class SettingsPage {
     this.parent.querySelector('.settings__logout').addEventListener('mouseup', ({ target }) => {
       target.closest('.settings__logout').classList.remove('settings__logout-active');
     });
+  }
+
+  async getSettings() {
+    this.parent = document.querySelector('.wrapper');
+    const data = await api.getSettings();
+    console.log('data: ', data);
+    return data;
   }
 }
 

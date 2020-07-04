@@ -1,7 +1,7 @@
 const USER_TOKEN_KEY = 'userCurrentToken';
 const USER_ID_KEY = 'userCurrentId';
 
-export default class Api {
+class Api {
   constructor() {
     this.basicUrl = 'https://afternoon-falls-25894.herokuapp.com';
     this.userId = localStorage.getItem(USER_ID_KEY);
@@ -185,3 +185,7 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'PUT', data);
   }
 }
+
+const api = new Api();
+
+export default api;
