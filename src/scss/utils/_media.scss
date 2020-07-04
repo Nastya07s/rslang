@@ -390,10 +390,10 @@
 
 @media (max-width: 1440px) {
   .swiper-wrapper {
-    max-width: 890px;
+    max-width: 790px;
   }
   .swiper-slide {
-    width: 850px;
+    width: 750px;
   }
   .slider-b-body__title {
     font-size: 35px;
@@ -425,12 +425,21 @@
   }
 }
 
-@media (max-width: 1075px) {
+@media (max-width: 950px) {
   .block-wrapper {
     width: 640px;
   }
   .swiper-slide {
     width: 600px;
+  }
+}
+
+@media (max-width: 1075px) {
+  .block-wrapper {
+    width: 450px;
+  }
+  .swiper-slide {
+    width: 410px;
   }
   .slider-block__img {
     margin-bottom: 30px;

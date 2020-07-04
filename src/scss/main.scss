@@ -2,8 +2,8 @@
 @import "utils/_fonts";
 @import "utils/variables";
 
-@import '../../node_modules/swiper/swiper';
-@import '../../node_modules/swiper/components/navigation/navigation';
+@import 'swiper/swiper';
+@import 'swiper/components/navigation/navigation';
 
 .flex {
   display: flex;
