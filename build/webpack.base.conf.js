@@ -21,7 +21,7 @@ module.exports = {
     extensions: ['.js'],
   },
   entry: {
-    app: PATHS.src,
+    main: `${PATHS.src}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -85,6 +85,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
+      chunks: ['main'],
     }),
     new CopyWebpackPlugin([
       {
