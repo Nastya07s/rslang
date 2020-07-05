@@ -1,6 +1,6 @@
 .footer {
     background: $color-primary;
-    padding: 4rem;
+    padding: 4rem 0;
     @include media-mobile {
         padding: 31px 0;
     }
@@ -8,7 +8,6 @@
 
 .footer__wrapper {
     display: flex;
-    margin-left: 5rem;
     @include media-tablet {
         flex-direction: column;
     }
