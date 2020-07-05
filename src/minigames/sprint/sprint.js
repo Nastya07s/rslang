@@ -224,6 +224,9 @@ export default class Sprint {
   }
 
   async updateCard() {
+    if (this.wordsArrayFull.length === 0) {
+      return;
+    }
     this.word = this.wordsArrayFull.shift();
     if (this.wordsArrayFull.length === 0) {
       this.wordsArrayFull = await this.getWordsList();
@@ -233,6 +236,9 @@ export default class Sprint {
   }
 
   onAnswerClick(event) {
+    if (!this.word) {
+      return;
+    }
     const isCorrectButton = event.target.classList.contains('button-right');
     const isCorrectAnswer = isCorrectButton === this.word.correct;
     if (isCorrectButton) {
