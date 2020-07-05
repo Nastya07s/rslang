@@ -15,6 +15,7 @@ export default class StartPage {
 
   init() {
     this.gameSettings = {
+      isMute: false,
       difficulty: 0,
       round: 0,
     };
@@ -188,11 +189,14 @@ export default class StartPage {
       }
     });
     this.buttonSound = this.container.querySelector('.audio');
-    if (this.config.settings.isMute) {
+    if (this.gameSettings.isMute) {
       this.buttonSound.classList.add('audio_silence');
     }
     this.buttonSound.addEventListener('click', () => {
       this.buttonSound.classList.toggle('audio_silence');
+      this.gameSettings.isMute = !this.gameSettings.isMute;
+      const gameName = this.config.gameNameInSettings;
+      this.config.settings.minigames[gameName].isMute = this.gameSettings.isMute;
     });
     this.buttonClose = this.container.querySelector('.close');
     this.buttonClose.addEventListener('click', () => {

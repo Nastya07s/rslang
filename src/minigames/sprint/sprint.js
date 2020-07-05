@@ -8,7 +8,6 @@ import StartPage from './components/start-page/start-page';
 const INCREASE_SCORE_EVERY = 4;
 const AUDIO_RIGHT = 'assets/audio/sprint/right.mp3';
 const AUDIO_WRONG = 'assets/audio/sprint/wrong.mp3';
-const MUTE = 'mute';
 const PROGRESS_CLASS = 'icon-progress_';
 const MAX_SCORE = 'max-score';
 const SPRINT = 'sprint';
@@ -35,7 +34,7 @@ export default class Sprint {
         });
         this.countCorrectAnswer = 0;
         this.totalScore = 0;
-        this.mute = localStorage.getItem(MUTE) || false;
+        this.mute = this.settings.minigames.sprint.isMute;
         this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
         this.wordsArrayFull = await this.getWordsList();
         this.createStartPage();
@@ -155,7 +154,8 @@ export default class Sprint {
     this.sound = this.container.querySelector('.image-sound');
     this.sound.addEventListener('click', () => {
       this.mute = !this.mute;
-      localStorage.setItem(MUTE, this.mute);
+      this.settings.minigames.sprint.isMute = this.mute;
+      this.settings.postUpdates();
       if (this.mute) {
         this.sound.classList.add('active');
       } else {
