@@ -1,8 +1,8 @@
 import './speakit.scss';
 
 import EventBus from 'app/js/utils/eventBus';
-import Api from 'app/js/api';
-import Settings from 'app/js/settings';
+import api from 'app/js/api';
+import settings from 'app/js/settings';
 
 import loader from 'app/js/utils/loader';
 import PageIntro from './components/page-intro/page-intro';
@@ -12,19 +12,16 @@ import PageMain from './components/page-main/page-main';
 const eventBus = new EventBus();
 
 // 1. Check login
-const api = new Api();
-
 api.checkLogin().then(async (user) => {
   // Already logged in
   console.log(user);
 
-  // 2. Get settings
-  const settings = new Settings();
-
+  // Settings subscribers
   eventBus.subscribe('settings.getSettings', () => settings.getSettings());
   eventBus.subscribe('settings.initSettings', () => settings.initSettings());
   eventBus.subscribe('settings.update', (...data) => settings.update(...data));
 
+  // 2. Get settings
   await eventBus.emit('settings.getSettings');
   // await eventBus.emit('settings.initSettings');
 
@@ -44,7 +41,6 @@ api.checkLogin().then(async (user) => {
   const pageIntro = new PageIntro({ eventBus });
 
   // Intro Page subscribers
-  eventBus.subscribe('pageIntro.updateIsDefaultMode', ({ callback }) => callback({ settings }));
   eventBus.subscribe('pageIntro.startGame', async (data) => {
     const { isDefaultMode } = data;
     const {
@@ -60,21 +56,12 @@ api.checkLogin().then(async (user) => {
       eventBus,
       round: isDefaultMode ? round : -1, // -1 detects that we need to use another mode
       difficulty: isDefaultMode ? difficulty : -1, // -1 detects that we need to use another mode
-      volume: isMute ? 0 : 0.8,
+      volume: isMute ? 0 : 1,
     });
 
     await pageMain.init();
   });
   eventBus.subscribe('pageMain.ready', () => { pageIntro.hide(); });
-  eventBus.subscribe('pageIntro.changeDifficulty', ({
-    event,
-    callback,
-  }) => callback({ event, settings }));
-  eventBus.subscribe('pageIntro.changeIsMute', ({ callback }) => callback({ settings }));
-  eventBus.subscribe('pageIntro.restoreState', ({ callback }) => callback({ settings }));
-
-  // Main Page subscribers
-  eventBus.subscribe('pageMain.initData', ({ callback }) => callback({ api }));
 
   // Be sure that background image is loaded
   await pageIntro.init();

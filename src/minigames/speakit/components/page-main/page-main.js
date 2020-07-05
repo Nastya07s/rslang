@@ -1,5 +1,6 @@
 import yandexTranslator from 'app/js/api/services/yandex-translate';
 import performRequests from 'app/js/utils/perform-requests';
+import api from 'app/js/api';
 // import loader from 'app/js/utils/loader';
 
 class PageMain {
@@ -28,7 +29,7 @@ class PageMain {
     this.round = props.round;
     this.volume = props.volume;
     this.data = null;
-    this.baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/data/';
+    this.baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/';
     this.speechRecognition = null;
     this.score = null;
     this.scoreStreak = 0;
@@ -72,40 +73,16 @@ class PageMain {
   }
 
   async initData() {
-    let callback = async ({ api }) => {
-      if (this.isDefaultMode) {
-        this.data = await performRequests([api.getWords.bind(api, this.round, this.difficulty)]);
+    if (this.isDefaultMode) {
+      this.data = await performRequests([api.getWords.bind(api, this.round, this.difficulty)]);
 
-        if (this.data) {
-          [this.data] = this.data;
-        }
-      } else {
-        // TODO: логика на работу с другим режимом!
-        this.data = await api.getWords(0, 0);
+      if (this.data) {
+        [this.data] = this.data;
       }
-    };
-
-    callback = callback.bind(this);
-
-    await this.eventBus.emit('pageMain.initData', { callback });
-
-    // Remove 'files/' from path of the audio & image sources retrieved from backend
-    const processData = () => {
-      // To prevent loading without data (navigator.onLine is not true)
-      if (!this.data) {
-        return;
-      }
-
-      this.data = this.data.map((item) => {
-        const processedItem = item;
-
-        processedItem.audio = processedItem.audio.replace('files/', '');
-        processedItem.image = processedItem.image.replace('files/', '');
-        return processedItem;
-      });
-    };
-
-    processData();
+    } else {
+      // TODO: логика на работу с другим режимом!
+      this.data = await api.getWords(0, 0);
+    }
   }
 
   render() {

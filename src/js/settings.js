@@ -1,10 +1,8 @@
 import performRequests from 'app/js/utils/perform-requests';
-import Api from 'app/js/api';
+import api from 'app/js/api';
 
 class Settings {
   constructor() {
-    this.api = new Api();
-
     this.minigames = {
       speakit: {
         isMute: undefined, // false
@@ -60,7 +58,7 @@ class Settings {
   }
 
   async getSettings() {
-    const settings = await performRequests([this.api.getSettings.bind(this.api)]);
+    const settings = await performRequests([api.getSettings.bind(api)]);
 
     if (settings) {
       this.setSettings(...settings); // Promise.all returns array of resolved/rejected promises
@@ -201,7 +199,7 @@ class Settings {
       },
     };
 
-    const response = await performRequests([this.api.upsertSettings.bind(this.api, settings)]);
+    const response = await performRequests([api.upsertSettings.bind(api, settings)]);
 
     if (response) {
       // Promise.all returns array of resolved/rejected promises
@@ -210,4 +208,6 @@ class Settings {
   }
 }
 
-export default Settings;
+const settings = new Settings();
+
+export default settings;
