@@ -1,4 +1,5 @@
 import markup from './markup';
+import settings from './settings';
 import api from './api';
 
 class SettingsPage {
@@ -6,14 +7,23 @@ class SettingsPage {
     this.parent = document.querySelector('.wrapper');
   }
 
-  init() {
+  async init() {
+    await settings.getSettings();
     this.render();
     this.initHandlers();
-    this.getSettings();
   }
 
   render() {
     this.parent.innerHTML = markup.settingsPage;
+
+    this.parent.querySelectorAll('[data-settings]').forEach((el) => {
+      const localEl = el;
+      const value = settings[el.dataset.settings];
+      if (+value) {
+        localEl.checked = value;
+      }
+      localEl.value = value;
+    });
   }
 
   initHandlers() {
@@ -23,14 +33,18 @@ class SettingsPage {
 
     this.parent.querySelector('.settings__logout').addEventListener('mouseup', ({ target }) => {
       target.closest('.settings__logout').classList.remove('settings__logout-active');
+      api.logoutUser();
     });
-  }
 
-  async getSettings() {
-    this.parent = document.querySelector('.wrapper');
-    const data = await api.getSettings();
-    console.log('data: ', data);
-    return data;
+    this.parent.querySelectorAll('[data-settings]').forEach((el) => {
+      el.addEventListener('change', ({ target }) => {
+        if (target.type === 'checkbox') {
+          settings.update(target.dataset.settings, target.checked);
+        } else {
+          settings.update(target.dataset.settings, target.value);
+        }
+      });
+    });
   }
 }
 

@@ -1,10 +1,8 @@
 import performRequests from 'app/js/utils/perform-requests';
-import Api from 'app/js/api';
+import api from 'app/js/api';
 
 class Settings {
   constructor() {
-    this.api = new Api();
-
     this.minigames = {
       speakit: {
         isMute: undefined, // false
@@ -39,7 +37,7 @@ class Settings {
     };
     this.isGlobalMute = undefined; // false
     this.wordsPerDay = undefined; // 20
-    this.learningMode = undefined; // new|old|mix
+    this.learningMode = undefined; // new|old|mix|learning
     this.countNewWords = undefined; // 10
     this.definitionSentence = undefined; // false
     this.exampleSentence = undefined; // false
@@ -48,7 +46,7 @@ class Settings {
     this.transcription = undefined; // false
     this.answerButton = undefined; // false
     this.deleteButton = undefined; // false
-    this.addToHardWordsButton = undefined; // false
+    this.hardWordsButton = undefined; // false
   }
 
   /**
@@ -60,7 +58,7 @@ class Settings {
   }
 
   async getSettings() {
-    const settings = await performRequests([this.api.getSettings()]);
+    const settings = await performRequests([api.getSettings()]);
 
     if (settings) {
       this.setSettings(...settings); // Promise.all returns array of resolved/rejected promises
@@ -72,7 +70,7 @@ class Settings {
    * @param {Object} settings stores settings usually from backend
    */
   setSettings(settings = {}) {
-    console.log(settings);
+    // console.log(settings);
     const {
       wordsPerDay = 20,
       optional: {
@@ -118,7 +116,7 @@ class Settings {
         transcription = false,
         answerButton = false,
         deleteButton = false,
-        addToHardWordsButton = false,
+        hardWordsButton = false,
       } = {},
     } = settings;
 
@@ -134,7 +132,7 @@ class Settings {
     this.transcription = transcription;
     this.answerButton = answerButton;
     this.deleteButton = deleteButton;
-    this.addToHardWordsButton = addToHardWordsButton;
+    this.hardWordsButton = hardWordsButton;
   }
 
   /**
@@ -180,7 +178,7 @@ class Settings {
       transcription,
       answerButton,
       deleteButton,
-      addToHardWordsButton,
+      hardWordsButton,
     } = this;
 
     const settings = {
@@ -197,11 +195,11 @@ class Settings {
         transcription,
         answerButton,
         deleteButton,
-        addToHardWordsButton,
+        hardWordsButton,
       },
     };
 
-    const response = await performRequests([this.api.upsertSettings(settings)]);
+    const response = await performRequests([api.upsertSettings(settings)]);
 
     if (response) {
       // Promise.all returns array of resolved/rejected promises
@@ -210,4 +208,6 @@ class Settings {
   }
 }
 
-export default Settings;
+const settings = new Settings();
+
+export default settings;

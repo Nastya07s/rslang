@@ -34,73 +34,74 @@ const markup = {
       <div class="settings__other">
         <div class="settings__item flex">
           <div class="settings__text">Режим изучения слов</div>
-          <select class="settings__mode">
-            <option value="random">Вперемешку</option>
-            <option value="onlyNew">Только новые слова</option>
-            <option value="onlyLerning">Только изучаемые слова</option>
+          <select class="settings__mode" data-settings="learningMode">
+            <option value="mix">Вперемешку</option>
+            <option value="new">Только новые слова</option>
+            <option value="learning">Только изучаемые слова</option>
+            <option value="old">Только изученные слова</option>
           </select>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Количество новых слов</div>
-          <input type="text" class="settings__square-big">
+          <input type="number" class="settings__square-big" data-settings=countNewWords>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Количество карточке в день</div>
-          <input type="text" class="settings__square-big">
+          <input type="number" class="settings__square-big" data-settings=wordsPerDay>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Предложение с объяснением</div>
           <label >
-              <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+              <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="definitionSentence"/>
               <span></span>
             </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Пример использования</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="exampleSentence"/>
             <span></span>
           </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Перевод слова</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="translateWord"/>
             <span></span>
           </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Картинка-ассоциация</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="associationImage"/>
             <span></span>
           </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Транскрипция</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="transcription"/>
             <span></span>
           </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Кнопка показать ответ</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="answerButton"/>
             <span></span>
           </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Кнопка удалить</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="deleteButton"/>
             <span></span>
           </label>
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Кнопка добавить в сложные слова</div>
           <label >
-            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
+            <input type="checkbox" class="custom-checkbox" name="happy" value="yes" data-settings="hardWordsButton"/>
             <span></span>
           </label>
         </div>

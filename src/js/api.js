@@ -4,8 +4,8 @@ const USER_ID_KEY = 'userCurrentId';
 class Api {
   constructor() {
     this.basicUrl = 'https://afternoon-falls-25894.herokuapp.com';
-    this.userId = localStorage.getItem(USER_ID_KEY);
-    this.userToken = localStorage.getItem(USER_TOKEN_KEY);
+    // this.userId = localStorage.getItem(USER_ID_KEY);
+    // this.userToken = localStorage.getItem(USER_TOKEN_KEY);
   }
 
   static request(url, method, data) {
