@@ -8,7 +8,6 @@ class PageMain {
     this.elements = {};
     this.classes = {
       ROOT: 'page-main',
-      SPEAK_BUTTON: 'controls__speak-button',
       WORDS_CONTAINER: 'words-container',
       WORD_CARD: 'words-container__card',
       WORD_CARD_HIDDEN: 'words-container__card_hidden',
@@ -19,6 +18,8 @@ class PageMain {
       IMAGE: 'current-word-container__image',
       TRANSLATION: 'current-word-container__translation',
       WORD: 'words-container__word',
+      SKIP_BUTTON: 'controls__skip-button',
+      SPEAK_BUTTON: 'controls__speak-button',
       RESTART_BUTTON: 'controls__restart-button',
       BUTTON_DISABLED: 'controls__button_disabled',
       SCORE: 'score__total',
@@ -108,6 +109,7 @@ class PageMain {
             <div class="page-main__words-container words-container">
             </div>
             <div class="page-main__controls controls">
+              <button class="controls__button controls__skip-button">Не знаю 😢</button>
               <button class="controls__button controls__restart-button controls__button_disabled">Заново</button>
               <button class="controls__button controls__speak-button">Speak it</button>
               <button class="controls__button controls__results-button">Результаты</button>
@@ -177,6 +179,7 @@ class PageMain {
     const { root } = this.elements;
     const {
       WORDS_CONTAINER,
+      SKIP_BUTTON,
       RESTART_BUTTON,
       SPEAK_BUTTON,
       AUDIO_PLAYER,
@@ -185,6 +188,7 @@ class PageMain {
       SCORE,
     } = this.classes;
     const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
+    const [skipButton] = root.getElementsByClassName(SKIP_BUTTON);
     const [restartButton] = root.getElementsByClassName(RESTART_BUTTON);
     const [speakButton] = root.getElementsByClassName(SPEAK_BUTTON);
     const [audioPlayer] = root.getElementsByClassName(AUDIO_PLAYER);
@@ -195,6 +199,7 @@ class PageMain {
     this.elements = {
       ...this.elements,
       wordsContainer,
+      skipButton,
       restartButton,
       speakButton,
       audioPlayer,
@@ -206,6 +211,7 @@ class PageMain {
 
   initHandlers() {
     const {
+      skipButton,
       restartButton,
       speakButton,
       audioPlayer,
@@ -214,6 +220,7 @@ class PageMain {
     // set default volume
     audioPlayer.volume = this.volume;
 
+    skipButton.addEventListener('click', this.skipCard.bind(this));
     restartButton.addEventListener('click', this.handlerRestartButton.bind(this));
     speakButton.addEventListener('click', this.handlerSpeakButton.bind(this));
   }
@@ -321,29 +328,7 @@ class PageMain {
     }
 
     // Change Card
-    const {
-      WORD_CARD_HIDDEN,
-    } = this.classes;
-
-    card.classList.toggle(WORD_CARD_HIDDEN);
-    card.ontransitionend = async () => {
-      // 1. Remove previous card
-      card.remove();
-
-      // 2. Increase index by 1
-      this.currentCardIndex += 1;
-      // 3. Check if next card exists
-      const isIndexInBounds = this.currentCardIndex < this.data.length;
-
-      if (isIndexInBounds) {
-        // 4.1. Create new card
-        await this.createCard(this.currentCardIndex);
-      } else {
-        // 4.2. TODO: Show modal of the end of the game with results!
-        console.log(this.score);
-        this.handlerRestartButton();
-      }
-    };
+    this.changeCard(card);
   }
 
   async handlerCardClick(event) {
@@ -456,6 +441,53 @@ class PageMain {
     this.score += isStreak ? this.score : 1; // multiply by 2 or by 1
 
     score.textContent = this.score; // make visual changes
+  }
+
+  changeCard(cardElement) {
+    const card = cardElement;
+
+    const {
+      WORD_CARD_HIDDEN,
+    } = this.classes;
+
+    card.classList.add(WORD_CARD_HIDDEN);
+    card.ontransitionend = async () => {
+      // 1. Remove previous card
+      card.remove();
+
+      // 2. Increase index by 1
+      this.currentCardIndex += 1;
+      // 3. Check if next card exists
+      const isIndexInBounds = this.currentCardIndex < this.data.length;
+
+      if (isIndexInBounds) {
+        // 4.1. Create new card
+        await this.createCard(this.currentCardIndex);
+      } else {
+        // 4.2. TODO: Show modal of the end of the game with results!
+        console.log(this.score);
+        this.handlerRestartButton();
+      }
+    };
+  }
+
+  skipCard() {
+    const { wordsContainer } = this.elements;
+    const card = wordsContainer.firstElementChild;
+
+    // If the game is already ended or if some error has happened
+    if (!card) {
+      return;
+    }
+
+    this.scoreStreak = 0;
+
+    // Mark as wrong
+    const { WORD_CARD_WRONG } = this.classes;
+
+    card.classList.add(WORD_CARD_WRONG);
+
+    this.changeCard(card);
   }
 }
 
