@@ -231,7 +231,14 @@ html {
 }
 
 .control-buttons.control-buttons__end-of-game {
+  width: 100%;
   border-top: none;
+  box-sizing: border-box;
+  padding: 0 50px;
+
+  & .image-sound {
+  right: 5%;
+  }
 }
 
 .control-arrow {
@@ -344,6 +351,9 @@ html {
   background-repeat: no-repeat;
   color: #3F8CA6;
 }
+.card.finish {
+  min-height: 500px;
+}
 
 .finish-header {
   font-size: 2.5rem;
@@ -391,6 +401,7 @@ html {
   height: 96px;
   margin: 10px;
   overflow: auto;
+  z-index: 2;
 
   &::-webkit-scrollbar-thumb {
     border-radius: 5px;
@@ -526,7 +537,7 @@ html {
     font-size: 1.5rem;
   }
   .finish-header {
-    margin-top: 10rem;
+    margin-top: 17rem;
   }
 }
 

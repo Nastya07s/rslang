@@ -109,7 +109,7 @@ export default class Sprint {
       // prevent clipping
       strokeWidth: 4,
       trailWidth: 1,
-      duration: 6000,
+      duration: 60000,
       text: {
         autoStyleContainer: false,
       },
