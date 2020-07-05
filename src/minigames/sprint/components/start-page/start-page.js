@@ -200,7 +200,7 @@ export default class StartPage {
     });
     this.buttonClose = this.container.querySelector('.close');
     this.buttonClose.addEventListener('click', () => {
-      document.location.href = '/';
+      document.location.href = '/main';
     });
     this.starsBlock = this.container.querySelector('.stars');
     this.starsArray = Array.from(this.container.querySelectorAll(`.${STAR_CLASS}`));

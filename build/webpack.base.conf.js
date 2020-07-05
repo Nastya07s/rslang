@@ -91,7 +91,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/minigames/sprint/index.html`,
-      filename: './sprint.html',
+      filename: './sprint',
       chunks: ['sprint'],
     }),
     new CopyWebpackPlugin([

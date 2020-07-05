@@ -163,7 +163,7 @@ export default class Sprint {
       progressBarTime = bar.value();
     });
     this.dropGameWindowExit.addEventListener('click', () => {
-      document.location.href = '/';
+      document.location.href = '/main';
       this.wordsService.resetToSettings();
     });
     this.dropGameWindowCansel.addEventListener('click', () => {
@@ -329,11 +329,11 @@ export default class Sprint {
     this.maxScoreElement.innerHTML = this.maxScore;
     this.buttonClose = this.container.querySelector('.button-close');
     this.buttonClose.addEventListener('click', () => {
-      document.location.href = '/';
+      document.location.href = '/main';
     });
     this.buttonStart = this.container.querySelector('.button-start');
     this.buttonStart.addEventListener('click', () => {
-      document.location.href = '/sprint.html';
+      document.location.href = '/sprint';
       this.wordsService.resetToSettings();
     });
     this.statisticsService.updateGameResult(SPRINT, this.totalScore);
