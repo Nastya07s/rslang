@@ -94,7 +94,7 @@ export default class Sprint {
       <div class="control-buttons">
         <button type="button" class="button button-wrong">Неверно</button>
         <button type="button" class="button button-right">Верно</button>
-        <div class="image-sound"></div>
+        <div class="image-sound image-sound--main"></div>
       </div>
     </div>
     <div class="addition">
@@ -110,7 +110,7 @@ export default class Sprint {
       // prevent clipping
       strokeWidth: 4,
       trailWidth: 1,
-      duration: 60000,
+      duration: 6000,
       text: {
         autoStyleContainer: false,
       },
@@ -151,20 +151,7 @@ export default class Sprint {
         this.buttonRight.click();
       }
     });
-    this.sound = this.container.querySelector('.image-sound');
-    this.sound.addEventListener('click', () => {
-      this.mute = !this.mute;
-      this.settings.minigames.sprint.isMute = this.mute;
-      this.settings.postUpdates();
-      if (this.mute) {
-        this.sound.classList.add('active');
-      } else {
-        this.sound.classList.remove('active');
-      }
-    });
-    if (this.mute) {
-      this.sound.classList.add('active');
-    }
+    this.addSoundSwitcher('.image-sound--main');
     this.buttonClose = this.container.querySelector('.close-game');
     this.dropGame = document.querySelector('.drop-game');
     this.dropGameWindowExit = document.querySelector('.drop-game-window__exit');
@@ -330,6 +317,7 @@ export default class Sprint {
       <div class="control-buttons control-buttons__end-of-game">
         <button type="button" class="button button-wrong button-start">Повторить</button>
         <button type="button" class="button button-right button-close">Выход</button>
+        <div class="image-sound image-sound--main"></div>
       </div>
     </div>`;
     this.totalScoreEndOfGame = this.container.querySelector('.score-end-of-game');
@@ -382,5 +370,23 @@ export default class Sprint {
         this.playSound(`${AUDIO_ROOT}${sound}`);
       }
     });
+    this.addSoundSwitcher('.image-sound--main');
+  }
+
+  addSoundSwitcher(selector) {
+    this.sound = this.container.querySelector(selector);
+    this.sound.addEventListener('click', () => {
+      this.mute = !this.mute;
+      this.settings.minigames.sprint.isMute = this.mute;
+      this.settings.postUpdates();
+      if (this.mute) {
+        this.sound.classList.add('active');
+      } else {
+        this.sound.classList.remove('active');
+      }
+    });
+    if (this.mute) {
+      this.sound.classList.add('active');
+    }
   }
 }

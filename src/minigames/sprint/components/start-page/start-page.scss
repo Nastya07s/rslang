@@ -1,3 +1,5 @@
+@import "~normalize.css";
+
 .start-game__wrapper {
   margin: 0 auto;
   max-width: 1290px;
@@ -70,11 +72,11 @@ header {
       background: white;
       position: absolute;
       width: 300px;
-      height: 180px;
+      height: 140px;
       border-radius: 18px;
       color: black;
       padding: 20px;
-      font-size: 2.2em;
+      font-size: 1.5em;
 
       &:before {
         content: " ";
@@ -103,6 +105,7 @@ header {
           width: 70px;
           border: 1px solid black;
           border-radius: 2px;
+          font-size: 14px;
 
           &:focus {
             outline: none;
@@ -157,7 +160,7 @@ header {
   }
 
   & .game-start__description {
-    font-size: 28px;
+    font-size: 1.5em;
     margin-top: 40px;
     text-align: center;
     line-height: 1.5em;
@@ -176,9 +179,19 @@ header {
   }
 }
 
+@media screen and (max-width: 1326px) {
+  .header__wrapper {
+    width: 90%;
+  }
+
+  .main__wrapper {
+    width: 90%;
+  }
+}
+
 @media screen and (max-width: 768px) {
-  body {
-    font-size: 6px;
+  .game-start .game-start__title {
+    font-size: 4em;
   }
   .controllers .icon {
     width: 30px;
@@ -190,10 +203,8 @@ header {
     top: 50px;
     right: -26.5px;
   }
-  //  .options__settings .star {
-  //   width: 200px;
-  //   height: 140px;
-  //   top: 50px;
-  //   right: -26.5px;
-  // }
+
+  .main__wrapper {
+    width: 90%;
+  }
 }

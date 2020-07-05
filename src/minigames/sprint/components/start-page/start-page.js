@@ -106,8 +106,7 @@ export default class StartPage {
                 </div>
   
                 <div class="options__levels">
-                  <select onmousedown="if(this.options.length>10){this.size=10;}" onchange="this.size=0;"
-                    onblur="this.size=0;">
+                  <select>
                     <option value="0">1</option>
                     <option value="1">2</option>
                     <option value="2">3</option>
