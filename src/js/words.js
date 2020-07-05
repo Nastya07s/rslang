@@ -57,8 +57,10 @@ export default class Words {
     const word = this.api.getUserWordById(wordId)
       .then(() => {
         word.optional = word.optional || {};
-        word.optional.countRepetition = word.optional.countRepetition
-          ? parseInt(word.optional.countRepetition, 10) + 1 : 1;
+        if (word.optional.countRepetition < COUNT_REPETITION_LEARNED) {
+          word.optional.countRepetition = word.optional.countRepetition
+            ? parseInt(word.optional.countRepetition, 10) + 1 : 1;
+        }
         word.optional.lastRepetition = Date.now();
         return this.api.updateUserWordById(wordId, {
           difficulty: word.difficulty,
@@ -149,6 +151,6 @@ export default class Words {
     const filter = {
       $or: countRepetitions.map((element) => ({ 'userWord.optional.countRepetition': element })),
     };
-    return this.api.getUsersAggregatedWords('', WORDS_PER_PAGE, true, JSON.stringify(filter));
+    return this.api.getUsersAggregatedWords('', WORDS_PER_PAGE, true, filter);
   }
 }
