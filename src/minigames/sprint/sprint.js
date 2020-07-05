@@ -12,6 +12,7 @@ const MUTE = 'mute';
 const PROGRESS_CLASS = 'icon-progress_';
 const MAX_SCORE = 'max-score';
 const SPRINT = 'sprint';
+const AUDIO_ROOT = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master/';
 
 export default class Sprint {
   constructor(selector) {
@@ -130,6 +131,7 @@ export default class Sprint {
       },
     });
     bar.animate(1.0, {}, this.finishGame.bind(this)); // Number from 0.0 to 1.0
+    this.bodySprint = document.querySelector('.body-sprint');
     this.progressImages = this.container.querySelector('.progress-images');
     this.wordElement = this.container.querySelector('.word');
     this.wordTranslateElement = this.container.querySelector('.word-translate');
@@ -170,6 +172,7 @@ export default class Sprint {
     let progressBarTime;
     this.buttonClose.addEventListener('click', () => {
       this.dropGame.classList.remove('hidden');
+      this.bodySprint.classList.add('no-scroll');
       bar.stop();
       progressBarTime = bar.value();
     });
@@ -179,6 +182,7 @@ export default class Sprint {
     });
     this.dropGameWindowCansel.addEventListener('click', () => {
       this.dropGame.classList.add('hidden');
+      this.bodySprint.classList.remove('no-scroll');
       bar.animate(1 - progressBarTime, {}, this.finishGame.bind(this));
     });
     this.updateCard();
@@ -347,18 +351,30 @@ export default class Sprint {
     this.arrayCorrectAnswer.forEach((element) => {
       this.listCorrect.innerHTML += `
       <li class="word-item">
-        <span class="image-sound"></span>
-        <span class="bold">${element.word}</span>
+        <span class="image-sound" data-sound="${element.audio}"></span>
+        <span class="bold" data-sound="${element.audio}">${element.word}</span>
         <span>${element.wordTranslate}</span>
       </li>`;
     });
     this.arrayIncorrectAnswer.forEach((element) => {
       this.listIncorrect.innerHTML += `
       <li class="word-item">
-        <span class="image-sound"></span>
-        <span class="bold">${element.word}</span>
+        <span class="image-sound" data-sound="${element.audio}"></span>
+        <span class="bold" data-sound="${element.audio}">${element.word}</span>
         <span>${element.wordTranslate}</span>
       </li>`;
+    });
+    this.listIncorrect.addEventListener('click', (event) => {
+      const sound = event.target.getAttribute('data-sound');
+      if (sound) {
+        this.playSound(`${AUDIO_ROOT}${sound}`);
+      }
+    });
+    this.listCorrect.addEventListener('click', (event) => {
+      const sound = event.target.getAttribute('data-sound');
+      if (sound) {
+        this.playSound(`${AUDIO_ROOT}${sound}`);
+      }
     });
   }
 }
