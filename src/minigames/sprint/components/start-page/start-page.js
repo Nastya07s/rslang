@@ -196,6 +196,7 @@ export default class StartPage {
       this.gameSettings.isMute = !this.gameSettings.isMute;
       const gameName = this.config.gameNameInSettings;
       this.config.settings.minigames[gameName].isMute = this.gameSettings.isMute;
+      this.config.settings.postUpdates();
     });
     this.buttonClose = this.container.querySelector('.close');
     this.buttonClose.addEventListener('click', () => {

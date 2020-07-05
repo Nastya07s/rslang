@@ -34,7 +34,6 @@ export default class Sprint {
         });
         this.countCorrectAnswer = 0;
         this.totalScore = 0;
-        this.mute = this.settings.minigames.sprint.isMute;
         this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
         this.wordsArrayFull = await this.getWordsList();
         this.createStartPage();
@@ -279,7 +278,7 @@ export default class Sprint {
   }
 
   playSound(src) {
-    if (this.mute) {
+    if (this.getMute()) {
       return;
     }
     const audio = new Audio(src);
@@ -376,17 +375,25 @@ export default class Sprint {
   addSoundSwitcher(selector) {
     this.sound = this.container.querySelector(selector);
     this.sound.addEventListener('click', () => {
-      this.mute = !this.mute;
-      this.settings.minigames.sprint.isMute = this.mute;
+      this.setMute(!this.getMute());
       this.settings.postUpdates();
-      if (this.mute) {
+      if (this.getMute()) {
         this.sound.classList.add('active');
       } else {
         this.sound.classList.remove('active');
       }
     });
-    if (this.mute) {
+    if (this.getMute()) {
       this.sound.classList.add('active');
     }
+  }
+
+  getMute() {
+    return this.settings.minigames.sprint.isMute;
+  }
+
+  setMute(value) {
+    this.settings.minigames.sprint.isMute = value;
+    this.settings.postUpdates();
   }
 }
