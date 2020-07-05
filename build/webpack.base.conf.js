@@ -22,7 +22,7 @@ module.exports = {
     extensions: ['.js'],
   },
   entry: {
-    app: PATHS.src,
+    main: `${PATHS.src}/js/main.js`,
     sprint: PATHS.sprint,
   },
   output: {
@@ -87,6 +87,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/minigames/sprint/index.html`,
