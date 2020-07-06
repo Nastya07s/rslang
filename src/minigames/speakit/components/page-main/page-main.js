@@ -1,5 +1,6 @@
 import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
+import utils from 'app/js/utils/utils';
 // import loader from 'app/js/utils/loader';
 
 class PageMain {
@@ -74,10 +75,12 @@ class PageMain {
 
   async initData() {
     if (this.isDefaultMode) {
-      this.data = await performRequests([api.getWords.bind(api, this.round, this.difficulty)]);
+      this.data = await performRequests([api.getWords.bind(api, this.difficulty, this.round)]);
 
       if (this.data) {
         [this.data] = this.data;
+
+        this.data = utils.shuffleFisherYates(this.data);
       }
     } else {
       // TODO: логика на работу с другим режимом!
