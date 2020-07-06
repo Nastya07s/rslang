@@ -1,4 +1,3 @@
-import yandexTranslator from 'app/js/api/services/yandex-translate';
 import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
 // import loader from 'app/js/utils/loader';
@@ -141,9 +140,6 @@ class PageMain {
 
     card.addEventListener('click', this.handlerCardClick.bind(this));
 
-    // Init Data
-    card.dataset.translation = await this.translateWord(card);
-
     // Set translation
     this.changeTranslation(card);
     // Set image and await image's load event
@@ -159,12 +155,16 @@ class PageMain {
     }
 
     const {
-      word, transcription, image, audio,
+      word,
+      transcription,
+      image,
+      audio,
+      wordTranslate,
     } = this.data[index];
     const cardTemplate = document.createElement('template');
 
     cardTemplate.innerHTML = `
-      <div class="words-container__card" data-audio="${audio}" data-image="${image}">
+      <div class="words-container__card" data-audio="${audio}" data-image="${image}" data-translation="${wordTranslate}">
         <span class="words-container__icon"></span>
         <div class="words-container__word-container">
           <p class="words-container__word">${word}</p>
@@ -410,26 +410,6 @@ class PageMain {
     if (isCardTranslationChanged) {
       translation.textContent = dataTranslation;
     }
-  }
-
-  /**
-   * Translate word using Yandex Translator API.
-   * Set "translation" element textContent equal to the translated word in russian.
-   * @param {HTMLElement} card card with the given word
-   */
-  async translateWord(card) {
-    const { WORD } = this.classes;
-    const [word] = card.getElementsByClassName(WORD);
-
-    const response = await yandexTranslator.getTranslation(word.textContent);
-
-    if (response) {
-      const [translationText] = response;
-
-      return translationText;
-    }
-
-    return '';
   }
 
   increaseScore() {
