@@ -1,6 +1,7 @@
 import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
 import utils from 'app/js/utils/utils';
+import ProgressBar from '../progress-bar/progress-bar';
 // import loader from 'app/js/utils/loader';
 
 class PageMain {
@@ -29,6 +30,7 @@ class PageMain {
     this.difficulty = props.difficulty;
     this.round = props.round;
     this.volume = props.volume;
+    this.progressBar = null;
     this.data = null;
     this.baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/';
     this.speechRecognition = null;
@@ -51,6 +53,12 @@ class PageMain {
     this.render(); // render main page (get markup)
     this.initElements(); // find elements by their classnames
     this.initHandlers(); // add event listeners to the initialized elements
+
+    this.progressBar = new ProgressBar({
+      min: 0,
+      max: this.data.length, // TODO: добавить какие-то слова ограничение
+    });
+
     await this.createCard(); // create first card (render & init)
     // loader.toggle();
     return this.eventBus.emit('pageMain.ready');
@@ -100,6 +108,11 @@ class PageMain {
               <p class="score__title">Счёт:</p>
               <div class="score__total">
                 ${this.score}
+              </div>
+              <div class="progress-bar">
+                <div class="progress-bar__current-value"></div>
+                <progress class="progress-bar__progress" value="" max=""></progress>
+                <div class="progress-bar__max-value"></div>
               </div>
             </div>
             <div class="page-main__current-word-container current-word-container">
@@ -435,26 +448,31 @@ class PageMain {
 
     card.classList.add(WORD_CARD_HIDDEN);
     card.ontransitionend = async () => {
-      // 1. Remove previous card
       card.remove();
 
-      // 2. Increase index by 1
       this.currentCardIndex += 1;
-      // 3. Check if next card exists
+
       const isIndexInBounds = this.currentCardIndex < this.data.length;
 
       if (isIndexInBounds) {
-        // 4.1. Create new card
         await this.createCard(this.currentCardIndex);
       } else {
         // 4.2. TODO: Show modal of the end of the game with results!
         console.log(this.score);
         this.handlerRestartButton();
+
+        this.isGameEnded = !this.isGameEnded;
       }
+
+      this.progressBar.changeProgressBy(1);
     };
   }
 
   skipCard() {
+    if (this.isGameEnded) {
+      return;
+    }
+
     const { wordsContainer } = this.elements;
     const card = wordsContainer.firstElementChild;
 
