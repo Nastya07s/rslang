@@ -3,7 +3,7 @@ const USER_TOKEN_KEY_REFRESH = 'userRefreshToken';
 const USER_ID_KEY = 'userCurrentId';
 const TIME_TO_REFRESH_TOKEN = 10 * 60 * 1000; // 10 min
 
-export default class Api {
+class Api {
   constructor() {
     this.basicUrl = 'https://afternoon-falls-25894.herokuapp.com';
     this.userId = localStorage.getItem(USER_ID_KEY);
@@ -224,3 +224,6 @@ export default class Api {
     localStorage.setItem(USER_TOKEN_KEY_REFRESH, this.refreshToken);
   }
 }
+
+const api = new Api();
+export default api;
