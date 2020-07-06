@@ -185,9 +185,8 @@ class Api {
     + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
   }
 
-  getUsersAggregatedWordsById(wordId, group = 0, wordsPerPage = 20, filter = {}) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}?`
-        + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
+  getUsersAggregatedWordsById(wordId) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}`, 'GET');
   }
 
   getStatistics() {
