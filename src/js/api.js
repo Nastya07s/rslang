@@ -180,18 +180,14 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'DELETE');
   }
 
-  getUsersAggregatedWords(group = 0, wordsPerPage = 20,
-    onlyUserWords = false, filter = {}) {
+  getUsersAggregatedWords(group = 0, wordsPerPage = 20, filter = {}) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords?`
-    + `group=${group}&wordsPerPage=${wordsPerPage}&onlyUserWords=${onlyUserWords}&`
-    + `filter=${JSON.stringify(filter)}`, 'GET');
+    + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
   }
 
-  getUsersAggregatedWordsById(group = 0, wordsPerPage = 20,
-    onlyUserWords = false, filter = {}, wordId) {
+  getUsersAggregatedWordsById(wordId, group = 0, wordsPerPage = 20, filter = {}) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}?`
-        + `group=${group}&wordsPerPage=${wordsPerPage}&onlyUserWords=${onlyUserWords}&`
-        + `filter=${JSON.stringify(filter)}`, 'GET');
+        + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
   }
 
   getStatistics() {
