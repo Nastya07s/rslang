@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint no-console: "off" */
+
 import {
   Swiper,
   Navigation,
