@@ -12,6 +12,7 @@ const PROGRESS_CLASS = 'icon-progress_';
 const MAX_SCORE = 'max-score';
 const SPRINT = 'sprint';
 const AUDIO_ROOT = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master/';
+const CLASS_ANIMATE_TO_BUTTONS = 'tada';
 
 export default class Sprint {
   constructor(selector) {
@@ -219,6 +220,7 @@ export default class Sprint {
     }
     this.wordElement.innerHTML = this.word.word;
     this.wordTranslateElement.innerHTML = this.word.wordTranslate;
+    this.wordsService.updateRepetition(this.word.wordId, this.word.wordData.group.toString());
   }
 
   onAnswerClick(event) {
@@ -228,14 +230,14 @@ export default class Sprint {
     const isCorrectButton = event.target.classList.contains('button-right');
     const isCorrectAnswer = isCorrectButton === this.word.correct;
     if (isCorrectButton) {
-      this.buttonRight.classList.add('tada');
+      this.buttonRight.classList.add(CLASS_ANIMATE_TO_BUTTONS);
       setTimeout(() => {
-        this.buttonRight.classList.remove('tada');
+        this.buttonRight.classList.remove(CLASS_ANIMATE_TO_BUTTONS);
       }, 1000);
     } else {
-      this.buttonWrong.classList.add('tada');
+      this.buttonWrong.classList.add(CLASS_ANIMATE_TO_BUTTONS);
       setTimeout(() => {
-        this.buttonWrong.classList.remove('tada');
+        this.buttonWrong.classList.remove(CLASS_ANIMATE_TO_BUTTONS);
       }, 1000);
     }
     if (isCorrectAnswer) {
@@ -244,7 +246,7 @@ export default class Sprint {
       this.countCorrectAnswer += 1;
       const correctAnswers = this.countCorrectAnswer % INCREASE_SCORE_EVERY;
       this.playSound(AUDIO_RIGHT);
-      this.wordsService.updateRepetition(this.word.wordId, this.word.wordData.group.toString());
+      this.wordsService.updateKnowledge(this.word.wordId, this.word.wordData.group.toString());
       this.arrayCorrectAnswer.push(this.word.wordData);
       if (correctAnswers === 0) {
         this.switchImages(Math.floor(this.countCorrectAnswer / INCREASE_SCORE_EVERY) + 1);
@@ -264,10 +266,10 @@ export default class Sprint {
       this.switchImages(1);
       this.playSound(AUDIO_WRONG);
       this.answerIncorrect.classList.remove('invisible');
-      this.answerIncorrect.classList.add('tada');
+      this.answerIncorrect.classList.add(CLASS_ANIMATE_TO_BUTTONS);
       setTimeout(() => {
         this.answerIncorrect.classList.add('invisible');
-        this.answerIncorrect.classList.remove('tada');
+        this.answerIncorrect.classList.remove(CLASS_ANIMATE_TO_BUTTONS);
       }, 1000);
       this.answerCorrectList.forEach((element) => {
         element.classList.remove('active');

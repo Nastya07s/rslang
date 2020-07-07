@@ -37,7 +37,7 @@ export default class StartPage {
           </div>
           <div class="controllers__right">
             <div class="options icon">
-              <div class="options__settings">
+              <div class="options__settings hidden">
                 <div class="options__difficulties-title">
                   Сложность
                 </div>

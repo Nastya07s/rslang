@@ -3,7 +3,7 @@ import api from 'app/js/api';
 const PAGES_COUNT = 29;
 const LEVEL_COUNT = 5;
 const WORDS_PER_PAGE = 20;
-const COUNT_REPETITION_LEARNED = 4;
+const DEGREE_OF_KNOWLEDGE = 5;
 
 function shuffleArray(array) {
   return array.sort(() => 0.5 - Math.random());
@@ -48,20 +48,45 @@ export default class Words {
   }
 
   /**
-   * Increases countRepeatition and updates lastRepetition by wordId
+   * Increases degreeOfKnowledge and updates lastRepetition by wordId
    * @param wordId
    * @param difficulty
    * @returns {Promise<unknown>}
    */
+  updateKnowledge(wordId, difficulty) {
+    this.api.getUserWordById(wordId)
+      .then((response) => {
+        const word = response;
+        word.optional = word.optional || {};
+        if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE) {
+          word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
+        } else if (!word.optional.degreeOfKnowledge) {
+          word.optional.degreeOfKnowledge = 1;
+        }
+        return this.api.updateUserWordById(wordId, {
+          difficulty: word.difficulty,
+          optional: word.optional,
+        });
+      }, () => {
+        this.api.createUserWord(wordId, {
+          difficulty,
+          optional: {
+            degreeOfKnowledge: 1,
+            countRepetition: 0,
+            lastRepetition: Date.now(),
+          },
+        });
+      });
+  }
+
   updateRepetition(wordId, difficulty) {
     this.api.getUserWordById(wordId)
       .then((response) => {
         const word = response;
         word.optional = word.optional || {};
-        console.log('word.optional.countRepetition', word.optional.countRepetition);
-        if (word.optional.countRepetition < COUNT_REPETITION_LEARNED) {
-          word.optional.countRepetition = parseInt(word.optional.countRepetition, 10) + 1;
-        } else if (!word.optional.countRepetition) {
+        if (word.optional.countRepetition) {
+          word.optional.countRepetition += 1;
+        } else {
           word.optional.countRepetition = 1;
         }
         word.optional.lastRepetition = Date.now();
@@ -73,6 +98,7 @@ export default class Words {
         this.api.createUserWord(wordId, {
           difficulty,
           optional: {
+            degreeOfKnowledge: 0,
             countRepetition: 1,
             lastRepetition: Date.now(),
           },
@@ -129,7 +155,7 @@ export default class Words {
       const responseUserWords = await Promise.all(promises);
       const wordsFiltered = [];
       wordsToGet.forEach((element, index) => {
-        if (element.optional && element.optional.countRepetition < COUNT_REPETITION_LEARNED) {
+        if (element.optional && element.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE) {
           wordsFiltered.push(responseUserWords[index]);
         }
       });
@@ -150,9 +176,9 @@ export default class Words {
   }
 
   async getUserWords() {
-    const countRepetitions = [0, 1, 2, 3];
+    const degreeOfKnowledges = [0, 1, 2, 3, 5];
     const filter = {
-      $or: countRepetitions.map((element) => ({ 'userWord.optional.countRepetition': element })),
+      $or: degreeOfKnowledges.map((element) => ({ 'userWord.optional.degreeOfKnowledge': element })),
     };
     return this.api.getUsersAggregatedWords('', WORDS_PER_PAGE, true, filter);
   }
