@@ -2,7 +2,7 @@ import ProgressBar from 'progressbar.js';
 import Words from 'app/js/words';
 import Settings from 'app/js/settings';
 import Statistics from 'app/js/statistics';
-import Api from '../../js/api';
+import api from '../../js/api';
 import StartPage from './components/start-page/start-page';
 
 const INCREASE_SCORE_EVERY = 4;
@@ -20,7 +20,7 @@ export default class Sprint {
   }
 
   async init() {
-    this.api = new Api();
+    this.api = api;
     this.loaderSprint = document.querySelector('.loader-sprint');
     this.loaderSprint.classList.remove('hidden');
     this.api.checkLogin()

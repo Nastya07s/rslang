@@ -1,4 +1,4 @@
-import Api from 'app/js/api';
+import api from 'app/js/api';
 
 const PAGES_COUNT = 29;
 const LEVEL_COUNT = 5;
@@ -20,7 +20,7 @@ export default class Words {
   }
 
   init() {
-    this.api = new Api();
+    this.api = api;
   }
 
   getGameSettings() {

@@ -1,4 +1,4 @@
-import Api from 'app/js/api';
+import api from 'app/js/api';
 
 export default class Statistics {
   /**
@@ -10,7 +10,7 @@ export default class Statistics {
   }
 
   async init() {
-    this.api = new Api();
+    this.api = api;
     // Returns 404 error if not statistics saved
     await this.getStatistics()
       .then((response) => {
