@@ -1,9 +1,9 @@
 import performRequests from 'app/js/utils/perform-requests';
-import Api from 'app/js/api';
+import api from 'app/js/api';
 
 class Settings {
   constructor() {
-    this.api = new Api();
+    this.api = api;
 
     this.minigames = {
       speakit: {
