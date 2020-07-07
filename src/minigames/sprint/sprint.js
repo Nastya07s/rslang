@@ -35,7 +35,6 @@ export default class Sprint {
         this.countCorrectAnswer = 0;
         this.totalScore = 0;
         this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
-        this.wordsArrayFull = await this.getWordsList();
         this.createStartPage();
         this.statisticsService = new Statistics();
         this.arrayCorrectAnswer = [];
@@ -64,7 +63,8 @@ export default class Sprint {
     this.wordsService.resetToSettings();
   }
 
-  createElement() {
+  async createElement() {
+    this.wordsArrayFull = await this.getWordsList();
     this.container.classList.add('sprint');
     this.container.innerHTML = `
     <div class="close-game"></div>
