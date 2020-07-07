@@ -1,11 +1,24 @@
 import markup from './markup';
+import api from './api';
+import settings from './settings';
+import { nextRepetition } from './intervalRepeatMethod';
+
+function shuffleArray(array) {
+  return array.sort(() => 0.5 - Math.random());
+}
 
 class VocabularyPage {
   constructor() {
     this.parent = document.querySelector('.wrapper');
   }
 
-  init() {
+  async init() {
+    await settings.getSettings();
+    const words = await api.getUsersAggregatedWords(0, 3, false, {
+      $nor: [{ userWord: null }],
+    });
+    console.log('words.paginatedResults: ', words[0].paginatedResults);
+    this.words = shuffleArray(words[0].paginatedResults);
     this.render();
     this.initHandlers();
   }
@@ -13,26 +26,43 @@ class VocabularyPage {
   render() {
     this.parent.innerHTML = markup.vocabularyPage;
     const vocabularyCountainer = document.querySelector('.vocabulary__template');
-    const word = document.createElement('div');
-    word.classList.add('template-vocabulary__body', 'flex');
-    word.innerHTML = `
-    <div class="template-vocabulary__title flex">
-      <div class="template-vocabulary__lvl">
-        <div class="complexity flex">
-          <span class="complexity__circle"></span>
-          <span class="complexity__circle"></span>
-          <span class="complexity__circle"></span>
-          <span class="complexity__circle"></span>
-          <span class="complexity__circle"></span>
+    this.words.forEach((word) => {
+      console.log('word: ', word);
+
+      console.log('settings: ', settings);
+      let count = +word.userWord.optional.degreeOfKnowledge;
+      const { lastRepetition, isDelete, isHard } = word.userWord.optional;
+      const nextRepetitionTimeStamp = +nextRepetition(count, lastRepetition);
+      const nextRepetitionDate = nextRepetitionTimeStamp
+        ? new Date(nextRepetitionTimeStamp).toLocaleDateString()
+        : nextRepetitionTimeStamp;
+      const wordElement = document.createElement('div');
+      wordElement.classList.add('template-vocabulary__body', 'flex');
+      wordElement.dataset.hard = isHard;
+      wordElement.dataset.delete = isDelete;
+      wordElement.dataset.learning = count < 5 ? 'true' : 'false';
+      wordElement.dataset.old = count === 5 ? 'true' : 'false';
+      wordElement.dataset.all = 'true';
+      wordElement.innerHTML = `
+      <div class="template-vocabulary__title flex">
+        <div class="template-vocabulary__lvl">
+          <div class="complexity flex">
+            <span class="complexity__circle"></span>
+            <span class="complexity__circle"></span>
+            <span class="complexity__circle"></span>
+            <span class="complexity__circle"></span>
+            <span class="complexity__circle"></span>
+          </div>
         </div>
-      </div>
-      <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
+        <div class="template-vocabulary__restore d-none"><a href="">Восстановить</a></div>
       </div>
       <div class="template-vocabulary__all flex">
         <div class="template-vocabulary__info">
           <div class="template-vocabulary__word flex">
-            <span>Agree - [əgríː] - согласна</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <span>${word.word}</span>
+            <span class="d-none" data-settings="transcription">- [əgríː]</span>
+            <span class="d-none" data-settings="translateWord"> - согласна</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-none" data-settings="isGlobalMute">
               <path
                 d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
                 stroke="black"
@@ -49,24 +79,36 @@ class VocabularyPage {
                 stroke-opacity="0.56"
               />
             </svg>
+            <audio src="https://raw.githubusercontent.com/kamikozz/rslang-data/master/${word.audio}"></audio>
           </div>
-          <div class="template-vocabulary__example">
+          <div class="template-vocabulary__example d-none" data-settings="exampleSentence">
             <span>Пример:</span>
             <span>The students <b>agree</b> they have too much homework.</span>
           </div>
-          <div class="template-vocabulary__value">
+          <div class="template-vocabulary__value d-none" data-settings="definitionSentence">
             <span>Значение:</span>
             <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
           </div>
           <div class="template-vocabulary__time flex">
-            <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-            <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-            <div class="template-vocabulary__num">Повторения: 6</div>
+            <div class="template-vocabulary__lasttime">Последие повторение: <span>${new Date(+word.userWord.optional.lastRepetition).toLocaleDateString()}</span></div>
+            <div class="template-vocabulary__nexttime">Следующее повторение: <span>${nextRepetitionDate}</span></div>
+            <div class="template-vocabulary__num">Повторения: <span>${+word.userWord.optional.countRepetition}</span></div>
           </div>
         </div>
-        <div class="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
+        <div class="template-vocabulary__image d-none" data-settings="associationImage"><img src="https://raw.githubusercontent.com/kamikozz/rslang-data/master/${word.image}" alt="" /></div>
       </div>`;
-    vocabularyCountainer.append(word);
+      wordElement.querySelectorAll('.complexity__circle').forEach((el) => {
+        if (count) {
+          el.classList.add('complexity__circle-active');
+          count -= 1;
+        }
+      });
+      wordElement.querySelectorAll('[data-settings]').forEach((el) => {
+        if (settings[el.dataset.settings]) el.classList.remove('d-none');
+      });
+      vocabularyCountainer.append(wordElement);
+    });
+    this.parent.querySelector('.vocabulary__num span').textContent = this.words.length;
   }
 
   initHandlers() {
@@ -76,6 +118,25 @@ class VocabularyPage {
       });
 
       target.closest('.vocabulary__info-title').classList.add('vocabulary__info-title-active');
+    });
+
+    this.parent.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
+      this.parent.querySelectorAll('.template-vocabulary__body').forEach((el) => {
+        this.parent.querySelector('.vocabulary__template').classList.remove('opacity-0');
+        if (el.dataset[target.dataset.word] !== 'true') el.classList.add('d-none');
+        const countVisibleWords = this.parent.querySelectorAll('.template-vocabulary__body:not(.d-none)').length;
+        if (countVisibleWords === 0) {
+          this.parent.querySelector('.template-vocabulary__body').classList.remove('d-none');
+          this.parent.querySelector('.vocabulary__template').classList.add('opacity-0');
+        }
+        this.parent.querySelector('.vocabulary__num span').textContent = countVisibleWords;
+      });
+    });
+
+    this.parent.querySelectorAll('[data-settings="isGlobalMute"]:not(.d-none)').forEach((el) => {
+      el.addEventListener('click', () => {
+        el.nextElementSibling.play();
+      });
     });
   }
 }

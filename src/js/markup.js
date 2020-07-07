@@ -116,11 +116,13 @@ const markup = {
       <div class="vocabulary__about">Словарь</div>
     </div>
     <div class="vocabulary__info flex">
-      <div class="vocabulary__info-title vocabulary__info-title-active"><a>Изучаемые&nbsp;слова</a></div>
-      <div class="vocabulary__info-title"><a>Сложные</a></div>
-      <div class="vocabulary__info-title"><a>Удалённые</a></div>
+      <div class="vocabulary__info-title vocabulary__info-title-active" data-word="all">Все</div>
+      <div class="vocabulary__info-title" data-word="learning">На изучении</div>
+      <div class="vocabulary__info-title" data-word="hard">Сложные</div>
+      <div class="vocabulary__info-title" data-word="delete">Удалённые</div>
+      <div class="vocabulary__info-title" data-word="old">Изученные</div>
     </div>
-    <div class="vocabulary__num">Всeго слов: 330</div>
+    <div class="vocabulary__num">Всeго слов: <span></span></div>
     <div class="vocabulary__template template-vocabulary">
     </div>
   </section>
