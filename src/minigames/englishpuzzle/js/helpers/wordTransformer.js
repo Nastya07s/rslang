@@ -3,7 +3,7 @@
 export default (data) => ({
   id: getId(data),
   word: data.word,
-  countRepetition: getRepetition(data),
+  degreeOfKnowledge: getRepetition(data),
   transcript: data.transcription,
   translation: data.wordTranslate,
   englishPhrase: getEnglishText(data.textExample),

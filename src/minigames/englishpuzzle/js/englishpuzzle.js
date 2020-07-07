@@ -29,9 +29,7 @@ export default {
     eventEmitter.on('droped', this.onDropped.bind(this));
     eventEmitter.on('check', this.onCheck.bind(this));
     eventEmitter.on('endOfRound', this.gameOver.bind(this));
-    eventEmitter.on('goHome', (() => {
-      window.location.href = '/';
-    }));
+    eventEmitter.on('goHome', this.goHome.bind(this));
   },
 
   async load() {
@@ -136,7 +134,7 @@ export default {
     this.quickStatistic.show(this.state.getters.getQuickStatistic());
   },
 
-  // goHome() {
-  //   window.location.href = '/';
-  // },
+  goHome() {
+    window.location.href = '/';
+  },
 };

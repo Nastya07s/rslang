@@ -17,10 +17,11 @@ class Statistic {
     this.api.updateUserWordById(word.id, {
       difficulty: String(group),
       optional: {
+        countRepetition: 0,
         isHard: false,
         isDelete: false,
         isReadyToRepeat: false,
-        countRepetition: word.countRepetition + 1,
+        degreeOfKnowledge: word.countRepetition + 1,
         lastRepetition: Date.now(),
       },
     });

@@ -83,10 +83,11 @@ export default {
       api.createUserWord(word.id, {
         difficulty: String(group),
         optional: {
+          countRepetition: 0,
           isHard: false,
           isDelete: false,
           isReadyToRepeat: false,
-          countRepetition: 0,
+          degreeOfKnowledge: 0,
           lastRepetition: Date.now(),
         },
       });
@@ -98,10 +99,11 @@ export default {
     api.updateUserWordById(word.id, {
       difficulty: String(group),
       optional: {
+        countRepetition: +1,
         isHard: false,
         isDelete: false,
         isReadyToRepeat: false,
-        countRepetition: word.countRepetition + 1,
+        degreeOfKnowledge: word.degreeOfKnowledge + 1,
         lastRepetition: Date.now(),
       },
     });

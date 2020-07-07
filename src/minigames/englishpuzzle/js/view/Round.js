@@ -16,6 +16,7 @@ export default class Round {
   }
 
   searchElements() {
+    this.main = document.querySelector('.levels');
     this.modal = document.querySelector('.start-wrapper');
     this.close = document.querySelector('.game-start__start');
     this.wrap = document.querySelector('.wrapper');
@@ -34,7 +35,8 @@ export default class Round {
     this.sayPhraseBtn = document.querySelector('.btn-play');
     this.loader = document.querySelector('.loader');
     this.settingsForm = document.querySelector('.options');
-    this.exitBtn = document.querySelector('.go-home');
+    this.exitBtn = document.querySelector('.exit-svg');
+    this.closeBtn = document.querySelector('.close');
   }
 
   settingsFormOn() {
@@ -68,13 +70,19 @@ export default class Round {
       this.event.emit('userStart');
     });
     this.exitBtn.addEventListener('click', () => {
+      const el = document.querySelector('#Capa_1');
+      if (this.exitBtn.contains(el)) {
+        helpers.fadeOut(this.main, 800);
+        this.event.emit('goHome');
+      }
+    });
+    this.closeBtn.addEventListener('click', () => {
       this.event.emit('goHome');
     });
   }
 
   closeStartScreen() {
-    helpers.fadeOut(this.modal, 200);
-    helpers.fadeIn(this.modal, 600);
+    helpers.fadeOut(this.modal, 800);
   }
 
   initRound(data) {

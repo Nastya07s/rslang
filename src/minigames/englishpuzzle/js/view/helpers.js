@@ -1,27 +1,31 @@
 export default {
-  setText(selector, content) {
+  setText(selector, content, style) {
     const elem = document.querySelector(selector);
+    elem.classList.add(style);
     elem.innerText = content;
+    setTimeout(() => {
+      elem.classList.remove(style);
+    }, 2000);
   },
 
   drawWord(word) {
-    this.setText('#transcript', word);
+    this.setText('#transcript', word, 'tracking-in-expand');
   },
 
   drawTranscript(word) {
-    this.setText('#transcript-2', word);
+    this.setText('#transcript-2', word, 'tracking-in-expand');
   },
 
   drawTranslation(word) {
-    this.setText('#translation', word);
+    this.setText('#translation', word, 'tracking-in-expand');
   },
 
   drawEnPhrase(phrase) {
-    this.setText('.english-translate', phrase);
+    this.setText('.english-translate', phrase, 'tracking-in-expand');
   },
 
   drawRuPhrase(phrase) {
-    this.setText('.data-translate', phrase);
+    this.setText('.data-translate', phrase, 'tracking-in-expand');
   },
 
   fadeIn(nodeCopy, duration) {
