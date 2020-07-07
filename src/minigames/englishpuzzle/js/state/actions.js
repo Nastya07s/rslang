@@ -63,8 +63,16 @@ export default {
     if (mode === 'new') {
       filter = settingsMode.new;
     }
-    const userWords = await api.getUsersAggregatedWords(0, 20, false, filter);
-    const result = createRoundsList(userWords);
+    let userWords = [];
+    let result = [];
+    if (mode !== 'new') {
+      userWords = await api.getUsersAggregatedWords(0, 600, false, filter);
+      const shuffle = userWords[0].paginatedResults.sort(() => 0.5 - Math.random()).slice(0, 20);
+      result = createRoundsList(shuffle);
+    } else {
+      userWords = await api.getUsersAggregatedWords(0, 20, false, filter);
+      result = createRoundsList(userWords[0].paginatedResults);
+    }
     return setters.setWordsList(result);
   },
 
@@ -99,17 +107,17 @@ export default {
     api.updateUserWordById(word.id, {
       difficulty: String(group),
       optional: {
-        countRepetition: +1,
-        isHard: false,
-        isDelete: false,
-        isReadyToRepeat: false,
+        countRepetition: word.countRepetition + 1,
+        // isHard: false,
+        // isDelete: false,
+        // isReadyToRepeat: false,
         degreeOfKnowledge: word.degreeOfKnowledge + 1,
         lastRepetition: Date.now(),
       },
     });
   },
 
-  setQuicStatistic(api, word, isCorrect) {
+  setQuickStatistic(api, word, isCorrect) {
     if (!isCorrect) {
       setters.setInCorrect(word);
     } else {

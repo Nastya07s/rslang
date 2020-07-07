@@ -10,13 +10,16 @@ export default class QuickStatistic {
     this.statisticBox = document.querySelector('.statistic');
     this.correctBox = document.querySelector('.know');
     this.incorrectBox = document.querySelector('.dont');
-    this.closeButton = document.querySelector('.close-statistic');
+    this.continueBtn = document.querySelector('.statistic-continue__btn');
+    this.homeBtn = document.querySelector('.statistic-home__btn');
   }
 
   setListeners() {
-    this.closeButton.addEventListener('click', () => {
-      eventEmitter.emit('closeStat');
-      this.hide();
+    this.continueBtn.addEventListener('click', () => {
+      eventEmitter.emit('continue');
+    });
+    this.homeBtn.addEventListener('click', () => {
+      eventEmitter.emit('goHome');
     });
   }
 

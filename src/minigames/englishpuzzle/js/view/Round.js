@@ -26,25 +26,21 @@ export default class Round {
     this.progressBar = document.querySelector('.progress-value');
     this.progressBarNumber = document.querySelector('.start-round');
     this.progressBarNumberLength = document.querySelector('.end-round');
-    // this.roundNumber = document.querySelector('.number-round');
-    // this.groupNumber = document.querySelector('.number-level');
     this.checkButton = document.querySelector('.check');
     this.dontKnowButton = document.querySelector('.i-dont-know');
     this.transcript = document.querySelector('#transcript');
     this.sayWordBtn = document.querySelector('.btn-sound');
     this.sayPhraseBtn = document.querySelector('.btn-play');
     this.loader = document.querySelector('.loader');
-    this.settingsForm = document.querySelector('.options');
     this.exitBtn = document.querySelector('.exit-svg');
     this.closeBtn = document.querySelector('.close');
-  }
+    this.groupSelector = document.querySelector('.stars');
+    this.levelselector = document.querySelector('#levelselector');
 
-  settingsFormOn() {
-    this.settingsForm.style.display = 'flex';
-  }
+    this.settingsForm = document.querySelector('.options');
+    this.buttonOptionsSettings = document.querySelector('.options__settings');
 
-  settingsFormOff() {
-    this.settingsForm.style.display = 'none';
+    this.roundLimit = this.state.store.settings.roundLimit.quantityStep + 1;
   }
 
   setListeners() {
@@ -79,6 +75,29 @@ export default class Round {
     this.closeBtn.addEventListener('click', () => {
       this.event.emit('goHome');
     });
+    this.groupSelector.addEventListener('click', (e) => {
+      if (e.target.classList.contains('star')) {
+        const group = e.target.getAttribute('data-group');
+        this.event.emit('userSetGroup', group);
+      }
+    });
+    this.levelselector.addEventListener('input', () => {
+      this.event.emit('userSetRound', this.levelselector.value);
+    });
+  }
+
+  settingsFormOn() {
+    this.settingsForm.classList.remove('closed-settings');
+    this.settingsForm.parentNode.addEventListener('click', (event) => {
+      if (event.target.classList.contains('options')) {
+        this.buttonOptionsSettings.classList.toggle('message-settings-closed');
+        this.buttonOptionsSettings.classList.toggle('scale-in-center');
+      }
+    });
+  }
+
+  settingsFormOff() {
+    this.settingsForm.classList.add('closed-settings');
   }
 
   closeStartScreen() {
@@ -94,6 +113,7 @@ export default class Round {
     helpers.drawRuPhrase(data.russianPhrase);
     this.puzzleReload(data.words, []);
     this.spinnerOff();
+    this.progressBarNumberLength.innerText = this.roundLimit;
   }
 
   spinnerOn() {
@@ -107,9 +127,6 @@ export default class Round {
   drawCurrentInfo(info) {
     this.progressBar.style.width = `${Number(info.step) * 5}%`;
     this.progressBarNumber.innerText = Number(info.step) + 1;
-    this.progressBarNumberLength.innerText = this.state.store.roundInfo.round;
-    // this.roundNumber.innerText = Number(info.round) + 1;
-    // this.groupNumber.innerText = Number(info.group) + 1;
   }
 
   playWord(src) {

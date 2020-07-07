@@ -4,6 +4,7 @@ export default (data) => ({
   id: getId(data),
   word: data.word,
   degreeOfKnowledge: getRepetition(data),
+  countRepetition: getCountRepetition(data),
   transcript: data.transcription,
   translation: data.wordTranslate,
   englishPhrase: getEnglishText(data.textExample),
@@ -19,12 +20,22 @@ const getId = (data) => {
   return data[i] || data.id;
 };
 
+const getCountRepetition = (data) => {
+  let count = 0;
+  if (data.userWord
+        && data.userWord.optional
+        && data.userWord.optional.countRepetition) {
+    count = data.userWord.optional.countRepetition;
+  }
+  return count;
+};
+
 const getRepetition = (data) => {
   let repetition = 0;
   if (data.userWord
         && data.userWord.optional
-        && data.userWord.optional.countRepetition) {
-    repetition = data.userWord.optional.countRepetition;
+        && data.userWord.optional.degreeOfKnowledge) {
+    repetition = data.userWord.optional.degreeOfKnowledge;
   }
   return repetition;
 };

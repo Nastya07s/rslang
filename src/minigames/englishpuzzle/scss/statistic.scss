@@ -3,7 +3,7 @@
     position: absolute;
     top: 25%;
     display: none;
-    align-items: baseline;
+    flex-direction: column-reverse;
     max-height: 50%;
     overflow: auto;
     background: #ffffffe0;
@@ -11,6 +11,33 @@
     border-radius: 5px;
     border: 2px solid #6cafd9;
 }
+
+.statisctic__btn {
+  padding: 2rem;
+  justify-content: center;
+  display: flex;
+  button {
+    padding: 6px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.29);
+    border-radius: 3px;
+    transition: all .25s;
+  }
+  .statistic-home__btn {
+    margin-right: 1rem;
+    background: #e26464a8;
+    &:hover {
+      background: #e2646459;
+    }
+  }
+    .statistic-continue__btn {
+      background: #71b6e2c9;
+      &:hover {
+        background: #71b6e273;
+      }
+  }
+} 
 
 .statistic::-webkit-scrollbar-thumb {
     border-radius: 5px;

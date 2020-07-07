@@ -26,19 +26,19 @@ export default {
   setGroup(group) {
     store.roundInfo.group = group;
     eventEmitter.emit('changeGroup', store.roundInfo);
-    return store.roundInfo;
+    return store.roundInfo.group;
   },
 
   setRound(round) {
     store.roundInfo.round = round;
     eventEmitter.emit('changeRound', store.roundInfo);
-    return store.roundInfo;
+    return store.roundInfo.round;
   },
 
   setStep(step) {
     store.roundInfo.step = step;
     eventEmitter.emit('changeStep', store.roundInfo);
-    return store.roundInfo;
+    return store.roundInfo.step;
   },
 
   setRoundInfo(group, round, step) {

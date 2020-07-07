@@ -11,11 +11,11 @@ const chunkArray = (myArray, chunkSize) => {
 const createRoundsList = (list) => {
   const roundsSize = 20;
   const groupSize = 30;
-  if (list[0].paginatedResults.length <= roundsSize) {
-    return [[[...list[0].paginatedResults]]];
+  if (list.length <= roundsSize) {
+    return [[[...list]]];
   }
-  const rounds = chunkArray(list[0].paginatedResults,
-    Math.ceil(list[0].paginatedResults.length / roundsSize));
+  const rounds = chunkArray(list,
+    Math.ceil(list.length / roundsSize));
   return chunkArray(rounds, Math.ceil(rounds.length / groupSize));
 };
 

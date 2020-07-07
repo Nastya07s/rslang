@@ -109,10 +109,6 @@ export default
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/28.svg',
   },
   {
-    id: 29,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/29.svg',
-  },
-  {
     id: 30,
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/30.svg',
   },

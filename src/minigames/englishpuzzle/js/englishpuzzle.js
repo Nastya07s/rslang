@@ -1,12 +1,15 @@
+import GlobalStatistic from 'app/js/Statistic';
 import Round from './view/Round';
 import QuickStatistic from './view/OuickStatistic';
 import eventEmitter from './services/eventEmitter';
+
 
 export default {
   init(state, api, settings) {
     this.state = state;
     this.api = api;
     this.settings = settings;
+    this.globalStatisctic = new GlobalStatistic();
     this.round = new Round();
     this.audio = new Audio();
     this.quickStatistic = new QuickStatistic();
@@ -30,13 +33,20 @@ export default {
     eventEmitter.on('check', this.onCheck.bind(this));
     eventEmitter.on('endOfRound', this.gameOver.bind(this));
     eventEmitter.on('goHome', this.goHome.bind(this));
+    eventEmitter.on('continue', this.nextRound.bind(this));
+    eventEmitter.on('userSetGroup', (group) => {
+      this.state.setters.setGroup(group);
+    });
+    eventEmitter.on('userSetRound', (round) => {
+      this.state.setters.setRound(round);
+    });
   },
 
   async load() {
     this.round.spinnerOn();
     await this.settings.getSettings();
     let mode = this.settings.learningMode;
-    mode = 'mix';
+    mode = 'new';
     this.state.setters.setLearningMode(mode);
 
     if (mode === 'old') {
@@ -96,7 +106,7 @@ export default {
       const isCorrect = correctMask.reduce((acc, el) => acc && el, true);
 
       if (!this.state.store.word.isChecked) {
-        this.state.actions.setQuicStatistic(
+        this.state.actions.setQuickStatistic(
           this.api,
           this.state.getters.getWord(),
           isCorrect && !this.state.getters.getWord().isDontKnow,
@@ -105,17 +115,17 @@ export default {
       }
       if (isCorrect) {
         this.round.playWord('/assets/audio/points.wav');
-        if (!this.state.store.gameOver) {
-          setTimeout(this.nextStep.bind(this), 2000);
-        }
+        setTimeout(this.nextStep.bind(this), 2000);
       }
     }
   },
 
   nextStep() {
     this.state.actions.nextStep();
-    this.roundStart();
-    this.round.spinnerOn();
+    if (!this.state.store.gameOver) {
+      this.roundStart();
+      this.round.spinnerOn();
+    }
   },
 
   onDontKnow() {
@@ -132,9 +142,14 @@ export default {
   gameOver() {
     this.state.setters.setGameOver();
     this.quickStatistic.show(this.state.getters.getQuickStatistic());
+    this.globalStatisctic.updateGameResult('englishpuzzle', this.state.getters.getQuickStatistic().correct.length);
+  },
+
+  nextRound() {
+    window.location.href = '/englishpuzzle';
   },
 
   goHome() {
-    window.location.href = '/';
+    window.location.href = '/app';
   },
 };

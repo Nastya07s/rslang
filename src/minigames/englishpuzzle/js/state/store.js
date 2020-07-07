@@ -4,9 +4,9 @@ export default {
   settings: {
     learningMode: '',
     roundLimit: {
-      quantityGroup: 6,
-      quantityRound: 30,
-      quantityStep: 20,
+      quantityGroup: 0,
+      quantityRound: 0,
+      quantityStep: 19,
     },
   },
   roundInfo: { step: 0, round: 0, group: 0 },
