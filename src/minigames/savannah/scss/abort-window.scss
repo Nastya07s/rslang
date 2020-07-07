@@ -9,6 +9,9 @@
   align-items: center;
   left: 0px;
   background-color: rgba(0, 0, 0, 0.6);
+  &.inactive {
+    display: none;
+  }
 }
 
 .drop-game__window {
@@ -31,7 +34,7 @@
   & .drop-game-window__description {
     font-size: 2.6em;
     line-height: 1.25;
-    color: #7e919f;
+    color: #8ebada;
     text-align: center;
     margin-top: 24px;
   }
@@ -44,6 +47,7 @@
     justify-content: center;
     font-size: 2.2em;
     cursor: pointer;
+    outline: none;
   }
   & .drop-game-window__exit {
     color: white;

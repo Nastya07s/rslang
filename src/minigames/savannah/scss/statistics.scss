@@ -19,10 +19,10 @@
   position: relative;
 }
 .finish-statistics__title {
-  font-size: 22px;
+  // font-size: 2.2em;
   text-align: center;
   color: #37383c;
-  font-size: 32px;
+  font-size: 3.2em;
 }
 .wrapper__answers {
   display: flex;
@@ -56,7 +56,7 @@
 
 .finish-statistics__answers-invalid-title,
 .finish-statistics__answers-valid-title {
-  font-size: 14px;
+  font-size: 1.4em;
 }
 .finish-statistics__answers-invalid-title {
   color: #ed593b;
@@ -67,7 +67,7 @@
 .finish-statistics__answer {
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 1.6em;
   margin-top: 15px;
 }
 
@@ -79,6 +79,10 @@
   width: 32px;
   height: 32px;
   cursor: pointer;
+  outline: none;
+  &:focus {
+    outline: none;
+  }
 }
 .finish-statistics__answer-audio:hover {
   background-image: url(../img/audio-active.svg);
@@ -108,7 +112,7 @@
   background-color: rgba(37, 130, 231, 0.08);
   border: none;
   height: 40px;
-  font-size: 20px;
+  font-size: 2em;
   padding: 0 20px;
   border-radius: 5px;
   outline: none;

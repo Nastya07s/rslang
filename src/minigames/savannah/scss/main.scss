@@ -220,6 +220,31 @@ body {
     top: 50px;
     right: -26.5px;
   }
+  .game {
+    justify-content: space-between;
+    & .game__answers {
+      // padding-top: 10px;
+      display: flex;
+      // width: 100%;
+      flex-direction: column;
+    }
+  }
+  .game .controllers .controllers__left {
+    width: 15%;
+  }
+  .controllers .controllers__right {
+    width: 85%;
+  }
+  .finish-statistics__controls-button {
+    // & button > {
+    // height: 50px;
+    // }
+    & .finish-training {
+      // justify-content:spa;
+      margin-top: 10px;
+    }
+  }
+
   //  .options__settings .star {
   //   width: 200px;
   //   height: 140px;
