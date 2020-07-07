@@ -54,12 +54,15 @@ export default class Words {
    * @returns {Promise<unknown>}
    */
   updateRepetition(wordId, difficulty) {
-    const word = this.api.getUserWordById(wordId)
-      .then(() => {
+    this.api.getUserWordById(wordId)
+      .then((response) => {
+        const word = response;
         word.optional = word.optional || {};
+        console.log('word.optional.countRepetition', word.optional.countRepetition);
         if (word.optional.countRepetition < COUNT_REPETITION_LEARNED) {
-          word.optional.countRepetition = word.optional.countRepetition
-            ? parseInt(word.optional.countRepetition, 10) + 1 : 1;
+          word.optional.countRepetition = parseInt(word.optional.countRepetition, 10) + 1;
+        } else if (!word.optional.countRepetition) {
+          word.optional.countRepetition = 1;
         }
         word.optional.lastRepetition = Date.now();
         return this.api.updateUserWordById(wordId, {
