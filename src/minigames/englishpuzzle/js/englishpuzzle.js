@@ -1,4 +1,5 @@
 import Round from './view/Round';
+import QuickStatistic from './view/OuickStatistic';
 import eventEmitter from './services/eventEmitter';
 
 export default {
@@ -8,6 +9,7 @@ export default {
     this.settings = settings;
     this.round = new Round();
     this.audio = new Audio();
+    this.quickStatistic = new QuickStatistic();
 
     this.setListeners();
 
@@ -26,6 +28,10 @@ export default {
     eventEmitter.on('dontKnow', this.onDontKnow.bind(this));
     eventEmitter.on('droped', this.onDropped.bind(this));
     eventEmitter.on('check', this.onCheck.bind(this));
+    eventEmitter.on('endOfRound', this.gameOver.bind(this));
+    eventEmitter.on('goHome', (() => {
+      window.location.href = '/';
+    }));
   },
 
   async load() {
@@ -92,19 +98,18 @@ export default {
       const isCorrect = correctMask.reduce((acc, el) => acc && el, true);
 
       if (!this.state.store.word.isChecked) {
-        // this.model.setStatistic(
-        //   state.getWord(),
-        //   isCorrect && !state.isDontKnow,
-        // );
+        this.state.actions.setQuicStatistic(
+          this.api,
+          this.state.getters.getWord(),
+          isCorrect && !this.state.getters.getWord().isDontKnow,
+        );
         this.state.store.word.isChecked = true;
       }
       if (isCorrect) {
-        // const { step } = this.state.getters.getRoundInfo();
-        // if (Number(step) === this.state.store.settings.roundLimit.quantityStep - 1) {
-        //   setTimeout(this.quickStat.show(this.model.statistic.data), 2000);
-        // } else {
-        setTimeout(this.nextStep.bind(this), 2000);
-        // }
+        this.round.playWord('/assets/audio/points.wav');
+        if (!this.state.store.gameOver) {
+          setTimeout(this.nextStep.bind(this), 2000);
+        }
       }
     }
   },
@@ -125,4 +130,13 @@ export default {
     this.state.actions.dropPuzzleWord(droppedWord, Number(e.target));
     this.round.puzzleReload(this.state.getters.getDragWords(), this.state.getters.getDropWords());
   },
+
+  gameOver() {
+    this.state.setters.setGameOver();
+    this.quickStatistic.show(this.state.getters.getQuickStatistic());
+  },
+
+  // goHome() {
+  //   window.location.href = '/';
+  // },
 };

@@ -1,5 +1,6 @@
 export default {
   isReady: false,
+  gameOver: false,
   settings: {
     learningMode: '',
     roundLimit: {

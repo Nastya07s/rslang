@@ -25,20 +25,20 @@ export default {
 
   setGroup(group) {
     store.roundInfo.group = group;
-    eventEmitter.emit('changeGroup', store.roundInfo.group);
-    return store.roundInfo.group;
+    eventEmitter.emit('changeGroup', store.roundInfo);
+    return store.roundInfo;
   },
 
   setRound(round) {
     store.roundInfo.round = round;
-    eventEmitter.emit('changeRound', store.roundInfo.round);
-    return store.roundInfo.round;
+    eventEmitter.emit('changeRound', store.roundInfo);
+    return store.roundInfo;
   },
 
   setStep(step) {
     store.roundInfo.step = step;
-    eventEmitter.emit('changeStep', store.roundInfo.step);
-    return store.roundInfo.step;
+    eventEmitter.emit('changeStep', store.roundInfo);
+    return store.roundInfo;
   },
 
   setRoundInfo(group, round, step) {
@@ -81,6 +81,22 @@ export default {
     store.word.phrase = arr;
     eventEmitter.emit('changeDropWord', store.word.phrase);
     return store.word.phrase;
+  },
+
+  setCorrect(word) {
+    store.quickStatistic.correct.push(word);
+    eventEmitter.emit('changeStatistic', store.quickStatistic);
+    return store.quickStatistic;
+  },
+
+  setInCorrect(word) {
+    store.quickStatistic.incorrect.push(word);
+    eventEmitter.emit('changeStatistic', store.quickStatistic);
+    return store.quickStatistic;
+  },
+
+  setGameOver() {
+    store.gameOver = true;
   },
 
 };

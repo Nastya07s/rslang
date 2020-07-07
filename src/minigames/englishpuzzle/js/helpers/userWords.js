@@ -1,13 +1,3 @@
-// /* eslint-disable no-use-before-define */
-
-// const filterLearnedWords = (list) => list.filter(
-//   (word) => {
-//     if (!word.userWord && !word.userWord.optional) {
-//       return false;
-//     }
-//     return word.userWord.optional.countRepetition < 4;
-//   },
-// );
 
 const chunkArray = (myArray, chunkSize) => {
   const results = [];
@@ -29,4 +19,4 @@ const createRoundsList = (list) => {
   return chunkArray(rounds, Math.ceil(rounds.length / groupSize));
 };
 
-export default createRoundsList; // filterLearnedWords,
+export default createRoundsList;

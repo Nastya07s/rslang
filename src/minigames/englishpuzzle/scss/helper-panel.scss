@@ -8,11 +8,20 @@
   .help-btn {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row-reverse;
+    align-items: center;
     justify-content: space-between;
     @media (max-width: 437px) {
       justify-content: center;
-  }
+    }
+    .exit__btn svg {
+      width: 55px;
+      fill: #c6e2ff;
+      transition: all .25s;
+
+      &:hover {
+        fill: #ffffff;
+      }
+    }
   }
   
   .trans {

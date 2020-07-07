@@ -24,8 +24,9 @@ export default class Round {
     this.spinner = document.querySelector('.loader__box');
     this.progressBar = document.querySelector('.progress-value');
     this.progressBarNumber = document.querySelector('.start-round');
-    this.roundNumber = document.querySelector('.number-round');
-    this.groupNumber = document.querySelector('.number-level');
+    this.progressBarNumberLength = document.querySelector('.end-round');
+    // this.roundNumber = document.querySelector('.number-round');
+    // this.groupNumber = document.querySelector('.number-level');
     this.checkButton = document.querySelector('.check');
     this.dontKnowButton = document.querySelector('.i-dont-know');
     this.transcript = document.querySelector('#transcript');
@@ -33,6 +34,7 @@ export default class Round {
     this.sayPhraseBtn = document.querySelector('.btn-play');
     this.loader = document.querySelector('.loader');
     this.settingsForm = document.querySelector('.options');
+    this.exitBtn = document.querySelector('.go-home');
   }
 
   settingsFormOn() {
@@ -50,7 +52,7 @@ export default class Round {
     this.dontKnowButton.addEventListener('click', () => {
       this.event.emit('dontKnow');
     });
-    this.event.on('changeRound', this.drawCurrentInfo.bind(this));
+    this.event.on('changeStep', this.drawCurrentInfo.bind(this));
     this.event.on('changeWord', this.initRound.bind(this));
     this.event.on('changeImage', this.setRoundBg.bind(this));
     this.transcript.addEventListener('click', () => {
@@ -64,6 +66,9 @@ export default class Round {
     });
     this.close.addEventListener('click', () => {
       this.event.emit('userStart');
+    });
+    this.exitBtn.addEventListener('click', () => {
+      this.event.emit('goHome');
     });
   }
 
@@ -92,11 +97,11 @@ export default class Round {
   }
 
   drawCurrentInfo(info) {
-    this.progressBar.style.width = `${Number(info.word) * 5}%`;
-    this.progressBarNumber.innerText = Number(info.word) + 1;
-    this.roundNumber.innerText = Number(info.round) + 1;
-    this.groupNumber.innerText = Number(info.group) + 1;
-    this.playWord('/assets/audio/points.wav');
+    this.progressBar.style.width = `${Number(info.step) * 5}%`;
+    this.progressBarNumber.innerText = Number(info.step) + 1;
+    this.progressBarNumberLength.innerText = this.state.store.roundInfo.round;
+    // this.roundNumber.innerText = Number(info.round) + 1;
+    // this.groupNumber.innerText = Number(info.group) + 1;
   }
 
   playWord(src) {

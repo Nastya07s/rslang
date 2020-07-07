@@ -36,4 +36,8 @@ export default {
   getLearningMode() {
     return store.settings.learningMode;
   },
+
+  getQuickStatistic() {
+    return store.quickStatistic;
+  },
 };

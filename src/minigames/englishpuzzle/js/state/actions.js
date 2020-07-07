@@ -71,10 +71,6 @@ export default {
   async loadMixWords(api, group, round) {
     const newWords = await api.getWords(group, round);
     setters.addWordsList(group, round, newWords);
-    // const oldWords = await api.getUsersAggregatedWords(0, 20, false, settingsMode.learning);
-    // if (!oldWords) {
-    //   this.createUserWords(api, group, newWords);
-    // }
   },
 
   async isUserWord(api, id) {
@@ -95,5 +91,28 @@ export default {
         },
       });
     });
+  },
+
+  updateUserWords(api, word) {
+    const { group } = getters.getRoundInfo();
+    api.updateUserWordById(word.id, {
+      difficulty: String(group),
+      optional: {
+        isHard: false,
+        isDelete: false,
+        isReadyToRepeat: false,
+        countRepetition: word.countRepetition + 1,
+        lastRepetition: Date.now(),
+      },
+    });
+  },
+
+  setQuicStatistic(api, word, isCorrect) {
+    if (!isCorrect) {
+      setters.setInCorrect(word);
+    } else {
+      setters.setCorrect(word);
+      this.updateUserWords(api, word);
+    }
   },
 };
