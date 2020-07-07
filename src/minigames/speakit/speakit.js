@@ -1,3 +1,4 @@
+import 'app/index';
 import './speakit.scss';
 
 import EventBus from 'app/js/utils/eventBus';

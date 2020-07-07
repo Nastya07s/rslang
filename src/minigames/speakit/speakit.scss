@@ -1,4 +1,8 @@
-@import "app/scss/main";
+@import "./scss/utils/_vars";
+@import "./scss/utils/_mixins";
+@import "./scss/utils/_reset-css";
+@import "./scss/utils/_fonts";
+@import "./scss/utils/_animations";
 
 html {
   box-sizing: border-box;
