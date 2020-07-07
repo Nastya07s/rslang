@@ -1,22 +1,9 @@
-@mixin size($width, $height: $width) {
-  width: $width;
-  height: $height;
-}
-
-// Breakpoints mixins
-// uses _vars with the given width
-@mixin for-small-phone {
-  @media (min-width: $small-phone-width) { @content; }
-}
-@mixin for-phone {
-  @media (min-width: $phone-width) { @content; }
-}
-@mixin for-tablet {
-  @media (min-width: $tablet-width) { @content; }
-}
-@mixin for-desktop {
-  @media (min-width: $desktop-width) { @content; }
-}
-@mixin for-big-desktop {
-  @media (min-width: $big-desktop-width) { @content; }
+@mixin font($font_name, $file_name, $weight, $style) {
+	@font-face {
+		font-family: $font_name;
+		font-display: swap;
+		src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+		font-weight: #{$weight};
+		font-style: #{$style};
+	}
 }

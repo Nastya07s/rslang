@@ -135,8 +135,8 @@ class Api {
    * @returns {Promise<unknown>}
    */
 
-  createUserWord(data) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words`, 'POST', data);
+  createUserWord(wordId, data) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${wordId}`, 'POST', data);
   }
 
   getUserWordById(id) {
@@ -156,6 +156,20 @@ class Api {
 
   deleteUserWord(id) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'DELETE');
+  }
+
+  getUsersAggregatedWords(group = 0, wordsPerPage = 20,
+    onlyUserWords = false, filter = {}) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords?`
+    + `group=${group}&wordsPerPage=${wordsPerPage}&onlyUserWords=${onlyUserWords}&`
+    + `filter=${JSON.stringify(filter)}`, 'GET');
+  }
+
+  getUsersAggregatedWordsById(group = 0, wordsPerPage = 20,
+    onlyUserWords = false, filter = {}, wordId) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}?`
+        + `group=${group}&wordsPerPage=${wordsPerPage}&onlyUserWords=${onlyUserWords}&`
+        + `filter=${JSON.stringify(filter)}`, 'GET');
   }
 
   getStatistics() {
