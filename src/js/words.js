@@ -3,7 +3,8 @@ import api from 'app/js/api';
 const PAGES_COUNT = 29;
 const LEVEL_COUNT = 5;
 const WORDS_PER_PAGE = 20;
-const DEGREE_OF_KNOWLEDGE = 5;
+const DEGREE_OF_KNOWLEDGE_MAX = 5;
+const DEGREE_OF_KNOWLEDGE_LEARNING = [0, 1, 2, 3, 4, null];
 
 function shuffleArray(array) {
   return array.sort(() => 0.5 - Math.random());
@@ -40,8 +41,10 @@ export default class Words {
         return this.getWordsNew(shuffle);
       case 'mix':
         return this.getWordsMix(shuffle);
+      case 'learning':
+        return this.getWordsByDegreeOfKnowledge(DEGREE_OF_KNOWLEDGE_LEARNING, shuffle);
       case 'old':
-        return this.getWordsOld(shuffle);
+        return this.getWordsByDegreeOfKnowledge([DEGREE_OF_KNOWLEDGE_MAX], shuffle);
       default:
         return this.getWordsNew(shuffle);
     }
@@ -58,7 +61,7 @@ export default class Words {
       .then((response) => {
         const word = response;
         word.optional = word.optional || {};
-        if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE) {
+        if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
           word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
         } else if (!word.optional.degreeOfKnowledge) {
           word.optional.degreeOfKnowledge = 1;
@@ -138,48 +141,51 @@ export default class Words {
     return words;
   }
 
-  async getWordsOld(shuffle = false) {
+  async getWordsByDegreeOfKnowledge(degreeOfKnowledgeArray, shuffle = false) {
     if (!this.userWords) {
-      this.userWords = await this.api.getUserWords();
+      const userWordsResponse = await this.getUserWords(degreeOfKnowledgeArray);
+      this.userWords = userWordsResponse[0].paginatedResults;
     }
     if (this.userWords && this.userWords.length !== 0) {
       let wordsToGet;
       if (this.userWords.length > WORDS_PER_PAGE) {
-        wordsToGet = this.userWords.slice(0, WORDS_PER_PAGE - 1);
+        wordsToGet = this.userWords.slice(0, WORDS_PER_PAGE);
         this.userWords = this.userWords.slice(WORDS_PER_PAGE);
       } else {
         wordsToGet = Array.from(this.userWords);
         this.userWords.length = 0;
       }
-      const promises = wordsToGet.map((element) => this.api.getWordById(element.wordId));
+      // eslint-disable-next-line no-underscore-dangle
+      const promises = wordsToGet.map((element) => this.api.getWordById(element._id));
       const responseUserWords = await Promise.all(promises);
-      const wordsFiltered = [];
-      wordsToGet.forEach((element, index) => {
-        if (element.optional && element.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE) {
-          wordsFiltered.push(responseUserWords[index]);
-        }
-      });
       if (shuffle) {
-        return shuffleArray(wordsFiltered);
+        return shuffleArray(responseUserWords);
       }
-      return wordsFiltered;
+      return responseUserWords;
     }
     return this.getWordsNew();
   }
 
   async getWordsMix(shuffle = false) {
-    const words = (await this.getWordsNew()).concat((await this.getWordsOld()));
+    const words = (await this.getWordsNew())
+      .concat(
+        await this.getWordsByDegreeOfKnowledge(
+          DEGREE_OF_KNOWLEDGE_LEARNING.concat([DEGREE_OF_KNOWLEDGE_MAX]),
+        ),
+      );
     if (shuffle) {
       return shuffleArray(words);
     }
     return words;
   }
 
-  async getUserWords() {
-    const degreeOfKnowledges = [0, 1, 2, 3, 5];
+  async getUserWords(degreeOfKnowledgeArray) {
     const filter = {
-      $or: degreeOfKnowledges.map((element) => ({ 'userWord.optional.degreeOfKnowledge': element })),
+      $and: [
+        { userWord: { $ne: null } },
+        { $or: degreeOfKnowledgeArray.map((element) => ({ 'userWord.optional.degreeOfKnowledge': element })) },
+      ],
     };
-    return this.api.getUsersAggregatedWords('', WORDS_PER_PAGE, true, filter);
+    return this.api.getUsersAggregatedWords({ filter, wordsPerPage: 5000 });
   }
 }

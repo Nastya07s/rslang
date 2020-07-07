@@ -41,12 +41,7 @@ export default class Sprint {
         this.arrayCorrectAnswer = [];
         this.arrayIncorrectAnswer = [];
       }, () => {
-        // document.location.href = '/';
-        console.log('Логин');
-        this.api.loginUser({
-          email: 'ta.nusha@mail.ru',
-          password: '123Leo*!',
-        });
+        document.location.href = '/';
       });
   }
 
@@ -65,7 +60,9 @@ export default class Sprint {
   }
 
   async createElement() {
+    this.loaderSprint.classList.remove('hidden');
     this.wordsArrayFull = await this.getWordsList();
+    this.loaderSprint.classList.add('hidden');
     this.container.classList.add('sprint');
     this.container.innerHTML = `
     <div class="close-game"></div>
@@ -287,6 +284,14 @@ export default class Sprint {
     audio.play();
   }
 
+  playWordSound(src) {
+    if (src.toString().startsWith('files')) {
+      this.playSound(AUDIO_ROOT + src);
+    } else {
+      this.playSound(`data:audio/mpeg;base64,${src}`);
+    }
+  }
+
   switchImages(level) {
     let l = level;
     if (l > 5) {
@@ -362,13 +367,13 @@ export default class Sprint {
     this.listIncorrect.addEventListener('click', (event) => {
       const sound = event.target.getAttribute('data-sound');
       if (sound) {
-        this.playSound(`${AUDIO_ROOT}${sound}`);
+        this.playWordSound(sound);
       }
     });
     this.listCorrect.addEventListener('click', (event) => {
       const sound = event.target.getAttribute('data-sound');
       if (sound) {
-        this.playSound(`${AUDIO_ROOT}${sound}`);
+        this.playWordSound(sound);
       }
     });
     this.addSoundSwitcher('.image-sound--main');
