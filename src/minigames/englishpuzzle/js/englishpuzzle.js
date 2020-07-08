@@ -40,13 +40,16 @@ export default {
     eventEmitter.on('userSetRound', (round) => {
       this.state.setters.setRound(round);
     });
+    eventEmitter.on('userSetVolume', () => {
+      this.settings.isMute = true;
+    });
   },
 
   async load() {
     this.round.spinnerOn();
     await this.settings.getSettings();
     let mode = this.settings.learningMode;
-    mode = 'new';
+    mode = 'mix';
     this.state.setters.setLearningMode(mode);
 
     if (mode === 'old') {

@@ -57,7 +57,7 @@ class Settings {
             isMute: false,
           },
           englishpuzzle: {
-
+            isMute: false,
           },
         },
         learningMode = 'mix',

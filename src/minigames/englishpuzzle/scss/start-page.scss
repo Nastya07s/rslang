@@ -42,9 +42,6 @@
       display: flex;
       & .audio {
         background-image: url(/assets/img/speaker.svg);
-        &:hover {
-          animation: close 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-        }
       }
       & .audio_silence {
         background-image: url(/assets/img/silence.svg);
@@ -62,9 +59,6 @@
         width: 28px;
         height: 28px;
         align-self: center;
-        &:hover {
-          animation: close 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-        }
         @media (max-width: 480px) {
           width: 23px;
           height: 23px;
@@ -74,13 +68,11 @@
         background-image: url(/assets/img/option.svg);
         position: relative;
         display: flex;
-        &:hover {
-          animation: close 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-        }
+        visibility: unset;
       }
 
       & .closed-settings {
-        display: none;
+        visibility: hidden;
       }
       & .options__settings {
         cursor: default;
@@ -95,6 +87,7 @@
         padding: 20px;
         font-size: 2.2em;
         transition: all .25s;
+        visibility: unset;
   
         &:before {
           content: " ";
@@ -108,7 +101,7 @@
           transform: rotate(44deg);
         }
         &.options__settings_inactive {
-          display: none;
+          visibility: hidden;
         }
         & .options__levels-title {
           margin-top: 20px;
@@ -120,8 +113,12 @@
             width: 70px;
             border: 1px solid black;
             border-radius: 2px;
+            padding: 6px;
             &:focus {
               outline: none;
+            }
+            & option {
+              padding: 3px 0;
             }
           }
         }
@@ -139,14 +136,19 @@
             cursor: pointer;
             width: 20px;
             height: 20px;
+            transition: all 1s;
           }
         }
       }
 
       & .message-settings-closed {
-        display: none;
+        visibility: hidden;
       }
     }
+  }
+
+  .star.active svg {
+    fill: gold;
   }
 
   .game-start {
@@ -277,27 +279,6 @@
       -webkit-transform: scale(1);
               transform: scale(1);
       opacity: 1;
-    }
-  }
-
-  @-webkit-keyframes close {
-    0% {
-      -webkit-transform: rotateX(0);
-              transform: rotateX(0);
-    }
-    100% {
-      -webkit-transform: rotateX(-180deg);
-              transform: rotateX(-180deg);
-    }
-  }
-  @keyframes close {
-    0% {
-      -webkit-transform: rotateX(0);
-              transform: rotateX(0);
-    }
-    100% {
-      -webkit-transform: rotateX(-180deg);
-              transform: rotateX(-180deg);
     }
   }
   
