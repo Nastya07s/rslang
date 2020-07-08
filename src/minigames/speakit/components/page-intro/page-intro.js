@@ -18,7 +18,7 @@ class PageIntro {
     };
 
     this.eventBus = props.eventBus;
-    this.isDefaultMode = settings.learningMode !== 'old';
+    this.isMixMode = settings.learningMode === 'mix';
   }
 
   async init() {
@@ -34,21 +34,18 @@ class PageIntro {
 
     // Control Buttons Logic (unset/set settings button)
     const renderSettings = () => {
-      // If 'learning' mode is set -> unset settingsButton
-      const ret = this.isDefaultMode
-        ? `<div class="tooltip">
-            <button class="controls-container__settings-button">SETTINGS</button>
-            <div class="tooltip-content-left tooltip-content_hidden">
-              <div class="page-intro__pagination pagination">
-                <ul class="pagination__list">
-                  <li class="pagination__item">Изи</li>
-                  <li class="pagination__item">Легко</li>
-                  <li class="pagination__item">Норм</li>
-                  <li class="pagination__item">Чёт трудно</li>
-                  <li class="pagination__item">Ля... не души</li>
-                  <li class="pagination__item">Тупа жесть!</li>
-                </ul>
-              </div>
+      // If 'mix' mode is set -> unset settingsButton
+      const ret = this.isMixMode
+        ? `<div class="tooltip settings">
+            <button
+              class="controls-container__button controls-container__settings-button"
+              title="Настройки">
+              <img
+                class="icon icon__settings"
+                src="/assets/img/minigames-start-page/settings.svg"
+                alt="Settings icon"/>
+            </button>
+            <div class="tooltip-content-left tooltip-content_hidden settings__container">
             </div>
           </div>`
         : '';
@@ -109,7 +106,7 @@ class PageIntro {
     const [startButton] = root.getElementsByClassName(START_BUTTON);
 
     // If '!mix' mode is set -> unset settingsButton
-    if (this.isDefaultMode) {
+    if (this.isMixMode) {
       const {
         CONTROLS_SETTINGS_BUTTON,
         PAGE_INTRO_PAGINATION,
@@ -197,7 +194,7 @@ class PageIntro {
     // Start Button Handlers
     startButton.addEventListener('click', async () => {
       // Create new PageMain & init the game
-      await this.eventBus.emit('pageIntro.startGame', { isDefaultMode: this.isDefaultMode });
+      await this.eventBus.emit('pageIntro.startGame', { isMixMode: this.isMixMode });
     });
   }
 

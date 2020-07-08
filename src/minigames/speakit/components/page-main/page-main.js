@@ -1,5 +1,6 @@
 import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
+import settings from 'app/js/settings';
 import utils from 'app/js/utils/utils';
 import ProgressBar from '../progress-bar/progress-bar';
 // import loader from 'app/js/utils/loader';
@@ -68,7 +69,7 @@ class PageMain {
    * Processing & initializing or resetting the arguments of the class.
    */
   initArguments() {
-    if (this.isDefaultMode) {
+    if (this.isMixMode) {
       const isDifficultyOutOfBound = this.difficulty > 5 || this.difficulty < 0;
 
       if (isDifficultyOutOfBound) {
@@ -79,20 +80,103 @@ class PageMain {
     // Set or reset the score
     this.score = 0;
     this.scoreStreak = 0;
+    this.isGameEnded = false;
   }
 
   async initData() {
-    if (this.isDefaultMode) {
-      this.data = await performRequests([api.getWords.bind(api, this.difficulty, this.round)]);
+    const LEARNING_MODES = {
+      NEW: 'new',
+      LEARNING: 'learning',
+      OLD: 'old',
+      MIX: 'mix',
+    };
+    let filter;
 
-      if (this.data) {
-        [this.data] = this.data;
+    // FIXME: Настины изменения countRepetition & degreeOfKnowledge
+
+    switch (settings.learningMode) {
+      case LEARNING_MODES.NEW: {
+        filter = {
+          $and: [
+            { userWord: null },
+          ],
+        };
+        break;
+      }
+      case LEARNING_MODES.LEARNING: {
+        filter = {
+          $and: [{
+            $nor: [
+              { userWord: null },
+            ],
+          }, {
+            'userWord.optional.countRepetition': {
+              $lt: 4,
+            },
+          }],
+        };
+        break;
+      }
+      case LEARNING_MODES.OLD: {
+        filter = {
+          $and: [{
+            $nor: [
+              { userWord: null },
+            ],
+          }, {
+            'userWord.optional.countRepetition': {
+              $gte: 4,
+            },
+          }],
+        };
+        break;
+      }
+      default: {
+        filter = {
+          $and: [
+            { page: this.round },
+          ],
+        };
+        break;
+      }
+    }
+
+    const params = {
+      wordsPerPage: 20,
+      filter,
+    };
+
+    if (this.isMixMode) {
+      params.group = this.difficulty;
+    }
+
+    this.data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
+
+    if (this.data) {
+      const processData = () => {
+        const { data: [responseResults] } = this;
+        const [results] = responseResults;
+        const { paginatedResults } = results;
+
+        return paginatedResults;
+      };
+
+      this.data = processData();
+
+      const isEnoughData = this.data.length > 0;
+
+      if (isEnoughData) {
+        console.log(this.data);
 
         this.data = utils.shuffleFisherYates(this.data);
+      } else {
+        this.data = null;
+
+        alert(`
+          Недостаточно слов для игры!
+          Переключитесь на другой режим (например, "Смешанный")
+        `);
       }
-    } else {
-      // TODO: логика на работу с другим режимом!
-      this.data = await api.getWords(0, 0);
     }
   }
 

@@ -43,7 +43,7 @@ api.checkLogin().then(async (user) => {
 
   // Intro Page subscribers
   eventBus.subscribe('pageIntro.startGame', async (data) => {
-    const { isDefaultMode } = data;
+    const { isMixMode } = data;
     const {
       minigames: {
         speakit: {
@@ -55,8 +55,8 @@ api.checkLogin().then(async (user) => {
     } = settings;
     const pageMain = new PageMain({
       eventBus,
-      round: isDefaultMode ? round : -1, // -1 detects that we need to use another mode
-      difficulty: isDefaultMode ? difficulty : -1, // -1 detects that we need to use another mode
+      round: isMixMode ? round : -1, // -1 detects that we need to use another mode
+      difficulty: isMixMode ? difficulty : -1, // -1 detects that we need to use another mode
       volume: isMute ? 0 : 1,
     });
 
