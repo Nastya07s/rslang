@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime';
 import './scss/main.scss';
 
 import Api from 'app/js/api';
-import Settings from 'app/js/settings';
+import Settings from 'app/js/Settings';
 import state from './js/state';
 import englishpuzzle from './js/englishpuzzle';
 
