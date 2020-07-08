@@ -25,6 +25,7 @@ module.exports = {
   entry: {
     app: `${PATHS.src}/index.js`,
     englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
+    main: `${PATHS.src}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -88,14 +89,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      // to exclude mini-games' chunks & prevent running their code in the main app '/'
-      excludeChunks: ['englishpuzzle'],
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.englishpuzzle}/index.html`,
       filename: './englishpuzzle/index.html',
-      inject: true, // if true - to insert link & script tags into html
-      chunks: ['englishpuzzle', 'vendors'], // include exact this chunk of needed code
+      chunks: ['englishpuzzle'], // include exact this chunk of needed code
     }),
     new CopyWebpackPlugin([
       {

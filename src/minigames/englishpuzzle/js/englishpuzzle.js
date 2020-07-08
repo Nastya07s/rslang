@@ -49,7 +49,7 @@ export default {
     this.round.spinnerOn();
     await this.settings.getSettings();
     let mode = this.settings.learningMode;
-    mode = 'mix';
+    mode = 'new';
     this.state.setters.setLearningMode(mode);
 
     if (mode === 'old') {
@@ -117,7 +117,9 @@ export default {
         this.state.store.word.isChecked = true;
       }
       if (isCorrect) {
-        this.round.playWord('/assets/audio/points.wav');
+        if (!this.settings.englishPuzzle.isMute || !this.settings.isGlobalMute) {
+          this.round.playWord('/assets/audio/puzzle/points.wav');
+        }
         setTimeout(this.nextStep.bind(this), 2000);
       }
     }

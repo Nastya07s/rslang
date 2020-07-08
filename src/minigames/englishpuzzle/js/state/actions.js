@@ -66,11 +66,11 @@ export default {
     let userWords = [];
     let result = [];
     if (mode !== 'new') {
-      userWords = await api.getUsersAggregatedWords(0, 600, false, filter);
+      userWords = await api.getUsersAggregatedWords({ wordsPerPage: 600, filter });
       const shuffle = userWords[0].paginatedResults.sort(() => 0.5 - Math.random()).slice(0, 20);
       result = createRoundsList(shuffle);
     } else {
-      userWords = await api.getUsersAggregatedWords(0, 20, false, filter);
+      userWords = await api.getUsersAggregatedWords({ wordsPerPage: 20, filter });
       result = createRoundsList(userWords[0].paginatedResults);
     }
     return setters.setWordsList(result);

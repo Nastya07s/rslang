@@ -176,7 +176,7 @@ export default class Round {
     if (dataVectors === undefined || dataVectors === null) {
       console.log('image undefined');
       this.main.style.background = `linear-gradient(rgba(8, 15, 26, 0.39) 0%,rgba(17, 17, 46, 0.46)100%) center center/cover fixed,
-        url('/assets/img/default.svg')center center / cover fixed`;
+        url('/assets/img/puzzle/default.svg')center center / cover fixed`;
     }
     this.main.style.background = `linear-gradient(rgba(8, 15, 26, 0.39)0%,rgba(17, 17, 46, 0.46) 100%) center center/cover fixed,
         url(${dataVectors[random].image})center center / cover fixed`;

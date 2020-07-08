@@ -10,7 +10,7 @@ export default class Statistics {
   }
 
   async init() {
-    this.api = new Api();
+    this.api = Api;
     // Returns 404 error if not statistics saved
     await this.getStatistics()
       .then((response) => {

@@ -9,7 +9,7 @@
     width: 100%;
     min-height: 100vh;
     font-size: 10px;
-    background: url(/assets/img/start-page.svg);
+    background: url(/assets/img/puzzle/start-page.svg);
     background-position-y: 100%;
     background-position-x: center;
     background-repeat: no-repeat;
@@ -41,10 +41,10 @@
     & .controllers__left {
       display: flex;
       & .audio {
-        background-image: url(/assets/img/speaker.svg);
+        background-image: url(/assets/img/puzzle/speaker.svg);
       }
       & .audio_silence {
-        background-image: url(/assets/img/silence.svg);
+        background-image: url(/assets/img/puzzle/silence.svg);
       }
     }
   
@@ -55,7 +55,7 @@
         margin-left: 15px;
       }
       & .close {
-        background-image: url(/assets/img/close.svg);
+        background-image: url(/assets/img/puzzle/close.svg);
         width: 28px;
         height: 28px;
         align-self: center;
@@ -65,7 +65,7 @@
         }
       }
       & .options {
-        background-image: url(/assets/img/option.svg);
+        background-image: url(/assets/img/puzzle/option.svg);
         position: relative;
         display: flex;
         visibility: unset;
