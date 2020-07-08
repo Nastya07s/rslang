@@ -1,3 +1,4 @@
+import employeeData from './employeeData';
 
 export default {
   initPromo() {
@@ -12,6 +13,43 @@ export default {
 
     this.modalWrap = document.querySelector('.modal-wrapper');
     this.preStartButton = document.querySelector('.modal_wrap');
+
+
+    this.employeeContainer = document.querySelector('.employee-container');
+    this.employeeModal = document.querySelector('.employee__modal-window');
+    this.modalCloseBtn = document.querySelector('.btn-close_modal');
+
+    this.employeeContainer.addEventListener('click', (e) => {
+      let { target } = e;
+      if (!target.classList.contains('employee')) {
+        target = target.parentElement;
+      }
+      const id = target.getAttribute('data-id');
+      if (id) {
+        const nameBox = this.employeeModal.querySelector('.employee__name');
+        const positionBox = this.employeeModal.querySelector('.employee__title');
+        const emailBox = this.employeeModal.querySelector('.employee__contact');
+        const descriptionBox = this.employeeModal.querySelector('.employee__stuff');
+
+        nameBox.textContent = employeeData[id].name;
+        positionBox.textContent = employeeData[id].position;
+        emailBox.textContent = employeeData[id].email;
+        emailBox.setAttribute('href', `mailto:${employeeData[id].email}`);
+
+        descriptionBox.textContent = '';
+
+        employeeData[id].list.forEach((el) => {
+          const li = document.createElement('li');
+          li.textContent = el;
+          descriptionBox.appendChild(li);
+        });
+        this.employeeModal.classList.add('show_employee_modal');
+      }
+    });
+
+    this.modalCloseBtn.addEventListener('click', () => {
+      this.employeeModal.classList.remove('show_employee_modal');
+    });
 
     this.passwordVisibility = document.querySelectorAll('.eye-box');
 
