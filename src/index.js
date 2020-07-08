@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 

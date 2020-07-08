@@ -1,11 +1,14 @@
 const USER_TOKEN_KEY = 'userCurrentToken';
+const USER_TOKEN_KEY_REFRESH = 'userRefreshToken';
 const USER_ID_KEY = 'userCurrentId';
+const TIME_TO_REFRESH_TOKEN = 10 * 60 * 1000; // 10 min
 
 class Api {
   constructor() {
     this.basicUrl = 'https://afternoon-falls-25894.herokuapp.com';
     this.userId = localStorage.getItem(USER_ID_KEY);
     this.userToken = localStorage.getItem(USER_TOKEN_KEY);
+    this.refreshToken = localStorage.getItem(USER_TOKEN_KEY_REFRESH);
   }
 
   static request(url, method, data) {
@@ -30,17 +33,24 @@ class Api {
     });
   }
 
-  requestWithToken(url, method, data) {
+  requestWithToken(url, method, data, isRefreshToken) {
     return new Promise((resolve, reject) => {
       fetch(url, {
         method,
         headers: {
-          Authorization: `Bearer ${this.userToken}`,
+          Authorization: `Bearer ${isRefreshToken ? this.refreshToken : this.userToken}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       }).then((response) => {
+        // Check token expiration and refresh if expired
+        if (this.userToken) {
+          const tokenInfo = JSON.parse(atob(this.userToken.split('.')[1]));
+          if (tokenInfo.exp * 1000 - Date.now() < TIME_TO_REFRESH_TOKEN) {
+            this.getNewUserTokens();
+          }
+        }
         if (response.ok) {
           return response.json()
             .then((json) => resolve(json), (error) => reject(error));
@@ -50,6 +60,18 @@ class Api {
       }, (response) => {
         reject(response);
       });
+    });
+  }
+
+  getNewUserTokens() {
+    return this.requestWithToken(
+      `${this.basicUrl}/users/${this.userId}/tokens`,
+      'GET',
+      undefined,
+      true,
+    ).then((response) => {
+      this.saveLoginResponse(response);
+      return response;
     });
   }
 
@@ -105,19 +127,19 @@ class Api {
   loginUser(user) {
     return Api.request(`${this.basicUrl}/signin`, 'POST', user)
       .then((response) => {
-        this.userToken = response.token;
         this.userId = response.userId;
-        localStorage.setItem(USER_TOKEN_KEY, this.userToken);
         localStorage.setItem(USER_ID_KEY, this.userId);
-
+        this.saveLoginResponse(response);
         return response;
       });
   }
 
   logoutUser() {
     this.userToken = null;
+    this.refreshToken = null;
     this.userId = null;
     localStorage.removeItem(USER_TOKEN_KEY);
+    localStorage.removeItem(USER_TOKEN_KEY_REFRESH);
     localStorage.removeItem(USER_ID_KEY);
   }
 
@@ -135,8 +157,8 @@ class Api {
    * @returns {Promise<unknown>}
    */
 
-  createUserWord(data) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words`, 'POST', data);
+  createUserWord(wordId, data) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${wordId}`, 'POST', data);
   }
 
   getUserWordById(id) {
@@ -156,6 +178,15 @@ class Api {
 
   deleteUserWord(id) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'DELETE');
+  }
+
+  getUsersAggregatedWords(group = 0, wordsPerPage = 20, filter = {}) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords?`
+    + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
+  }
+
+  getUsersAggregatedWordsById(wordId) {
+    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}`, 'GET');
   }
 
   getStatistics() {
@@ -184,8 +215,14 @@ class Api {
   upsertSettings(data) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'PUT', data);
   }
+
+  saveLoginResponse(response) {
+    this.userToken = response.token;
+    this.refreshToken = response.refreshToken;
+    localStorage.setItem(USER_TOKEN_KEY, this.userToken);
+    localStorage.setItem(USER_TOKEN_KEY_REFRESH, this.refreshToken);
+  }
 }
 
 const api = new Api();
-
 export default api;

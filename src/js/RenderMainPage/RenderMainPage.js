@@ -2,9 +2,11 @@
 import {
   Swiper,
   Navigation,
+  Keyboard,
+  Pagination,
 } from '../../../node_modules/swiper/js/swiper.esm';
 
-Swiper.use([Navigation]);
+Swiper.use([Navigation, Keyboard, Pagination]);
 
 export default class RenderMainPage {
   constructor() {
@@ -46,13 +48,26 @@ export default class RenderMainPage {
 
   init() {
     this.mySwiper = new Swiper('.swiper-container', {
-      slidesPerView: 1,
-      loop: false,
+      slidesPerView: 'auto',
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      onlyExternal: true,
+      pagination: {
+        el: '.bar-block__line',
+        type: 'progressbar',
+        progressbarFillClass: 'bar-block__linebar',
+        // totalClass: 'bar-block__numtwo',
+        // currentClass: 'bar-block__numone',
+      },
+      // keyboard: {
+      //   enabled: true,
+      // },
+      keyboard: true,
+      loop: false,
+      // onlyExternal: true,
+      // allowSlidePrev: false,
+      allowTouchMove: true,
     });
   }
 }

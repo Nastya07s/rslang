@@ -1,4 +1,4 @@
-import Api from './api';
+import api from './api';
 
 export default class Login {
   constructor(selector) {
@@ -51,7 +51,6 @@ export default class Login {
   }
 
   loginRequest(user) {
-    const api = new Api();
     api.loginUser(user)
       .then(() => {
         window.location.href = './app.html';
