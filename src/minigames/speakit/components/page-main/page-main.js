@@ -37,8 +37,9 @@ class PageMain {
     this.speechRecognition = null;
     this.score = null;
     this.scoreStreak = 0;
-    this.isDefaultMode = this.difficulty !== -1;
+    this.isMixMode = this.difficulty !== -1;
     this.currentCardIndex = 0;
+    this.isGameEnded = false;
   }
 
   async init() {
@@ -57,7 +58,7 @@ class PageMain {
 
     this.progressBar = new ProgressBar({
       min: 0,
-      max: this.data.length, // TODO: добавить какие-то слова ограничение
+      max: this.data.length,
     });
 
     await this.createCard(); // create first card (render & init)

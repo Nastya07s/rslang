@@ -38,8 +38,7 @@ body {
 
   transition: padding 0.5s ease-out, margin 0.5s ease-out;
 
-  @include for-small-phone { padding: 0 10px; }
-  @include for-tablet { padding: 0 20px; }
+  @include for-small-phone { padding: 0 20px; }
   @include for-desktop { padding: 0 40px; }
 }
 
@@ -92,5 +91,6 @@ body {
 
 @import "./components/tooltip/tooltip";
 @import "./components/progress-bar/progress-bar";
+@import "./components/pagination/pagination";
 @import "./components/page-intro/page-intro";
 @import "./components/page-main/page-main";

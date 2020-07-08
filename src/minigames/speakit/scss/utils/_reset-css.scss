@@ -16,3 +16,18 @@
 li {
   list-style: none;
 }
+
+fieldset,
+input,
+button {
+  border: none;
+}
+
+button,
+select {
+  outline: none;
+}
+
+button {
+  background-color: initial;
+}

@@ -6,6 +6,8 @@
 
     color: black;
     font-size: 14px;
+
+    user-select: none;
   }
 
   &__item {
@@ -18,8 +20,8 @@
       cursor: pointer;
     }
 
-    &:not(&_active):hover {
-      background-color: rgba(0, 0, 0, 0.25);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.15);
     }
 
     &_active {
