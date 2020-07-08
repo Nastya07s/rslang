@@ -1,8 +1,8 @@
-import Api from './api';
+import api from './api';
 
 export default class Login {
   constructor() {
-    this.api = new Api();
+    this.api = api;
     this.inputEmail = document.querySelector('#login-email');
     this.inputPassword = document.querySelector('#login-password');
     this.formLogin = document.querySelector('.form-login');

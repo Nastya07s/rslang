@@ -44,11 +44,15 @@ export default {
           descriptionBox.appendChild(li);
         });
         this.employeeModal.classList.add('show_employee_modal');
+        this.employeeModal.classList.remove('scale-out-center');
       }
     });
 
     this.modalCloseBtn.addEventListener('click', () => {
-      this.employeeModal.classList.remove('show_employee_modal');
+      this.employeeModal.classList.add('scale-out-center');
+      setTimeout(() => {
+        this.employeeModal.classList.remove('show_employee_modal');
+      }, 500);
     });
 
     this.passwordVisibility = document.querySelectorAll('.eye-box');
@@ -64,8 +68,12 @@ export default {
     this.preStartButton.addEventListener('click', () => {
       this.modalWrap.classList.add('show_modal');
       setTimeout(() => {
+        this.modalWrap.classList.add('scale-out-center');
+      }, 4000);
+      setTimeout(() => {
         this.modalWrap.classList.remove('show_modal');
-      }, 6000);
+        this.modalWrap.classList.remove('scale-out-center');
+      }, 4500);
     });
 
     this.switchLink.forEach((el) => {

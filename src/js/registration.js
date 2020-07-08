@@ -1,8 +1,10 @@
-import Api from './api';
+import api from './api';
+import Settings from './settings';
 
 export default class Registration {
   constructor() {
-    this.api = new Api();
+    this.api = api;
+    this.settings = new Settings();
     this.inputEmail = document.querySelector('#signup-email');
     this.inputPassword = document.querySelector('#signup-password');
     this.formRegistration = document.querySelector('.form-registration');
@@ -44,6 +46,7 @@ export default class Registration {
   registrationRequest(user) {
     this.api.createUser(user)
       .then(() => {
+        this.settings.initSettings();
         // Заменить url, когда создадим основную страницу приложения
         window.location.href = './app.html';
       }, (response) => {

@@ -33,6 +33,9 @@
         @media (max-width: 750px) {
             flex-basis: 60%;
         }
+        @media (max-width: 550px) {
+            flex-basis: 90%;
+        }
         @include media-mobile {
             flex-basis: 100%;
         }
@@ -40,7 +43,6 @@
 }
 
 .strategy {
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     position: relative;
