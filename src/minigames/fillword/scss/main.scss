@@ -12,6 +12,7 @@
 @import "utils/_null";
 @import "utils/_fonts";
 @import "utils/mixins";
+@import "./start-page.scss";
 
 html {
   font-size: 10px; 
@@ -25,6 +26,9 @@ html {
   margin: 3rem auto;
 }
 
+.display-off {
+  display: none;
+}
 .headerApp {
   display: grid;
   grid-template-columns: 2fr 1fr;

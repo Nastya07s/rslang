@@ -1,6 +1,9 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable prefer-destructuring */
 import './scss/main.scss';
+/* import api from '../../js/api'; */
+/* import startPage from './js/startPage/startPage'; */
+/* import Settings from '../../js/settings'; */
 
 let coordinate = [];
 let chooseCoordinate = [];
@@ -9,10 +12,18 @@ let isUserRight = false;
 let innerArrWord = [];
 const keyWord = 'assasin';
 const keyWordTranslate = 'убийца';
+const containerStartPage = document.getElementById('start-page');
+const containerFillWord = document.getElementById('fillWord');
 const innerWord = document.getElementById('keyword');
 const table = document.getElementById('gameTable');
 const buttonRefresh = document.getElementById('refresh');
 const wordTranslate = document.getElementById('translate');
+const btnGameStart = document.getElementById('button-game-start');
+/* const settings = new Settings(); */
+
+/* const data = async () => {
+  await startPage.getDefaultWords();
+}; */
 
 wordTranslate.innerText = `"${keyWordTranslate}"`;
 
@@ -192,6 +203,11 @@ function refreshButtonHandle() {
   renderField(newField);
 }
 
+function gameStart() {
+  containerFillWord.classList.toggle('display-off');
+  containerStartPage.classList.toggle('display-off');
+}
+
 table.addEventListener('mouseup', () => {
   isMouseDown = false;
 
@@ -206,4 +222,7 @@ table.addEventListener('mouseup', () => {
 });
 
 buttonRefresh.addEventListener('click', refreshButtonHandle);
+
+btnGameStart.addEventListener('click', gameStart);
+
 renderField(field);
