@@ -188,7 +188,7 @@ class PageIntro {
     }
 
     closeButton.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
 
     // Start Button Handlers
