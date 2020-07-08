@@ -153,12 +153,10 @@ export default class Sprint {
     this.dropGame = document.querySelector('.drop-game');
     this.dropGameWindowExit = document.querySelector('.drop-game-window__exit');
     this.dropGameWindowCansel = document.querySelector('.drop-game-window__cancel');
-    let progressBarTime;
     this.buttonClose.addEventListener('click', () => {
       this.dropGame.classList.remove('hidden');
       this.bodySprint.classList.add('no-scroll');
-      bar.stop();
-      progressBarTime = bar.value();
+      bar.pause();
     });
     this.dropGameWindowExit.addEventListener('click', () => {
       document.location.href = '/main';
@@ -167,7 +165,7 @@ export default class Sprint {
     this.dropGameWindowCansel.addEventListener('click', () => {
       this.dropGame.classList.add('hidden');
       this.bodySprint.classList.remove('no-scroll');
-      bar.animate(1 - progressBarTime, {}, this.finishGame.bind(this));
+      bar.resume();
     });
     this.updateCard();
   }
