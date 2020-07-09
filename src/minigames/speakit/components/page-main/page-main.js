@@ -44,6 +44,7 @@ class PageMain {
 
   async init() {
     loader.toggle();
+
     this.initArguments(); // process the arguments (e.g. prevent index out of bounds)
     await this.initData(); // get data for cards
 
@@ -54,7 +55,7 @@ class PageMain {
 
     this.render(); // render main page (get markup)
     this.initElements(); // find elements by their classnames
-    this.initHandlers(); // add event listeners to the initialized elements
+    await this.initHandlers(); // add event listeners to the initialized elements
 
     this.progressBar = new ProgressBar({
       min: 0,
@@ -62,7 +63,9 @@ class PageMain {
     });
 
     await this.createCard(); // create first card (render & init)
+
     loader.toggle();
+
     return this.eventBus.emit('pageMain.ready');
   }
 
@@ -186,18 +189,18 @@ class PageMain {
     const template = document.createElement('template');
 
     template.innerHTML = `
-      <div class="page-main" style="background-image: url(/assets/img/speakit/bg-intro.svg)">
+      <div class="page-main animation-float-background" style="background-image: url(/assets/img/speakit/bg-wave.jpg)">
         <main class="page-main__main">
           <div class="wrapper">
             <div class="page-main__score score">
-              <p class="score__title">Счёт:</p>
+              <p class="score__title page-main_theme_border">Счёт</p>
               <div class="score__total">
                 ${this.score}
               </div>
               <div class="progress-bar">
-                <div class="progress-bar__current-value"></div>
+                <div class="progress-bar__current-value page-main_theme_border"></div>
                 <progress class="progress-bar__progress" value="" max=""></progress>
-                <div class="progress-bar__max-value"></div>
+                <div class="progress-bar__max-value page-main_theme_border"></div>
               </div>
             </div>
             <div class="page-main__current-word-container current-word-container">
@@ -310,13 +313,20 @@ class PageMain {
     };
   }
 
-  initHandlers() {
+  async initHandlers() {
     const {
+      root,
       skipButton,
       restartButton,
       speakButton,
       audioPlayer,
     } = this.elements;
+
+    // Get image from root's style background-image.
+    // Remove url() & return this by using RegExp's group matcher.
+    const backgroundImageSrc = root.style.backgroundImage.match(/^url\("(.*)"\)$/)[1];
+
+    await utils.loadImage(backgroundImageSrc); // Load image using async/await
 
     // set default volume
     audioPlayer.volume = this.volume;
@@ -357,14 +367,7 @@ class PageMain {
     speakButton.textContent = !this.speechRecognition ? 'Стоп' : 'Speak it';
 
     if (!this.speechRecognition) {
-      const WebkitSpeechRecognition = window.webkitSpeechRecognition;
-
-      this.speechRecognition = new WebkitSpeechRecognition();
-      this.speechRecognition.lang = 'en-US';
-      this.speechRecognition.maxAlternatives = 10;
-      this.speechRecognition.addEventListener('result', this.recognize.bind(this));
-      this.speechRecognition.addEventListener('end', this.speechRecognition.start);
-      this.speechRecognition.start();
+      this.startSpeechRecognition();
 
       // const { BUTTON_DISABLED } = this.classes;
 
@@ -373,6 +376,24 @@ class PageMain {
     } else {
       this.stopSpeechRecognition();
     }
+  }
+
+  startSpeechRecognition() {
+    if (this.speechRecognition) {
+      this.stopSpeechRecognition();
+    }
+
+    const WebkitSpeechRecognition = window.SpeechRecognition
+      || window.webkitSpeechRecognition
+      || window.mozSpeechRecognition
+      || window.msSpeechRecognition;
+
+    this.speechRecognition = new WebkitSpeechRecognition();
+    this.speechRecognition.lang = 'en-US';
+    this.speechRecognition.maxAlternatives = 10;
+    this.speechRecognition.addEventListener('result', this.recognize.bind(this));
+    this.speechRecognition.addEventListener('end', this.speechRecognition.start);
+    this.speechRecognition.start();
   }
 
   stopSpeechRecognition() {
