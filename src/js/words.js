@@ -63,6 +63,9 @@ export default class Words {
         word.optional = word.optional || {};
         if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
           word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
+          if (word.optional.degreeOfKnowledge === DEGREE_OF_KNOWLEDGE_MAX) {
+            word.optional.becameLearned = Date.now();
+          }
         } else if (!word.optional.degreeOfKnowledge) {
           word.optional.degreeOfKnowledge = 1;
         }
