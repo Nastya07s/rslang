@@ -18,13 +18,11 @@ api.checkLogin().then(async (user) => {
   console.log(user);
 
   // Settings subscribers
-  eventBus.subscribe('settings.getSettings', () => settings.getSettings());
   eventBus.subscribe('settings.initSettings', () => settings.initSettings());
   eventBus.subscribe('settings.update', (...data) => settings.update(...data));
 
   // 2. Get settings
-  await eventBus.emit('settings.getSettings');
-  // await eventBus.emit('settings.initSettings');
+  await settings.getSettings();
 
   // settings.minigames.speakit.isMute = true;
   // await eventBus.emit('settings.update', 'speakit', settings.minigames.speakit);
