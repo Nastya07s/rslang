@@ -1,3 +1,4 @@
+import Statistics from 'app/js/statistics';
 import api from './api';
 
 export default class Login {
@@ -53,7 +54,8 @@ export default class Login {
   loginRequest(user) {
     api.loginUser(user)
       .then(() => {
-        window.location.href = './app.html';
+        window.location.href = '/';
+        this.statisticsSevice = new Statistics();
       }, () => {
         this.errorPassword.innerHTML = 'Неверная почта или пароль';
       });
