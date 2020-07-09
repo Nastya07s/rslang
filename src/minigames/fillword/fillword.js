@@ -22,11 +22,13 @@ let innerArrWord = [];
 let keyWord = [];
 let keyWordTranslate = [];
 let field = [];
+let counterWord = 0;
 const containerStartPage = document.getElementById('start-page');
 const containerFillWord = document.getElementById('fillWord');
 const innerWord = document.getElementById('keyword');
 const table = document.getElementById('gameTable');
 const buttonRefresh = document.getElementById('refresh');
+const buttonHelp = document.getElementById('help');
 const wordTranslate = document.getElementById('translate');
 const btnGameStart = document.getElementById('button-game-start');
 
@@ -115,49 +117,79 @@ function renderField(newField) {
 
     table.append(tr);
   }
+  wordTranslate.innerText = `"${keyWordTranslate}"`;
 }
 
-function refreshButtonHandle() {
+function deleteOldGameField() {
   while (table.firstChild) {
     table.removeChild(table.firstChild);
   }
-
-  innerWord.innerText = '';
-  coordinate = [];
-  innerArrWord = [];
-  const newField = createField(keyWord, 5, 6, coordinate);
-
-  renderField(newField);
 }
 
-function gameStart() {
+function clearGameField() {
+  innerWord.innerText = '';
+  innerArrWord = [];
+}
+
+function refreshButtonHandler() {
+  deleteOldGameField();
+  clearGameField();
+  field = createField(keyWord, 5, 6, coordinate);
+  renderField(field);
+}
+
+function gameStartButtonHandler() {
   keyWordTranslate = arrayWord[0].ru;
   keyWord = arrayWord[0].en;
   field = createField(keyWord, 5, 6, coordinate);
   renderField(field);
-  wordTranslate.innerText = `"${keyWordTranslate}"`;
   containerFillWord.classList.toggle('display-off');
   containerStartPage.classList.toggle('display-off');
 }
 
-table.addEventListener('mouseup', () => {
+function isUserRightHandler() {
+  counterWord += 1;
+  keyWordTranslate = arrayWord[counterWord].ru;
+  keyWord = arrayWord[counterWord].en;
+
+  deleteOldGameField();
+  clearGameField();
+  coordinate = [];
+  chooseCoordinate = [];
+
+  field = createField(keyWord, 5, 6, coordinate);
+  renderField(field);
+  console.log('word found');
+}
+
+function isUserFalseHandler() {
+  chooseCoordinate = [];
+  clearGameField();
+  console.log('word not found');
+}
+
+const mouseUpHandler = () => {
   isMouseDown = false;
   if (isUserRight) {
-    console.log('word found');
+    isUserRightHandler();
   } else {
-    console.log('word not found');
-    chooseCoordinate = [];
-    innerArrWord = [];
-    innerWord.innerText = '';
-
-    const cell = document.querySelectorAll('td');
-    cell.forEach((e) => {
-      e.classList.remove('select');
-    });
+    isUserFalseHandler();
   }
   isUserRight = false;
-});
+  const cell = document.querySelectorAll('td');
+  cell.forEach((e) => {
+    e.classList.remove('select');
+  });
+};
 
-buttonRefresh.addEventListener('click', refreshButtonHandle);
+const helpButtonHandler = () => {
+  console.log('help');
+};
 
-btnGameStart.addEventListener('click', gameStart);
+table.addEventListener('mouseup', mouseUpHandler);
+
+buttonRefresh.addEventListener('click', refreshButtonHandler);
+
+btnGameStart.addEventListener('click', gameStartButtonHandler);
+
+buttonHelp.addEventListener('click', helpButtonHandler);
