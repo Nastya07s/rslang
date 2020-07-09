@@ -13,15 +13,15 @@ class StartPage {
         ru: data.wordTranslate,
       },
     );
+    return this.roundWords;
   }
 
   async getDefaultWords() {
-    this.data = await api.getWords(0, 0);
+    this.data = await api.getWords(1, 0);
     this.data.forEach((el) => {
       this.addRoundWords(el);
     });
-    console.log(this.data);
-    return this.data;
+    return this.roundWords;
   }
 }
 
