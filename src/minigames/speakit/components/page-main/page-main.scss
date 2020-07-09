@@ -73,6 +73,8 @@
     @include for-tablet { width: 80%; }
     @include for-desktop { width: 60%; }
     @include for-big-desktop { width: 50%; }
+    object-fit: cover;
+    max-height: 500px;
 
     box-shadow: 0 0 5px 0px black;
     border-radius: 10px;

@@ -281,6 +281,7 @@ class PageIntro {
 
     // Start Button Handlers
     startButton.addEventListener('click', async () => {
+      startButton.disabled = true;
       // Create new PageMain & init the game
       await this.eventBus.emit('pageIntro.startGame', { isMixMode: this.isMixMode });
     });

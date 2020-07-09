@@ -2,8 +2,8 @@ import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
 import settings from 'app/js/settings';
 import utils from 'app/js/utils/utils';
+import loader from 'app/js/utils/loader';
 import ProgressBar from '../progress-bar/progress-bar';
-// import loader from 'app/js/utils/loader';
 
 class PageMain {
   constructor(props = {}) {
@@ -43,7 +43,7 @@ class PageMain {
   }
 
   async init() {
-    // loader.toggle();
+    loader.toggle();
     this.initArguments(); // process the arguments (e.g. prevent index out of bounds)
     await this.initData(); // get data for cards
 
@@ -62,7 +62,7 @@ class PageMain {
     });
 
     await this.createCard(); // create first card (render & init)
-    // loader.toggle();
+    loader.toggle();
     return this.eventBus.emit('pageMain.ready');
   }
 
@@ -330,13 +330,12 @@ class PageMain {
     if (this.speechRecognition) {
       const {
         score,
+        skipButton,
         restartButton,
         speakButton,
       } = this.elements;
 
-      // Stop Speech Recognition
-      this.speechRecognition.abort();
-      this.speechRecognition.removeEventListener('end', this.speechRecognition.start);
+      this.stopSpeechRecognition();
 
       // Reset score
       this.initArguments();
@@ -344,29 +343,45 @@ class PageMain {
       score.textContent = this.score;
 
       // Reset buttons to the default state
+      skipButton.classList.remove(this.classes.BUTTON_DISABLED);
       restartButton.classList.add(this.classes.BUTTON_DISABLED);
       speakButton.classList.remove(this.classes.BUTTON_DISABLED);
     }
   }
 
   handlerSpeakButton() {
-    const SpeechRecognition = window.webkitSpeechRecognition;
-
-    this.speechRecognition = new SpeechRecognition();
-    this.speechRecognition.lang = 'en-US';
-    this.speechRecognition.maxAlternatives = 10;
-    this.speechRecognition.addEventListener('result', this.recognize.bind(this));
-    this.speechRecognition.addEventListener('end', this.speechRecognition.start);
-    this.speechRecognition.start();
-
     const {
-      restartButton,
       speakButton,
     } = this.elements;
-    const { BUTTON_DISABLED } = this.classes;
 
-    restartButton.classList.remove(BUTTON_DISABLED);
-    speakButton.classList.add(BUTTON_DISABLED);
+    speakButton.textContent = !this.speechRecognition ? 'Стоп' : 'Speak it';
+
+    if (!this.speechRecognition) {
+      const WebkitSpeechRecognition = window.webkitSpeechRecognition;
+
+      this.speechRecognition = new WebkitSpeechRecognition();
+      this.speechRecognition.lang = 'en-US';
+      this.speechRecognition.maxAlternatives = 10;
+      this.speechRecognition.addEventListener('result', this.recognize.bind(this));
+      this.speechRecognition.addEventListener('end', this.speechRecognition.start);
+      this.speechRecognition.start();
+
+      // const { BUTTON_DISABLED } = this.classes;
+
+      // restartButton.classList.remove(BUTTON_DISABLED);
+      // speakButton.classList.add(BUTTON_DISABLED);
+    } else {
+      this.stopSpeechRecognition();
+    }
+  }
+
+  stopSpeechRecognition() {
+    // Stop Speech Recognition
+    if (this.speechRecognition) {
+      this.speechRecognition.abort();
+      this.speechRecognition.removeEventListener('end', this.speechRecognition.start);
+      this.speechRecognition = null;
+    }
   }
 
   async recognize(event) {
@@ -525,6 +540,10 @@ class PageMain {
   }
 
   changeCard(cardElement) {
+    const { skipButton } = this.elements;
+
+    skipButton.disabled = true;
+
     const card = cardElement;
 
     const {
@@ -533,6 +552,8 @@ class PageMain {
 
     card.classList.add(WORD_CARD_HIDDEN);
     card.ontransitionend = async () => {
+      skipButton.disabled = false;
+
       card.remove();
 
       this.currentCardIndex += 1;
@@ -542,11 +563,7 @@ class PageMain {
       if (isIndexInBounds) {
         await this.createCard(this.currentCardIndex);
       } else {
-        // 4.2. TODO: Show modal of the end of the game with results!
-        console.log(this.score);
-        this.handlerRestartButton();
-
-        this.isGameEnded = !this.isGameEnded;
+        this.gameEnded();
       }
 
       this.progressBar.changeProgressBy(1);
@@ -554,6 +571,10 @@ class PageMain {
   }
 
   skipCard() {
+    const { skipButton } = this.elements;
+
+    skipButton.disabled = true;
+
     if (this.isGameEnded) {
       return;
     }
@@ -574,6 +595,24 @@ class PageMain {
     card.classList.add(WORD_CARD_WRONG);
 
     this.changeCard(card);
+  }
+
+  gameEnded() {
+    // 4.2. TODO: Show modal of the end of the game with results!
+    console.log(this.score);
+    // this.handlerRestartButton();
+
+    this.isGameEnded = !this.isGameEnded;
+
+    const { skipButton, speakButton } = this.elements;
+    const { BUTTON_DISABLED } = this.classes;
+
+    skipButton.classList.add(BUTTON_DISABLED);
+
+    this.stopSpeechRecognition();
+
+    speakButton.textContent = 'Speak it';
+    speakButton.classList.add(BUTTON_DISABLED);
   }
 }
 
