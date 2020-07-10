@@ -1,3 +1,4 @@
+import Settings from 'app/js/settings';
 import Statistics from 'app/js/statistics';
 import api from './api';
 
@@ -32,8 +33,10 @@ export default class Login {
 
   loginRequest(user) {
     api.loginUser(user)
-      .then(() => {
+      .then(async () => {
         this.statisticsService = new Statistics();
+        this.settings = new Settings();
+        await this.settings.getSettings();
         window.location.href = '/';
       }, () => {
         this.showPassErrors('Неверная почта или пароль');
