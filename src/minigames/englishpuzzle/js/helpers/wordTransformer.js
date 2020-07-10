@@ -5,6 +5,7 @@ export default (data) => ({
   word: data.word,
   degreeOfKnowledge: getRepetition(data),
   countRepetition: getCountRepetition(data),
+  becameLearned: getBecameLearned(data),
   transcript: data.transcription,
   translation: data.wordTranslate,
   englishPhrase: getEnglishText(data.textExample),
@@ -18,6 +19,16 @@ export default (data) => ({
 const getId = (data) => {
   const i = '_id';
   return data[i] || data.id;
+};
+
+const getBecameLearned = (data) => {
+  let learned = 0;
+  if (data.userWord
+        && data.userWord.optional
+        && data.userWord.optional.becameLearned) {
+    learned = data.userWord.optional.becameLearned;
+  }
+  return learned;
 };
 
 const getCountRepetition = (data) => {

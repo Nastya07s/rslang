@@ -71,6 +71,12 @@ export default {
     return store.word;
   },
 
+  setWordOptions(countRepetition, degreeOfKnowledge, becameLearned) {
+    store.word.countRepetition = countRepetition || 1;
+    store.word.degreeOfKnowledge = degreeOfKnowledge || 0;
+    store.word.becameLearned = becameLearned || 0;
+  },
+
   setDragWords(arr) {
     store.word.words = arr;
     eventEmitter.emit('changeDragWord', store.word.words);

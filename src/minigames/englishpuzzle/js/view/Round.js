@@ -112,9 +112,16 @@ export default class Round {
       }
     });
     this.volumeBtn.addEventListener('click', () => {
-      this.volumeBtn.classList.toggle('audio_silence');
       this.event.emit('userSetVolume');
     });
+  }
+
+  volumeUp() {
+    this.volumeBtn.classList.remove('audio_silence');
+  }
+
+  volumeOff() {
+    this.volumeBtn.classList.add('audio_silence');
   }
 
   settingsFormOn() {
@@ -174,7 +181,6 @@ export default class Round {
     const max = dataVectors.length;
     const random = Math.floor(Math.random() * max - 1);
     if (dataVectors === undefined || dataVectors === null) {
-      console.log('image undefined');
       this.main.style.background = `linear-gradient(rgba(8, 15, 26, 0.39) 0%,rgba(17, 17, 46, 0.46)100%) center center/cover fixed,
         url('/assets/img/puzzle/default.svg')center center / cover fixed`;
     }

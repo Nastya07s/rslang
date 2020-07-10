@@ -15,7 +15,6 @@ export default {
     this.quickStatistic = new QuickStatistic();
 
     this.setListeners();
-
     this.load();
   },
 
@@ -41,15 +40,37 @@ export default {
       this.state.setters.setRound(round);
     });
     eventEmitter.on('userSetVolume', () => {
-      this.settings.isMute = true;
+      this.setMute(!this.getMute());
+      this.settings.postUpdates();
+      if (this.getMute()) {
+        this.round.volumeOff();
+      } else {
+        this.round.volumeUp();
+      }
     });
+  },
+
+  setUserVolume() {
+    if (this.getMute()) {
+      this.round.volumeOff();
+    } else {
+      this.round.volumeUp();
+    }
+  },
+
+  getMute() {
+    return this.settings.minigames.englishPuzzle.isMute;
+  },
+
+  setMute(value) {
+    this.settings.minigames.englishPuzzle.isMute = value;
+    this.settings.postUpdates();
   },
 
   async load() {
     this.round.spinnerOn();
-    await this.settings.getSettings();
-    let mode = this.settings.learningMode;
-    mode = 'new';
+    this.setUserVolume();
+    const mode = this.settings.learningMode;
     this.state.setters.setLearningMode(mode);
 
     if (mode === 'old') {
@@ -93,6 +114,12 @@ export default {
     if (!isUserWord) {
       const { group } = this.state.getters.getRoundInfo();
       this.state.actions.createUserWords(this.api, group, [currentWord]);
+    } else {
+      this.state.setters.setWordOptions(
+        isUserWord.optional.countRepetition,
+        isUserWord.optional.degreeOfKnowledge,
+        isUserWord.optional.becameLearned,
+      );
     }
     this.round.spinnerOff();
   },
@@ -117,7 +144,7 @@ export default {
         this.state.store.word.isChecked = true;
       }
       if (isCorrect) {
-        if (!this.settings.englishPuzzle.isMute || !this.settings.isGlobalMute) {
+        if (!this.getMute()) {
           this.round.playWord('/assets/audio/puzzle/points.wav');
         }
         setTimeout(this.nextStep.bind(this), 2000);
