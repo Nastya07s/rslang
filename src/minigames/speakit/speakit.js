@@ -7,6 +7,7 @@ import settings from 'app/js/settings';
 import Statistics from 'app/js/statistics';
 
 import loader from 'app/js/utils/loader';
+import performRequests from 'app/js/utils/perform-requests';
 import PageIntro from './components/page-intro/page-intro';
 import PageMain from './components/page-main/page-main';
 
@@ -27,7 +28,7 @@ api.checkLogin().then(async (user) => {
   // settings.minigames.speakit.isMute = true;
   // await eventBus.emit('settings.update', 'speakit', settings.minigames.speakit);
 
-  console.log(JSON.stringify(settings));
+  // console.log(JSON.stringify(settings));
 
   // const { minigames: { speakit } } = settings;
 
@@ -36,12 +37,13 @@ api.checkLogin().then(async (user) => {
   // await settings.update('speakit', speakit);
   // await settings.update('learningMode', 'mix');
 
+  console.log(JSON.stringify(settings));
 
   // 2.2. Init Statistics
   const statistics = new Statistics();
 
   eventBus.subscribe('statistics.update', (...data) => {
-    statistics.updateGameResult('speakit', ...data);
+    performRequests([statistics.updateGameResult.bind(statistics, 'speakit', ...data)]);
   });
 
   // 3. Start render of the page
