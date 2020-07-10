@@ -83,15 +83,24 @@
   &:focus {
     outline: none;
   }
+  &:hover {
+    background-image: url(../img/audio-active.svg);
+  }
+  &.active {
+    background-image: url(../img/audio-active.svg);
+  }
 }
-.finish-statistics__answer-audio:hover {
-  background-image: url(../img/audio-active.svg);
-}
+// .finish-statistics__answer-audio:hover {
+// }
 .finish-statistics__answer-eng {
   color: #2582e7;
   cursor: pointer;
   text-align: justify;
   padding: 0 3px;
+
+  // &:hover .finish-statistics__answer-audio {
+  //   background-image: url(../img/audio-active.svg);
+  // }
 }
 .finish-statistics__answer-dash {
   margin: 0px 4px;

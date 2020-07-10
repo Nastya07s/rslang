@@ -4,7 +4,6 @@
 @import "utils/_fonts";
 @import "utils/_media";
 @import "./prelaunch.scss";
-// @import "./hearts.scss";
 @import "./crystal.scss";
 @import "./header.scss";
 @import "./statistics.scss";
@@ -36,14 +35,10 @@ body {
 }
 
 .wrapper__main {
-  // height: 90vh;
-  // display: flex;
-  // justify-content: center;
   height: 100%;
   width: 100%;
 }
 .game-start {
-  // height: 100%;
   padding: 100px 0;
   color: white;
   display: flex;
@@ -116,6 +111,9 @@ body {
     font-size: 0em;
     animation: animate-token 0.5s ease-in forwards;
   }
+  &.animation-stop {
+    animation-play-state: paused;
+  }
 }
 
 @keyframes animate-spillage {
@@ -186,7 +184,6 @@ body {
     align-items: center;
     padding-top: 4px;
     position: absolute;
-    // margin-left:4px;
     font-size: 0.8em;
     vertical-align: middle;
     left: 8px;
@@ -223,9 +220,7 @@ body {
   .game {
     justify-content: space-between;
     & .game__answers {
-      // padding-top: 10px;
       display: flex;
-      // width: 100%;
       flex-direction: column;
     }
   }
@@ -236,19 +231,8 @@ body {
     width: 85%;
   }
   .finish-statistics__controls-button {
-    // & button > {
-    // height: 50px;
-    // }
     & .finish-training {
-      // justify-content:spa;
       margin-top: 10px;
     }
   }
-
-  //  .options__settings .star {
-  //   width: 200px;
-  //   height: 140px;
-  //   top: 50px;
-  //   right: -26.5px;
-  // }
 }

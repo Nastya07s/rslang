@@ -5,7 +5,6 @@ export default class View {
   constructor() {
     this.game = document.querySelector('.game');
     this.containerWordsAnswers = document.querySelector('.game__answers');
-    // this.wordsAnswers = document.querySelectorAll('.game__answer .word');
     this.dataLoader = document.querySelector('.backdrop');
     this.startScreen = document.querySelector('.game-start');
     this.wordsAnswers = document.querySelectorAll('.game__answer');
@@ -22,6 +21,7 @@ export default class View {
     this.hearts = document.querySelectorAll('.hearts__item');
     this.body = document.body;
     this.controllers = document.querySelector('.controllers');
+    this.finishStatistics = document.querySelector('.finish-statistics__answers');
     this.validStatistics = document.querySelector('.finish-statistics__answers-valid');
     this.inValidStatistics = document.querySelector('.finish-statistics__answers-invalid');
     this.validStatisticsTitle = document.querySelector('.finish-statistics__answers-valid-title');
@@ -29,6 +29,9 @@ export default class View {
     this.containerStatistics = document.querySelector('.savannah__statistics');
     this.restartTraining = document.querySelector('.restart-training');
     this.sound = document.querySelector('.audio');
+    this.close = document.querySelector('.close');
+    this.dropGame = document.querySelector('.drop-game');
+    this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
   }
 
   showControllers() {
@@ -67,6 +70,14 @@ export default class View {
     this.dataLoader.classList.remove('inactive');
   }
 
+  showGameClose() {
+    this.dropGame.classList.remove('inactive');
+  }
+
+  hideGameClose() {
+    this.dropGame.classList.add('inactive');
+  }
+
   hideDataLoader() {
     this.dataLoader.classList.add('inactive');
   }
@@ -77,6 +88,31 @@ export default class View {
 
   hideOptions() {
     this.options.classList.add('icon_inactive');
+  }
+
+  showClose() {
+    this.close.classList.remove('icon_inactive');
+  }
+
+  hideClose() {
+    this.close.classList.add('icon_inactive');
+  }
+
+  soundSilince(state) {
+    if (state) {
+      this.sound.classList.add('audio_silence');
+    } else {
+      this.sound.classList.remove('audio_silence');
+    }
+  }
+
+  showSound() {
+    this.sound.classList.remove('icon_inactive');
+  }
+
+  hideSound() {
+    // if()
+    this.sound.classList.add('icon_inactive');
   }
 
   showStatistics(data) {
@@ -94,6 +130,7 @@ export default class View {
         if (element.isCorrect === false) {
           statisticsAnswer = createElementDOM('div', 'finish-statistics__answer', this.inValidStatistics);
         }
+        statisticsAnswer.dataset.audio = element.audio;
         createElementDOM('div', 'finish-statistics__answer-audio', statisticsAnswer);
         createElementDOM('div', 'finish-statistics__answer-eng', statisticsAnswer).textContent = element.word;
         createElementDOM('div', 'finish-statistics__answer-dash', statisticsAnswer).textContent = '—';
@@ -132,14 +169,12 @@ export default class View {
   }
 
   showCorrectWord(word) {
-    // console.log(this.findWord(word));
     if (word) {
       this.findWord(word).classList.add('correct');
     }
   }
 
   showInCorrectWord(word) {
-    // console.log(this.findWord(word));
     if (word) {
       this.findWord(word).classList.add('incorrect');
     }
@@ -154,19 +189,29 @@ export default class View {
     this.wordDown.className = 'game__down-word';
   }
 
+  // animate = > animation
   animateWordDown() {
     this.wordDown.classList.add('game__down-word_fall');
   }
 
+  // animate = > animation
 
   animateWordDownLose() {
     this.wordDown.classList.add('game__down-word_lose');
   }
+  // animate = > animation
 
   animateWordDownWin() {
     this.wordDown.classList.add('game__down-word_win');
   }
 
+  pauseAnimationWord() {
+    this.wordDown.classList.add('animation-stop');
+  }
+
+  unPauseAnimationWord() {
+    this.wordDown.classList.remove('animation-stop');
+  }
 
   updateHearts() {
     [...this.hearts].forEach((item) => {
@@ -197,8 +242,17 @@ export default class View {
   }
 
   updateCrystal(state) {
-    console.log(state);
+    // console.log(state);
     this.crystal.className = `crystal crystal_state-${state}`;
+  }
+
+  static inActiveAllAudio() {
+    const elements = document.querySelectorAll('.finish-statistics__answer-audio');
+    elements.forEach((item) => item.classList.remove('active'));
+  }
+
+  static activeAudio(element) {
+    element.classList.add('active');
   }
 
   setPositionFallWord() {
@@ -210,23 +264,39 @@ export default class View {
       element.classList.remove('active');
     });
     [...this.stars.children].forEach((element, index) => {
-      // console.log(element);
       if (index <= count) {
         element.classList.add('active');
       }
     });
-    // console.log(this.stars.children);
   }
 
   showLevel(level) {
     this.levels.children[level].selected = 'true';
   }
 
-  // bindStartGame(handler) {
-  //   this.testStartBtn.addEventListener('click', () => {
-  //     handler();
-  //   });
-  // }
+  bindClickCancel(handler) {
+    this.cancelDropGame.addEventListener('click', () => {
+      handler();
+    });
+  }
+
+
+  bindClickAudioStatistics(handler) {
+    this.finishStatistics.addEventListener('click', (e) => {
+      // console.log(e.target);
+      const { target } = e;
+      if (
+        target.classList.contains('finish-statistics__answer-audio')
+        || target.classList.contains('finish-statistics__answer-eng')
+      ) {
+        this.inActiveAllAudio();
+        const element = e.target.closest('.finish-statistics__answer');
+        this.activeAudio(element.querySelector('.finish-statistics__answer-audio'));
+        handler(element.dataset.audio);
+      }
+    });
+  }
+
   bindClickSound(handler) {
     this.sound.addEventListener('click', () => {
       this.sound.classList.toggle('audio_silence');
@@ -277,19 +347,13 @@ export default class View {
     });
   }
 
+  bindClickClose(handler) {
+    this.close.addEventListener('click', () => {
+      handler();
+    });
+  }
+
   bindChangeRound(handler) {
-    // this.stars.addEventListener('mousemove', (e) => {
-    //   // console.log(e.target.closest('.star'));
-    //   const target = e.target.closest('.star');
-    //   if (target) {
-    //     this.fillStars(target.dataset.value);
-    //   }
-    // });
-
-    // this.stars.addEventListener('mouseleave', (e) => {
-
-    // });
-
     this.stars.addEventListener('click', (e) => {
       const target = e.target.closest('.star');
       if (target) {

@@ -1,10 +1,18 @@
 /* eslint no-console: "off" */
-// const RESPONSE_TIME = 5000;
+const DEFAULT_GAME_TIME = 5000;
+const PRELAUNCH_TIME = 2000;
+const DELAY_NEXT_WORD = 1200;
+
 export default class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
     this.timerGame = '';
+    this.isTimerGame = null;
+    this.timePause = 0;
+    this.timeStart = 0;
+    this.timeDifference = 0;
+
     this.view.bindClickStartGame(this.handlerStartGame.bind(this));
     this.view.bindClickAnswer(this.handlerAnswer.bind(this));
     this.view.bindKeyDownAnswer();
@@ -13,10 +21,18 @@ export default class Controller {
     this.view.bindChangeLevel(this.handlerChangeLevel.bind(this));
     this.view.bindClickRestartTraining(this.init.bind(this));
     this.view.bindClickSound(this.handlerClickSound.bind(this));
-    // console.log('init');
+    this.view.bindClickClose(this.handlerClickClose.bind(this));
+    this.view.bindClickCancel(this.handlerClickCancel.bind(this));
+    this.view.bindClickAudioStatistics(this.handlerClickAudioStatistics.bind(this));
+    this.model.audio.addEventListener('ended', () => {
+      this.view.inActiveAllAudio();
+    });
   }
 
   async init() {
+    this.view.hideSound();
+    this.view.showClose();
+    this.view.onDisableAnswers();
     this.view.showDataLoader();
     this.view.hideControllers();
     this.view.hidePrelaunch();
@@ -27,14 +43,15 @@ export default class Controller {
     this.view.updateHearts();
     this.view.updateBG();
     this.view.updateCrystal(1);
-    // this.view.showOptions();
+    this.view.showOptions();
     await this.model.init();
     this.view.showDifficulty(this.model.round);
     this.view.showLevel(this.model.level);
+    this.view.soundSilince(this.model.audioMute);
     console.log(this.model.gameMode);
-    // if (this.model.gameMode === 'mix') {
-    //   this.view.hideOptions();
-    // }
+    if (this.model.gameMode !== 'mix') {
+      this.view.hideOptions();
+    }
     this.view.hideDataLoader();
     this.view.showControllers();
     this.view.showStartScreen();
@@ -42,8 +59,6 @@ export default class Controller {
 
 
   async handlerStartGame() {
-    // await this.model.initGame();
-
     this.view.hideStartScreen();
     this.view.hideOptions();
     this.view.hideControllers();
@@ -55,21 +70,17 @@ export default class Controller {
       this.view.showControllers();
       this.view.showHearts();
       this.nextWord();
-    }, 2000);
-    console.log('words game : ', this.model.gameWords);
-    console.log('words game answers : ', this.model.gameWordsAnswers);
-  }
-
-  handlerClickSound() {
-    console.log(this.model);
+    }, PRELAUNCH_TIME);
+    console.log('GAME WORDS', this.model.gameWords);
+    console.log('WORDS FOR ANSWER', this.model.gameWordsAnswers);
   }
 
   handlerAnswer(word) {
     this.view.setPositionFallWord();
     this.view.onDisableAnswers();
     clearTimeout(this.timerGame);
+    this.timeDifference = 0;
     this.delayBeforeNextWord();
-
     if (word === this.model.currentCorrectWord.ru) {
       this.correctAnswer(word);
     } else {
@@ -79,6 +90,52 @@ export default class Controller {
 
   handlerChangeRound(round) {
     this.model.setRound(round);
+  }
+
+  handlerClickCancel() {
+    this.view.hideGameClose();
+    this.unPauseGame();
+    switch (this.isTimerGame) {
+      case false:
+        this.delayBeforeNextWord(this.timeDifference);
+        break;
+      case true:
+        this.gameTimer(this.timeDifference);
+        break;
+      default:
+        break;
+    }
+  }
+
+  handlerClickClose() {
+    if (!this.model.gameActive) {
+      // console.log();
+      window.location.href = '/';
+    } else {
+      this.view.showGameClose();
+      this.pauseGame();
+      switch (this.isTimerGame) {
+        case false:
+          this.timeDifference = this.timeDifference || DELAY_NEXT_WORD;
+          break;
+        case true:
+          this.timeDifference = this.timeDifference || DEFAULT_GAME_TIME;
+          break;
+        default:
+          break;
+      }
+      clearTimeout(this.timerGame);
+      this.timePause = Date.now();
+      this.timeDifference -= (this.timePause - this.timeStart);
+    }
+  }
+
+  pauseGame() {
+    this.view.pauseAnimationWord();
+  }
+
+  unPauseGame() {
+    this.view.unPauseAnimationWord();
   }
 
   handlerChangeLevel(level) {
@@ -102,19 +159,40 @@ export default class Controller {
     this.model.setStateCorrect(false);
   }
 
-  gameTimer() {
+  gameTimer(time) {
+    this.isTimerGame = true;
+    this.timeStart = Date.now();
     this.timerGame = setTimeout(() => {
       this.handlerAnswer();
-    }, 5000);
+    }, time || DEFAULT_GAME_TIME);
   }
 
-  delayBeforeNextWord() {
-    setTimeout(() => {
+  delayBeforeNextWord(time) {
+    this.isTimerGame = false;
+    this.timeStart = Date.now();
+    this.timerGame = setTimeout(() => {
       this.nextWord();
-    }, 1200);
+    }, time || DELAY_NEXT_WORD);
+  }
+
+  handlerClickSound() {
+    // console.log(this.timerGame);
+    // const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
+    // const audio = new Audio(`${url}/files/04_0061.mp3`);
+    // audio.();
+    // audio.scrollTop
+    // audio.
+    // this.model.playSound('files/04_0061.mp3');
+    this.model.setMuteAudio();
+  }
+
+  handlerClickAudioStatistics(src) {
+    this.model.playSound(src);
   }
 
   async nextWord() {
+    this.timeDifference = 0;
+    clearTimeout(this.timerGame);
     if (this.model.hearts !== 0 && this.model.currentWordNumber >= 0) {
       this.model.setNextWord();
       this.model.currentWordNumber -= 1;
@@ -129,8 +207,11 @@ export default class Controller {
     } else {
       this.view.hideGame();
       this.view.hideHearts();
+      this.view.hideClose();
       this.view.hideControllers();
       this.view.showDataLoader();
+      this.view.showControllers();
+      this.view.showSound();
       await this.model.recordStatisticsWords();
       await this.model.recordStatisticsGame();
       this.view.hideDataLoader();
