@@ -25,7 +25,11 @@ class PageIntro {
   async init() {
     this.render(); // Render markup
     this.initElements(); // Find HTML elements by their classNames
-    await this.loadElements(); // Triggers all onload events & awaits them for load
+
+    if (this.isMixMode) {
+      await this.loadElements(); // Triggers all onload events & awaits them for load
+    }
+
     this.restoreState(); // Restore state of the elements
     await this.initHandlers(); // Add event listeners on the initialized stateful elements
   }
