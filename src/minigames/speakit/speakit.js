@@ -4,6 +4,7 @@ import './speakit.scss';
 import EventBus from 'app/js/utils/eventBus';
 import api from 'app/js/api';
 import settings from 'app/js/settings';
+import Statistics from 'app/js/statistics';
 
 import loader from 'app/js/utils/loader';
 import PageIntro from './components/page-intro/page-intro';
@@ -18,10 +19,9 @@ api.checkLogin().then(async (user) => {
   console.log(user);
 
   // Settings subscribers
-  eventBus.subscribe('settings.initSettings', () => settings.initSettings());
   eventBus.subscribe('settings.update', (...data) => settings.update(...data));
 
-  // 2. Get settings
+  // 2.1. Get settings
   await settings.getSettings();
 
   // settings.minigames.speakit.isMute = true;
@@ -35,6 +35,14 @@ api.checkLogin().then(async (user) => {
 
   // await settings.update('speakit', speakit);
   // await settings.update('learningMode', 'mix');
+
+
+  // 2.2. Init Statistics
+  const statistics = new Statistics();
+
+  eventBus.subscribe('statistics.update', (...data) => {
+    statistics.updateGameResult('speakit', ...data);
+  });
 
   // 3. Start render of the page
   const pageIntro = new PageIntro({ eventBus });

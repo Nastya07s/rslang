@@ -629,7 +629,7 @@ class PageMain {
 
   gameEnded() {
     // 4.2. TODO: Show modal of the end of the game with results!
-    console.log(this.score);
+    this.eventBus.emit('statistics.update', this.score);
     // this.handlerRestartButton();
 
     this.isGameEnded = !this.isGameEnded;
