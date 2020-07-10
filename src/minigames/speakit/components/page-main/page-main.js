@@ -555,7 +555,10 @@ class PageMain {
     const isStreak = this.scoreStreak > 2;
 
     this.scoreStreak += 1; // increase score streak
-    this.score += isStreak ? this.score : 1; // multiply by 2 or by 1
+
+    const BONUS_COEFFICIENT = 1.5;
+
+    this.score = isStreak ? Math.ceil(this.score * BONUS_COEFFICIENT) : this.score + 1;
 
     score.textContent = this.score; // make visual changes
   }
