@@ -60,8 +60,8 @@ class VocabularyPage {
         <div class="template-vocabulary__info">
           <div class="template-vocabulary__word flex">
             <span>${word.word}</span>
-            <span class="d-none" data-settings="transcription">- [əgríː]</span>
-            <span class="d-none" data-settings="translateWord"> - согласна</span>
+            <span class="d-none" data-settings="transcription"> - ${word.transcription}</span>
+            <span class="d-none" data-settings="translateWord"> - ${word.wordTranslate}</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="d-none" data-settings="isGlobalMute">
               <path
                 d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"

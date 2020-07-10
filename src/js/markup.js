@@ -10,7 +10,7 @@ const markup = {
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
       </div>
-      <div class="block__lvl lvl-block flex">
+      <div class="block__lvl lvl-block flex opacity-0">
         <div class="lvl-block__item"><span>Снова</span></div>
         <div class="lvl-block__item"><span>Легко</span></div>
         <div class="lvl-block__item"><span>Хорошо</span></div>
