@@ -1,41 +1,20 @@
 import performRequests from 'app/js/utils/perform-requests';
-import api from 'app/js/api';
+import Api from 'app/js/api';
 
 class Settings {
   constructor() {
+    this.api = new Api();
+
     this.minigames = {
       speakit: {
         isMute: undefined, // false
-        round: undefined, // 0
-        difficulty: undefined, // 0
       },
-      englishPuzzle: {
-        isMute: undefined, // false
-        round: undefined, // 0
-        difficulty: undefined, // 0
-      },
-      savannah: {
-        isMute: undefined, // false
-        round: undefined, // 0
-        difficulty: undefined, // 0
-      },
-      audioCall: {
-        isMute: undefined, // false
-        round: undefined, // 0
-        difficulty: undefined, // 0
-      },
-      sprint: {
-        isMute: undefined, // false
-        round: undefined, // 0
-        difficulty: undefined, // 0
-      },
-      ourGame: {
-        isMute: undefined, // false
-        round: undefined, // 0
-        difficulty: undefined, // 0
-      },
+      englishPuzzle: {},
+      savannah: {},
+      audioCall: {},
+      sprint: {},
+      ourGame: {},
     };
-    this.isGlobalMute = undefined; // false
     this.wordsPerDay = undefined; // 20
     this.learningMode = undefined; // new|old|mix
     this.countNewWords = undefined; // 10
@@ -50,8 +29,7 @@ class Settings {
   }
 
   /**
-   * Set default data & send it to the remote server.
-   * Internal method which is used by getSettings().
+   * Use this if you need to initialize settings for new user.
    */
   async initSettings() {
     this.setSettings();
@@ -59,14 +37,10 @@ class Settings {
   }
 
   async getSettings() {
-    const settings = await performRequests([api.getSettings.bind(api)]);
+    const settings = await performRequests([this.api.getSettings()]);
 
-    if (!settings) {
-      // Set default settings & synchronise with the remote server
-      this.initSettings();
-    } else {
-      // Set the settings retrieved from the remote server
-      this.setSettings(...settings); // Promise.all returns array of resolved/rejected promises
+    if (settings) {
+      this.setSettings(...settings);
     }
   }
 
@@ -75,43 +49,17 @@ class Settings {
    * @param {Object} settings stores settings usually from backend
    */
   setSettings(settings = {}) {
-    console.log(settings);
     const {
       wordsPerDay = 20,
       optional: {
         minigames = {
           speakit: {
             isMute: false,
-            round: 0,
-            difficulty: 0,
           },
-          englishPuzzle: {
+          englishpuzzle: {
             isMute: false,
-            round: 0,
-            difficulty: 0,
-          },
-          savannah: {
-            isMute: false,
-            round: 0,
-            difficulty: 0,
-          },
-          audioCall: {
-            isMute: false,
-            round: 0,
-            difficulty: 0,
-          },
-          sprint: {
-            isMute: false,
-            round: 0,
-            difficulty: 0,
-          },
-          ourGame: {
-            isMute: false,
-            round: 0,
-            difficulty: 0,
           },
         },
-        isGlobalMute = false,
         learningMode = 'mix',
         countNewWords = 10,
         definitionSentence = false,
@@ -127,7 +75,6 @@ class Settings {
 
     this.wordsPerDay = wordsPerDay;
     this.minigames = minigames;
-    this.isGlobalMute = isGlobalMute;
     this.learningMode = learningMode;
     this.countNewWords = countNewWords;
     this.definitionSentence = definitionSentence;
@@ -173,7 +120,6 @@ class Settings {
     const {
       wordsPerDay,
       minigames,
-      isGlobalMute,
       learningMode,
       countNewWords,
       definitionSentence,
@@ -190,7 +136,6 @@ class Settings {
       wordsPerDay,
       optional: {
         minigames,
-        isGlobalMute,
         learningMode,
         countNewWords,
         definitionSentence,
@@ -204,15 +149,12 @@ class Settings {
       },
     };
 
-    const response = await performRequests([api.upsertSettings.bind(api, settings)]);
+    const response = await performRequests([this.api.upsertSettings(settings)]);
 
     if (response) {
-      // Promise.all returns array of resolved/rejected promises
       console.log('Ответ: ', ...response);
     }
   }
 }
 
-const settings = new Settings();
-
-export default settings;
+export default Settings;
