@@ -17,12 +17,7 @@ export default [
     position: 'Front-end developer',
     email: 'psvirid@gmail.com',
     list: [
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
+      'создатель игры Our Game',
     ],
   },
   {
@@ -30,12 +25,8 @@ export default [
     position: 'Front-end developer',
     email: 'gabriellji@yahoo.com',
     list: [
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
+      'создатель игры English Puzzle',
+      'реализация Promo Page',
     ],
   },
   {
@@ -43,12 +34,10 @@ export default [
     position: 'Front-end developer',
     email: 'kamikozz@mail.ru',
     list: [
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
+      'дизайн Promo Page',
+      'создатель игры Speak It',
+      'модуль Settings',
+      'модуль Utils',
     ],
   },
   {
@@ -56,12 +45,8 @@ export default [
     position: 'Front-end developer',
     email: 'antowa_muliarchyk@mail.ru',
     list: [
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
+      'создатель игры Savannah',
+      'создатель игры Audio Call',
     ],
   },
   {
@@ -69,12 +54,11 @@ export default [
     position: 'Front-end developer',
     email: 'tominanusha@gmail.com',
     list: [
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
-      'rhstruetuyfiryfir78ir67ir676e',
+      'создатель игры Sprint',
+      'модуль Statistic',
+      'модуль Api',
+      'модуль Words',
+      'Registration/Login',
     ],
   },
 ];

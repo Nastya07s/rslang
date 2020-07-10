@@ -95,11 +95,10 @@ $image-gap: 32px;
         }
      }
      @media (max-width: 480px) {
-        padding: 3rem 3rem 2rem 0rem;
+        padding: 3rem 3rem 2rem 1rem;
         left: 61%;
      }
      @media (max-width: 380px) {
-        padding: 3rem 3rem 2rem 0rem;
         left: 73%;
      }
 }

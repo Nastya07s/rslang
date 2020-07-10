@@ -45,8 +45,8 @@ export default class Registration {
 
   registrationRequest(user) {
     this.api.createUser(user)
-      .then(() => {
-        this.settings.initSettings();
+      .then(async () => {
+        await this.settings.initSettings();
         // Заменить url, когда создадим основную страницу приложения
         window.location.href = './app.html';
       }, (response) => {
