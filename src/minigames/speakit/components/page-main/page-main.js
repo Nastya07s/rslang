@@ -3,6 +3,7 @@ import api from 'app/js/api';
 import settings from 'app/js/settings';
 import utils from 'app/js/utils/utils';
 import loader from 'app/js/utils/loader';
+import wordsHelper from 'speakit/helpers/words';
 import ProgressBar from '../progress-bar/progress-bar';
 
 class PageMain {
@@ -96,8 +97,6 @@ class PageMain {
     };
     let filter;
 
-    // FIXME: Настины изменения countRepetition & degreeOfKnowledge
-
     switch (settings.learningMode) {
       case LEARNING_MODES.NEW: {
         filter = {
@@ -114,8 +113,8 @@ class PageMain {
               { userWord: null },
             ],
           }, {
-            'userWord.optional.countRepetition': {
-              $lt: 4,
+            'userWord.optional.degreeOfKnowledge': {
+              $lt: 5,
             },
           }],
         };
@@ -128,8 +127,8 @@ class PageMain {
               { userWord: null },
             ],
           }, {
-            'userWord.optional.countRepetition': {
-              $gte: 4,
+            'userWord.optional.degreeOfKnowledge': {
+              $eq: 5,
             },
           }],
         };
@@ -248,6 +247,10 @@ class PageMain {
     this.changeTranslation(card);
     // Set image and await image's load event
     await this.changeImage(card);
+    // Change countRepetition & lastRepetition fields
+    const cardData = this.data[this.currentCardIndex];
+
+    wordsHelper.updateRepetition(cardData);
   }
 
   renderCard(index = 0) {
@@ -418,8 +421,6 @@ class PageMain {
     // Remove duplicated words & return Array
     translations = Array.from(new Set(translations));
 
-    console.log('SOURCE', translations);
-
     await this.checkRecognizedWord(translations);
   }
 
@@ -454,6 +455,11 @@ class PageMain {
       if (!isChecked) {
         this.increaseScore();
       }
+
+      // Change degreeOfKnowledge field
+      const cardData = this.data[this.currentCardIndex];
+
+      wordsHelper.updateKnowledge(cardData);
 
       // Mark as correct
       card.classList.toggle(WORD_CARD_CORRECT);
