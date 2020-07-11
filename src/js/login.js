@@ -1,8 +1,9 @@
+import Settings from './settings';
+import Statistics from './statistics';
 import api from './api';
 
 export default class Login {
   constructor() {
-    this.api = api;
     this.inputEmail = document.querySelector('#login-email');
     this.inputPassword = document.querySelector('#login-password');
     this.formLogin = document.querySelector('.form-login');
@@ -31,9 +32,12 @@ export default class Login {
   }
 
   loginRequest(user) {
-    this.api.loginUser(user)
-      .then(() => {
-        window.location.href = './app.html';
+    api.loginUser(user)
+      .then(async () => {
+        this.statisticsService = new Statistics();
+        this.settings = new Settings();
+        await this.settings.getSettings();
+        window.location.href = '/';
       }, () => {
         this.showPassErrors('Неверная почта или пароль');
       });
