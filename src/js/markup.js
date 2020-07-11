@@ -11,10 +11,10 @@ const markup = {
         <div class="swiper-button-prev"></div>
       </div>
       <div class="block__lvl lvl-block flex opacity-0">
-        <div class="lvl-block__item"><span>Снова</span></div>
-        <div class="lvl-block__item"><span>Легко</span></div>
-        <div class="lvl-block__item"><span>Хорошо</span></div>
-        <div class="lvl-block__item"><span>Трудно</span></div>
+        <div class="lvl-block__item" data-degreeOfKnowledge="0"><span>Снова</span></div>
+        <div class="lvl-block__item" data-degreeOfKnowledge="1"><span>Трудно</span></div>
+        <div class="lvl-block__item" data-degreeOfKnowledge="2"><span>Хорошо</span></div>
+        <div class="lvl-block__item" data-degreeOfKnowledge="4"><span>Легко</span></div>
       </div>
       <div class="block__bar bar-block flex">
         <div class="bar-block__numone"></div>

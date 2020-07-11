@@ -1,3 +1,4 @@
+import performRequests from 'app/js/utils/perform-requests';
 import {
   Swiper, Navigation, Keyboard, Pagination,
 } from '../../node_modules/swiper/js/swiper.esm';
@@ -7,22 +8,23 @@ import api from './api';
 
 Swiper.use([Navigation, Keyboard, Pagination]);
 
-function shuffleArray(array) {
-  return array.sort(() => 0.5 - Math.random());
-}
+const shuffleArray = (array) => array.sort(() => 0.5 - Math.random());
 
 class MainPage {
   constructor() {
     this.parent = document.querySelector('.wrapper');
+    this.words = [];
+    this.slides = [];
   }
 
   async init() {
     await settings.getSettings();
     const words = await this.getWords(settings);
-    this.words = shuffleArray(words[0].paginatedResults);
-    console.log('settings: ', settings);
-    console.log('this.words: ', this.words);
+    this.words = shuffleArray(words);
+    // console.log('settings: ', settings);
+    // console.log('this.words: ', words);
     this.render();
+    this.slides = this.parent.querySelectorAll('.swiper-slide');
     this.initSwiper();
     this.initHandlers();
   }
@@ -33,18 +35,21 @@ class MainPage {
     this.words.forEach((word) => {
       // console.log('word: ', word);
       const {
-        textExample, textExampleTranslate, image, textMeaning, textMeaningTranslate,
+        textExample, textExampleTranslate, image, textMeaning, textMeaningTranslate, _id: id,
       } = word;
       // const lettersWord = word.word.split('');
       const inputWord = `<div class="slider-b-body__input"><div class="background">${word.word}</div><div class="opacity-0">${word.word}</div><input type="text" placeholder=""/></div>`;
       const textExampleWithInput = textExample.replace(/<b.*<\/b>/, inputWord);
-      console.log('textExample: ', textExample);
+      // console.log('textExample: ', textExample);
       // console.log('textExampleWithInput: ', textExampleWithInput);
       const placeForInput = settings.exampleSentence ? textExampleWithInput : inputWord;
       // const placeForInput = inputWord;
       const textMeaningWithoutWord = textMeaning.replace(/<i.*<\/i>/, '<i>[...]</i>');
       const slide = document.createElement('div');
       slide.classList.add('swiper-slide', 'card');
+      slide.setAttribute('data-id', id);
+      slide.setAttribute('data-isguessed', 'false');
+      slide.setAttribute('data-firstattempt', 'true');
       slide.innerHTML = `
       <div class="slider-block__top flex">
         <div class="slider-block__complexity">
@@ -127,17 +132,22 @@ class MainPage {
       });
       if (!settings.associationImage) slide.querySelector('.slider-block__body').classList.add('slider-block__body-full');
       if (settings.learningMode !== 'new') {
-        let count = +word.userWord.optional.degreeOfKnowledge;
-        slide.querySelectorAll('.complexity__circle').forEach((el) => {
+        let count;
+        if (!word.userWord) {
+          count = 0;
+        } else {
+          count = +word.userWord.optional.degreeOfKnowledge;
+        }
+        slide.querySelectorAll('.slider-block__circle').forEach((el) => {
           if (count) {
-            el.classList.add('complexity__circle-active');
+            el.classList.add('slider-block__circle-active');
             count -= 1;
           }
         });
       }
       const text = slide.querySelector('.slider-b-body__input div:not(.background)');
       sliderContainer.append(slide);
-      console.log('text: ', text);
+      // console.log('text: ', text);
       slide.querySelector('.slider-b-body__input input').style.width = `${text.offsetWidth}px`;
       slide.querySelector('.slider-b-body__input div').style.width = `${text.offsetWidth}px`;
       // slide.querySelector('.slider-b-body__title div').classList.add('d-none');
@@ -182,12 +192,35 @@ class MainPage {
     this.parent.querySelector('.bar-block__numone').textContent = this.mySwiper.realIndex + 1;
     this.parent.querySelector('.bar-block__numtwo').textContent = this.mySwiper.slides.length;
 
-    this.mySwiper.on('slideChange', () => {
+    this.mySwiper.on('slideChange', async () => {
       this.parent.querySelector('.bar-block__numone').textContent = this.mySwiper.realIndex + 1;
+      const idWord = this.slides[this.mySwiper.activeIndex].dataset.id;
+      const [word] = await api.getUsersAggregatedWordsById(idWord);
+      console.log('word: ', word);
+      if (!word.userWord) {
+        api.createUserWord(idWord, {
+          difficulty: String(word.group),
+          optional: {
+            countRepetition: 1,
+            isDelete: false,
+            isHard: false,
+            isReadyToRepeat: false,
+            lastRepetition: Date.now(),
+            degreeOfKnowledge: 0,
+            becameLearned: 0,
+          },
+        });
+      }
+      if (this.slides[this.mySwiper.activeIndex].dataset.isguessed === 'true') {
+        this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+      } else {
+        this.parent.querySelector('.block__lvl').classList.add('opacity-0');
+        // console.log(123);
+      }
     });
 
-    this.parent.querySelectorAll('.slider-b-body__title').forEach((form) => {
-      form.addEventListener('submit', (event) => {
+    this.parent.querySelectorAll('.slider-b-body__title').forEach(async (form) => {
+      form.addEventListener('submit', async (event) => {
         event.preventDefault();
         const slide = form.closest('.swiper-slide');
         slide.querySelector('.slider-b-body__sub').classList.remove('opacity-0');
@@ -197,6 +230,15 @@ class MainPage {
         slide.querySelector('.slider-b-body__example-full').classList.remove('d-none');
         slide.querySelector('.slider-b-body__example').classList.add('d-none');
         // slide.querySelector('.slider-b-body__input div').style.zIndex = '2';
+
+        const idWord = slide.dataset.id;
+        const firstAttempt = slide.dataset.firstattempt;
+        console.log('slide.dataset.isguessed: ', slide.dataset.isguessed);
+        console.log('firstAttempt: ', firstAttempt);
+        const [word] = await api.getUsersAggregatedWordsById(idWord);
+        console.log('word: ', word);
+        let { countRepetition } = word.userWord.optional;
+        console.log('countRepetition: ', countRepetition);
 
         const typedWord = slide.querySelector('.slider-b-body__input input').value.split('');
         const rightWord = slide.querySelector('.slider-b-body__input div:not(.background)').textContent.split('');
@@ -219,16 +261,119 @@ class MainPage {
         // });
         if (slide.querySelectorAll('.slider-b-body__input-wrong').length === 0) {
           // this.parent.querySelector('.swiper-button-next').click();
-          this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+          slide.setAttribute('data-isguessed', 'true');
+          countRepetition += 1;
+          console.log(321);
         } else {
           slide.querySelector('.slider-b-body__input input').value = '';
+          slide.setAttribute('data-firstattempt', 'false');
         }
+        // console.log('this.mySwiper.activeIndex: ', this.mySwiper.activeIndex);
+        if (this.slides[this.mySwiper.activeIndex].dataset.isguessed === 'true') {
+          console.log(123);
+          this.parent.querySelector('.swiper-button-next').classList.remove('swiper-button-disabled');
+          this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+        } else {
+          this.parent.querySelector('.swiper-button-next').classList.add('swiper-button-disabled');
+        }
+
+        let degreeOfKnowledge = slide.dataset.firstattempt === 'true'
+          ? word.userWord.optional.degreeOfKnowledge + 1
+          : word.userWord.optional.degreeOfKnowledge - 1;
+        if (degreeOfKnowledge === -1) degreeOfKnowledge = 0;
+        if (degreeOfKnowledge === 6) degreeOfKnowledge = 5;
+
+        console.log('RESULT: ', {
+          difficulty: String(word.group),
+          optional: {
+            countRepetition: word.userWord.optional.countRepetition + 1,
+            isDelete: word.userWord.optional.isDelete,
+            isHard: word.userWord.optional.isHard,
+            isReadyToRepeat: false,
+            lastRepetition: Date.now(),
+            degreeOfKnowledge,
+            becameLearned: word.userWord.optional.becameLearned,
+          },
+        });
+        api.updateUserWordById(idWord, {
+          difficulty: String(word.group),
+          optional: {
+            countRepetition,
+            isDelete: word.userWord.optional.isDelete,
+            isHard: word.userWord.optional.isHard,
+            isReadyToRepeat: false,
+            lastRepetition: Date.now(),
+            degreeOfKnowledge,
+            becameLearned: word.userWord.optional.becameLearned,
+          },
+        });
       });
     });
 
+    this.parent.querySelector('.swiper-button-next').classList.add('swiper-button-disabled');
+    this.parent.querySelector('.swiper-button-prev').classList.add('swiper-button-disabled');
+
+    this.parent.querySelector('.swiper-button-next').addEventListener('click', () => {
+      if (this.slides[this.mySwiper.activeIndex].dataset.isguessed === 'true') {
+        this.parent.querySelector('.swiper-button-next').classList.remove('swiper-button-disabled');
+      } else {
+        this.parent.querySelector('.swiper-button-next').classList.add('swiper-button-disabled');
+      }
+    });
+
+    // this.parent.querySelector('.swiper-container').addEventListener('keyup', (event) => {
+    //   if (event.keyKode === 'ArrowRight') event.preventDefault();
+    // });
+
     this.parent.querySelectorAll('.slider-b-body__showAnswer').forEach((button) => {
       button.addEventListener('click', ({ target }) => {
+        target.closest('.swiper-slide').setAttribute('data-firstattempt', 'false');
         target.closest('.slider-block__body').querySelector('.slider-b-body__title').requestSubmit();
+        // target.closest('.swiper-slide').setAttribute('data-isguessed', 'true');
+        this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+        // this.parent.querySelector('.swiper-button-next').classList.remove('
+        // swiper-button-disabled');
+      });
+    });
+
+    this.parent.querySelector('.block__lvl').addEventListener('click', async ({ target }) => {
+      const element = target.closest('.lvl-block__item');
+
+      const slide = this.slides[this.mySwiper.activeIndex];
+      const idWord = slide.dataset.id;
+      const firstAttempt = slide.dataset.firstattempt;
+      console.log('slide.dataset.isguessed: ', slide.dataset.isguessed);
+      console.log('firstAttempt: ', firstAttempt);
+      const [word] = await api.getUsersAggregatedWordsById(idWord);
+      console.log('word: ', word);
+      const { countRepetition } = word.userWord.optional;
+      console.log('countRepetition: ', countRepetition);
+
+      const degreeOfKnowledge = +element.dataset.degreeofknowledge;
+
+      console.log('RESULT: ', {
+        difficulty: String(word.group),
+        optional: {
+          countRepetition,
+          isDelete: word.userWord.optional.isDelete,
+          isHard: word.userWord.optional.isHard,
+          isReadyToRepeat: false,
+          lastRepetition: Date.now(),
+          degreeOfKnowledge,
+          becameLearned: word.userWord.optional.becameLearned,
+        },
+      });
+      api.updateUserWordById(idWord, {
+        difficulty: String(word.group),
+        optional: {
+          countRepetition,
+          isDelete: word.userWord.optional.isDelete,
+          isHard: word.userWord.optional.isHard,
+          isReadyToRepeat: false,
+          lastRepetition: Date.now(),
+          degreeOfKnowledge,
+          becameLearned: word.userWord.optional.becameLearned,
+        },
       });
     });
 
@@ -245,33 +390,87 @@ class MainPage {
   }
 
   async getWords({ learningMode, wordsPerDay }) {
+    console.log('learningMode: ', learningMode);
     this.parent = document.querySelector('.wrapper');
-    let words = [];
+    const LEARNING_MODES = {
+      NEW: 'new',
+      LEARNING: 'learning',
+      OLD: 'old',
+      MIX: 'mix',
+    };
+    let filter;
+
     switch (learningMode) {
-      case 'new':
-        words = await api.getUsersAggregatedWords(0, wordsPerDay, false, {
-          $or: [{ userWord: null }],
-        });
-        // words = await api.getUsersAggregatedWords(0, 20, false, {
-        //   $nor: [{ userWord: null }],
-        // });
-        return words;
-      case 'learning':
-        words = await api.getUsersAggregatedWords(0, wordsPerDay, false, {
-          // $nor: [{ userWord: null }],
-        });
-        return words;
-      case 'old':
-        words = await api.getUsersAggregatedWords(0, 3, false, {
-          // $nor: [{ userWord: null }],
-        });
-        return words;
-      default:
-        words = await api.getUsersAggregatedWords(0, 3, false, {
-          // $nor: [{ userWord: null }],
-        });
-        return words;
+      case LEARNING_MODES.NEW: {
+        filter = {
+          $and: [{ userWord: null }],
+        };
+        break;
+      }
+      case LEARNING_MODES.LEARNING: {
+        filter = {
+          $and: [
+            {
+              $nor: [{ userWord: null }],
+            },
+            {
+              'userWord.optional.degreeOfKnowledge': {
+                $lt: 5,
+              },
+            },
+          ],
+        };
+        break;
+      }
+      case LEARNING_MODES.OLD: {
+        filter = {
+          $and: [
+            {
+              $nor: [{ userWord: null }],
+            },
+            {
+              'userWord.optional.degreeOfKnowledge': {
+                $eq: 5,
+              },
+            },
+          ],
+        };
+        break;
+      }
+      default: {
+        filter = {
+          $and: [{ page: this.round }],
+        };
+        break;
+      }
     }
+
+    const params = {
+      wordsPerPage: wordsPerDay,
+      filter,
+    };
+
+    if (this.isMixMode) {
+      params.group = this.difficulty;
+    }
+
+    // const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
+    const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
+
+    // if (this.data) {
+    // console.log('data: ', data);
+
+    const processData = () => {
+      const [responseResults] = data;
+      const [results] = responseResults;
+      const { paginatedResults } = results;
+
+      // console.log('paginatedResults;: ', paginatedResults);
+      return paginatedResults;
+    };
+
+    return processData();
+    // }
   }
 }
 

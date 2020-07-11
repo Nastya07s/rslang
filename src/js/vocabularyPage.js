@@ -1,3 +1,4 @@
+import performRequests from 'app/js/utils/perform-requests';
 import markup from './markup';
 import api from './api';
 import settings from './settings';
@@ -14,11 +15,24 @@ class VocabularyPage {
 
   async init() {
     await settings.getSettings();
-    const words = await api.getUsersAggregatedWords(0, 3, false, {
-      $nor: [{ userWord: null }],
-    });
-    console.log('words.paginatedResults: ', words[0].paginatedResults);
-    this.words = shuffleArray(words[0].paginatedResults);
+    const params = {
+      wordsPerPage: 3600,
+      filter: { $nor: [{ userWord: null }] },
+    };
+    // const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
+    const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
+    const [responseResults] = data;
+    const [results] = responseResults;
+    const { paginatedResults: words } = results;
+    // const words = await api.getUsersAggregatedWords(0, 3, false, {
+    //   $and: [
+    //     {
+    //       $nor: [{ userWord: null }],
+    //     },
+    //   ],
+    // });
+    console.log('words.paginatedResults: ', words);
+    this.words = shuffleArray(words);
     this.render();
     this.initHandlers();
   }
@@ -27,9 +41,9 @@ class VocabularyPage {
     this.parent.innerHTML = markup.vocabularyPage;
     const vocabularyCountainer = document.querySelector('.vocabulary__template');
     this.words.forEach((word) => {
-      console.log('word: ', word);
+      // console.log('word: ', word);
 
-      console.log('settings: ', settings);
+      // console.log('settings: ', settings);
       let count = +word.userWord.optional.degreeOfKnowledge;
       const { lastRepetition, isDelete, isHard } = word.userWord.optional;
       const nextRepetitionTimeStamp = +nextRepetition(count, lastRepetition);
@@ -121,16 +135,24 @@ class VocabularyPage {
     });
 
     this.parent.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
+      this.parent.querySelector('.vocabulary__template').classList.remove('opacity-0');
       this.parent.querySelectorAll('.template-vocabulary__body').forEach((el) => {
-        this.parent.querySelector('.vocabulary__template').classList.remove('opacity-0');
+        // console.log('el: ', el);
+        el.classList.remove('d-none');
         if (el.dataset[target.dataset.word] !== 'true') el.classList.add('d-none');
-        const countVisibleWords = this.parent.querySelectorAll('.template-vocabulary__body:not(.d-none)').length;
-        if (countVisibleWords === 0) {
-          this.parent.querySelector('.template-vocabulary__body').classList.remove('d-none');
-          this.parent.querySelector('.vocabulary__template').classList.add('opacity-0');
-        }
-        this.parent.querySelector('.vocabulary__num span').textContent = countVisibleWords;
+        // console.log('target.dataset.word: ', target.dataset.word);
+        // console.log('el.dataset[target.dataset.word]: ', el.dataset[target.dataset.word]);
       });
+      const countVisibleWords = this.parent.querySelectorAll('.template-vocabulary__body:not(.d-none)').length;
+      if (countVisibleWords === 0) {
+        console.log('countVisibleWords: ', countVisibleWords);
+        this.parent.querySelector('.template-vocabulary__body').classList.remove('d-none');
+        console.log('this.parent.querySelector.className ', this.parent.querySelector('.vocabulary__template').className);
+        this.parent.querySelector('.vocabulary__template').classList.add('opacity-0');
+        console.log('this.parent.querySelector.className ', this.parent.querySelector('.vocabulary__template').className);
+        console.log('this.parent.querySelector ', this.parent.querySelector('.vocabulary__template'));
+      }
+      this.parent.querySelector('.vocabulary__num span').textContent = countVisibleWords;
     });
 
     this.parent.querySelectorAll('[data-settings="isGlobalMute"]:not(.d-none)').forEach((el) => {

@@ -37,7 +37,7 @@ class Settings {
     };
     this.isGlobalMute = undefined; // false
     this.wordsPerDay = undefined; // 20
-    this.learningMode = undefined; // new|old|mix|learning
+    this.learningMode = undefined; // new|old|mix
     this.countNewWords = undefined; // 10
     this.definitionSentence = undefined; // false
     this.exampleSentence = undefined; // false
@@ -46,11 +46,12 @@ class Settings {
     this.transcription = undefined; // false
     this.answerButton = undefined; // false
     this.deleteButton = undefined; // false
-    this.hardWordsButton = undefined; // false
+    this.addToHardWordsButton = undefined; // false
   }
 
   /**
-   * Use this if you need to initialize settings for new user.
+   * Set default data & send it to the remote server.
+   * Internal method which is used by getSettings().
    */
   async initSettings() {
     this.setSettings();
@@ -58,9 +59,13 @@ class Settings {
   }
 
   async getSettings() {
-    const settings = await performRequests([api.getSettings()]);
+    const settings = await performRequests([api.getSettings.bind(api)]);
 
-    if (settings) {
+    if (!settings) {
+      // Set default settings & synchronise with the remote server
+      this.initSettings();
+    } else {
+      // Set the settings retrieved from the remote server
       this.setSettings(...settings); // Promise.all returns array of resolved/rejected promises
     }
   }
@@ -70,7 +75,7 @@ class Settings {
    * @param {Object} settings stores settings usually from backend
    */
   setSettings(settings = {}) {
-    // console.log(settings);
+    console.log(settings);
     const {
       wordsPerDay = 20,
       optional: {
@@ -116,7 +121,7 @@ class Settings {
         transcription = false,
         answerButton = false,
         deleteButton = false,
-        hardWordsButton = false,
+        addToHardWordsButton = false,
       } = {},
     } = settings;
 
@@ -132,7 +137,7 @@ class Settings {
     this.transcription = transcription;
     this.answerButton = answerButton;
     this.deleteButton = deleteButton;
-    this.hardWordsButton = hardWordsButton;
+    this.addToHardWordsButton = addToHardWordsButton;
   }
 
   /**
@@ -178,7 +183,7 @@ class Settings {
       transcription,
       answerButton,
       deleteButton,
-      hardWordsButton,
+      addToHardWordsButton,
     } = this;
 
     const settings = {
@@ -195,11 +200,11 @@ class Settings {
         transcription,
         answerButton,
         deleteButton,
-        hardWordsButton,
+        addToHardWordsButton,
       },
     };
 
-    const response = await performRequests([api.upsertSettings(settings)]);
+    const response = await performRequests([api.upsertSettings.bind(api, settings)]);
 
     if (response) {
       // Promise.all returns array of resolved/rejected promises
