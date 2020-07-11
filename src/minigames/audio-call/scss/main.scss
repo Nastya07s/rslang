@@ -4,6 +4,9 @@
 @import "utils/_fonts";
 @import "utils/_media";
 @import "header.scss";
+@import "statistics.scss";
+@import "abort-window.scss";
+@import "prelaunch.scss";
 
 * {
   margin: 0px;
@@ -15,9 +18,7 @@
 body {
   width: 100%;
   min-height: 100vh;
-  // height: 100%;
   font-size: 10px;
-  // background: url(../img/temp_bg.svg);
   background-image: linear-gradient(
     to top,
     rgb(214, 125, 255),
@@ -33,9 +34,6 @@ body {
     rgb(181, 84, 232),
     rgb(178, 80, 230)
   );
-  // background-position-y: 100%;
-  // background-position-x: center;
-  // background-repeat: no-repeat;
   position: relative;
   transition: all 1s ease;
 }
@@ -46,20 +44,20 @@ body {
 }
 
 .main__wrapper {
-  // margin-top: 50px;
   height: 100%;
   width: 100%;
-  // margin: 50px auto;
 }
 
 .game-start {
-  // height: 100%;
   padding: 100px 0;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  &.inactive {
+    display: none;
+  }
   & .game-start__title {
     font-weight: 600;
     font-size: 6em;
@@ -81,6 +79,272 @@ body {
     cursor: pointer;
     margin-top: 50px;
     font-size: 3.2em;
+  }
+}
+
+.game {
+  width: 100%;
+  min-height: 600px;
+  // border: 1px solid black;
+  position: relative;
+  overflow: hidden;
+  &.inactive {
+    display: none;
+  }
+  & .game__container {
+    width: 100%;
+    // height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  & .game__current {
+    // border: 1px solid white;
+    left: 0%;
+    // animation: go-next 1s linear forwards;
+    // left: 10px;
+    &.animation {
+      animation: go-next 1s linear forwards;
+    }
+  }
+  & .game__next {
+    // border: 1px solid green;
+    left: 100%;
+    // animation-delay: 1s;
+    &.animation {
+      animation: go-current 1s 0.2s linear forwards;
+    }
+    // animation: go-current 1s 0.4s linear forwards;
+  }
+
+  & .game__description {
+    // max-width: 400px;
+    height: 260px;
+    flex-flow: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    &.game__description_question {
+      & .game__photo {
+        display: none;
+      }
+      & .game__wordsEnglish {
+        display: none;
+      }
+      & .game__audio {
+        display: flex;
+      }
+    }
+    &.game__description_answer {
+      & .game__photo,
+      & .game__wordsEnglish {
+        display: flex;
+      }
+      & .game__audio {
+        display: flex;
+        width: 60px;
+        height: 60px;
+      }
+    }
+    & .game__wordsEnglish {
+      display: none;
+      font-size: 4em;
+      color: white;
+      margin-left: 40px;
+    }
+    & .game__photo {
+      display: flex;
+      // border: 2px solid white;
+      margin: 0 auto;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      // height: 200px;
+      // border-radius: 50%;
+      overflow: hidden;
+      & img {
+        border: 2px solid white;
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+      }
+    }
+
+    & .game__audio {
+      cursor: pointer;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.281);
+      // background-color: rgba(255, 255, 255, 0.411);
+
+      & span {
+        width: 50%;
+        height: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url(../img/icon_audio_answer.svg);
+      }
+    }
+  }
+
+  & .game__btn-controller {
+    width: 200px;
+    height: 50px;
+    margin-top: 60px;
+    transition: all 0.3s ease;
+
+    & button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background: none;
+      border-radius: 6px;
+      border: 1px solid rgba(240, 240, 240, 0.548);
+      color: rgba(255, 255, 255, 0.548);
+      font-size: 2.2em;
+      cursor: pointer;
+      outline: none;
+      &.inactive {
+        display: none;
+      }
+      &.idk {
+        padding-top: 5px;
+      }
+      &.arrow-next {
+        font-size: 4em;
+        font-weight: 100;
+        padding-bottom: 3px;
+      }
+    }
+    &:hover {
+      transition: all 0.3s ease;
+      background: hsla(0, 0%, 100%, 0.1);
+    }
+  }
+}
+
+@keyframes go-next {
+  10% {
+    left: 10%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+@keyframes go-current {
+  90% {
+    left: -10%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+
+// @keyframes go-next {
+//   100% {
+//     left: -100%;
+//   }
+// }
+// @keyframes go-current {
+//   100% {
+//     left: 0%;
+//   }
+// }
+.game__answers {
+  display: flex;
+  position: relative;
+  z-index: 20;
+  color: white;
+  margin-top: 30px;
+}
+.game__answer {
+  word-wrap: break-word;
+  position: relative;
+  z-index: 21;
+  color: white;
+  font-size: 2.4em;
+  border: none;
+  background: none;
+  cursor: pointer;
+  max-width: 300px;
+  margin: 0px 5px;
+  padding: 10px 20px 13px 35px;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &.incorrect {
+    // background: rgba(255, 109, 127, 0.3);
+    // color: rgba(240, 240, 240, 0.548);
+    text-decoration: line-through;
+    opacity: 0.3;
+  }
+
+  &::before {
+    display: flex;
+    align-items: center;
+    padding-top: 4px;
+    position: absolute;
+    font-size: 0.8em;
+    vertical-align: middle;
+    left: 8px;
+    opacity: 0.7;
+    color: white;
+  }
+  &:nth-child(1)::before {
+    content: "1";
+  }
+  &:nth-child(2)::before {
+    content: "2";
+  }
+  &:nth-child(3)::before {
+    content: "3";
+  }
+  &:nth-child(4)::before {
+    content: "4";
+  }
+  &:nth-child(5)::before {
+    content: "5";
+  }
+  &.correct::before {
+    // background: rgba(177, 255, 151, 0.1);
+    content: "";
+    background-image: url(../img/correct.svg);
+    background-size: cover;
+    width: 15px;
+    height: 12px;
+  }
+}
+.progress-game {
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  height: 4px;
+  width: 3%;
+  transition: all 0.2s linear;
+  background: white;
+  &.inactive {
+    display: none;
   }
 }
 

@@ -1,4 +1,4 @@
-import Api from './api';
+import api from './api';
 
 export default class Registration {
   constructor(selector) {
@@ -61,7 +61,6 @@ export default class Registration {
   }
 
   registrationRequest(user) {
-    const api = new Api();
     api.createUser(user)
       .then(() => {
         // Заменить url, когда создадим основную страницу приложения

@@ -135,7 +135,90 @@
 	</header>
 
 	<main>
+		<!-- <button class="test-btn">test</button> -->
+		<div class="game inactive">
+			<div class="game__container game__current">
+				<div class="game__description game__description_question">
+					<div class="game__photo">
+						<img src="https://raw.githubusercontent.com/Gabriellji/rslang-data/master/files/02_0625.jpg" alt="">
+					</div>
+					<div class="game__audio">
+						<span></span>
+					</div>
+					<div class="game__wordsEnglish">
+						emmpty
+					</div>
+				</div>
+
+				<div class="game__answers">
+					<button class="game__answer">
+						<s>привет1</s>
+					</button>
+					<button class="game__answer correct">
+						привет1
+					</button>
+					<button class="game__answer ">
+						привет1
+					</button>
+					<button class="game__answer">
+						привет1
+					</button>
+					<button class="game__answer">
+						привет1
+					</button>
+				</div>
+				<div class="game__btn-controller">
+					<button class="idk">НЕ ЗНАЮ</button>
+					<button class="arrow-next ">→</button>
+				</div>
+			</div>
+
+			<div class="game__container game__next">
+				<div class="game__description">
+					<div class="game__audio">
+						<span></span>
+					</div>
+				</div>
+				<div class="game__answers">
+					<button class="game__answer">
+						привет2
+					</button>
+					<button class="game__answer">
+						привет2
+					</button>
+					<button class="game__answer ">
+						привет2
+					</button>
+					<button class="game__answer">
+						привет2
+					</button>
+					<button class="game__answer">
+						привет2
+					</button>
+				</div>
+				<div class="game__btn-controller">
+					<button class="idk">НЕ ЗНАЮ</button>
+					<button class="arrow-next ">→</button>
+				</div>
+			</div>
+
+		</div>
 		<div class="wrapper main__wrapper">
+			<div class="prelaunch inactive">
+				<div class="loader">
+					<div class="loader__plate">
+						<object type="image/svg+xml" data="plate.svg">
+
+						</object>
+					</div>
+				</div>
+				<div class="info">
+					<div class="info__img"></div>
+					<div class="info__description">
+						Используй клавиши 1, 2, 3, 4 и 5 чтобы дать быстрый ответ
+					</div>
+				</div>
+			</div>
 			<div class="game-start">
 				<div class="game-start__title">
 					Аудиовызов
@@ -147,10 +230,46 @@
 					Начать
 				</button>
 			</div>
+			<div class="drop-game inactive">
+				<div class="drop-game__window">
+					<div class="drop-game-window__title">Тренировка не закончена!</div>
+					<div class="drop-game-window__description">Если вы вернетесь в главное меню,ваши результаты не буду сохранены
+					</div>
+					<button class="drop-game-window__exit">Закрыть</button>
+					<button class="drop-game-window__cancel">Отмена</button>
+				</div>
+			</div>
+			<div class="audiocall__statistics inactive">
 
+				<div class="finish-statistics">
+					<div class="finish-statistics__title">
+						<!-- Неплохо, но есть над чем поработать -->
+					</div>
+					<div class="wrapper__answers">
+						<div class="finish-statistics__answers">
+							<div class="finish-statistics__answers-invalid-title">
+							</div>
+							<div class="finish-statistics__answers-invalid">
+							</div>
+							<div class="finish-statistics__answers-line"></div>
+							<div class="finish-statistics__answers-valid-title">
+							</div>
+							<div class="finish-statistics__answers-valid">
+							</div>
+						</div>
+					</div>
+					<div class="finish-statistics__controls-button">
+						<button class="restart-training">Продолжить тренировку</button>
+						<button class="finish-training">В галвное меню</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</main>
+	<div class="progress-game inactive ">
+
+	</div>
 </body>
 
 </html>
