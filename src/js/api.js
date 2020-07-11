@@ -109,7 +109,6 @@ export default class Api {
         this.userId = response.userId;
         localStorage.setItem(USER_TOKEN_KEY, this.userToken);
         localStorage.setItem(USER_ID_KEY, this.userId);
-
         return response;
       });
   }
@@ -185,9 +184,17 @@ export default class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'PUT', data);
   }
 
+  getUsersAggregatedWords(paramsObject = {}) {
+    let params = Object.entries(paramsObject);
 
-  getUsersAggregatedWords(wordsPerPage = 20, filter = {}) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords?`
-      + `wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
+    params = params
+      .map(([param, value]) => `${param}=${JSON.stringify(value)}`)
+      .join('&');
+
+    const endpoint = `${this.basicUrl}/users/${this.userId}/aggregatedWords`;
+    const separator = params.length ? '?' : '';
+    const url = `${endpoint}${separator}${params}`;
+
+    return this.requestWithToken(url, 'GET');
   }
 }
