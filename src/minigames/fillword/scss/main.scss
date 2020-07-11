@@ -31,11 +31,10 @@ html {
 }
 .headerApp {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
   align-items: center;
   padding: 3rem 0;
-
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: 400;
@@ -45,11 +44,12 @@ html {
 }
 
 .controlBlock {
-  align-self: center;
-  justify-self: center;
+  display: flex;
+  justify-content: space-between;
 }
 
 .button {
+  padding: 0.8rem;
   color: #fff;
   background-color: #2FA4E7;
   border: 1px solid #2FA4E7;
@@ -63,10 +63,6 @@ html {
   box-shadow: 0 0 0 0.2rem rgba(78, 178, 235, 0.5);
 }
 
-.refresh {
-  padding: 0.5rem ;
-}
-
 .refresh:hover>svg {
   animation-name: rotation;
   animation-duration: 2s;
@@ -74,19 +70,11 @@ html {
   animation-timing-function: linear;
 }
 
-.help {
-  padding: 0.5rem ;
-}
-
 @keyframes rotation {
   0% {
       transform:rotate(0deg);}
   100% {
       transform:rotate(360deg);}
-}
-
-.bodyApp {
-
 }
 
 .word-translate {

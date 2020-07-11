@@ -1,7 +1,15 @@
 
+#start-page {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../img/background.jpg);
+}
+
 .start-game__wrapper {
   margin: 0 auto;
-  max-width: 1290px;
+  max-width: 1440px;
+  height: 100%;
   padding: 0 10px;
   background-color: transparent;
 }
@@ -70,7 +78,7 @@ header {
       right: -16.5px;
       background: white;
       position: absolute;
-      width: 300px;
+      width: 250px;
       height: 140px;
       border-radius: 18px;
       color: black;
@@ -117,7 +125,7 @@ header {
       }
 
       & .stars {
-        width: 55%;
+        width: 65%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -137,10 +145,9 @@ header {
 }
 
 .main__wrapper {
-  // margin-top: 50px;
+  padding: 100px 0px;
   height: 100%;
   width: 100%;
-  // margin: 50px auto;
 }
 
 .game-start {
