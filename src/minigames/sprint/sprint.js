@@ -1,6 +1,6 @@
 import ProgressBar from 'progressbar.js';
 import Words from 'app/js/words';
-import Settings from 'app/js/settings';
+import settings from 'app/js/settings';
 import Statistics from 'app/js/statistics';
 import api from '../../js/api';
 import StartPage from './components/start-page/start-page';
@@ -26,7 +26,7 @@ export default class Sprint {
     this.loaderSprint.classList.remove('hidden');
     this.api.checkLogin()
       .then(async () => {
-        this.settings = new Settings();
+        this.settings = settings;
         await this.settings.getSettings();
         this.loaderSprint.classList.add('hidden');
         this.wordsService = new Words({
@@ -40,6 +40,7 @@ export default class Sprint {
         this.statisticsService = new Statistics();
         this.arrayCorrectAnswer = [];
         this.arrayIncorrectAnswer = [];
+        // this.api.logoutUser();
       }, () => {
         document.location.href = '/';
       });
