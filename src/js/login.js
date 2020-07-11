@@ -1,4 +1,4 @@
-import Settings from 'app/js/settings';
+import settings from 'app/js/settings';
 import Statistics from 'app/js/statistics';
 import api from './api';
 
@@ -35,7 +35,7 @@ export default class Login {
     api.loginUser(user)
       .then(async () => {
         this.statisticsService = new Statistics();
-        this.settings = new Settings();
+        this.settings = settings;
         await this.settings.getSettings();
         window.location.href = '/';
       }, () => {
