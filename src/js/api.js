@@ -45,7 +45,7 @@ class Api {
         body: JSON.stringify(data),
       }).then((response) => {
         // Check token expiration and refresh if expired
-        if (this.userToken) {
+        if (this.userToken && !isRefreshToken) {
           const tokenInfo = JSON.parse(atob(this.userToken.split('.')[1]));
           if (tokenInfo.exp * 1000 - Date.now() < TIME_TO_REFRESH_TOKEN) {
             this.getNewUserTokens();
@@ -179,9 +179,33 @@ class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'DELETE');
   }
 
-  getUsersAggregatedWords(group = 0, wordsPerPage = 20, filter = {}) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords?`
-    + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
+  /**
+   * Gets all user aggregated words.
+   * @see /users/{id}/aggregatedWords
+   * @param {Object} paramsObject arguments' object, contains: `group`, `wordsPerPage` and `filter`
+   * @example
+   *    {
+   *      group: 0,
+   *      wordsPerPage: 20,
+   *      filter: {
+   *        $and:[{
+   *          userWord: null,
+   *        }],
+   *      },
+   *    }
+   */
+  getUsersAggregatedWords(paramsObject = {}) {
+    let params = Object.entries(paramsObject);
+
+    params = params
+      .map(([param, value]) => `${param}=${JSON.stringify(value)}`)
+      .join('&');
+
+    const endpoint = `${this.basicUrl}/users/${this.userId}/aggregatedWords`;
+    const separator = params.length ? '?' : '';
+    const url = `${endpoint}${separator}${params}`;
+
+    return this.requestWithToken(url, 'GET');
   }
 
   getUsersAggregatedWordsById(wordId) {

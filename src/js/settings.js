@@ -31,7 +31,7 @@ class Settings {
         round: undefined, // 0
         difficulty: undefined, // 0
       },
-      ourGame: {
+      fillWord: {
         isMute: undefined, // false
         round: undefined, // 0
         difficulty: undefined, // 0
@@ -102,7 +102,7 @@ class Settings {
             round: 0,
             difficulty: 0,
           },
-          ourGame: {
+          fillWord: {
             isMute: false,
             round: 0,
             difficulty: 0,
@@ -154,7 +154,7 @@ class Settings {
       case 'savannah':
       case 'audioCall':
       case 'sprint':
-      case 'ourGame':
+      case 'fillWord':
         this.minigames[key] = value;
         break;
       default:

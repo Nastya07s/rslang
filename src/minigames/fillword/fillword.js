@@ -1,18 +1,11 @@
+/* eslint-disable class-methods-use-this */
+/* eslint-disable max-classes-per-file */
 /* eslint-disable linebreak-style */
 /* eslint-disable prefer-destructuring */
 import './scss/main.scss';
-/* import api from '../../js/api'; */
-import startPage from './js/startPage/startPage';
-import createField from './js/mainPage/mainPage';
-/* import Settings from '../../js/settings'; */
-
-let arrayWord = [];
-async function getData() {
-  const data = await startPage.getDefaultWords();
-  arrayWord = data;
-  return arrayWord;
-}
-getData();
+import View from './js/View/View';
+import createField from './js/createField/createField';
+import Model from './js/model/Model';
 
 let coordinate = [];
 let chooseCoordinate = [];
@@ -22,15 +15,11 @@ let innerArrWord = [];
 let keyWord = [];
 let keyWordTranslate = [];
 let field = [];
-let counterWord = 0;
 const containerStartPage = document.getElementById('start-page');
 const containerFillWord = document.getElementById('fillWord');
 const innerWord = document.getElementById('keyword');
 const table = document.getElementById('gameTable');
-const buttonRefresh = document.getElementById('refresh');
-const buttonHelp = document.getElementById('help');
 const wordTranslate = document.getElementById('translate');
-const btnGameStart = document.getElementById('button-game-start');
 
 const readCoordsFromAttribute = (element) => {
   const attrValue = element.getAttribute('data-coordinate');
@@ -117,7 +106,7 @@ function renderField(newField) {
 
     table.append(tr);
   }
-  wordTranslate.innerText = `"${keyWordTranslate}"`;
+  wordTranslate.innerText = `${keyWordTranslate.toUpperCase()}`;
 }
 
 function deleteOldGameField() {
@@ -138,42 +127,103 @@ function refreshButtonHandler() {
   renderField(field);
 }
 
-function gameStartButtonHandler() {
-  keyWordTranslate = arrayWord[0].ru;
-  keyWord = arrayWord[0].en;
-  field = createField(keyWord, 5, 6, coordinate);
-  renderField(field);
-  containerFillWord.classList.toggle('display-off');
-  containerStartPage.classList.toggle('display-off');
+export default class Controller {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+    this.counterWord = 0;
+
+    this.view.bindChangeRound(this.handlerChangeRound.bind(this));
+    this.view.bindChangeLevel(this.handlerChangeLevel.bind(this));
+    this.view.bindClickClose(this.handlerClickClose.bind(this));
+    this.view.bindDropOptions();
+    this.view.bindClickStartGame(this.handlerClickStartGame.bind(this));
+    this.view.bindClickSound(this.handlerClickSound.bind(this));
+    this.view.bindClickHelp(this.handlerClickHelp.bind(this));
+    this.view.bindClickRefresh(this.handlerClickRefresh.bind(this));
+  }
+
+  init() {
+    this.model.init();
+    console.log('hi!');
+  }
+
+  async handlerClickStartGame() {
+    await this.model.initGame();
+    this.gameStart();
+  }
+
+  gameStart() {
+    keyWordTranslate = this.model.gameWords[0].ru;
+    keyWord = this.model.gameWords[0].en;
+    this.model.wordsService.updateRepetition(this.model.gameWords[0].id, this.round);
+    field = createField(keyWord, 5, 6, coordinate);
+    renderField(field);
+    containerFillWord.classList.toggle('display-off');
+    containerStartPage.classList.toggle('display-off');
+  }
+
+  isUserRightHandler() {
+    this.model.wordsService.updateRepetition();
+    this.counterWord += 1;
+    if (this.counterWord === this.model.gameWords.length) {
+      console.log('statistics appear');
+      return;
+    }
+    keyWordTranslate = this.model.gameWords[this.counterWord].ru;
+    keyWord = this.model.gameWords[this.counterWord].en;
+
+    deleteOldGameField();
+    clearGameField();
+    coordinate = [];
+    chooseCoordinate = [];
+
+    field = createField(keyWord, 5, 6, coordinate);
+    renderField(field);
+    console.log('word found');
+  }
+
+  isUserFalseHandler() {
+    chooseCoordinate = [];
+    clearGameField();
+    console.log('word not found');
+  }
+
+  handlerClickRefresh() {
+    refreshButtonHandler();
+  }
+
+  handlerClickHelp() {
+    console.log('help');
+  }
+
+  handlerClickSound() {
+    this.model.setMuteAudio();
+  }
+
+  handlerChangeRound(round) {
+    this.model.setRound(round);
+  }
+
+  handlerChangeLevel(level) {
+    this.model.setLevel(level);
+  }
+
+  handlerClickClose() {
+    window.location.href = '/';
+  }
 }
-
-function isUserRightHandler() {
-  counterWord += 1;
-  keyWordTranslate = arrayWord[counterWord].ru;
-  keyWord = arrayWord[counterWord].en;
-
-  deleteOldGameField();
-  clearGameField();
-  coordinate = [];
-  chooseCoordinate = [];
-
-  field = createField(keyWord, 5, 6, coordinate);
-  renderField(field);
-  console.log('word found');
-}
-
-function isUserFalseHandler() {
-  chooseCoordinate = [];
-  clearGameField();
-  console.log('word not found');
-}
+const model = new Model();
+const view = new View();
+const controller = new Controller(model, view);
+controller.init();
 
 const mouseUpHandler = () => {
   isMouseDown = false;
   if (isUserRight) {
-    isUserRightHandler();
+    controller.isUserRightHandler();
   } else {
-    isUserFalseHandler();
+    controller.isUserFalseHandler();
   }
   isUserRight = false;
   const cell = document.querySelectorAll('td');
@@ -182,14 +232,4 @@ const mouseUpHandler = () => {
   });
 };
 
-const helpButtonHandler = () => {
-  console.log('help');
-};
-
 table.addEventListener('mouseup', mouseUpHandler);
-
-buttonRefresh.addEventListener('click', refreshButtonHandler);
-
-btnGameStart.addEventListener('click', gameStartButtonHandler);
-
-buttonHelp.addEventListener('click', helpButtonHandler);

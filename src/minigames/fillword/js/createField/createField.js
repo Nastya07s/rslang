@@ -1,9 +1,6 @@
 /* eslint-disable prefer-destructuring */
-/* class FillWord {
-  constructor() {
 
-  }
-} */
+import getRandomArbitrary from '../helpers/getRandomArbitrary';
 
 function checkCoordinate(x, y, width, height, checkField) {
   return (x > 0 && x < width && y > 0 && y < height && checkField[y][x] === '0');
@@ -29,10 +26,6 @@ function createNextCoordinates(x, y, width, height, checkField) {
   }
 
   return result;
-}
-
-function getRandomArbitrary(min, max) {
-  return Math.ceil(Math.random() * (max - min) + min);
 }
 
 function getRandomEnglishSymbol() {
