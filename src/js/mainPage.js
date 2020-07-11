@@ -38,7 +38,7 @@ class MainPage {
         textExample, textExampleTranslate, image, textMeaning, textMeaningTranslate, _id: id,
       } = word;
       // const lettersWord = word.word.split('');
-      const inputWord = `<div class="slider-b-body__input"><div class="background">${word.word}</div><div class="opacity-0">${word.word}</div><input type="text" placeholder=""/></div>`;
+      const inputWord = `<div class="slider-b-body__input"><div class="background">${word.word}</div><div class="opacity-0">${word.word}</div><input type="text" placeholder="" autofocus/></div>`;
       const textExampleWithInput = textExample.replace(/<b.*<\/b>/, inputWord);
       // console.log('textExample: ', textExample);
       // console.log('textExampleWithInput: ', textExampleWithInput);
@@ -273,6 +273,13 @@ class MainPage {
           console.log(123);
           this.parent.querySelector('.swiper-button-next').classList.remove('swiper-button-disabled');
           this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+          if (this.slides[this.mySwiper.activeIndex].dataset.firstattempt === 'false') {
+            slide.setAttribute('data-isguessed', 'false');
+            slide.setAttribute('data-firstattempt', 'true');
+            this.mySwiper.appendSlide(slide.outerHTML);
+            this.parent.querySelector('.bar-block__numone').textContent = this.mySwiper.realIndex + 1;
+            this.parent.querySelector('.bar-block__numtwo').textContent = this.mySwiper.slides.length;
+          }
         } else {
           this.parent.querySelector('.swiper-button-next').classList.add('swiper-button-disabled');
         }
@@ -351,6 +358,14 @@ class MainPage {
 
       const degreeOfKnowledge = +element.dataset.degreeofknowledge;
 
+      if (degreeOfKnowledge === 0 && !slide.dataset.firstattempt === 'false') {
+        slide.setAttribute('data-isguessed', 'false');
+        slide.setAttribute('data-firstattempt', 'true');
+        this.mySwiper.appendSlide(slide.outerHTML);
+        this.parent.querySelector('.bar-block__numone').textContent = this.mySwiper.realIndex + 1;
+        this.parent.querySelector('.bar-block__numtwo').textContent = this.mySwiper.slides.length;
+      }
+
       console.log('RESULT: ', {
         difficulty: String(word.group),
         optional: {
@@ -363,18 +378,18 @@ class MainPage {
           becameLearned: word.userWord.optional.becameLearned,
         },
       });
-      api.updateUserWordById(idWord, {
-        difficulty: String(word.group),
-        optional: {
-          countRepetition,
-          isDelete: word.userWord.optional.isDelete,
-          isHard: word.userWord.optional.isHard,
-          isReadyToRepeat: false,
-          lastRepetition: Date.now(),
-          degreeOfKnowledge,
-          becameLearned: word.userWord.optional.becameLearned,
-        },
-      });
+      // api.updateUserWordById(idWord, {
+      //   difficulty: String(word.group),
+      //   optional: {
+      //     countRepetition,
+      //     isDelete: word.userWord.optional.isDelete,
+      //     isHard: word.userWord.optional.isHard,
+      //     isReadyToRepeat: false,
+      //     lastRepetition: Date.now(),
+      //     degreeOfKnowledge,
+      //     becameLearned: word.userWord.optional.becameLearned,
+      //   },
+      // });
     });
 
     window.addEventListener('resize', () => {
