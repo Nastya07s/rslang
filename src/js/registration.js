@@ -1,5 +1,5 @@
 import api from './api';
-import settings from './settings';
+// import settings from './settings';
 
 export default class Registration {
   constructor(selector) {
@@ -64,7 +64,7 @@ export default class Registration {
   registrationRequest(user) {
     api.createUser(user)
       .then(() => {
-        settings.initSettings();
+        // settings.initSettings();
         // Заменить url, когда создадим основную страницу приложения
         window.location.href = './app.html';
       }, (response) => {
