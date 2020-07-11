@@ -86,7 +86,6 @@
         padding: 20px;
         font-size: 2.2em;
         transition: all .25s;
-        visibility: unset;
   
         &:before {
           content: " ";
@@ -141,7 +140,7 @@
       }
 
       & .message-settings-closed {
-        visibility: hidden;
+        display: none;
       }
     }
   }
@@ -220,7 +219,6 @@
       transition: all .25s;
       &:hover {
         background: #ff7802d6;
-        animation: shake-bottom 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
       }
       @media (max-width: 800px) {
         width: 210px;
@@ -280,73 +278,3 @@
       opacity: 1;
     }
   }
-  
-  @-webkit-keyframes shake-bottom {
-    0%,
-    100% {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
-      -webkit-transform-origin: 50% 100%;
-              transform-origin: 50% 100%;
-    }
-    10% {
-      -webkit-transform: rotate(2deg);
-              transform: rotate(2deg);
-    }
-    20%,
-    40%,
-    60% {
-      -webkit-transform: rotate(-4deg);
-              transform: rotate(-4deg);
-    }
-    30%,
-    50%,
-    70% {
-      -webkit-transform: rotate(4deg);
-              transform: rotate(4deg);
-    }
-    80% {
-      -webkit-transform: rotate(-2deg);
-              transform: rotate(-2deg);
-    }
-    90% {
-      -webkit-transform: rotate(2deg);
-              transform: rotate(2deg);
-    }
-  }
-  @keyframes shake-bottom {
-    0%,
-    100% {
-      -webkit-transform: rotate(0deg);
-              transform: rotate(0deg);
-      -webkit-transform-origin: 50% 100%;
-              transform-origin: 50% 100%;
-    }
-    10% {
-      -webkit-transform: rotate(2deg);
-              transform: rotate(2deg);
-    }
-    20%,
-    40%,
-    60% {
-      -webkit-transform: rotate(-4deg);
-              transform: rotate(-4deg);
-    }
-    30%,
-    50%,
-    70% {
-      -webkit-transform: rotate(4deg);
-              transform: rotate(4deg);
-    }
-    80% {
-      -webkit-transform: rotate(-2deg);
-              transform: rotate(-2deg);
-    }
-    90% {
-      -webkit-transform: rotate(2deg);
-              transform: rotate(2deg);
-    }
-  }
-  
-  
-  

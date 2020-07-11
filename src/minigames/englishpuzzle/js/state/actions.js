@@ -105,7 +105,6 @@ export default {
   },
 
   updateUserWords(api, word, isCorrect) {
-    console.log(api, word, isCorrect);
     const { group } = getters.getRoundInfo();
     api.updateUserWordById(word.id, {
       difficulty: String(group),

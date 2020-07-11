@@ -7,6 +7,7 @@ $pictogram-color: desaturate($primary, 20%);
     position: fixed;
     background: linear-gradient(rgba(8, 15, 26, 1.19) 5%,
     rgba(17, 17, 46, .66) 100%) center center / cover fixed, url(/assets/img/puzzle/loader.svg);
+    background-color: #0d1320;
     background-position: center;
     z-index: 31;
     width: 100%;
@@ -48,3 +49,5 @@ $pictogram-color: desaturate($primary, 20%);
   50%   { transform: scale(0.8); }
   100%  { transform: scale(1.1); }
 }
+
+
