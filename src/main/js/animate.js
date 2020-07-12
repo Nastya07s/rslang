@@ -3,11 +3,11 @@
 // const render = new RenderMainPage();
 // render.init();
 
+import settings from 'app/js/settings';
 import mainPage from './mainPage';
 import statisticsPage from './statisticsPage';
 import vocabularyPage from './vocabularyPage';
 import settingsPage from './settingsPage';
-import settings from './settings';
 
 const toggleMenu = () => {
   document.querySelector('.menu').classList.toggle('menu__extended');

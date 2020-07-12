@@ -1,6 +1,6 @@
+import settings from 'app/js/settings';
+import api from 'app/js/api';
 import markup from './markup';
-import settings from './settings';
-import api from './api';
 
 class SettingsPage {
   constructor() {

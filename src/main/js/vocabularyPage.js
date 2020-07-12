@@ -1,8 +1,8 @@
 import performRequests from 'app/js/utils/perform-requests';
 import markup from './markup';
-import api from './api';
-import settings from './settings';
-import { nextRepetition } from './intervalRepeatMethod';
+import api from '../../js/api';
+import settings from '../../js/settings';
+import { nextRepetition } from '../../js/intervalRepeatMethod';
 
 function shuffleArray(array) {
   return array.sort(() => 0.5 - Math.random());

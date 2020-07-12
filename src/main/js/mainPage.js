@@ -1,10 +1,10 @@
 import performRequests from 'app/js/utils/perform-requests';
+import settings from 'app/js/settings';
+import api from 'app/js/api';
 import {
   Swiper, Navigation, Keyboard, Pagination,
-} from '../../node_modules/swiper/js/swiper.esm';
+} from '../../../node_modules/swiper/js/swiper.esm';
 import markup from './markup';
-import settings from './settings';
-import api from './api';
 
 Swiper.use([Navigation, Keyboard, Pagination]);
 
