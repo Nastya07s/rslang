@@ -103,7 +103,7 @@ class PageIntro {
     };
 
     template.innerHTML = `
-      <div class="page-intro animation-change-colors visually-hidden" style="background-image: url(/assets/img/speakit/bg-intro.svg)">
+      <div class="page-intro animation-change-colors visually-hidden" style="background-image: url(/assets/img/speakit/bg-intro.jpg)">
         <header class="page-intro__controls-block">
           <div class="wrapper">
             <ul class="controls-container">
