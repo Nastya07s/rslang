@@ -26,6 +26,7 @@ class PageMain {
       SPEAK_BUTTON: 'controls__speak-button',
       BUTTON_DISABLED: 'controls__button_disabled',
       SCORE: 'score__total',
+      CONTROLS_CLOSE_BUTTON: 'controls-container__close-button',
     };
 
     this.eventBus = props.eventBus;
@@ -201,7 +202,25 @@ class PageMain {
     const template = document.createElement('template');
 
     template.innerHTML = `
-      <div class="page-main animation-float-background" style="background-image: url(/assets/img/speakit/bg-wave.jpg)">
+      <div
+        class="page-main animation-float-background"
+        style="background-image: url(/assets/img/speakit/bg-wave.jpg)">
+        <header class="page-intro__controls-block page-main__header-controls-block">
+          <div class="wrapper">
+            <ul class="controls-container page-main__header-controls-container">
+              <li class="controls-container__group">
+                <button
+                  class="controls-container__button controls-container__close-button"
+                  title="Закрыть игру">
+                  <img
+                    class="icon icon__close icon_inverted"
+                    src="/assets/img/minigames-start-page/close.svg"
+                    alt="Close icon"/>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </header>
         <main class="page-main__main">
           <div class="wrapper">
             <div class="page-main__score score">
@@ -303,6 +322,7 @@ class PageMain {
       IMAGE,
       TRANSLATION,
       SCORE,
+      CONTROLS_CLOSE_BUTTON,
     } = this.classes;
     const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
     const [skipButton] = root.getElementsByClassName(SKIP_BUTTON);
@@ -311,6 +331,7 @@ class PageMain {
     const [gallery] = root.getElementsByClassName(IMAGE);
     const [translation] = root.getElementsByClassName(TRANSLATION);
     const [score] = root.getElementsByClassName(SCORE);
+    const [closeButton] = root.getElementsByClassName(CONTROLS_CLOSE_BUTTON);
 
     this.elements = {
       ...this.elements,
@@ -321,6 +342,7 @@ class PageMain {
       gallery,
       translation,
       score,
+      closeButton,
     };
   }
 
@@ -330,6 +352,7 @@ class PageMain {
       skipButton,
       speakButton,
       audioPlayer,
+      closeButton,
     } = this.elements;
 
     // Get image from root's style background-image.
@@ -343,6 +366,20 @@ class PageMain {
 
     skipButton.addEventListener('click', this.skipCard.bind(this));
     speakButton.addEventListener('click', this.handlerSpeakButton.bind(this));
+    closeButton.addEventListener('click', () => {
+      const popUp = new PopUp({
+        element: document.body,
+        title: 'Тренировка не закончена',
+        description: 'Если вы вернётесь в главное приложение, Ваши результаты не будут сохранены!',
+        handlerExitButton: () => {
+          document.location.href = '/main';
+        },
+        handlerCancelButton: () => {},
+        type: 'pop-up',
+      });
+
+      popUp.toggle();
+    });
   }
 
   handlerRestartButton() {

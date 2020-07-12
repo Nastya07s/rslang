@@ -21,6 +21,15 @@
     }
   }
 
+  &__header-controls-block {
+    position: fixed;
+    height: initial;
+  }
+
+  &__header-controls-container {
+    justify-content: flex-end;
+  }
+
   &__main {
     display: flex;
     justify-content: center;
@@ -245,5 +254,11 @@
     & {
       @include for-tablet { padding: 10px 50px; }
     }
+  }
+}
+
+.icon {
+  &_inverted {
+    filter: invert(1);
   }
 }
