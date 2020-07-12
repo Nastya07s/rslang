@@ -40,7 +40,6 @@ export default class Sprint {
         this.statisticsService = new Statistics();
         this.arrayCorrectAnswer = [];
         this.arrayIncorrectAnswer = [];
-        // this.api.logoutUser();
       }, () => {
         document.location.href = '/';
       });
