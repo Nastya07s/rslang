@@ -17,7 +17,6 @@ const MODE_GAME = {
 export default class Model {
   constructor() {
     this.audio = new Audio();
-    this.api = new Api();
     this.savannahStorage = '';
     this.gameMode = '';
     this.hearts = 0;
@@ -82,7 +81,7 @@ export default class Model {
 
   async initNewWords() {
     try {
-      const words = await this.api.getUsersAggregatedWords({
+      const words = await Api.getUsersAggregatedWords({
         wordsPerPage: MAX_NUMBER_WORDS_GAME,
         filter: {
           $and: [{ userWord: null }],
@@ -96,7 +95,7 @@ export default class Model {
 
   async initLearningWords() {
     try {
-      const words = await this.api.getUsersAggregatedWords({
+      const words = await Api.getUsersAggregatedWords({
         wordsPerPage: MAX_NUMBER_WORDS_GAME,
         filter: {
           $and: [{ $nor: [{ userWord: null }] }, { 'userWord.optional.degreeOfKnowledge': { $lt: 5 } }],
@@ -110,7 +109,7 @@ export default class Model {
 
   async initOldWords() {
     try {
-      const words = await this.api.getUsersAggregatedWords({
+      const words = await Api.getUsersAggregatedWords({
         wordsPerPage: MAX_NUMBER_WORDS_GAME,
         filter: {
           $and: [{ $nor: [{ userWord: null }] }, { 'userWord.optional.degreeOfKnowledge': { $eq: 5 } }],
@@ -125,7 +124,7 @@ export default class Model {
 
   async initMixWords() {
     try {
-      const words = await this.api.getUsersAggregatedWords({
+      const words = await Api.getUsersAggregatedWords({
         group: Number(this.round),
         wordsPerPage: MAX_NUMBER_WORDS_GAME,
         filter: {
@@ -142,11 +141,11 @@ export default class Model {
 
   async fillGameWordsAnswers() {
     if (this.gameWords.length < MIN_NUMBER_WORDS_GAME) {
-      // const words = await this.api.getUsersAggregatedWords(
+      // const words = await Api.getUsersAggregatedWords(
       //   MAX_NUMBER_WORDS_GAME - this.gameWords.length, { $and: [{ userWord: null }] },
       // );
 
-      const words = await this.api.getUsersAggregatedWords({
+      const words = await Api.getUsersAggregatedWords({
         group: Number(this.round),
         wordsPerPage: MAX_NUMBER_WORDS_GAME - this.gameWords.length,
         filter: {
@@ -161,8 +160,8 @@ export default class Model {
 
   async initGameMode() {
     try {
-      // this.gameMode = await this.api.getSettings();
-      // const res = await this.api.getSettings();
+      // this.gameMode = await Api.getSettings();
+      // const res = await Api.getSettings();
       this.gameMode = 'new';
     } catch (e) {
       console.log(e);
@@ -232,12 +231,6 @@ export default class Model {
     return this.gameWords.filter((element) => element.isCorrect !== undefined);
   }
 
-  // isUserWord(element) {
-  //   if (element.userWord) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   async recordStatisticsWords() {
     const words = this.getWordsForStatistics();
@@ -268,15 +261,15 @@ export default class Model {
     optional.lastRepetition = Date.now();
 
     try {
-      await this.api.updateUserWordById(element._id, { difficulty, optional });
+      await Api.updateUserWordById(element._id, { difficulty, optional });
     } catch (e) {
-      console.log(e);
+      console.log(this);
     }
   }
 
   async createUserWord(word) {
     try {
-      await this.api.createUserWord(word.id || word._id, {
+      await Api.createUserWord(word.id || word._id, {
         difficulty: `${word.group}`,
         optional: {
           isHard: false,
@@ -289,13 +282,13 @@ export default class Model {
         },
       });
     } catch (e) {
-      console.log(e);
+      console.log(this);
     }
   }
 
 
   async recordStatisticsGame() {
-    const { learnedWords, optional } = await this.api.getStatistics();
+    const { learnedWords, optional } = await Api.getStatistics();
 
     optional.savannah.totalTimesPlayed += 1;
     optional.savannah.lastGameResult = this
@@ -304,7 +297,7 @@ export default class Model {
 
     optional.savannah.lastGameDate = Date.now();
 
-    await this.api.upsertStatistics({ learnedWords, optional });
+    await Api.upsertStatistics({ learnedWords, optional });
   }
 
   playSound(src) {

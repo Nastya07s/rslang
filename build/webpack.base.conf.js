@@ -17,14 +17,15 @@ module.exports = {
   },
   resolve: {
     alias: {
-      app: `${PATHS.src}/index.js`,
-      savannah: PATHS.savannah,
+      app: PATHS.src,
+      // savannah: PATHS.savannah,
     },
     extensions: ['.js'],
   },
   entry: {
     app: PATHS.src,
     savannah: `${PATHS.savannah}/savannah.js`,
+    main: `${PATHS.src}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -90,13 +91,12 @@ module.exports = {
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
       // to exclude mini-games' chunks & prevent running their code in the main app '/'
-      excludeChunks: ['savannah'],
+      chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.savannah}/index.html`,
       filename: './savannah/index.html',
-      inject: true, // if true - to insert link & script tags into html
-      chunks: ['savannah', 'vendors', 'app'], // include exact this chunk of needed code
+      chunks: ['savannah'], // include exact this chunk of needed code
     }),
     new CopyWebpackPlugin([
       {
