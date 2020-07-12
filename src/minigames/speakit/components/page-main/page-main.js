@@ -23,7 +23,6 @@ class PageMain {
       WORD: 'words-container__word',
       SKIP_BUTTON: 'controls__skip-button',
       SPEAK_BUTTON: 'controls__speak-button',
-      RESTART_BUTTON: 'controls__restart-button',
       BUTTON_DISABLED: 'controls__button_disabled',
       SCORE: 'score__total',
     };
@@ -212,9 +211,7 @@ class PageMain {
             </div>
             <div class="page-main__controls controls">
               <button class="controls__button controls__skip-button">Не знаю 😢</button>
-              <button class="controls__button controls__restart-button controls__button_disabled">Заново</button>
               <button class="controls__button controls__speak-button">Speak it</button>
-              <button class="controls__button controls__results-button">Результаты</button>
             </div>
             <audio class="audio-player" preload="none" src=""></audio>
           </div>
@@ -287,7 +284,6 @@ class PageMain {
     const {
       WORDS_CONTAINER,
       SKIP_BUTTON,
-      RESTART_BUTTON,
       SPEAK_BUTTON,
       AUDIO_PLAYER,
       IMAGE,
@@ -296,7 +292,6 @@ class PageMain {
     } = this.classes;
     const [wordsContainer] = root.getElementsByClassName(WORDS_CONTAINER);
     const [skipButton] = root.getElementsByClassName(SKIP_BUTTON);
-    const [restartButton] = root.getElementsByClassName(RESTART_BUTTON);
     const [speakButton] = root.getElementsByClassName(SPEAK_BUTTON);
     const [audioPlayer] = root.getElementsByClassName(AUDIO_PLAYER);
     const [gallery] = root.getElementsByClassName(IMAGE);
@@ -307,7 +302,6 @@ class PageMain {
       ...this.elements,
       wordsContainer,
       skipButton,
-      restartButton,
       speakButton,
       audioPlayer,
       gallery,
@@ -320,7 +314,6 @@ class PageMain {
     const {
       root,
       skipButton,
-      restartButton,
       speakButton,
       audioPlayer,
     } = this.elements;
@@ -335,7 +328,6 @@ class PageMain {
     audioPlayer.volume = this.volume;
 
     skipButton.addEventListener('click', this.skipCard.bind(this));
-    restartButton.addEventListener('click', this.handlerRestartButton.bind(this));
     speakButton.addEventListener('click', this.handlerSpeakButton.bind(this));
   }
 
@@ -344,7 +336,6 @@ class PageMain {
       const {
         score,
         skipButton,
-        restartButton,
         speakButton,
       } = this.elements;
 
@@ -357,7 +348,6 @@ class PageMain {
 
       // Reset buttons to the default state
       skipButton.classList.remove(this.classes.BUTTON_DISABLED);
-      restartButton.classList.add(this.classes.BUTTON_DISABLED);
       speakButton.classList.remove(this.classes.BUTTON_DISABLED);
     }
   }
@@ -371,11 +361,6 @@ class PageMain {
 
     if (!this.speechRecognition) {
       this.startSpeechRecognition();
-
-      // const { BUTTON_DISABLED } = this.classes;
-
-      // restartButton.classList.remove(BUTTON_DISABLED);
-      // speakButton.classList.add(BUTTON_DISABLED);
     } else {
       this.stopSpeechRecognition();
     }
@@ -441,6 +426,7 @@ class PageMain {
     const isCorrect = Boolean(translations.find((translation) => cardWordText === translation));
 
     const { translation } = this.elements;
+    const cardData = this.data[this.currentCardIndex];
 
     if (isCorrect) {
       // 1. Change text of the translation block
@@ -456,9 +442,8 @@ class PageMain {
         this.increaseScore();
       }
 
-      // Change degreeOfKnowledge field
-      const cardData = this.data[this.currentCardIndex];
 
+      // Change degreeOfKnowledge field
       wordsHelper.updateKnowledge(cardData);
 
       // Mark as correct

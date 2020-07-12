@@ -3,6 +3,8 @@ import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
 
 const MAX_DEGREE_OF_KNOWLEDGE = 5;
+const MAX_ROUND = 29;
+const MAX_DIFFICULTY = 5;
 
 const mutateData = (parentData, field, newData) => {
   const linkToParentData = parentData;
@@ -88,36 +90,10 @@ const updateKnowledge = (rawWordData) => {
   performRequests([api.updateUserWordById.bind(api, wordId, userWord)]);
 };
 
-// const updateKnowledge = (wordId, difficulty) => {
-//   this.api.getUserWordById(wordId)
-//     .then((response) => {
-//       const word = response;
-//       word.optional = word.optional || {};
-//       if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
-//         word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
-//         if (word.optional.degreeOfKnowledge === DEGREE_OF_KNOWLEDGE_MAX) {
-//           word.optional.becameLearned = Date.now();
-//         }
-//       } else if (!word.optional.degreeOfKnowledge) {
-//         word.optional.degreeOfKnowledge = 1;
-//       }
-//       return this.api.updateUserWordById(wordId, {
-//         difficulty: word.difficulty,
-//         optional: word.optional,
-//       });
-//     }, () => {
-//       this.api.createUserWord(wordId, {
-//         difficulty,
-//         optional: {
-//           degreeOfKnowledge: 1,
-//           countRepetition: 0,
-//           lastRepetition: Date.now(),
-//         },
-//       });
-//     });
-// };
-
 export default {
+  MAX_DEGREE_OF_KNOWLEDGE,
+  MAX_ROUND,
+  MAX_DIFFICULTY,
   initUserWord,
   updateRepetition,
   updateKnowledge,
