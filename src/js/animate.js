@@ -7,6 +7,7 @@ import mainPage from './mainPage';
 import statisticsPage from './statisticsPage';
 import vocabularyPage from './vocabularyPage';
 import settingsPage from './settingsPage';
+import settings from './settings';
 
 const toggleMenu = () => {
   document.querySelector('.menu').classList.toggle('menu__extended');
@@ -26,9 +27,11 @@ document.querySelector('.opportunities-menu__item-open').addEventListener('click
 document
   .querySelectorAll('.opportunities-menu__item:first-child,.opportunities-menu__item:nth-child(2)')
   .forEach((el) => {
-    el.addEventListener('click', () => {
+    el.addEventListener('click', async () => {
       document.querySelector('.opportunities-menu__item-on').classList.toggle('d-none');
       document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none');
+      await settings.getSettings();
+      settings.isGlobalMute = document.querySelector('.opportunities-menu__item-on').classList.contains('d-none');
     });
   });
 
