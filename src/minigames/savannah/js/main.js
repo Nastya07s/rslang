@@ -28,7 +28,7 @@ const api = new Api();
     // console.log(data);
   } catch (e) {
     console.log(e);
-    // window.location.href = '/';
+    window.location.href = '/';
   }
 })();
 

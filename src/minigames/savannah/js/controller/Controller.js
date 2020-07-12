@@ -24,6 +24,7 @@ export default class Controller {
     this.view.bindClickClose(this.handlerClickClose.bind(this));
     this.view.bindClickCancel(this.handlerClickCancel.bind(this));
     this.view.bindClickAudioStatistics(this.handlerClickAudioStatistics.bind(this));
+    this.view.bindClickExitGame();
     this.model.audio.addEventListener('ended', () => {
       this.view.inActiveAllAudio();
     });

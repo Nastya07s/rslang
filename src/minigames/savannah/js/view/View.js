@@ -31,6 +31,8 @@ export default class View {
     this.sound = document.querySelector('.audio');
     this.close = document.querySelector('.close');
     this.dropGame = document.querySelector('.drop-game');
+    this.dropGameBtn = document.querySelector('.drop-game-window__exit');
+    this.dropGameBtnStatistics = document.querySelector('.finish-training');
     this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
   }
 
@@ -246,13 +248,9 @@ export default class View {
     this.crystal.className = `crystal crystal_state-${state}`;
   }
 
-  static inActiveAllAudio() {
-    const elements = document.querySelectorAll('.finish-statistics__answer-audio');
+  inActiveAllAudio() {
+    const elements = this.body.querySelectorAll('.finish-statistics__answer-audio');
     elements.forEach((item) => item.classList.remove('active'));
-  }
-
-  static activeAudio(element) {
-    element.classList.add('active');
   }
 
   setPositionFallWord() {
@@ -280,6 +278,14 @@ export default class View {
     });
   }
 
+  bindClickExitGame() {
+    this.dropGameBtn.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+    this.dropGameBtnStatistics.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  }
 
   bindClickAudioStatistics(handler) {
     this.finishStatistics.addEventListener('click', (e) => {
@@ -291,7 +297,7 @@ export default class View {
       ) {
         this.inActiveAllAudio();
         const element = e.target.closest('.finish-statistics__answer');
-        this.activeAudio(element.querySelector('.finish-statistics__answer-audio'));
+        element.querySelector('.finish-statistics__answer-audio').classList.add('active');
         handler(element.dataset.audio);
       }
     });
