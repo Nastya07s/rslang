@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import Api from '../../../js/api';
 import Controller from './controller/Controller';
 import View from './view/View';
@@ -12,7 +14,7 @@ import Model from './model/Model';
 
     // test-user@mail.ru
     // $wVgg123
-    // await Api.loginUser({ email: 'test-user@mail.ru', password: '$wVgg123' });
+    await Api.loginUser({ email: 'test-user@mail.ru', password: '$wVgg123' });
 
     await Api.checkLogin();
     // console.log(check);
