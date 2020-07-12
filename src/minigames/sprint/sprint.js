@@ -304,6 +304,7 @@ export default class Sprint {
 
   finishGame() {
     this.container.innerHTML = `
+    <div class="score"></div>
     <div class="card finish">
       <span class="finish-header">Поздравляем!!!</span> 
       <div class="image-smile"></div>
