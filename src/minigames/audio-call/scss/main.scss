@@ -7,6 +7,7 @@
 @import "statistics.scss";
 @import "abort-window.scss";
 @import "prelaunch.scss";
+@import "loader-data.scss";
 
 * {
   margin: 0px;
@@ -70,6 +71,7 @@ body {
     text-align: center;
   }
   & .game-start__start {
+    outline: none;
     color: white;
     border: none;
     width: 290px;
@@ -85,7 +87,7 @@ body {
 .game {
   width: 100%;
   min-height: 600px;
-  // border: 1px solid black;
+  user-select: none;
   position: relative;
   overflow: hidden;
   &.inactive {
@@ -99,6 +101,10 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    &.inactive {
+      display: none;
+    }
   }
   & .game__current {
     // border: 1px solid white;
@@ -294,10 +300,12 @@ body {
   }
 
   &.incorrect {
-    // background: rgba(255, 109, 127, 0.3);
-    // color: rgba(240, 240, 240, 0.548);
     text-decoration: line-through;
-    opacity: 0.3;
+    // background-color: red;
+  }
+
+  &.opacity {
+    opacity: 0.5;
   }
 
   &::before {
@@ -326,10 +334,25 @@ body {
   &:nth-child(5)::before {
     content: "5";
   }
+
+  &.correct {
+    background-color: rgba(173, 216, 230, 0.274);
+  }
+  &.incorrect {
+    background-color: lightcoral;
+  }
   &.correct::before {
-    // background: rgba(177, 255, 151, 0.1);
     content: "";
     background-image: url(../img/correct.svg);
+    background-size: cover;
+    width: 15px;
+    height: 12px;
+    font-weight: 400;
+  }
+
+  &.incorrect::before {
+    content: "";
+    background-image: url(../img/close.svg);
     background-size: cover;
     width: 15px;
     height: 12px;

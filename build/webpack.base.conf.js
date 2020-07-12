@@ -7,8 +7,8 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
-  assets: 'assets',
   audiocall: path.join(__dirname, '../src/minigames/audio-call'),
+  assets: 'assets',
 };
 
 module.exports = {
@@ -85,11 +85,11 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}/css/[name].[contenthash].css`,
     }),
-    new HtmlWebpackPlugin({
-      template: `${PATHS.src}/index.html`,
-      filename: './index.html',
-      chunks: ['main'],
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: `${PATHS.src}/index.html`,
+    //   filename: './index.html',
+    //   chunks: ['main'],
+    // }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',

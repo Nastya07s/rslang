@@ -15,9 +15,10 @@ header {
   &.inactive {
     display: none;
   }
+
   .icon {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     cursor: pointer;
     background-repeat: no-repeat;
     background-size: cover;
@@ -87,6 +88,8 @@ header {
           width: 70px;
           border: 1px solid black;
           border-radius: 2px;
+          z-index: 40;
+          position: relative;
           &:focus {
             outline: none;
           }
@@ -102,13 +105,24 @@ header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        // height: 100%;
         & .star {
           cursor: pointer;
           width: 20px;
           height: 20px;
+          &.active svg {
+            fill: rgb(194, 105, 241);
+          }
         }
       }
     }
+  }
+}
+
+@keyframes blackout-animate {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.4;
   }
 }

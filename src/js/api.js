@@ -180,11 +180,6 @@ class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'DELETE');
   }
 
-  getUsersAggregatedWords(group = 0, wordsPerPage = 20, filter = {}) {
-    return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords?`
-    + `group=${group}&wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(filter)}`, 'GET');
-  }
-
   getUsersAggregatedWordsById(wordId) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}`, 'GET');
   }
@@ -205,6 +200,20 @@ class Api {
 
   getSettings() {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'GET');
+  }
+
+  getUsersAggregatedWords(paramsObject = {}) {
+    let params = Object.entries(paramsObject);
+
+    params = params
+      .map(([param, value]) => `${param}=${JSON.stringify(value)}`)
+      .join('&');
+
+    const endpoint = `${this.basicUrl}/users/${this.userId}/aggregatedWords`;
+    const separator = params.length ? '?' : '';
+    const url = `${endpoint}${separator}${params}`;
+
+    return this.requestWithToken(url, 'GET');
   }
 
   /**
