@@ -5,6 +5,7 @@ import utils from 'app/js/utils/utils';
 import loader from 'app/js/utils/loader';
 import wordsHelper from 'speakit/helpers/words';
 import ProgressBar from '../progress-bar/progress-bar';
+import PopUp from '../pop-up/pop-up';
 
 class PageMain {
   constructor(props = {}) {
@@ -179,10 +180,18 @@ class PageMain {
       } else {
         this.data = null;
 
-        alert(`
-          Недостаточно слов для игры!
-          Переключитесь на другой режим (например, "Смешанный")
-        `);
+        const popUp = new PopUp({
+          element: document.body,
+          title: 'Недостаточно слов для игры',
+          description: 'Переключитесь на другой режим (например, "смешанный") на странице главного приложения или добавьте больше слов на изучение, или дождитесь периода интервального обучения',
+          handlerExitButton: () => {
+            document.location.href = '/main';
+          },
+          handlerCancelButton: () => {},
+          type: 'info',
+        });
+
+        popUp.toggle();
       }
     }
   }
@@ -687,13 +696,6 @@ class PageMain {
       volume: this.volume,
       callback,
     };
-
-    // this.eventBus.emit('statistics.show', {
-    //   element: document.body,
-    //   words: this.answers,
-    //   volume: this.volume,
-    //   callback,
-    // });
   }
 }
 

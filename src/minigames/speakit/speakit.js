@@ -98,9 +98,7 @@ api.checkLogin().then(async (user) => {
         const mainPageInitParams = await callback();
 
         statisticsModal.toggle();
-        console.log('lol');
         statisticsModal.elements.root.onanimationend = () => {
-          console.log('YA RUSKIY');
           eventBus.emit('pageOutro.destruct');
           statisticsModal.elements.root.remove();
           statisticsModal.elements.root.onanimationend = null;

@@ -1,9 +1,9 @@
 class StatisticsModal {
   /**
-   *
    * @param {Object} props parameters {
    *      parent, // HTMLElement in which will be rendered this component
-   *      data, // [[{},...], [{}, ...]] Array contains 2 Arrays with `correct` & `invalid` answers
+   *      data, // { validAnswers: Array[], invalidAnswers: Array[] } Object contains 2 Arrays with
+   *  `correct` & `invalid` answers
    *      volume, // [0..1]
    *    }
    */
