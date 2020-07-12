@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import api from '../../../../js/api';
 import Settings from '../../../../js/settings';
 import Words from '../../../../js/words';
@@ -13,10 +14,12 @@ export default class Model {
       settings: this.settings,
       gameNameInSettings: GAME_NAME,
     });
-    this.round = 0;
+    this.difficultGroup = 0;
     this.level = 0;
+    this.gameWord = {};
     this.gameWords = [];
     this.gameWords2 = [];
+    this.gameRound = 0;
     this.arrayCorrectAnswer = [];
     this.arrayIncorrectAnswer = [];
     this.audioMute = false;
@@ -44,8 +47,7 @@ export default class Model {
     this.initRoundLevel();
     await this.getWordsList();
     await this.getNewWords();
-    console.log(this.gameWords2);
-    console.log(this.gameWords);
+    this.getWord(this.gameWords, this.gameRound);
   }
 
   async getWordsList() {
@@ -61,13 +63,31 @@ export default class Model {
         id: data.id,
         en: data.word,
         ru: data.wordTranslate,
+        info: data,
       },
     );
   }
 
+  addCorrectAnswerResult() {
+    this.arrayCorrectAnswer.push(this.word);
+  }
+
+  addIncorrectAnswer() {
+    this.arrayIncorrectAnswer.push(this.word);
+  }
+
+  getWord() {
+    this.gameWord = {
+      id: this.gameWords[this.gameRound].id,
+      en: this.gameWords[this.gameRound].en,
+      ru: this.gameWords[this.gameRound].ru,
+      info: this.gameWords[this.gameRound].info,
+    };
+  }
+
   async getNewWords() {
     const data = await api.getUsersAggregatedWords({
-      group: Number.parseInt(this.round, 10),
+      group: Number.parseInt(this.difficultGroup, 10),
       wordsPerPage: Number.parseInt(this.level, 10),
       filter: {
         $and: [
@@ -83,34 +103,35 @@ export default class Model {
   addRoundWordsWithSetting(data) {
     this.gameWords.push(
       {
-        id: data.id,
+        id: data._id,
         en: data.word,
         ru: data.wordTranslate,
+        info: data,
       },
     );
   }
 
   initRoundLevel() {
     this.fillWordStorage = JSON.parse(localStorage.getItem('fillWord'));
-    this.round = this.fillWordStorage ? this.fillWordStorage.round : this.round;
+    this.difficultGroup = this.fillWordStorage ? this.fillWordStorage.round : this.difficultGroup;
     this.level = this.fillWordStorage ? this.fillWordStorage.level : this.level;
   }
 
   setMuteAudio() {
     this.audioMute = !this.audioMute;
     localStorage.setItem('fillWord',
-      JSON.stringify({ round: this.round, level: this.level, audioMute: this.audioMute }));
+      JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
   }
 
   setRound(number) {
-    this.round = number;
+    this.difficultGroup = number;
     localStorage.setItem('fillWord',
-      JSON.stringify({ round: this.round, level: this.level, audioMute: this.audioMute }));
+      JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
   }
 
   setLevel(number) {
     this.level = number;
     localStorage.setItem('fillWord',
-      JSON.stringify({ round: this.round, level: this.level, audioMute: this.audioMute }));
+      JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
   }
 }

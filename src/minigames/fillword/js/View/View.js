@@ -2,15 +2,22 @@ import api from '../../../../js/api';
 
 export default class View {
   constructor() {
+    this.containerStartPage = document.getElementById('start-page');
+    this.containerFillWord = document.getElementById('fillWord');
+    this.chooseWordContainer = document.getElementById('keyword');
+    this.table = document.getElementById('gameTable');
+    this.wordTranslate = document.getElementById('translate');
     this.stars = document.querySelector('.stars');
     this.levels = document.querySelector('.options__levels');
     this.options = document.querySelector('.options');
     this.settingsMenu = document.querySelector('.options__settings');
     this.startPageContainer = document.getElementById('start-page');
     this.fillWordContainer = document.getElementById('fillWord');
+    this.louderContainer = document.getElementById('louder');
     this.buttonStartGame = document.getElementById('button-game-start');
     this.buttonHelp = document.getElementById('help');
     this.buttonRefresh = document.getElementById('refresh');
+    this.localResultContainer = document.getElementById('localResult');
     this.sound = document.querySelector('.audio');
     this.close = document.querySelector('.close');
     this.data = null;
@@ -20,6 +27,50 @@ export default class View {
     this.roundWordsWithSetting = [];
     this.chooseDifficultGroup = '';
     this.chooseWordPerPage = 0;
+  }
+
+  innerTextLocalResult(result) {
+    this.localResultContainer.innerText = result;
+  }
+
+  clearChooseWordContainer() {
+    this.chooseWordContainer.innerText = '';
+  }
+
+  deleteOldGameTable() {
+    while (this.table.firstChild) {
+      this.table.removeChild(this.table.firstChild);
+    }
+  }
+
+  hideLouder() {
+    this.louderContainer.classList.add('display-off');
+  }
+
+  showLouder() {
+    this.louderContainer.classList.remove('display-off');
+  }
+
+  showFillWord() {
+    this.containerFillWord.classList.remove('display-off');
+  }
+
+  hideFillWord() {
+    this.containerFillWord.classList.add('display-off');
+  }
+
+  showStartPage() {
+    this.containerStartPage.classList.remove('display-off');
+  }
+
+  hideStartPage() {
+    this.containerStartPage.classList.add('display-off');
+  }
+
+  bindClickTable(handler) {
+    this.table.addEventListener('mouseup', () => {
+      handler();
+    });
   }
 
   bindClickRefresh(handler) {

@@ -74,14 +74,9 @@ export default class Words {
           optional: word.optional,
         });
       }, () => {
-        this.api.createUserWord(wordId, {
-          difficulty,
-          optional: {
-            degreeOfKnowledge: 1,
-            countRepetition: 0,
-            lastRepetition: Date.now(),
-          },
-        });
+        const newWord = Words.getNewWord(difficulty);
+        newWord.optional.degreeOfKnowledge = 1;
+        this.api.createUserWord(wordId, newWord);
       });
   }
 
@@ -101,14 +96,9 @@ export default class Words {
           optional: word.optional,
         });
       }, () => {
-        this.api.createUserWord(wordId, {
-          difficulty,
-          optional: {
-            degreeOfKnowledge: 0,
-            countRepetition: 1,
-            lastRepetition: Date.now(),
-          },
-        });
+        const newWord = Words.getNewWord(difficulty);
+        newWord.optional.countRepetition = 1;
+        this.api.createUserWord(wordId, newWord);
       });
   }
 
@@ -190,5 +180,20 @@ export default class Words {
       ],
     };
     return this.api.getUsersAggregatedWords({ filter, wordsPerPage: 5000 });
+  }
+
+  static getNewWord(difficulty) {
+    return {
+      difficulty: String(difficulty),
+      optional: {
+        countRepetition: 0,
+        isDelete: false,
+        isHard: false,
+        isReadyToRepeat: false,
+        lastRepetition: Date.now(),
+        degreeOfKnowledge: 0,
+        becameLearned: 0,
+      },
+    };
   }
 }

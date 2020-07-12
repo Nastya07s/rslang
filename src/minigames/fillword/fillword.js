@@ -15,8 +15,6 @@ let innerArrWord = [];
 let keyWord = [];
 let keyWordTranslate = [];
 let field = [];
-const containerStartPage = document.getElementById('start-page');
-const containerFillWord = document.getElementById('fillWord');
 const innerWord = document.getElementById('keyword');
 const table = document.getElementById('gameTable');
 const wordTranslate = document.getElementById('translate');
@@ -109,22 +107,8 @@ function renderField(newField) {
   wordTranslate.innerText = `${keyWordTranslate.toUpperCase()}`;
 }
 
-function deleteOldGameField() {
-  while (table.firstChild) {
-    table.removeChild(table.firstChild);
-  }
-}
-
 function clearGameField() {
-  innerWord.innerText = '';
   innerArrWord = [];
-}
-
-function refreshButtonHandler() {
-  deleteOldGameField();
-  clearGameField();
-  field = createField(keyWord, 5, 6, coordinate);
-  renderField(field);
 }
 
 export default class Controller {
@@ -149,48 +133,67 @@ export default class Controller {
   }
 
   async handlerClickStartGame() {
+    this.view.hideStartPage();
+    this.view.showLouder();
     await this.model.initGame();
-    this.gameStart();
+    setTimeout(() => {
+      this.view.hideLouder();
+      this.view.showFillWord();
+      this.gameStart();
+      console.log(this.model.gameWords2);
+      console.log(this.model.gameWords);
+      console.log(this.model.gameWord);
+    }, 3000);
   }
 
   gameStart() {
-    keyWordTranslate = this.model.gameWords[0].ru;
-    keyWord = this.model.gameWords[0].en;
-    this.model.wordsService.updateRepetition(this.model.gameWords[0].id, this.round);
+    keyWordTranslate = this.model.gameWord.ru;
+    keyWord = this.model.gameWord.en;
+    this.model.wordsService.updateRepetition(this.model.gameWord.id, this.difficultGroup);
     field = createField(keyWord, 5, 6, coordinate);
     renderField(field);
-    containerFillWord.classList.toggle('display-off');
-    containerStartPage.classList.toggle('display-off');
   }
 
   isUserRightHandler() {
-    this.model.wordsService.updateRepetition();
-    this.counterWord += 1;
-    if (this.counterWord === this.model.gameWords.length) {
-      console.log('statistics appear');
-      return;
-    }
-    keyWordTranslate = this.model.gameWords[this.counterWord].ru;
-    keyWord = this.model.gameWords[this.counterWord].en;
+    setTimeout(() => {
+      this.model.gameRound += 1;
+      if (this.model.gameRound === this.model.gameWords.length) {
+        console.log(this.model.arrayCorrectAnswer);
+        return;
+      }
+      this.view.innerTextLocalResult('');
+      this.model.addCorrectAnswerResult();
+      this.model.getWord();
+      this.model.wordsService.updateKnowledge(this.model.gameWord.id, this.difficultGroup);
+      keyWordTranslate = this.model.gameWord.ru;
+      keyWord = this.model.gameWord.en;
 
-    deleteOldGameField();
-    clearGameField();
-    coordinate = [];
-    chooseCoordinate = [];
-
-    field = createField(keyWord, 5, 6, coordinate);
-    renderField(field);
-    console.log('word found');
+      this.view.deleteOldGameTable();
+      this.view.clearChooseWordContainer();
+      clearGameField();
+      coordinate = [];
+      chooseCoordinate = [];
+      field = createField(keyWord, 5, 6, coordinate);
+      renderField(field);
+    }, 1000);
   }
 
   isUserFalseHandler() {
-    chooseCoordinate = [];
-    clearGameField();
-    console.log('word not found');
+    setTimeout(() => {
+      this.model.addIncorrectAnswer();
+      this.view.innerTextLocalResult('');
+      chooseCoordinate = [];
+      this.view.clearChooseWordContainer();
+      clearGameField();
+      console.log('word not found');
+    }, 1000);
   }
 
   handlerClickRefresh() {
-    refreshButtonHandler();
+    this.view.deleteOldGameTable();
+    clearGameField();
+    field = createField(keyWord, 5, 6, coordinate);
+    renderField(field);
   }
 
   handlerClickHelp() {
@@ -213,6 +216,7 @@ export default class Controller {
     window.location.href = '/';
   }
 }
+
 const model = new Model();
 const view = new View();
 const controller = new Controller(model, view);
@@ -221,8 +225,10 @@ controller.init();
 const mouseUpHandler = () => {
   isMouseDown = false;
   if (isUserRight) {
+    controller.view.innerTextLocalResult('верно');
     controller.isUserRightHandler();
   } else {
+    controller.view.innerTextLocalResult('неверно');
     controller.isUserFalseHandler();
   }
   isUserRight = false;
