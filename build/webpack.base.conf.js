@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  main: path.join(__dirname, '../src/main'),
   sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
   assets: 'assets',
 };
@@ -22,7 +23,7 @@ module.exports = {
     extensions: ['.js'],
   },
   entry: {
-    main: `${PATHS.src}/js/main.js`,
+    main: `${PATHS.main}/js/main.js`,
     sprint: PATHS.sprint,
   },
   output: {
@@ -87,6 +88,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
+      excludeChunks: ['main'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.main}/index.html`,
+      filename: './main/index.html',
       chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
