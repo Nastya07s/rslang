@@ -1,6 +1,4 @@
 /* eslint-disable class-methods-use-this */
-/* eslint-disable max-classes-per-file */
-/* eslint-disable linebreak-style */
 /* eslint-disable prefer-destructuring */
 import './scss/main.scss';
 import View from './js/View/View';
