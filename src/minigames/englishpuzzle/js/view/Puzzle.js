@@ -50,7 +50,7 @@ export default class Puzzle {
       e.preventDefault();
       boxWord.classList.remove('dragging');
     });
-    boxWord.addEventListener('dblclick', (e) => {
+    boxWord.addEventListener('click', (e) => {
       eventEmitter.emit('droped', { word: e.target.getAttribute('data-id'), target: null });
     });
     return boxWord;

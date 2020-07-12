@@ -112,7 +112,7 @@ class Settings {
           },
         },
         isGlobalMute = false,
-        learningMode = 'mix',
+        learningMode = 'old',
         countNewWords = 10,
         definitionSentence = false,
         exampleSentence = false,

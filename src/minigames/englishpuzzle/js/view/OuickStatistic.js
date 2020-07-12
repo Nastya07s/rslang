@@ -74,7 +74,7 @@ export default class QuickStatistic {
       phrase.classList.add('i-dont');
       phrase.textContent = word.englishPhrase;
       const icon = document.createElement('img');
-      icon.setAttribute('src', '/assets/puzzle/img/volume-up-solid.svg');
+      icon.setAttribute('src', '/assets/img/puzzle/volume-up-solid.svg');
       icon.classList.add('jello-horizontal');
       const audio = document.createElement('audio');
       audio.setAttribute('src', word.enAudio);

@@ -48,8 +48,6 @@ export default class Round {
     this.settingsForm = document.querySelector('.options');
     this.buttonOptionsSettings = document.querySelector('.options__settings');
 
-    this.roundLimit = this.state.store.settings.roundLimit.quantityStep + 1;
-
     this.starsBlock = document.querySelector('.stars');
     this.starsArray = Array.from(document.querySelectorAll('.star'));
   }
@@ -75,6 +73,7 @@ export default class Round {
     });
     this.close.addEventListener('click', () => {
       this.event.emit('userStart');
+      this.progressBarNumberLength.innerText = this.state.store.cache.words[0][0].length;
     });
     this.exitBtn.addEventListener('click', () => {
       const el = document.querySelector('#Capa_1');
@@ -151,7 +150,6 @@ export default class Round {
     helpers.drawRuPhrase(data.russianPhrase);
     this.puzzleReload(data.words, []);
     this.spinnerOff();
-    this.progressBarNumberLength.innerText = this.roundLimit;
   }
 
   spinnerOn() {

@@ -17,7 +17,7 @@
   justify-content: center;
   display: flex;
   button {
-    padding: 6px;
+    padding: 10px;
     cursor: pointer;
     outline: none;
     border: 1px solid rgba(0, 0, 0, 0.29);
@@ -42,7 +42,6 @@
 .statistic::-webkit-scrollbar-thumb {
     border-radius: 5px;
     background-color: #6cbcfd;
-    border: 1px solid #778ba2;
   }
 
 .statistic::-webkit-scrollbar{
@@ -77,6 +76,11 @@
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    color: #3e6a3f;
+}
+
+.dont {
+  color: #a83434;
 }
 
 .statistic .close-statistic {

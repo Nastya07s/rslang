@@ -10,10 +10,11 @@ import settingsMode from './settings_options';
 export default {
   nextStep() {
     const { group, round, step } = getters.getRoundInfo();
-    const { quantityGroup, quantityRound, quantityStep } = getters.getRoundLimit();
+    const { quantityGroup, quantityRound } = getters.getRoundLimit();
+    const wordsLength = getters.getWordsLength();
 
     const gameComponents = [
-      { current: step, limit: quantityStep, setter: setters.setStep },
+      { current: step, limit: wordsLength - 1, setter: setters.setStep },
       { current: round, limit: quantityRound, setter: setters.setRound },
       { current: group, limit: quantityGroup, setter: setters.setGroup },
 

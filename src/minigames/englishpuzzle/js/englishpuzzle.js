@@ -16,6 +16,7 @@ export default {
 
     this.setListeners();
     this.load();
+    console.log(this.state.store);
   },
 
   setListeners() {
@@ -71,12 +72,13 @@ export default {
     this.round.spinnerOn();
     this.setUserVolume();
     const mode = this.settings.learningMode;
+    // mode = 'old';
     this.state.setters.setLearningMode(mode);
 
     if (mode === 'old') {
       await this.state.actions.loadWords(this.api);
     }
-    this.state.setters.setLearningMode(mode);
+
     if (mode === 'new') {
       await this.state.actions.loadWords(this.api);
     }

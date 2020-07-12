@@ -37,6 +37,10 @@ export default {
     return store.settings.learningMode;
   },
 
+  getWordsLength() {
+    return store.cache.words[0][0].length;
+  },
+
   getQuickStatistic() {
     return store.quickStatistic;
   },
