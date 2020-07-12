@@ -67,6 +67,11 @@ const getMixWords = async () => {
               $eq: false,
             },
           },
+          {
+            'userWord.optional.isReadyToRepeat': {
+              $eq: true,
+            },
+          },
         ],
       },
     }),
@@ -659,6 +664,11 @@ class MainPage {
             {
               'userWord.optional.isDelete': {
                 $eq: false,
+              },
+            },
+            {
+              'userWord.optional.isReadyToRepeat': {
+                $eq: true,
               },
             },
           ],

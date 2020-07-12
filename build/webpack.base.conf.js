@@ -86,7 +86,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      excludeChunks: ['main'],
+      chunks: [],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,
