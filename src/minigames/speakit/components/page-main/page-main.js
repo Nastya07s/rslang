@@ -54,6 +54,7 @@ class PageMain {
 
     // To prevent loading without data (navigator.onLine is not true)
     if (!this.data) {
+      loader.toggle();
       return this.eventBus.emit('pageMain.error');
     }
 
@@ -626,11 +627,12 @@ class PageMain {
     this.changeCard(card);
   }
 
-  gameEnded() {
+  async gameEnded() {
     this.eventBus.emit('statistics.update', this.score);
     // 4.2. Show modal of the end of the game with results
-    this.showStatistics();
-    // this.handlerRestartButton();
+    const paramsPageOutroInit = this.initStatistics();
+
+    this.eventBus.emit('pageOutro.init', paramsPageOutroInit);
 
     this.isGameEnded = !this.isGameEnded;
 
@@ -645,7 +647,7 @@ class PageMain {
     speakButton.classList.add(BUTTON_DISABLED);
   }
 
-  showStatistics() {
+  initStatistics() {
     let callback = async () => {
       // Need to increase round or difficulty and set rounds :D
       let { difficulty, round } = this;
@@ -680,12 +682,18 @@ class PageMain {
 
     callback = callback.bind(this);
 
-    this.eventBus.emit('statistics.show', {
-      element: document.body,
+    return {
       words: this.answers,
       volume: this.volume,
       callback,
-    });
+    };
+
+    // this.eventBus.emit('statistics.show', {
+    //   element: document.body,
+    //   words: this.answers,
+    //   volume: this.volume,
+    //   callback,
+    // });
   }
 }
 

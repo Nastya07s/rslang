@@ -1,4 +1,12 @@
 class StatisticsModal {
+  /**
+   *
+   * @param {Object} props parameters {
+   *      parent, // HTMLElement in which will be rendered this component
+   *      data, // [[{},...], [{}, ...]] Array contains 2 Arrays with `correct` & `invalid` answers
+   *      volume, // [0..1]
+   *    }
+   */
   constructor(props) {
     this.elements = {
       parent: props.element,
@@ -13,7 +21,7 @@ class StatisticsModal {
     };
     this.handlerStartButton = props.handlerStartButton;
     this.handlerCloseButton = props.handlerCloseButton;
-    this.data = props.data; // Array contains 2 Arrays with `correct` & `invalid` answers
+    this.data = props.data;
     this.volume = props.volume;
     this.isHidden = true;
     this.audioPlayer = null;
@@ -148,6 +156,10 @@ class StatisticsModal {
   initAudioPlayer() {
     this.audioPlayer = new Audio();
     this.audioPlayer.volume = this.volume;
+  }
+
+  changeVolume(volume) {
+    this.audioPlayer.volume = volume;
   }
 
   /**

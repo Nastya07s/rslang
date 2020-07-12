@@ -11,6 +11,7 @@ import performRequests from 'app/js/utils/perform-requests';
 import PageIntro from './components/page-intro/page-intro';
 import PageMain from './components/page-main/page-main';
 import StatisticsModal from './components/statistics-modal/statistics-modal';
+import PageOutro from './components/page-outro/page-outro';
 
 // 0. Create instance of Event Bus (some design pattern also called Observer)
 const eventBus = new EventBus();
@@ -96,9 +97,14 @@ api.checkLogin().then(async (user) => {
         const { callback } = data;
         const mainPageInitParams = await callback();
 
-        await eventBus.emit('pageMain.destruct');
-
-        statisticsModal.elements.root.remove();
+        statisticsModal.toggle();
+        console.log('lol');
+        statisticsModal.elements.root.onanimationend = () => {
+          console.log('YA RUSKIY');
+          eventBus.emit('pageOutro.destruct');
+          statisticsModal.elements.root.remove();
+          statisticsModal.elements.root.onanimationend = null;
+        };
 
         await eventBus.emit('pageIntro.startGame', {
           ...mainPageInitParams,
@@ -109,8 +115,34 @@ api.checkLogin().then(async (user) => {
       },
     });
 
+    eventBus.subscribe('audioVolumeChanged', (volumeNumber) => {
+      statisticsModal.changeVolume(volumeNumber);
+    });
+
     statisticsModal.init();
     statisticsModal.toggle();
+  });
+
+  // Outro subscribers
+  eventBus.subscribe('pageOutro.init', async (data) => {
+    // const { callback } = data;
+    const pageOutro = new PageOutro({ eventBus });
+
+    const outroDestruct = () => {
+      console.log('Outro destructuring');
+      pageOutro.elements.root.remove();
+      eventBus.unsubscribe('pageOutro.destruct', outroDestruct);
+    };
+
+    eventBus.subscribe('pageOutro.destruct', outroDestruct);
+    eventBus.emit('pageMain.destruct');
+    await pageOutro.init();
+    // Prevent fonts blinking
+    await document.fonts.ready;
+
+    // Page Outro is loaded
+    pageOutro.show();
+    pageOutro.showStatistics(data);
   });
 
   // Be sure that background image is loaded

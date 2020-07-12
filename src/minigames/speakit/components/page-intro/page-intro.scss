@@ -30,14 +30,14 @@
 
   &__controls-block {
     padding-top: 32px;
-    height: 50px;
+    height: 84px; // высота блока с управляющими элементами (52px, например) + отступ сверху
   }
 
   &__main {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 50px);
+    min-height: calc(100vh - 84px); // отнимаем явно высоту верхнего блока
   }
 
   &__text-container {
