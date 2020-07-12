@@ -244,10 +244,14 @@
       width: 30px;
       height: 30px;
     }
+    .controllers .controllers__right .close {
+      width: 24px;
+      height: 24px;
+    }
     .controllers .controllers__right .options__settings {
       width: 200px;
-      height: 140px;
-      top: 50px;
+      height: 175px;
+      top: 70px;
       right: -26.5px;
     }
   }
@@ -291,7 +295,8 @@
 }
 
 .tooltip {
-  visibility: hidden;
+  //visibility: hidden;
+  display: none;
   z-index: 1;
   opacity: .40;
   width: fit-content;
@@ -329,7 +334,8 @@
 }
 
 .con-tooltip:hover .tooltip{
-  visibility: visible;
+  display: unset;
+  // visibility: visible;
   transform: translateY(-10px);
   opacity: 1;
   transition: .3s linear;

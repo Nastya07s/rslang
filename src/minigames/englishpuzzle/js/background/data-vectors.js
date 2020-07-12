@@ -521,10 +521,6 @@ export default
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/140.svg',
   },
   {
-    id: 150,
-    image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/141.svg',
-  },
-  {
     id: 151,
     image: 'https://raw.githubusercontent.com/Gabriellji/vectors/master/142.svg',
   },

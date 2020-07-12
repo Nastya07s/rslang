@@ -11,8 +11,11 @@ export default {
   nextStep() {
     const { group, round, step } = getters.getRoundInfo();
     const { quantityGroup, quantityRound } = getters.getRoundLimit();
-    const wordsLength = getters.getWordsLength();
-
+    let wordsLength;
+    if (getters.getLearningMode() !== 'mix') {
+      wordsLength = getters.getWordsLength();
+    }
+    wordsLength = getters.getWordsLengthMix();
     const gameComponents = [
       { current: step, limit: wordsLength - 1, setter: setters.setStep },
       { current: round, limit: quantityRound, setter: setters.setRound },

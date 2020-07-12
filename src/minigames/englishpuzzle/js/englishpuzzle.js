@@ -16,7 +16,6 @@ export default {
 
     this.setListeners();
     this.load();
-    console.log(this.state.store);
   },
 
   setListeners() {
@@ -72,7 +71,6 @@ export default {
     this.round.spinnerOn();
     this.setUserVolume();
     const mode = this.settings.learningMode;
-    // mode = 'old';
     this.state.setters.setLearningMode(mode);
 
     if (mode === 'old') {
@@ -91,8 +89,10 @@ export default {
 
   loaded() {
     if (this.state.getters.getLearningMode() === 'mix') {
+      this.round.getRoundLengthMix();
       this.round.settingsFormOn();
     } else {
+      this.round.getRoundLength();
       this.round.settingsFormOff();
     }
     this.round.spinnerOff();

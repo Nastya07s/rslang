@@ -37,6 +37,10 @@ export default {
     return store.settings.learningMode;
   },
 
+  getWordsLengthMix() {
+    return store.settings.roundLimit.quantityStep;
+  },
+
   getWordsLength() {
     return store.cache.words[0][0].length;
   },

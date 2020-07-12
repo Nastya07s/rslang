@@ -73,7 +73,6 @@ export default class Round {
     });
     this.close.addEventListener('click', () => {
       this.event.emit('userStart');
-      this.progressBarNumberLength.innerText = this.state.store.cache.words[0][0].length;
     });
     this.exitBtn.addEventListener('click', () => {
       const el = document.querySelector('#Capa_1');
@@ -113,6 +112,16 @@ export default class Round {
     this.volumeBtn.addEventListener('click', () => {
       this.event.emit('userSetVolume');
     });
+  }
+
+  getRoundLength() {
+    const roundLength = this.state.getters.getWordsLength();
+    this.progressBarNumberLength.innerText = roundLength;
+  }
+
+  getRoundLengthMix() {
+    const roundLengthMix = this.state.getters.getWordsLengthMix();
+    this.progressBarNumberLength.innerText = roundLengthMix + 1;
   }
 
   volumeUp() {
