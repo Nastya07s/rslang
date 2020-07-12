@@ -40,6 +40,10 @@ class PageMain {
     this.isMixMode = this.difficulty !== -1;
     this.currentCardIndex = 0;
     this.isGameEnded = false;
+    this.answers = {
+      validAnswers: [],
+      invalidAnswers: [],
+    };
   }
 
   async init() {
@@ -442,6 +446,8 @@ class PageMain {
         this.increaseScore();
       }
 
+      // Store data for future statistics
+      this.answers.validAnswers.push(cardData);
 
       // Change degreeOfKnowledge field
       wordsHelper.updateKnowledge(cardData);
@@ -451,6 +457,10 @@ class PageMain {
     } else {
       [translation.textContent] = translations; // get first recognition & set translation
       this.scoreStreak = 0;
+
+      // Store data for future statistics
+      this.answers.invalidAnswers.push(cardData);
+
       // Mark as wrong
       card.classList.toggle(WORD_CARD_WRONG);
     }
@@ -604,6 +614,10 @@ class PageMain {
 
     this.scoreStreak = 0;
 
+    const cardData = this.data[this.currentCardIndex];
+    // Store data for future statistics
+    this.answers.invalidAnswers.push(cardData);
+
     // Mark as wrong
     const { WORD_CARD_WRONG } = this.classes;
 
@@ -613,8 +627,9 @@ class PageMain {
   }
 
   gameEnded() {
-    // 4.2. TODO: Show modal of the end of the game with results!
     this.eventBus.emit('statistics.update', this.score);
+    // 4.2. Show modal of the end of the game with results
+    this.showStatistics();
     // this.handlerRestartButton();
 
     this.isGameEnded = !this.isGameEnded;
@@ -628,6 +643,49 @@ class PageMain {
 
     speakButton.textContent = 'Speak it';
     speakButton.classList.add(BUTTON_DISABLED);
+  }
+
+  showStatistics() {
+    let callback = async () => {
+      // Need to increase round or difficulty and set rounds :D
+      let { difficulty, round } = this;
+
+      if (this.isMixMode) {
+        const isRoundCorrect = round !== wordsHelper.MAX_ROUND;
+
+        if (isRoundCorrect) {
+          round += 1;
+        } else {
+          round = 0;
+
+          const isDifficultyCorrect = difficulty !== wordsHelper.MAX_DIFFICULTY;
+
+          difficulty = isDifficultyCorrect ? difficulty + 1 : 0;
+        }
+      }
+
+      // Synchronize the data with Settings & remote server
+      const { minigames: { speakit } } = settings;
+
+      speakit.difficulty = difficulty;
+      speakit.round = round;
+
+      await this.eventBus.emit('settings.update', 'speakit', speakit);
+
+      return {
+        volume: this.volume,
+        isMixMode: this.isMixMode,
+      };
+    };
+
+    callback = callback.bind(this);
+
+    this.eventBus.emit('statistics.show', {
+      element: document.body,
+      words: this.answers,
+      volume: this.volume,
+      callback,
+    });
   }
 }
 

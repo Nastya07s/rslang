@@ -10,6 +10,7 @@ import loader from 'app/js/utils/loader';
 import performRequests from 'app/js/utils/perform-requests';
 import PageIntro from './components/page-intro/page-intro';
 import PageMain from './components/page-main/page-main';
+import StatisticsModal from './components/statistics-modal/statistics-modal';
 
 // 0. Create instance of Event Bus (some design pattern also called Observer)
 const eventBus = new EventBus();
@@ -68,9 +69,49 @@ api.checkLogin().then(async (user) => {
       volume: isMute ? 0 : 1,
     });
 
+    const destruct = () => {
+      eventBus.unsubscribe('pageMain.destruct', destruct);
+      pageMain.elements.root.remove();
+    };
+
+    eventBus.subscribe('pageMain.destruct', destruct);
+
     await pageMain.init();
   });
   eventBus.subscribe('pageMain.ready', () => { pageIntro.hide(); });
+  eventBus.subscribe('statistics.show', (data) => {
+    console.log('Stasistics will be shown');
+    const {
+      element,
+      words,
+      volume,
+    } = data;
+
+    console.log(words);
+    const statisticsModal = new StatisticsModal({
+      element,
+      data: words,
+      volume,
+      handlerStartButton: async () => {
+        const { callback } = data;
+        const mainPageInitParams = await callback();
+
+        await eventBus.emit('pageMain.destruct');
+
+        statisticsModal.elements.root.remove();
+
+        await eventBus.emit('pageIntro.startGame', {
+          ...mainPageInitParams,
+        });
+      },
+      handlerCloseButton: () => {
+        document.location.href = '/main';
+      },
+    });
+
+    statisticsModal.init();
+    statisticsModal.toggle();
+  });
 
   // Be sure that background image is loaded
   await pageIntro.init();
