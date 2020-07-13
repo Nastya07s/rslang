@@ -46,7 +46,7 @@ class Settings {
     this.transcription = undefined; // false
     this.answerButton = undefined; // false
     this.deleteButton = undefined; // false
-    this.addToHardWordsButton = undefined; // false
+    this.hardWordsButton = undefined; // false
   }
 
   /**
@@ -121,7 +121,7 @@ class Settings {
         transcription = false,
         answerButton = false,
         deleteButton = false,
-        addToHardWordsButton = false,
+        hardWordsButton = false,
       } = {},
     } = settings;
 
@@ -137,7 +137,7 @@ class Settings {
     this.transcription = transcription;
     this.answerButton = answerButton;
     this.deleteButton = deleteButton;
-    this.addToHardWordsButton = addToHardWordsButton;
+    this.hardWordsButton = hardWordsButton;
   }
 
   /**
@@ -183,7 +183,7 @@ class Settings {
       transcription,
       answerButton,
       deleteButton,
-      addToHardWordsButton,
+      hardWordsButton,
     } = this;
 
     const settings = {
@@ -200,7 +200,7 @@ class Settings {
         transcription,
         answerButton,
         deleteButton,
-        addToHardWordsButton,
+        hardWordsButton,
       },
     };
 
