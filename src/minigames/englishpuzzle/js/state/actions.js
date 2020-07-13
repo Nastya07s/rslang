@@ -114,7 +114,8 @@ export default {
       difficulty: String(group),
       optional: {
         countRepetition: word.countRepetition + 1,
-        degreeOfKnowledge: isCorrect ? word.degreeOfKnowledge + 1 : word.degreeOfKnowledge,
+        degreeOfKnowledge: isCorrect && word.degreeOfKnowledge < 5
+          ? word.degreeOfKnowledge + 1 : word.degreeOfKnowledge,
         lastRepetition: Date.now(),
         becameLearned: Number(word.degreeOfKnowledge) === 4 && isCorrect
           ? Date.now() : word.becameLearned,

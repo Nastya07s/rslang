@@ -1,3 +1,4 @@
+
 import GlobalStatistic from 'app/js/statistics';
 import Round from './view/Round';
 import QuickStatistic from './view/OuickStatistic';

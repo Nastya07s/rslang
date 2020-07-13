@@ -23,7 +23,7 @@ module.exports = {
     extensions: ['.js'],
   },
   entry: {
-    app: `${PATHS.src}/index.js`,
+    // app: `${PATHS.src}/index.js`,
     englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
     main: `${PATHS.src}/js/main.js`,
   },
