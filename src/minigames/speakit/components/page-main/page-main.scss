@@ -107,17 +107,24 @@
   }
 
   &__translation {
-    padding: 10px;
+    & {
+      padding: 10px;
 
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 10px;
-
-    font: {
-      size: 2em;
-      weight: 400;
+      background-color: white;
+      border: 1px solid black;
+      border-radius: 10px;
+  
+      font: {
+        size: 2em;
+        weight: 400;
+      }
+      text-align: center;
+      transition: all 0.5s ease-out;
     }
-    text-align: center;
+
+    &_hidden {
+      opacity: 0;
+    }
   }
 }
 
@@ -159,6 +166,7 @@
 
     &_hidden {
       opacity: 0;
+      pointer-events: none;
     }
     
     &_active {

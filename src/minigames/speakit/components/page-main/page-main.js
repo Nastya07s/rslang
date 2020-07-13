@@ -21,6 +21,7 @@ class PageMain {
       AUDIO_PLAYER: 'audio-player',
       IMAGE: 'current-word-container__image',
       TRANSLATION: 'current-word-container__translation',
+      TRANSLATION_HIDDEN: 'current-word-container__translation_hidden',
       WORD: 'words-container__word',
       SKIP_BUTTON: 'controls__skip-button',
       SPEAK_BUTTON: 'controls__speak-button',
@@ -273,14 +274,21 @@ class PageMain {
 
     card.addEventListener('click', this.handlerCardClick.bind(this));
 
-    // Set translation
-    this.changeTranslation(card);
-    // Set image and await image's load event
-    await this.changeImage(card);
-    // Change countRepetition & lastRepetition fields
-    const cardData = this.data[this.currentCardIndex];
+    const cardData = this.data[index];
 
-    wordsHelper.updateRepetition(cardData);
+    await wordsHelper.updateRepetition(cardData); // change countRepetition & lastRepetition fields
+    await this.changeImage(card); // set image and await image's load event
+
+    const { WORD_CARD_HIDDEN } = this.classes;
+
+    card.classList.remove(WORD_CARD_HIDDEN);
+
+    const { translation } = this.elements;
+    const { TRANSLATION_HIDDEN } = this.classes;
+
+    translation.classList.remove(TRANSLATION_HIDDEN);
+
+    this.changeTranslation(card); // change text
   }
 
   renderCard(index = 0) {
@@ -301,7 +309,7 @@ class PageMain {
     const cardTemplate = document.createElement('template');
 
     cardTemplate.innerHTML = `
-      <div class="words-container__card" data-audio="${audio}" data-image="${image}" data-translation="${wordTranslate}">
+      <div class="words-container__card words-container__card_hidden" data-audio="${audio}" data-image="${image}" data-translation="${wordTranslate}">
         <span class="words-container__icon"></span>
         <div class="words-container__word-container">
           <p class="words-container__word">${word}</p>
@@ -611,40 +619,50 @@ class PageMain {
     score.textContent = this.score; // make visual changes
   }
 
-  changeCard(cardElement) {
+  async changeCard(cardElement) {
     const { skipButton } = this.elements;
+    const { BUTTON_DISABLED } = this.classes;
 
+    skipButton.classList.add(BUTTON_DISABLED);
     skipButton.disabled = true;
 
     const card = cardElement;
+    const isCardReadyToBeChanged = new Promise((resolve) => {
+      card.ontransitionend = () => resolve();
+    });
+    const { WORD_CARD_HIDDEN } = this.classes;
 
-    const {
-      WORD_CARD_HIDDEN,
-    } = this.classes;
+    card.classList.add(WORD_CARD_HIDDEN); // trigger transitionend event
 
-    card.classList.add(WORD_CARD_HIDDEN);
-    card.ontransitionend = async () => {
-      skipButton.disabled = false;
+    const { translation } = this.elements;
+    const { TRANSLATION_HIDDEN } = this.classes;
 
-      card.remove();
+    translation.classList.add(TRANSLATION_HIDDEN);
 
-      this.currentCardIndex += 1;
+    await isCardReadyToBeChanged; // wait until transition ends
 
-      const isIndexInBounds = this.currentCardIndex < this.data.length;
+    card.remove();
+    this.currentCardIndex += 1;
 
-      if (isIndexInBounds) {
-        await this.createCard(this.currentCardIndex);
-      } else {
-        this.gameEnded();
-      }
+    const isIndexInBounds = this.currentCardIndex < this.data.length;
 
-      this.progressBar.changeProgressBy(1);
-    };
+    if (isIndexInBounds) {
+      await this.createCard(this.currentCardIndex);
+    } else {
+      this.gameEnded();
+    }
+
+    this.progressBar.changeProgressBy(1);
+
+    skipButton.classList.remove(BUTTON_DISABLED);
+    skipButton.disabled = false;
   }
 
   skipCard() {
     const { skipButton } = this.elements;
+    const { BUTTON_DISABLED } = this.classes;
 
+    skipButton.classList.add(BUTTON_DISABLED);
     skipButton.disabled = true;
 
     if (this.isGameEnded) {

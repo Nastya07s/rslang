@@ -123,8 +123,10 @@ api.checkLogin().then(async (user) => {
 
   // Outro subscribers
   eventBus.subscribe('pageOutro.init', async (data) => {
-    // const { callback } = data;
     const pageOutro = new PageOutro({ eventBus });
+
+    loader.toggle();
+    await pageOutro.init();
 
     const outroDestruct = () => {
       console.log('Outro destructuring');
@@ -133,13 +135,11 @@ api.checkLogin().then(async (user) => {
     };
 
     eventBus.subscribe('pageOutro.destruct', outroDestruct);
-    eventBus.emit('pageMain.destruct');
-    await pageOutro.init();
-    // Prevent fonts blinking
-    await document.fonts.ready;
 
     // Page Outro is loaded
     pageOutro.show();
+    loader.toggle();
+    eventBus.emit('pageMain.destruct');
     pageOutro.showStatistics(data);
   });
 

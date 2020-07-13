@@ -79,16 +79,16 @@ class StatisticsModal {
           <div class="finish-statistics__title">${renderResultTitle(invalidAnswers.length)}</div>
           <div class="wrapper__answers">
             <div class="finish-statistics__answers">
-              <div class="finish-statistics__answers-invalid-title">ОШИБОК ${invalidAnswers.length}</div>
+              <div class="finish-statistics__answers-invalid-title">ОШИБОК: ${invalidAnswers.length}</div>
               <div class="finish-statistics__answers-invalid">${renderAnswers(invalidAnswers)}</div>
               <div class="finish-statistics__answers-line"></div>
-              <div class="finish-statistics__answers-valid-title">ЗНАЮ ${validAnswers.length}</div>
+              <div class="finish-statistics__answers-valid-title">ЗНАЮ: ${validAnswers.length}</div>
               <div class="finish-statistics__answers-valid">${renderAnswers(validAnswers)}</div>
             </div>
           </div>
           <div class="finish-statistics__controls-container">
             <button class="finish-statistics__controls-button restart-training">Продолжить тренировку</button>
-            <button class="finish-statistics__controls-button finish-training">В главное меню</button>
+            <button class="finish-statistics__controls-button finish-training">На главную</button>
           </div>
         </div>
       </div>
