@@ -1,21 +1,15 @@
+/* eslint-disable max-len */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable prefer-destructuring */
 import './scss/main.scss';
 import View from './js/View/View';
-import createField from './js/createField/createField';
+/* import createField from './js/createField/createField'; */
 import Model from './js/model/Model';
 
-let coordinate = [];
-let chooseCoordinate = [];
-let isMouseDown = false;
-let isUserRight = false;
+/* let chooseCoordinate = [];
 let innerArrWord = [];
 let keyWord = [];
-let keyWordTranslate = [];
-let field = [];
-const innerWord = document.getElementById('keyword');
-const table = document.getElementById('gameTable');
-const wordTranslate = document.getElementById('translate');
+let field = []; */
 
 const readCoordsFromAttribute = (element) => {
   const attrValue = element.getAttribute('data-coordinate');
@@ -35,7 +29,7 @@ const readCoordsFromAttribute = (element) => {
     parseInt(cordArray[1], 10)];
 };
 
-const mouseMoveHandler = (event) => {
+/* const mouseMoveHandler = (event) => {
   if (isMouseDown) {
     event.currentTarget.classList.add('select');
   }
@@ -83,37 +77,14 @@ const mouseDownHandler = (event) => {
   }
   innerArrWord.push(event.currentTarget.innerText);
   innerWord.innerText = innerArrWord.join('');
-};
-
-function renderField(newField) {
-  for (let i = 0; i < newField.length; i += 1) {
-    const tr = document.createElement('tr');
-
-    for (let j = 0; j < newField[i].length; j += 1) {
-      const td = document.createElement('td');
-      td.innerText = newField[i][j];
-      td.setAttribute('data-coordinate', `${i}_${j}`);
-
-      td.addEventListener('mousemove', mouseMoveHandler);
-      td.addEventListener('mousedown', mouseDownHandler);
-
-      tr.append(td);
-    }
-
-    table.append(tr);
-  }
-  wordTranslate.innerText = `${keyWordTranslate.toUpperCase()}`;
-}
-
-function clearGameField() {
-  innerArrWord = [];
-}
+}; */
 
 export default class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-    this.counterWord = 0;
+    this.isMouseDown = false;
+    this.isUserRight = false;
 
     this.view.bindChangeRound(this.handlerChangeRound.bind(this));
     this.view.bindChangeLevel(this.handlerChangeLevel.bind(this));
@@ -123,6 +94,7 @@ export default class Controller {
     this.view.bindClickSound(this.handlerClickSound.bind(this));
     this.view.bindClickHelp(this.handlerClickHelp.bind(this));
     this.view.bindClickRefresh(this.handlerClickRefresh.bind(this));
+    this.view.bindClickTable(this.handlerMouseUp.bind(this));
   }
 
   init() {
@@ -138,60 +110,39 @@ export default class Controller {
       this.view.hideLouder();
       this.view.showFillWord();
       this.gameStart();
-      console.log(this.model.gameWords2);
-      console.log(this.model.gameWords);
-      console.log(this.model.gameWord);
     }, 3000);
   }
 
   gameStart() {
-    keyWordTranslate = this.model.gameWord.ru;
-    keyWord = this.model.gameWord.en;
     this.model.wordsService.updateRepetition(this.model.gameWord.id, this.difficultGroup);
-    field = createField(keyWord, 5, 6, coordinate);
-    renderField(field);
+    this.view.addWordTranslateText(this.model.gameWord.ru);
+    this.model.initGameField();
+    this.view.renderField(this.model.field, this.mouseMoveHandler.bind(this), this.mouseDownHandler.bind(this));
   }
 
   isUserRightHandler() {
     setTimeout(() => {
       this.model.gameRound += 1;
+      this.model.wordsService.updateKnowledge(this.model.gameWord.id, this.difficultGroup);
+      this.model.isCorrectAnswer();
       if (this.model.gameRound === this.model.gameWords.length) {
-        console.log(this.model.arrayCorrectAnswer);
+        this.view.showStatistics(this.model.arrayAnswer);
         return;
       }
-      this.view.innerTextLocalResult('');
-      this.model.addCorrectAnswerResult();
       this.model.getWord();
-      this.model.wordsService.updateKnowledge(this.model.gameWord.id, this.difficultGroup);
-      keyWordTranslate = this.model.gameWord.ru;
-      keyWord = this.model.gameWord.en;
-
       this.view.deleteOldGameTable();
-      this.view.clearChooseWordContainer();
-      clearGameField();
-      coordinate = [];
-      chooseCoordinate = [];
-      field = createField(keyWord, 5, 6, coordinate);
-      renderField(field);
-    }, 1000);
-  }
-
-  isUserFalseHandler() {
-    setTimeout(() => {
-      this.model.addIncorrectAnswer();
-      this.view.innerTextLocalResult('');
-      chooseCoordinate = [];
-      this.view.clearChooseWordContainer();
-      clearGameField();
-      console.log('word not found');
+      this.coordinate = [];
+      this.model.initGameField();
+      this.view.addWordTranslateText(this.model.gameWord.ru);
+      this.view.renderField(this.field, this.mouseMoveHandler.bind(this), this.mouseDownHandler.bind(this));
     }, 1000);
   }
 
   handlerClickRefresh() {
     this.view.deleteOldGameTable();
-    clearGameField();
-    field = createField(keyWord, 5, 6, coordinate);
-    renderField(field);
+    this.model.innerArrWord = [];
+    this.model.initGameField();
+    this.view.renderField(this.model.field, this.mouseMoveHandler.bind(this), this.mouseDownHandler.bind(this));
   }
 
   handlerClickHelp() {
@@ -213,27 +164,75 @@ export default class Controller {
   handlerClickClose() {
     window.location.href = '/';
   }
+
+  handlerMouseUp() {
+    this.isMouseDown = false;
+    if (this.isUserRight) {
+      this.view.innerTextLocalResult('верно');
+      this.isUserRightHandler();
+    } else {
+      this.view.innerTextLocalResult('неверно');
+    }
+    this.model.addAnswerResult();
+    this.isUserRight = false;
+    this.model.chooseCoordinate = [];
+    this.view.innerTextLocalResult('');
+    this.view.clearChooseWordContainer();
+    View.removeSelectCell();
+  }
+
+  mouseMoveHandler(event) {
+    if (this.isMouseDown) {
+      event.currentTarget.classList.add('select');
+    }
+
+    if (this.model.innerArrWord.length !== 0
+      && this.model.innerArrWord[this.model.innerArrWord.length - 1] !== event.currentTarget.innerText
+      && this.isMouseDown) {
+      this.model.innerArrWord.push(event.currentTarget.innerText);
+      this.view.innerWord.innerText = this.model.innerArrWord.join('');
+      return;
+    }
+
+    if (!this.isMouseDown || !this.isUserRight) {
+      return;
+    }
+
+    const currentCord = readCoordsFromAttribute(event.target);
+
+    if (this.model.chooseCoordinate.length !== 0
+      && this.model.chooseCoordinate[this.model.chooseCoordinate.length - 1][0] === currentCord[0]
+      && this.model.chooseCoordinate[this.model.chooseCoordinate.length - 1][1] === currentCord[1]) {
+      return;
+    }
+
+    this.isUserRight = this.model.coordinate.length > this.model.chooseCoordinate.length
+      && this.model.coordinate[this.model.chooseCoordinate.length][0] === currentCord[0]
+      && this.model.coordinate[this.model.chooseCoordinate.length][1] === currentCord[1];
+
+    if (this.isUserRight) {
+      this.model.chooseCoordinate.push(currentCord);
+    }
+  }
+
+  mouseDownHandler(event) {
+    this.isMouseDown = true;
+
+    const currentCord = readCoordsFromAttribute(event.currentTarget);
+
+    this.isUserRight = !!currentCord
+      && this.model.coordinate[0][0] === currentCord[0]
+      && this.model.coordinate[0][1] === currentCord[1];
+
+    if (this.isUserRight) {
+      this.model.chooseCoordinate.push(currentCord);
+    }
+    this.model.innerArrWord.push(event.currentTarget.innerText);
+    this.view.innerWord.innerText = this.model.innerArrWord.join('');
+  }
 }
 
 const model = new Model();
 const view = new View();
 const controller = new Controller(model, view);
 controller.init();
-
-const mouseUpHandler = () => {
-  isMouseDown = false;
-  if (isUserRight) {
-    controller.view.innerTextLocalResult('верно');
-    controller.isUserRightHandler();
-  } else {
-    controller.view.innerTextLocalResult('неверно');
-    controller.isUserFalseHandler();
-  }
-  isUserRight = false;
-  const cell = document.querySelectorAll('td');
-  cell.forEach((e) => {
-    e.classList.remove('select');
-  });
-};
-
-table.addEventListener('mouseup', mouseUpHandler);

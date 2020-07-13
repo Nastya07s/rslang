@@ -3,9 +3,12 @@ import api from '../../../../js/api';
 import Settings from '../../../../js/settings';
 import Words from '../../../../js/words';
 import Statistics from '../../../../js/statistics';
+import createField from '../createField/createField';
 
 const MAX_SCORE = 'max-score';
 const GAME_NAME = 'fillWord';
+const FIELD_LENGTH = 5;
+const FIELD_HEIGHT = 6;
 
 export default class Model {
   constructor() {
@@ -16,18 +19,20 @@ export default class Model {
     });
     this.difficultGroup = 0;
     this.level = 0;
+    this.field = [];
+    this.coordinate = [];
+    this.chooseCoordinate = [];
+    this.innerArrWord = [];
     this.gameWord = {};
     this.gameWords = [];
     this.gameWords2 = [];
     this.gameRound = 0;
-    this.arrayCorrectAnswer = [];
-    this.arrayIncorrectAnswer = [];
+    this.arrayAnswer = [];
     this.audioMute = false;
     this.fillWordStorage = '';
   }
 
   init() {
-    this.initRoundLevel();
     this.api = api;
     this.api.checkLogin()
       .then(async () => {
@@ -44,10 +49,13 @@ export default class Model {
   async initGame() {
     this.gameWords = [];
     this.gameWords2 = [];
-    this.initRoundLevel();
     await this.getWordsList();
     await this.getNewWords();
     this.getWord(this.gameWords, this.gameRound);
+  }
+
+  initGameField() {
+    this.field = createField(this.gameWord.en, FIELD_LENGTH, FIELD_HEIGHT, this.coordinate);
   }
 
   async getWordsList() {
@@ -66,14 +74,6 @@ export default class Model {
         info: data,
       },
     );
-  }
-
-  addCorrectAnswerResult() {
-    this.arrayCorrectAnswer.push(this.word);
-  }
-
-  addIncorrectAnswer() {
-    this.arrayIncorrectAnswer.push(this.word);
   }
 
   getWord() {
@@ -107,14 +107,10 @@ export default class Model {
         en: data.word,
         ru: data.wordTranslate,
         info: data,
+        audio: data.audio,
+        isCorrect: false,
       },
     );
-  }
-
-  initRoundLevel() {
-    this.fillWordStorage = JSON.parse(localStorage.getItem('fillWord'));
-    this.difficultGroup = this.fillWordStorage ? this.fillWordStorage.round : this.difficultGroup;
-    this.level = this.fillWordStorage ? this.fillWordStorage.level : this.level;
   }
 
   setMuteAudio() {
@@ -133,5 +129,13 @@ export default class Model {
     this.level = number;
     localStorage.setItem('fillWord',
       JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
+  }
+
+  isCorrectAnswer() {
+    this.gameWord.isCorrect = true;
+  }
+
+  addAnswerResult() {
+    this.arrayAnswer.push(this.gameWord);
   }
 }

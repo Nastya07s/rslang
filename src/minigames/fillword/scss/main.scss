@@ -14,6 +14,7 @@
 @import "utils/mixins";
 @import "./start-page.scss";
 @import "./loader.scss";
+@import "./statistics.scss";
 
 html {
   font-size: 10px; 
@@ -22,14 +23,20 @@ html {
   background-color: #fefefe;
 }
 
+body {
+  background-image: url(../img/background.jpg);
+}
+
 .containerApp {
   max-width: 320px;
-  margin: 3rem auto;
+  margin: 0rem auto;
+  padding-top: 3rem;
 }
 
 .display-off {
   display: none;
 }
+
 .headerApp {
   display: grid;
   grid-template-columns: 1fr;
@@ -78,18 +85,12 @@ html {
       transform:rotate(360deg);}
 }
 
-.word-translate {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  align-self: center;
-  justify-self: center;
-}
-
 .word {
   grid-column-start: 1;
   grid-column-end: 3;
   align-self: center;
   justify-self: center;
+  background-color: #c5e6f8;
 }
 
 td {

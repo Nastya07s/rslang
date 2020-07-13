@@ -1,4 +1,5 @@
 import api from '../../../../js/api';
+import createElementDOM from '../helpers/createElementDOM';
 
 export default class View {
   constructor() {
@@ -7,6 +8,7 @@ export default class View {
     this.chooseWordContainer = document.getElementById('keyword');
     this.table = document.getElementById('gameTable');
     this.wordTranslate = document.getElementById('translate');
+    this.innerWord = document.getElementById('keyword');
     this.stars = document.querySelector('.stars');
     this.levels = document.querySelector('.options__levels');
     this.options = document.querySelector('.options');
@@ -18,15 +20,13 @@ export default class View {
     this.buttonHelp = document.getElementById('help');
     this.buttonRefresh = document.getElementById('refresh');
     this.localResultContainer = document.getElementById('localResult');
+    this.containerStatistics = document.getElementById('statistic');
     this.sound = document.querySelector('.audio');
     this.close = document.querySelector('.close');
-    this.data = null;
-    this.dataWithSetting = null;
-    this.roundWords = [];
-    this.mode = null;
-    this.roundWordsWithSetting = [];
-    this.chooseDifficultGroup = '';
-    this.chooseWordPerPage = 0;
+    this.validStatistics = document.querySelector('.finish-statistics__answers-valid');
+    this.inValidStatistics = document.querySelector('.finish-statistics__answers-invalid');
+    this.validStatisticsTitle = document.querySelector('.finish-statistics__answers-valid-title');
+    this.inValidStatisticsTitle = document.querySelector('.finish-statistics__answers-invalid-title');
   }
 
   innerTextLocalResult(result) {
@@ -183,5 +183,61 @@ export default class View {
       this.addRoundWordsWithSetting(el);
     });
     return this.roundWordsWithSetting;
+  }
+
+  renderField(newField, mouseMoveHandler, mouseDownHandler) {
+    for (let i = 0; i < newField.length; i += 1) {
+      const tr = document.createElement('tr');
+
+      for (let j = 0; j < newField[i].length; j += 1) {
+        const td = document.createElement('td');
+        td.innerText = newField[i][j];
+        td.setAttribute('data-coordinate', `${i}_${j}`);
+
+        td.addEventListener('mousemove', (el) => {
+          mouseMoveHandler(el);
+        });
+        td.addEventListener('mousedown', (el) => {
+          mouseDownHandler(el);
+        });
+        tr.append(td);
+      }
+
+      this.table.append(tr);
+    }
+  }
+
+  addWordTranslateText(text) {
+    this.wordTranslate.innerText = text;
+  }
+
+  showStatistics(data) {
+    this.containerStatistics.classList.remove('display-off');
+    let statisticsAnswer = '';
+    this.validStatistics.textContent = '';
+    this.inValidStatistics.textContent = '';
+    this.validStatisticsTitle.textContent = `ЗНАЮ: ${data.filter((e) => e.isCorrect === true).length}`;
+    this.inValidStatisticsTitle.textContent = `ОШИБОК: ${data.filter((e) => e.isCorrect === false).length}`;
+    data
+      .forEach((element) => {
+        if (element.isCorrect === true) {
+          statisticsAnswer = createElementDOM('div', 'finish-statistics__answer', this.validStatistics);
+        }
+        if (element.isCorrect === false) {
+          statisticsAnswer = createElementDOM('div', 'finish-statistics__answer', this.inValidStatistics);
+        }
+        statisticsAnswer.dataset.audio = element.audio;
+        createElementDOM('div', 'finish-statistics__answer-audio', statisticsAnswer);
+        createElementDOM('div', 'finish-statistics__answer-eng', statisticsAnswer).textContent = element.en;
+        createElementDOM('div', 'finish-statistics__answer-dash', statisticsAnswer).textContent = '—';
+        createElementDOM('div', 'finish-statistics__answer-ru', statisticsAnswer).textContent = element.ru;
+      });
+  }
+
+  static removeSelectCell() {
+    const cell = document.querySelectorAll('td');
+    cell.forEach((e) => {
+      e.classList.remove('select');
+    });
   }
 }
