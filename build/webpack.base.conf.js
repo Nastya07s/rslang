@@ -26,6 +26,7 @@ module.exports = {
   entry: {
     englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
     main: `${PATHS.main}/js/main.js`,
+    promo: `${PATHS.src}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -89,7 +90,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      chunks: [],
+      chunks: ['promo'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,

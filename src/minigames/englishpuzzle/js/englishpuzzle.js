@@ -1,5 +1,5 @@
 
-import GlobalStatistic from 'app/js/statistics';
+import Statistics from 'app/js/statistics';
 import Round from './view/Round';
 import QuickStatistic from './view/OuickStatistic';
 import eventEmitter from './services/eventEmitter';
@@ -10,7 +10,7 @@ export default {
     this.state = state;
     this.api = api;
     this.settings = settings;
-    this.globalStatisctic = new GlobalStatistic();
+    this.globalStatisctic = new Statistics();
     this.round = new Round();
     this.audio = new Audio();
     this.quickStatistic = new QuickStatistic();
@@ -185,6 +185,6 @@ export default {
   },
 
   goHome() {
-    window.location.href = '/app';
+    window.location.href = '/main';
   },
 };

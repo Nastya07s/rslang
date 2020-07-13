@@ -1,6 +1,5 @@
-
 import Login from 'app/js/login';
-import api from 'app/js/api';
+import api from './api';
 
 export default class Registration {
   constructor() {
@@ -47,8 +46,6 @@ export default class Registration {
       .then(() => {
         this.loginService = new Login();
         this.loginService.loginRequest(user);
-        // Заменить url, когда создадим основную страницу приложения
-        // window.location.href = '/';
       }, (response) => {
         if (response === 'user with this e-mail exists') {
           this.showEmailErrors('Пользователь уже существует');

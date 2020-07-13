@@ -1,4 +1,4 @@
-import api from 'app/js/api';
+import api from './api';
 
 export default class Statistics {
   /**
@@ -15,6 +15,7 @@ export default class Statistics {
     await this.getStatistics()
       .then((response) => {
         this.statistics = response;
+        this.initStatistics();
         return response;
       }, () => {
         // Saving new statistics for User if wasn't created before
@@ -22,8 +23,26 @@ export default class Statistics {
           learnedWords: 0,
           optional: {},
         };
-        this.updateStatistics(this.statistics);
+        this.initStatistics();
       });
+  }
+
+  initStatistics() {
+    const gamesArray = ['speakit', 'englishPuzzle', 'savannah', 'audioCall', 'sprint', 'ourGame'];
+    let isChangedStatistics = false;
+    gamesArray.forEach((element) => {
+      if (!this.statistics.optional[element]) {
+        this.statistics.optional[element] = {
+          totalTimesPlayed: 0,
+          lastGameResult: 0,
+          lastGameDate: null,
+        };
+        isChangedStatistics = true;
+      }
+    });
+    if (isChangedStatistics) {
+      this.updateStatistics(this.statistics);
+    }
   }
 
   getStatistics() {
