@@ -5,18 +5,15 @@ const loaderSettings = {
     VISUALLY_HIDDEN: 'visually-hidden',
   },
   loaderElement: null,
+  timeOut: 350,
 
-  onTransitionEnd: (e) => {
-    const { target } = e;
+  onTransitionEnd: () => {
     const {
       loaderElement,
       classes: { VISUALLY_HIDDEN },
     } = loaderSettings;
-    const isLoader = target === loaderElement;
 
-    if (isLoader) {
-      loaderElement.classList.toggle(VISUALLY_HIDDEN);
-    }
+    loaderElement.classList.toggle(VISUALLY_HIDDEN);
   },
 };
 
@@ -24,20 +21,19 @@ const toggle = () => {
   let { loaderElement } = loaderSettings;
 
   if (!loaderElement) {
-    const {
-      onTransitionEnd,
-      classes: { LOADER },
-    } = loaderSettings;
+    const { classes: { LOADER } } = loaderSettings;
 
     [loaderElement] = document.body.getElementsByClassName(LOADER);
-    loaderElement.addEventListener('transitionend', onTransitionEnd);
-
     loaderSettings.loaderElement = loaderElement;
   }
 
   const { LOADER_HIDDEN } = loaderSettings.classes;
 
   loaderElement.classList.toggle(LOADER_HIDDEN);
+
+  const { onTransitionEnd, timeOut } = loaderSettings;
+
+  setTimeout(onTransitionEnd, timeOut);
 };
 
 export default {

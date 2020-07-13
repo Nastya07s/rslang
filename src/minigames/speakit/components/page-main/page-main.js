@@ -276,7 +276,7 @@ class PageMain {
 
     const cardData = this.data[index];
 
-    await wordsHelper.updateRepetition(cardData); // change countRepetition & lastRepetition fields
+    wordsHelper.updateRepetition(cardData); // change countRepetition & lastRepetition fields
     await this.changeImage(card); // set image and await image's load event
 
     const { WORD_CARD_HIDDEN } = this.classes;
@@ -643,19 +643,18 @@ class PageMain {
 
     card.remove();
     this.currentCardIndex += 1;
+    this.progressBar.changeProgressBy(1);
 
     const isIndexInBounds = this.currentCardIndex < this.data.length;
 
     if (isIndexInBounds) {
       await this.createCard(this.currentCardIndex);
+
+      skipButton.classList.remove(BUTTON_DISABLED);
+      skipButton.disabled = false;
     } else {
       this.gameEnded();
     }
-
-    this.progressBar.changeProgressBy(1);
-
-    skipButton.classList.remove(BUTTON_DISABLED);
-    skipButton.disabled = false;
   }
 
   skipCard() {

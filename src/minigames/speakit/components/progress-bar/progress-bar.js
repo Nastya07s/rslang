@@ -46,11 +46,11 @@ class ProgressBar {
 
     // Old browser support
     if (!progress.value) {
-      progress.value = +progress.getAttribute('value');
+      progress.value = Number(progress.getAttribute('value'));
     }
 
     if (!progress.max) {
-      progress.max = +progress.getAttribute('max');
+      progress.max = Number(progress.getAttribute('max'));
     }
 
     this.updateMarkup();

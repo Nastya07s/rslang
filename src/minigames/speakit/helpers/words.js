@@ -41,21 +41,22 @@ const updateRepetition = (rawWordData) => {
     _id: wordId,
   } = rawWordData;
 
+  let ret;
+
   if (!userWord) {
     initUserWord(rawWordData);
-    return;
+  } else {
+    const { optional: word } = userWord;
+
+    word.countRepetition += 1;
+    word.lastRepetition = Date.now();
+
+    mutateData(rawWordData, 'userWord', userWord);
+
+    ret = performRequests([api.updateUserWordById.bind(api, wordId, userWord)]);
   }
 
-  const {
-    optional: word,
-  } = userWord;
-
-  word.countRepetition += 1;
-  word.lastRepetition = Date.now();
-
-  mutateData(rawWordData, 'userWord', userWord);
-
-  performRequests([api.updateUserWordById.bind(api, wordId, userWord)]);
+  return ret;
 };
 
 const updateKnowledge = (rawWordData) => {
@@ -64,30 +65,30 @@ const updateKnowledge = (rawWordData) => {
     _id: wordId,
   } = rawWordData;
 
+  let ret;
+
   if (!userWord) {
     initUserWord(rawWordData);
-    return;
+  } else {
+    const { optional: word } = userWord;
+    const willBecomeLearned = word.degreeOfKnowledge === MAX_DEGREE_OF_KNOWLEDGE - 1;
+
+    if (willBecomeLearned) {
+      word.becameLearned = Date.now();
+    }
+
+    const isDegreeOfKnowledgeInBound = word.degreeOfKnowledge < MAX_DEGREE_OF_KNOWLEDGE;
+
+    if (isDegreeOfKnowledgeInBound) {
+      word.degreeOfKnowledge += 1;
+    }
+
+    mutateData(rawWordData, 'userWord', word);
+
+    ret = performRequests([api.updateUserWordById.bind(api, wordId, userWord)]);
   }
 
-  const {
-    optional: word,
-  } = userWord;
-
-  const willBecomeLearned = word.degreeOfKnowledge === MAX_DEGREE_OF_KNOWLEDGE - 1;
-
-  if (willBecomeLearned) {
-    word.becameLearned = Date.now();
-  }
-
-  const isDegreeOfKnowledgeInBound = word.degreeOfKnowledge < MAX_DEGREE_OF_KNOWLEDGE;
-
-  if (isDegreeOfKnowledgeInBound) {
-    word.degreeOfKnowledge += 1;
-  }
-
-  mutateData(rawWordData, 'userWord', word);
-
-  performRequests([api.updateUserWordById.bind(api, wordId, userWord)]);
+  return ret;
 };
 
 export default {

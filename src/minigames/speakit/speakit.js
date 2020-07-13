@@ -123,6 +123,8 @@ api.checkLogin().then(async (user) => {
 
   // Outro subscribers
   eventBus.subscribe('pageOutro.init', async (data) => {
+    await new Promise((resolve) => setTimeout(() => resolve(), 1000));
+
     const pageOutro = new PageOutro({ eventBus });
 
     loader.toggle();
@@ -139,7 +141,7 @@ api.checkLogin().then(async (user) => {
     // Page Outro is loaded
     pageOutro.show();
     loader.toggle();
-    eventBus.emit('pageMain.destruct');
+    await eventBus.emit('pageMain.destruct');
     pageOutro.showStatistics(data);
   });
 
