@@ -73,6 +73,37 @@ export default class View {
     this.settingsMenu.classList.add('inactive');
   }
 
+  hideOptions() {
+    this.options.classList.add('inactive');
+  }
+
+  showOptions() {
+    this.options.classList.remove('inactive');
+  }
+
+  hideSound() {
+    this.sound.classList.add('inactive');
+  }
+
+  showSound() {
+    this.sound.classList.remove('inactive');
+  }
+
+  showCorrectResult() {
+    this.localResultContainer.innerText = 'ВЕРНО';
+    this.localResultContainer.style.backgroundColor = '#4caf50';
+  }
+
+  showIncorrectResult() {
+    this.localResultContainer.innerText = 'НЕВЕРНО';
+    this.localResultContainer.style.backgroundColor = '#dd3333';
+  }
+
+  clearStyleResult() {
+    this.localResultContainer.innerText = '';
+    this.localResultContainer.style.backgroundColor = '#038573';
+  }
+
   bindClickRestartTraining(handler) {
     this.restartTraining.addEventListener('click', () => {
       handler();
@@ -229,8 +260,16 @@ export default class View {
     this.wordTranslate.innerText = text;
   }
 
-  showStatistics(data) {
+  showStatistics() {
     this.containerStatistics.classList.remove('inactive');
+  }
+
+  hideStatistics() {
+    this.containerStatistics.classList.add('inactive');
+  }
+
+  renderStatistics(data) {
+    this.showStatistics();
     let statisticsAnswer = '';
     this.validStatistics.textContent = '';
     this.inValidStatistics.textContent = '';

@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable prefer-destructuring */
+import 'app/index';
 import './scss/main.scss';
 import View from './js/View/View';
 import Model from './js/model/Model';
@@ -39,7 +40,7 @@ export default class Controller {
     this.view.bindClickHelp(this.handlerClickHelp.bind(this));
     this.view.bindClickRefresh(this.handlerClickRefresh.bind(this));
     this.view.bindClickTable(this.handlerMouseUp.bind(this));
-    this.view.bindClickRestartTraining(this.handlerClickStartGame.bind(this));
+    this.view.bindClickRestartTraining(this.handlerClickRestartTraining.bind(this));
     this.view.bindClickFinishTraining(this.handlerClickFinishTraining.bind(this));
   }
 
@@ -48,8 +49,21 @@ export default class Controller {
   }
 
   async handlerClickStartGame() {
+    this.view.hideOptions();
+    this.view.hideSound();
     this.view.hideDropOptions();
     this.view.hideStartPage();
+    this.view.showLouder();
+    await this.model.initGame();
+    setTimeout(() => {
+      this.view.hideLouder();
+      this.view.showFillWord();
+      this.gameStart();
+    }, 3000);
+  }
+
+  async handlerClickRestartTraining() {
+    this.view.hideStatistics();
     this.view.showLouder();
     await this.model.initGame();
     setTimeout(() => {
@@ -104,33 +118,36 @@ export default class Controller {
   handlerMouseUp() {
     this.isMouseDown = false;
     if (this.isUserRight) {
-      this.view.innerTextLocalResult('ВЕРНО');
+      this.view.showCorrectResult();
       this.model.wordsService.updateKnowledge(this.model.gameWord.id, this.difficultGroup);
       this.model.isCorrectAnswer();
     } else {
-      this.view.innerTextLocalResult('НЕВЕРНО');
+      this.view.showIncorrectResult();
     }
     this.model.addAnswerResult();
     this.model.gameRound += 1;
     if (this.model.gameRound === this.model.gameWords.length) {
+      this.model.gameRound = 0;
       this.view.hideFillWord();
-      this.view.showStatistics(this.model.arrayAnswer);
+      this.view.renderStatistics(this.model.arrayAnswer);
       return;
     }
-    this.model.getWord();
-    this.model.coordinate = [];
-    this.model.initGameField();
-    this.model.chooseCoord = [];
-    this.view.deleteOldGameTable();
-    this.view.addWordTranslateText(this.model.gameWord.ru);
-    this.view.renderField(this.model.field,
-      this.mouseMoveHandler.bind(this),
-      this.mouseDownHandler.bind(this));
-    this.view.innerTextLocalResult('');
-    this.view.clearChooseWordContainer();
-    View.removeSelectCell();
-    this.isUserRight = false;
-    this.selectLetters = [];
+    setTimeout(() => {
+      this.model.getWord();
+      this.model.coordinate = [];
+      this.model.initGameField();
+      this.model.chooseCoord = [];
+      this.view.deleteOldGameTable();
+      this.view.addWordTranslateText(this.model.gameWord.ru);
+      this.view.renderField(this.model.field,
+        this.mouseMoveHandler.bind(this),
+        this.mouseDownHandler.bind(this));
+      this.view.clearStyleResult();
+      this.view.clearChooseWordContainer();
+      View.removeSelectCell();
+      this.isUserRight = false;
+      this.selectLetters = [];
+    }, 1000);
   }
 
   mouseMoveHandler(event) {

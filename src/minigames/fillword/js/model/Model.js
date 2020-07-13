@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-import api from '../../../../js/api';
-import Settings from '../../../../js/settings';
-import Words from '../../../../js/words';
-import Statistics from '../../../../js/statistics';
+import api from 'app/js/api';
+import settings from 'app/js/settings';
+import Words from 'app/js/words';
+import Statistics from 'app/js/statistics';
 import createField from '../createField/createField';
 
 const MAX_SCORE = 'max-score';
@@ -12,7 +12,7 @@ const FIELD_HEIGHT = 6;
 
 export default class Model {
   constructor() {
-    this.settings = new Settings();
+    this.settings = settings;
     this.wordsService = new Words({
       settings: this.settings,
       gameNameInSettings: GAME_NAME,
@@ -49,7 +49,6 @@ export default class Model {
     this.gameWords = [];
     this.gameWords2 = [];
     await this.getWordsList();
-    await this.getNewWords();
     this.getWord(this.gameWords, this.gameRound);
   }
 
@@ -65,7 +64,7 @@ export default class Model {
   }
 
   getGameWords(data) {
-    this.gameWords2.push(
+    this.gameWords.push(
       {
         id: data.id,
         en: data.word,
@@ -85,34 +84,6 @@ export default class Model {
       audio: this.gameWords[this.gameRound].audio,
       isCorrect: false,
     };
-  }
-
-  async getNewWords() {
-    const data = await api.getUsersAggregatedWords({
-      group: Number.parseInt(this.difficultGroup, 10),
-      wordsPerPage: Number.parseInt(this.level, 10),
-      filter: {
-        $and: [
-          { userWord: null },
-        ],
-      },
-    });
-    data[0].paginatedResults.forEach((el) => {
-      this.addRoundWordsWithSetting(el);
-    });
-  }
-
-  addRoundWordsWithSetting(data) {
-    this.gameWords.push(
-      {
-        id: data._id,
-        en: data.word,
-        ru: data.wordTranslate,
-        info: data,
-        audio: data.audio,
-        isCorrect: false,
-      },
-    );
   }
 
   setMuteAudio() {
