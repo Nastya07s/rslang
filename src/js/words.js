@@ -137,24 +137,21 @@ export default class Words {
   async getWordsByDegreeOfKnowledge(degreeOfKnowledgeArray, shuffle = false) {
     if (!this.userWords) {
       const userWordsResponse = await this.getUserWords(degreeOfKnowledgeArray);
-      this.userWords = userWordsResponse[0].paginatedResults;
+      this.userWords = Words.mapPaginatedResults(userWordsResponse);
     }
     if (this.userWords && this.userWords.length !== 0) {
-      let wordsToGet;
+      let responseWords;
       if (this.userWords.length > WORDS_PER_PAGE) {
-        wordsToGet = this.userWords.slice(0, WORDS_PER_PAGE);
+        responseWords = this.userWords.slice(0, WORDS_PER_PAGE);
         this.userWords = this.userWords.slice(WORDS_PER_PAGE);
       } else {
-        wordsToGet = Array.from(this.userWords);
+        responseWords = Array.from(this.userWords);
         this.userWords.length = 0;
       }
-      // eslint-disable-next-line no-underscore-dangle
-      const promises = wordsToGet.map((element) => this.api.getWordById(element._id));
-      const responseUserWords = await Promise.all(promises);
       if (shuffle) {
-        return shuffleArray(responseUserWords);
+        return shuffleArray(responseWords);
       }
-      return responseUserWords;
+      return responseWords;
     }
     return this.getWordsNew();
   }
@@ -195,5 +192,19 @@ export default class Words {
         becameLearned: 0,
       },
     };
+  }
+
+  static mapPaginatedResults(response) {
+    if (!response || !response[0] || !response[0].paginatedResults) {
+      return null;
+    }
+    const result = response[0].paginatedResults;
+    const id = '_id';
+    return result.map((element) => {
+      const newElement = { ...element };
+      newElement.id = newElement[id];
+      newElement.wordId = newElement[id];
+      return newElement;
+    });
   }
 }
