@@ -390,7 +390,6 @@ export default class Sprint {
     this.sound = this.container.querySelector(selector);
     this.sound.addEventListener('click', () => {
       this.setMute(!this.getMute());
-      this.settings.postUpdates();
       if (this.getMute()) {
         this.sound.classList.add('active');
       } else {
