@@ -31,6 +31,7 @@ class PageMain {
     };
 
     this.eventBus = props.eventBus;
+    this.isMixMode = props.isMixMode;
     this.difficulty = props.difficulty;
     this.round = props.round;
     this.volume = props.volume;
@@ -40,7 +41,6 @@ class PageMain {
     this.speechRecognition = null;
     this.score = null;
     this.scoreStreak = 0;
-    this.isMixMode = this.difficulty !== -1;
     this.currentCardIndex = 0;
     this.isGameEnded = false;
     this.answers = {
@@ -211,7 +211,7 @@ class PageMain {
             <ul class="controls-container page-main__header-controls-container">
               <li class="controls-container__group">
                 <button
-                  class="controls-container__button controls-container__close-button"
+                  class="controls-container__button controls-container__close-button page-main__header-close-button"
                   title="Закрыть игру">
                   <img
                     class="icon icon__close icon_inverted"

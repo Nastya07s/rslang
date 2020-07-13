@@ -65,8 +65,9 @@ api.checkLogin().then(async (user) => {
     } = settings;
     const pageMain = new PageMain({
       eventBus,
-      round: isMixMode ? round : -1, // -1 detects that we need to use another mode
-      difficulty: isMixMode ? difficulty : -1, // -1 detects that we need to use another mode
+      isMixMode,
+      round,
+      difficulty,
       volume: isMute ? 0 : 1,
     });
 

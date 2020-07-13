@@ -30,6 +30,10 @@
     justify-content: flex-end;
   }
 
+  &__header-close-button {
+    transition: all 0.35s ease-out;
+  }
+
   &__main {
     display: flex;
     justify-content: center;
