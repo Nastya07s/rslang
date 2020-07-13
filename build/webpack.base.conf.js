@@ -8,6 +8,7 @@ const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
   savannah: path.join(__dirname, '../src/minigames/savannah'),
+  main: path.join(__dirname, '../src/main'),
   assets: 'assets',
 };
 
@@ -25,7 +26,7 @@ module.exports = {
   entry: {
     app: PATHS.src,
     savannah: `${PATHS.savannah}/savannah.js`,
-    main: `${PATHS.src}/js/main.js`,
+    main: `${PATHS.main}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -90,13 +91,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      // to exclude mini-games' chunks & prevent running their code in the main app '/'
+      chunks: [],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.main}/index.html`,
+      filename: './main/index.html',
       chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.savannah}/index.html`,
       filename: './savannah/index.html',
-      chunks: ['savannah'], // include exact this chunk of needed code
+      chunks: ['savannah'],
     }),
     new CopyWebpackPlugin([
       {

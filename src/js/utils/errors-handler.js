@@ -1,16 +1,29 @@
+/**
+ * Object contains all of the localizations for the potentially i18n.
+ */
+const localizations = {
+  RU: {
+    NO_CONNECTION: 'Нет соединения с интернетом!',
+  },
+};
+
 const errorHandler = {
+  // Error element's className
+  ERROR_INFO_MESSAGE_CLASSNAME: 'error-info-message',
+  // Human readable errors
+  ERROR_STATUSES: {
+    ...localizations.RU, // get all of the fields from russian locale
+  },
   errorInfoElement: null,
   timerId: null,
 
   initElements() {
-    const ERROR_INFO_MESSAGE_CLASSNAME = 'error-info-message';
-
-    [this.errorInfoElement] = document.getElementsByClassName(ERROR_INFO_MESSAGE_CLASSNAME);
+    [this.errorInfoElement] = document.getElementsByClassName(this.ERROR_INFO_MESSAGE_CLASSNAME);
 
     if (!this.errorInfoElement) {
       const errorInfoElement = document.createElement('p');
 
-      errorInfoElement.classList.add(ERROR_INFO_MESSAGE_CLASSNAME);
+      errorInfoElement.classList.add(this.ERROR_INFO_MESSAGE_CLASSNAME);
       errorInfoElement.hidden = true;
       document.body.prepend(errorInfoElement);
 

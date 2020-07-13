@@ -180,6 +180,35 @@ class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/words/${id}`, 'DELETE');
   }
 
+  /**
+   * Gets all user aggregated words.
+   * @see /users/{id}/aggregatedWords
+   * @param {Object} paramsObject arguments' object, contains: `group`, `wordsPerPage` and `filter`
+   * @example
+   *    {
+   *      group: 0,
+   *      wordsPerPage: 20,
+   *      filter: {
+   *        $and:[{
+   *          userWord: null,
+   *        }],
+   *      },
+   *    }
+   */
+  getUsersAggregatedWords(paramsObject = {}) {
+    let params = Object.entries(paramsObject);
+
+    params = params
+      .map(([param, value]) => `${param}=${JSON.stringify(value)}`)
+      .join('&');
+
+    const endpoint = `${this.basicUrl}/users/${this.userId}/aggregatedWords`;
+    const separator = params.length ? '?' : '';
+    const url = `${endpoint}${separator}${params}`;
+
+    return this.requestWithToken(url, 'GET');
+  }
+
   getUsersAggregatedWordsById(wordId) {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/aggregatedWords/${wordId}`, 'GET');
   }
@@ -211,20 +240,6 @@ class Api {
     return this.requestWithToken(`${this.basicUrl}/users/${this.userId}/settings`, 'PUT', data);
   }
 
-  getUsersAggregatedWords(paramsObject = {}) {
-    let params = Object.entries(paramsObject);
-
-    params = params
-      .map(([param, value]) => `${param}=${JSON.stringify(value)}`)
-      .join('&');
-
-    const endpoint = `${this.basicUrl}/users/${this.userId}/aggregatedWords`;
-    const separator = params.length ? '?' : '';
-    const url = `${endpoint}${separator}${params}`;
-
-    return this.requestWithToken(url, 'GET');
-  }
-
   saveLoginResponse(response) {
     this.userToken = response.token;
     this.refreshToken = response.refreshToken;
@@ -234,4 +249,5 @@ class Api {
 }
 
 const api = new Api();
+
 export default api;
