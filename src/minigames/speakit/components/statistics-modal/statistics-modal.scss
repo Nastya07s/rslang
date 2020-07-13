@@ -86,27 +86,22 @@
     & {
       width: 32px;
       height: 32px;
+
       background: {
-        image: url(/assets/img/statistics-modal/audio-inactive.svg);
+        image: url(/assets/img/statistics-modal/audio-active.svg);
         size: 20px 18px;
         position: 50%;
         repeat: no-repeat;
       }
-  
+
+      filter: grayscale(0.8);
       cursor: pointer;
       outline: none;
-    }
-
-    &_active {
-      background-image: url(/assets/img/statistics-modal/audio-active.svg);
-    }
-
-    &:focus {
-      outline: none;
+      transition: all 0.35s ease-out;
     }
 
     &:hover {
-      background-image: url(/assets/img/statistics-modal/audio-active.svg);
+      filter: initial;
     }
   }
 
