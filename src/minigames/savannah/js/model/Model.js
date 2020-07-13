@@ -301,15 +301,13 @@ export default class Model {
   }
 
   playSound(src) {
-    // if (this.audioMute) {
-    // this.audio.muted =
-    // }
     this.audio.muted = this.audioMute;
     const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-    // if()
     this.audio.src = `${url}/${src}`;
-    this.audio.play();
-
-    // audio.play();
+    try {
+      this.audio.play();
+    } catch (e) {
+      //
+    }
   }
 }
