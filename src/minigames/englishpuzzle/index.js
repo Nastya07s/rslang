@@ -10,6 +10,7 @@ import englishPuzzle from './js/englishpuzzle';
 
 api.checkLogin()
   .then(async () => {
+    await api.loginUser({ email: 'gabrielljihk@gmail.com', password: 'AAaaBBbb12!' });
     await settings.getSettings();
     englishPuzzle.init(state, api, settings);
   }, () => {
