@@ -94,7 +94,7 @@ export default class Sprint {
         <div class="image-sound image-sound--main"></div>
       </div>
     </div>
-    <div class="addition">
+    <div class="addition" title="Управление с клавиатуры">
       <div class="control-arrow">
         <button type="button" class="button-arrow left">&larr;</button>
         <button type="button" class="button-arrow right">&rarr;</button>
