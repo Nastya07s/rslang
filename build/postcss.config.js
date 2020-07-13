@@ -1,8 +1,10 @@
-/* eslint-disable global-require */
+const Autoprefixer = require('autoprefixer');
+const CssNano = require('cssnano');
+
 module.exports = {
   plugins: [
-    require('autoprefixer'),
-    require('cssnano')({
+    Autoprefixer,
+    CssNano({
       preset: [
         'default', {
           discardComments: {

@@ -1,3 +1,4 @@
+import 'app/scss/main.scss';
 import employeeData from './employeeData';
 
 export default {
