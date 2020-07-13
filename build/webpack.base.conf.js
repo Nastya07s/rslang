@@ -8,6 +8,7 @@ const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
   fillword: path.join(__dirname, '../src/minigames/fillword'),
+  main: path.join(__dirname, '../src/main'),
   assets: 'assets',
 };
 
@@ -25,6 +26,7 @@ module.exports = {
   entry: {
     app: `${PATHS.src}/index.js`,
     fillword: `${PATHS.fillword}/fillword.js`,
+    main: `${PATHS.main}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -88,12 +90,17 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      excludeChunks: ['fillword'],
+      chunks: [],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.fillword}/index.html`,
       filename: './fillword/index.html',
-      chunks: ['fillword', 'vendors', 'app'],
+      chunks: ['fillword'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.main}/index.html`,
+      filename: './main/index.html',
+      chunks: ['main'],
     }),
     new CopyWebpackPlugin([
       {

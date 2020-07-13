@@ -11,7 +11,7 @@ const checkReadyForRepetition = (countRepetition, lastRepetition) => {
 
   const isTimeForRepeat = (timeToRepeat) => timePassedInSeconds >= timeToRepeat;
 
-  switch (countRepetition) {
+  switch (String(countRepetition)) {
     case '0': return isTimeForRepeat(timeToFirstRepeat);
     case '1': return isTimeForRepeat(timeToSecondRepeat);
     case '2': return isTimeForRepeat(timeToThirdRepeat);
@@ -21,4 +21,15 @@ const checkReadyForRepetition = (countRepetition, lastRepetition) => {
   }
 };
 
-export default checkReadyForRepetition;
+const nextRepetition = (countRepetition, lastRepetition) => {
+  switch (String(countRepetition)) {
+    case '0': return lastRepetition + timeToFirstRepeat * 1000;
+    case '1': return lastRepetition + timeToSecondRepeat * 1000;
+    case '2': return lastRepetition + timeToThirdRepeat * 1000;
+    case '3': return lastRepetition + timeToFourthRepeat * 1000;
+    case '4': return lastRepetition + timeToFifthRepeat * 1000;
+    default: return '—';
+  }
+};
+
+export { checkReadyForRepetition, nextRepetition };
