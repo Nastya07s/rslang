@@ -101,7 +101,7 @@ header {
       }
 
       & .options__levels-title {
-        margin-top: 20px;
+        margin-top: 10px;
       }
 
       & .options__levels {
@@ -128,7 +128,6 @@ header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        // height: 100%;
         & .star {
           cursor: pointer;
           width: 20px;
@@ -150,7 +149,6 @@ header {
 }
 
 .game-start {
-  // height: 100%;
   padding: 100px 0;
   color: white;
   display: flex;

@@ -20,7 +20,7 @@ html {
   font-size: 10px; 
   font-family: "Montserrat", sans-serif;;
   box-sizing: border-box;
-  background-color: #fefefe;
+  color: #fff;
 }
 
 body {
@@ -33,22 +33,15 @@ body {
   padding-top: 3rem;
 }
 
-.display-off {
+.inactive {
   display: none;
 }
 
 .headerApp {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  align-items: center;
-  padding: 3rem 0;
+  padding: 1rem 0;
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: 400;
-}
-
-.header__title {
 }
 
 .controlBlock {
@@ -58,17 +51,16 @@ body {
 
 .button {
   padding: 0.8rem;
-  color: #fff;
-  background-color: #2FA4E7;
-  border: 1px solid #2FA4E7;
-  border-radius: 0.25rem;
+  background-color: #038573;
+  border: 1px solid #2a4744;
+  border-radius: 0.5rem;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   outline: none;
   cursor: pointer;
 }
 
 .button:active {
-  box-shadow: 0 0 0 0.2rem rgba(78, 178, 235, 0.5);
+  box-shadow: 0 0 0 0.2rem #96c0bc;
 }
 
 .refresh:hover>svg {
@@ -86,11 +78,23 @@ body {
 }
 
 .word {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  align-self: center;
-  justify-self: center;
-  background-color: #c5e6f8;
+  width: 32rem;
+  height: 6rem;
+  margin: 0.5rem 0;
+  border: 1px solid #2a4744;
+  border-radius: 0.5rem;
+  opacity: 1;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+  line-height: 6rem;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #038573;
+}
+
+table {
+  border-spacing: 3px
 }
 
 td {
@@ -99,8 +103,8 @@ td {
   font-size: 2.5rem;
   line-height: 5rem;
   text-align: center;
-  background-color: #c5e6f8;
-  color: #454545;
+  background-color: #038573;
+  border-radius: 5px;
   text-transform: uppercase;
   font-weight: 400;
   cursor: pointer;
@@ -108,7 +112,7 @@ td {
 }
 
 .select {
-  background-color: #e3eed7;
+  background-color: #1e74b9;
 }
 
 .footerApp {
@@ -124,6 +128,5 @@ td {
   font-size: 2rem;
   line-height: 4rem;
   font-weight: 400;
-  color: #ffffff;
 }
 
