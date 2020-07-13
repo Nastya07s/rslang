@@ -213,15 +213,18 @@ export default class Sprint {
     if (this.wordsArrayFull.length === 0) {
       this.wordsArrayFull = await this.getWordsList();
     }
+    this.isBlockedButtons = false;
     this.wordElement.innerHTML = this.word.word;
     this.wordTranslateElement.innerHTML = this.word.wordTranslate;
     this.wordsService.updateRepetition(this.word.wordId, this.word.wordData.group.toString());
   }
 
   onAnswerClick(event) {
-    if (!this.word) {
+    if (!this.word || this.isBlockedButtons) {
       return;
     }
+    // use flag to block buttons until card will be updated with new word
+    this.isBlockedButtons = true;
     const isCorrectButton = event.target.classList.contains('button-right');
     const isCorrectAnswer = isCorrectButton === this.word.correct;
     if (isCorrectButton) {
@@ -241,7 +244,12 @@ export default class Sprint {
       this.countCorrectAnswer += 1;
       const correctAnswers = this.countCorrectAnswer % INCREASE_SCORE_EVERY;
       this.playSound(AUDIO_RIGHT);
-      this.wordsService.updateKnowledge(this.word.wordId, this.word.wordData.group.toString());
+      const { wordId } = this.word;
+      const group = this.word.wordData.group.toString();
+      // Set timeout to reliably save after updateRepetition in updateCard
+      setTimeout(() => {
+        this.wordsService.updateKnowledge(wordId, group);
+      }, 1000);
       this.arrayCorrectAnswer.push(this.word.wordData);
       if (correctAnswers === 0) {
         this.switchImages(Math.floor(this.countCorrectAnswer / INCREASE_SCORE_EVERY) + 1);
