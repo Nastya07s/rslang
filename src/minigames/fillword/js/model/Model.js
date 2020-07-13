@@ -18,11 +18,10 @@ export default class Model {
       gameNameInSettings: GAME_NAME,
     });
     this.difficultGroup = 0;
-    this.level = 0;
+    this.level = 6;
     this.field = [];
     this.coordinate = [];
-    this.chooseCoordinate = [];
-    this.innerArrWord = [];
+    this.chooseCoord = [];
     this.gameWord = {};
     this.gameWords = [];
     this.gameWords2 = [];
@@ -72,6 +71,7 @@ export default class Model {
         en: data.word,
         ru: data.wordTranslate,
         info: data,
+        audio: data.audio,
       },
     );
   }
@@ -82,6 +82,8 @@ export default class Model {
       en: this.gameWords[this.gameRound].en,
       ru: this.gameWords[this.gameRound].ru,
       info: this.gameWords[this.gameRound].info,
+      audio: this.gameWords[this.gameRound].audio,
+      isCorrect: false,
     };
   }
 

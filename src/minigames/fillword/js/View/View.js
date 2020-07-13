@@ -27,6 +27,8 @@ export default class View {
     this.inValidStatistics = document.querySelector('.finish-statistics__answers-invalid');
     this.validStatisticsTitle = document.querySelector('.finish-statistics__answers-valid-title');
     this.inValidStatisticsTitle = document.querySelector('.finish-statistics__answers-invalid-title');
+    this.restartTraining = document.querySelector('.restart-training');
+    this.finishTraining = document.querySelector('.finish-training');
   }
 
   innerTextLocalResult(result) {
@@ -34,7 +36,7 @@ export default class View {
   }
 
   clearChooseWordContainer() {
-    this.chooseWordContainer.innerText = '';
+    this.chooseWordContainer.innerText = [];
   }
 
   deleteOldGameTable() {
@@ -44,27 +46,43 @@ export default class View {
   }
 
   hideLouder() {
-    this.louderContainer.classList.add('display-off');
+    this.louderContainer.classList.add('inactive');
   }
 
   showLouder() {
-    this.louderContainer.classList.remove('display-off');
+    this.louderContainer.classList.remove('inactive');
   }
 
   showFillWord() {
-    this.containerFillWord.classList.remove('display-off');
+    this.containerFillWord.classList.remove('inactive');
   }
 
   hideFillWord() {
-    this.containerFillWord.classList.add('display-off');
+    this.containerFillWord.classList.add('inactive');
   }
 
   showStartPage() {
-    this.containerStartPage.classList.remove('display-off');
+    this.containerStartPage.classList.remove('inactive');
   }
 
   hideStartPage() {
-    this.containerStartPage.classList.add('display-off');
+    this.containerStartPage.classList.add('inactive');
+  }
+
+  hideDropOptions() {
+    this.settingsMenu.classList.add('inactive');
+  }
+
+  bindClickRestartTraining(handler) {
+    this.restartTraining.addEventListener('click', () => {
+      handler();
+    });
+  }
+
+  bindClickFinishTraining(handler) {
+    this.finishTraining.addEventListener('click', () => {
+      handler();
+    });
   }
 
   bindClickTable(handler) {
@@ -101,7 +119,7 @@ export default class View {
   bindDropOptions() {
     this.options.addEventListener('click', (e) => {
       if (e.target === this.options) {
-        this.settingsMenu.classList.toggle('options__settings_inactive');
+        this.settingsMenu.classList.toggle('inactive');
       }
     });
   }
@@ -212,7 +230,7 @@ export default class View {
   }
 
   showStatistics(data) {
-    this.containerStatistics.classList.remove('display-off');
+    this.containerStatistics.classList.remove('inactive');
     let statisticsAnswer = '';
     this.validStatistics.textContent = '';
     this.inValidStatistics.textContent = '';
