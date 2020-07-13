@@ -249,7 +249,7 @@ export default class Sprint {
       // Set timeout to reliably save after updateRepetition in updateCard
       setTimeout(() => {
         this.wordsService.updateKnowledge(wordId, group);
-      }, 1000);
+      }, 3000);
       this.arrayCorrectAnswer.push(this.word.wordData);
       if (correctAnswers === 0) {
         this.switchImages(Math.floor(this.countCorrectAnswer / INCREASE_SCORE_EVERY) + 1);
