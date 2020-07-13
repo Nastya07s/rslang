@@ -37,7 +37,7 @@ export default class Login {
         this.statisticsService = new Statistics();
         this.settings = settings;
         await this.settings.getSettings();
-        window.location.href = '/';
+        window.location.href = '/main';
       }, () => {
         this.showPassErrors('Неверная почта или пароль');
       });
