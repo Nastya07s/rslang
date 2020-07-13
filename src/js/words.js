@@ -127,7 +127,15 @@ export default class Words {
       this.group = parseInt(group, 10);
       this.page = parseInt(page, 10);
     }
-    const words = await this.api.getWords(this.group, this.page);
+    let words = await this.api.getUsersAggregatedWords({
+      filter: {
+        $and: [
+          { userWord: null },
+        ],
+      },
+      wordsPerPage: 20,
+    });
+    words = Words.mapPaginatedResults(words);
     if (shuffle) {
       return shuffleArray(words);
     }

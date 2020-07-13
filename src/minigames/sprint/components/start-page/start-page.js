@@ -178,7 +178,8 @@ export default class StartPage {
     this.buttonStart = this.container.querySelector('.game-start__start');
     this.buttonStart.addEventListener('click', this.config.onGameStart);
     this.buttonOptions = this.container.querySelector('.options');
-    if (this.config.settings.learningMode === 'old') {
+    if (this.config.settings.learningMode === 'old' || this.config.settings.learningMode === 'new'
+      || this.config.settings.learningMode === 'learning') {
       this.buttonOptions.classList.add('hidden');
     }
     this.buttonOptionsSettings = this.container.querySelector('.options__settings');
