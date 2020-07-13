@@ -46,8 +46,6 @@ export default class Registration {
       .then(() => {
         this.loginService = new Login();
         this.loginService.loginRequest(user);
-        // Заменить url, когда создадим основную страницу приложения
-        // window.location.href = '/';
       }, (response) => {
         if (response === 'user with this e-mail exists') {
           this.showEmailErrors('Пользователь уже существует');
