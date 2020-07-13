@@ -1,5 +1,5 @@
-import Settings from './settings';
-import Statistics from './statistics';
+import settings from 'app/js/settings';
+import Statistics from 'app/js/statistics';
 import api from './api';
 
 export default class Login {
@@ -35,9 +35,9 @@ export default class Login {
     api.loginUser(user)
       .then(async () => {
         this.statisticsService = new Statistics();
-        this.settings = new Settings();
+        this.settings = settings;
         await this.settings.getSettings();
-        window.location.href = '/';
+        window.location.href = '/main';
       }, () => {
         this.showPassErrors('Неверная почта или пароль');
       });

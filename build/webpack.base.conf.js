@@ -23,7 +23,7 @@ module.exports = {
   },
   entry: {
     main: `${PATHS.main}/js/main.js`,
-    promo: `${PATHS.src}/js/promo.js`,
+    promo: `${PATHS.src}/js/main.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,

@@ -1,10 +1,8 @@
+import Login from 'app/js/login';
 import api from './api';
-import Settings from './settings';
 
 export default class Registration {
   constructor() {
-    this.api = api;
-    this.settings = new Settings();
     this.inputEmail = document.querySelector('#signup-email');
     this.inputPassword = document.querySelector('#signup-password');
     this.formRegistration = document.querySelector('.form-registration');
@@ -30,8 +28,8 @@ export default class Registration {
       && /\d/.test(password) && /[+\-_@$!%*?&#.,;:[\]{}]/.test(password);
     if (!isValidPassword) {
       const errText = 'Пароль должен содержать не менее 8 символов, '
-      + 'как минимум одну прописную букву, одну заглавную букву, одну цифру и один '
-      + 'спецсимвол из +-_@$!%*?&#.,;:[]{}';
+        + 'как минимум одну прописную букву, одну заглавную букву, одну цифру и один '
+        + 'спецсимвол из +-_@$!%*?&#.,;:[]{}';
       this.showPassErrors(errText);
     } else {
       this.showPassErrors('');
@@ -44,11 +42,10 @@ export default class Registration {
   }
 
   registrationRequest(user) {
-    this.api.createUser(user)
-      .then(async () => {
-        await this.settings.initSettings();
-        // Заменить url, когда создадим основную страницу приложения
-        window.location.href = './app.html';
+    api.createUser(user)
+      .then(() => {
+        this.loginService = new Login();
+        this.loginService.loginRequest(user);
       }, (response) => {
         if (response === 'user with this e-mail exists') {
           this.showEmailErrors('Пользователь уже существует');
