@@ -1,0 +1,109 @@
+.method__wrapper {
+    height: fit-content;
+    padding: 4rem;
+    .steps {
+        width: 100%;
+    }
+    .steps-mob {
+        display: none;
+        width: 100%;
+    }
+    @media (max-width: 769px) {
+        .steps {
+            display: none;
+        }
+        .steps-mob {
+            display: unset;
+        }
+    } 
+}
+
+
+
+.method__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 31px;
+    line-height: 41px;
+    color: $color-text;
+}
+
+.method-small__title {
+    justify-content: flex-end;
+    text-align: end;
+}
+
+.track__baground {
+    display: flex;
+    justify-content: center;
+    height: 915.66px;
+    width: 100%;
+    background-image: url('/assets/img/backgrounds/track.png');
+    background-position-x: center;
+    background-repeat: no-repeat;
+}
+
+.steps {
+    width: 66%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+        >* {
+            max-width: 28.5%;
+            height: 144px;
+            text-align: center;
+            margin: 1rem;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        h4 {
+            margin: 0;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            text-align: center;
+            color: $color-text;
+        }
+        p {
+            margin: 0;
+            display: block;
+            padding: 0 10px;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            color: #544837;
+        }
+    }
+    .first-step {
+        padding-top: 40px;
+        margin-left: 96px;
+    }
+    .second-step {
+        align-self: flex-end;
+        margin-right: 196px;
+        padding-bottom: 15px;
+    }
+    .thirth-step {
+        padding-bottom: 55px;
+    }
+    .fourth-step {
+        align-self: flex-end;
+        padding-bottom: 110px;
+    }
+    .fifth-step {
+        align-self: center;
+    }
+    .reminder {
+    position: absolute;
+    width: 319px;
+    height: fit-content;
+    right: 10%;
+    padding: 10px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    border-radius: 13px;
+    }
+}

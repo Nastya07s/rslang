@@ -183,7 +183,7 @@ class Api {
   /**
    * Gets all user aggregated words.
    * @see /users/{id}/aggregatedWords
-  * @param {Object} paramsObject arguments' object, contains: `group`, `wordsPerPage` and `filter`
+   * @param {Object} paramsObject arguments' object, contains: `group`, `wordsPerPage` and `filter`
    * @example
    *    {
    *      group: 0,

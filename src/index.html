@@ -1,744 +1,316 @@
+
 <!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet" />
-    <title>RSLang</title>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSLang</title>
+</head>
+<body>
+  <header class="header">
+    <div class="wrapper header__wrapper">
+        <div class="nav-but-wrap">
+            <div class="menu-icon">
+                <span class="menu-icon__line menu-icon__line-left"></span>
+                <span class="menu-icon__line"></span>
+                <span class="menu-icon__line menu-icon__line-right"></span>
+            </div>					
+        </div>
+        <div class="nav">
+            <div class="nav__content">
+                <ul class="nav__list">
+                    <li class="nav__list-item active-nav"><a href="#home" class="hover-target">Домой</a></li>
+                    <li class="nav__list-item"><a href="#our-app" class="hover-target">Наше приложение</a></li>
+                    <li class="nav__list-item"><a href="#mini-games" class="hover-target">Мини-игры</a></li>
+                    <li class="nav__list-item"><a href="#about-us" class="hover-target last-link">О нас</a></li>
+                </ul>
+            </div>
+        </div>
 
-  <body>
-    <main class="flex">
-      <section class="menu flex">
-        <div class="menu__info">
-          <div class="menu__logo flex">
-            <a href=""><img src="/assets/img/logo.png" alt="" /></a>
-            <div class="menu__tеxtlogo d-none"><a href="">RSLang</a></div>
+
+        <div class="header__logo-line">
+            <a href="#" class="logo">
+                <object type="image/svg+xml" data="/assets/img/Logo.svg" class="logo-object">
+                    Your browser does not support SVG
+                 </object>
+            </a>
+        <div class="header__buttons">
+            <a href="#home" class="hover-target button button_bordered switcher-login">Войти</a>
+            <a href="#home" class="hover-target button button_colored switcher-signup">Регистрация</a>
+        </div>
+    </div>
+</header>
+
+<section class="promo" id="home">
+    <div class="wrapper promo__wrapper">
+        <div class="promo__content">
+            <h1 class="promo__title">Приложение<br>RSLang</h1>
+            <p class="promo__text">Приложение для изучения английского языка,
+                использующее инновационный метод повторения, а также мини-игры для закрепления пройденного материала.</p>
+            <div class="promo__buttons">
+                <button class="button button_colored modal_wrap">Начать</button>
+                <a href="#" class="link-button">
+                    <span class="ico ico_play"></span>
+                    <span class="link-button__text">Смотреть видео</span>
+                </a>
+            </div>
+            <div class="modal-wrapper">
+                <p>Чтобы начать использование приложения, вам
+                    нужно ВОЙТИ или ЗАРЕГЕСТРИРОВАТЬСЯ, после чего вы автоматически перейдете на главную страницу приложения</p>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="login front">
+                <form class="form form-login">
+                        <p class="form-login__text">ВОЙТИ</p>
+                      <div class="input-block">
+                        <input class="input-email" id="login-email" type="email" autocomplete="off" required placeholder="Почта">
+                      </div>
+                      <div class="input-block">
+                        <div class="eye-box">
+                          <img class="eye" src="/assets/img/icons/eye.svg" alt="">
+                        </div>
+                        <input class="input-password password" id="login-password" type="password" autocomplete="off" required placeholder="Пароль">
+                      </div>
+                      <div class="form-btn">
+                        <button type="submit" class="btn-login">ВОЙТИ</button>
+                      </div>
+                      <div class="links">
+                        <span class="inner-switch toggler">СОЗДАТЬ АККАУНТ</span>
+                    </div>
+                  </form>
+            </div>
+            <div class="register back">
+                <form action="/" method="post" class="form form-signup form-registration">
+                        <p class="form-login__text">РЕГИСТРАЦИЯ</p>
+                      <div class="input-block">
+                        <input id="signup-email" type="email" autocomplete="off" required placeholder="Почта">
+                      </div>
+                      <div class="input-block">
+                          <div class="eye-box">
+                        <img class="eye" src="/assets/img/icons/eye.svg" alt="">
+                    </div>
+                        <input class="input-password password" id="signup-password" type="password" autocomplete="off" required placeholder="Пароль">
+                      </div>
+                      <button type="submit" class="btn-signup">СОЗДАТЬ АККАУНТ</button>
+                    <div class="links">
+                        <span class="inner-switch toggler">У МЕНЯ УЖЕ ЕСТЬ АККАУНТ</span>
+                    </div>
+                  </form>
+            </div>
+        </div>
+        <div class="arrow-down">
+            <a href="#our-app" class="hover-target shake-vertical"><img class="arrow" src="/assets/img/icons/download.svg" alt=""></a>
+        </div>
+    </div>
+</section>
+<section class="method" id="our-app">
+    <div class="wrapper method__wrapper">
+        <img src="/assets/img/backgrounds/steps.svg" alt="" class="steps">
+        <img src="/assets/img/backgrounds/steps-mob.svg" alt="" class="steps-mob">
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="tools">
+    <div class="wrapper tools__wrapper">
+        <h2 class="tools__title">Наше приложение развивает следующие навыки</h2>
+        <div class="layout-4-column tool-container">
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_violet">
+                        <span class="ico ico_arrow"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Восприятие на слух</h4>
+                <p class="tool__text">Развивай понимание услышанного и практикуй фокусировку.</p>
+            </div>
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_yellow">
+                        <span class="ico ico_snake"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Чтения и письма</h4>
+                <p class="tool__text">Получи своевременную помощь при проблемах с грамматикой.</p>
+            </div>
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_red">
+                        <span class="ico ico_heart"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Память</h4>
+                <p class="tool__text">Учи новые слова быстро и проверяй словарный запас в мини-играх.</p>
+            </div>
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_blue">
+                        <span class="ico ico_clock"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Произношение</h4>
+                <p class="tool__text">Тренеруй и практикуй разговорную речь с комфортом.</p>
+            </div>
+        </div>
+        <div class="tools__button">
+                <a href="#home" class="hover-target button button_colored register-now">Зарегистрироваться сейчас</a>
+        </div>
+    </div>
+</section>
+<section class="strategies" id="mini-games">
+    <div class="wrapper">
+        <h2 class="strategies__title">Мини-игры</h2>
+        <p class="strategies__description">Все игры интерактивны и основаны на проверенных методиках. С их помощью ты освоишь грамматические правила,
+           расширишь словарный запас, улучшишь навыки чтения и аудирования.
+        </p>
+        <div class="layout-3-column strategy-wrapper">
+            <article class="strategy block-shadowed">
+                <img class="strategy__image" src="/assets/img/strategies/fillword.png" alt="strategy">
+                <div class="strategy__content">
+                    <h3 class="strategy__name">Fillword</h3>
+                    <h4 class="strategy__description">Увеличивает словарный запас</h3>
+                      <div class="strategy__tags tags">
+                        <span class="tag tag_colored">Память</span>
+                        <span class="tag tag_colored">Понимание</span>
+                    </div>
+                </div>
+            </article>
+            <article class="strategy block-shadowed">
+                <img class="strategy__image" src="/assets/img/strategies/puzzle.png" alt="strategy">
+                <div class="strategy__content">
+                    <h3 class="strategy__name">English-puzzle</h3>
+                    <h4 class="strategy__description">Улучшает навыки чтения и письма</h3>
+                      <div class="strategy__tags tags">
+                        <span class="tag tag_colored">Понимание</span>
+                        <span class="tag tag_colored">Память</span>
+                    </div>
+                </div>
+            </article>
+            <article class="strategy block-shadowed">
+                <img class="strategy__image" src="/assets/img/strategies/goal.png" alt="strategy">
+                <div class="strategy__content">
+                    <h3 class="strategy__name">Аудиовызов</h3>
+                    <h4 class="strategy__description">Улучшает восприятие английской речи на слух</h3>
+                      <div class="strategy__tags tags">
+                        <span class="tag tag_colored">Понимание</span>
+                    </div>
+                </div>
+            </article>
+            <article class="strategy block-shadowed">
+              <img class="strategy__image" src="/assets/img/strategies/savannah.svg" alt="strategy">
+              <div class="strategy__content">
+                  <h3 class="strategy__name">Саванна</h3>
+                  <h4 class="strategy__description">Помогает не забыть выученные слова</h3>
+                    <div class="strategy__tags tags">
+                      <span class="tag tag_colored">Скорость перевода</span>
+                  </div>
+              </div>
+          </article>
+          <article class="strategy block-shadowed">
+              <img class="strategy__image" src="/assets/img/strategies/speakit.png" alt="strategy">
+              <div class="strategy__content">
+                  <h3 class="strategy__name">SpeakIt</h3>
+                  <h4 class="strategy__description">Улучшает<br>произношение</h3>
+                    <div class="strategy__tags tags">
+                      <span class="tag tag_colored">Память</span>
+                      <span class="tag tag_colored">Понимание</span>
+                  </div>
+              </div>
+          </article>
+          <article class="strategy block-shadowed">
+              <img class="strategy__image" src="/assets/img/strategies/sprint.png" alt="strategy">
+              <div class="strategy__content">
+                  <h3 class="strategy__name">Спринт</h3>
+                  <h4 class="strategy__description">Увеличивает скорость понимания и перевода</h3>
+                    <div class="strategy__tags tags">
+                      <span class="tag tag_colored">Скорость перевода</span>
+                  </div>
+              </div>
+          </article>
+        </div>
+    </div>
+</section>
+<section class="about-us" id="about-us">
+    <div class="wrapper">
+        <h2 class="about-us__title">Наша команда</h2>
+        <p class="about-us__description">Мы - команда активных и амбициозных молодых людей,
+             которые ставят перед собой большие цели и не боятся трудностей их реализации.
+             У членов нашей команды разные истории, и у каждого за плечами свой путь самурая,
+             но мы разделяем общую страсть к программированию. Мы верим, что, чтобы оставаться хорошим
+             front-end разработчиком, нужно развиваться, поэтому мы постоянно ищем способы, как стать лучше в том, что мы делаем.</p>
+        <div class="layout-3-column employee-container">
+            <div class="employee block-shadowed" data-id="0">
+                <div class="employee__content">
+                    <h5 class="employee__name">Анастасия Котович</h5>
+                    <p class="employee__title">Team Lead</p>
+                    <a class="employee__contact" href="mailto:nastya.kotovich07@gmail.com">nastya.kotovich07@gmail.com</a>
+                </div>
+                <img class="employee__photo" src="/assets/img/employees/nastya.png" alt="Anastasiya Kotovich">
+            </div>
+            <div class="employee block-shadowed" data-id="1">
+                <div class="employee__content">
+                    <h5 class="employee__name">Павел Свирид</h5>
+                    <p class="employee__title">Front-end developer </p>
+                    <a class="employee__contact" href="mailto:psvirid@gmail.com">psvirid@gmail.com</a>
+                </div>
+                <img class="employee__photo" src="/assets/img/employees/pavel.png" alt="Pavel Svirid">
+            </div>
+            <div class="employee block-shadowed" data-id="2">
+                <div class="employee__content">
+                    <h5 class="employee__name">Евгения Габрикова</h5>
+                    <p class="employee__title">Front-end developer</p>
+                    <a class="employee__contact" href="mailto:gabriellji@yahoo.com">gabriellji@yahoo.com</a>
+                </div>
+                <img class="employee__photo" src="/assets/img/employees/3.png" alt="Evgeniya Gabrikova">
+            </div>
+            <div class="employee block-shadowed" data-id="3">
+              <div class="employee__content">
+                  <h5 class="employee__name">Алексей Шевченко</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:kamikozz@mail.ru">kamikozz@mail.ru</a>
+              </div>
+              <img class="employee__photo" src="/assets/img/employees/lesha.png" alt="Alexey Shevchenko">
           </div>
-          <div class="menu__nav nav-menu">
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/learn.png" alt="" /></a>
+          <div class="employee block-shadowed" data-id="4">
+              <div class="employee__content">
+                  <h5 class="employee__name">Антон Мулярчук</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:antowa_muliarchyk@mail.ru">antowa_muliarchyk@mail.ru</a>
               </div>
-              <div class="nav-menu__about d-none"><a href="">Обучение</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/speak.png" alt="" /></a>
+              <img class="employee__photo" src="/assets/img/employees/anton.png" alt="Anton Muliarchyk">
+          </div>
+          <div class="employee block-shadowed" data-id="5">
+              <div class="employee__content">
+                  <h5 class="employee__name">Татьяна Томина</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:tominanusha@gmail.com">tominanusha@gmail.com</a>
               </div>
-              <div class="nav-menu__about d-none"><a href="">SpeakIt</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/puzzleIcon.png" alt="" /></a>
-              </div>
-              <div class="nav-menu__about d-none"><a href="">EnglishPuzzle</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/music.png" alt="" /></a>
-              </div>
-              <div class="nav-menu__about d-none"><a href="">Аудиовызов</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/savanna.png" alt="" /></a>
-              </div>
-              <div class="nav-menu__about d-none"><a href="">Саванна</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/run.png" alt="" /></a>
-              </div>
-              <div class="nav-menu__about d-none"><a href="">Спринт</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/book.png" alt="" /></a>
-              </div>
-              <div class="nav-menu__about d-none"><a href="">Словарь</a></div>
-            </div>
-            <div class="nav-menu__item">
-              <div class="nav-menu__image center">
-                <a href=""><img src="/assets/img/graph.png" alt="" /></a>
-              </div>
-              <div class="nav-menu__about d-none"><a href="">Статистика</a></div>
-            </div>
+              <img class="employee__photo" src="/assets/img/employees/tanya.png" alt="Tatyana Tomina">
           </div>
         </div>
-        <div class="menu__opportunities opportunities-menu">
-          <div class="opportunities-menu__item flex opportunities-menu__item-on">
-            <div class="opportunities-menu__image center">
-              <img src="/assets/img/off.png" alt="" />
-            </div>
-            <div class="opportunities-menu__about d-none">Звук&nbsp;выкл.</div>
-          </div>
-          <div class="opportunities-menu__item flex opportunities-menu__item-off d-none">
-            <div class="opportunities-menu__image center">
-              <img src="/assets/img/speaker.png" alt="" />
-            </div>
-            <div class="opportunities-menu__about d-none">Звук&nbsp;вкл.</div>
-          </div>
-          <div class="opportunities-menu__item flex">
-            <div class="opportunities-menu__image center">
-              <a href=""><img src="/assets/img/gear.png" alt="" /></a>
-            </div>
-            <div class="opportunities-menu__about d-none"><a href="">Наcтройки</a></div>
-          </div>
-          <div class="opportunities-menu__item flex opportunities-menu__item-open">
-            <div class="opportunities-menu__image center openArrow">
-              <img src="/assets/img/open.png" alt="" />
-            </div>
-            <div class="opportunities-menu__about d-none"><p>Свернуть</p></div>
-          </div>
+        <div class="employee__modal-window">
+            <h5 class="employee__name">Татьяна Томина</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:tominanusha@gmail.com">tominanusha@gmail.com</a>
+                    <ol class="employee__stuff">
+                        
+                    </ol>
+                    <div class="close_modal">
+                        <button class="btn-close_modal">Закрыть</button>
+                    </div>
         </div>
-      </section>
-      <div class="wrapper center">
-        	<section class="block center">
-					<div class="block-wrapper">
-						<div class="block__slider slider-block">
-							<div class="swiper-container swiper-no-swiping">
-								<div class="swiper-wrapper">
-									<div class="swiper-slide card">
-										<div class="slider-block__complexity">
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-										</div>
-										<div class="slider-block__info">
-											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
-											<div class="slider-block__body slider-b-body flex">
-												<div class="slider-b-body__top">
-													<div class="slider-b-body__title">
-														The students <input type="text" placeholder="agree" /> they have too much homework.
-													</div>
-													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
-												</div>
-												<div class="slider-b-body__center">
-													<div class="slider-b-body__show flex">
-														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
-													</div>
-													<div class="slider-b-body__goshow opacity-0">
-														<div class="slider-b-body__example">
-															To <i>agree</i> is to have the same opinion or belief as another person.
-														</div>
-														<div class="slider-b-body__text">
-															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
-														</div>
-													</div>
-												</div>
-												<div class="slider-b-body__bottom flex">
-													<div class="slider-b-body__get flex">
-														<span
-															>Добавить в<br />
-															сложные слова</span
-														><label >
-																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-																<span></span>
-														</label>
-													</div>
-													<div class="slider-b-body__more">
-														<span>Agree - [əgríː] - согласна</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="swiper-slide card">
-										<div class="slider-block__complexity">
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-										</div>
-										<div class="slider-block__info">
-											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div> 
-											<div class="slider-block__body slider-b-body flex">
-												<div class="slider-b-body__top">
-													<div class="slider-b-body__title">
-														The students <input type="text" placeholder="agree" /> they have too much homework.
-													</div>
-													<div class="slider-b-body__sub">ы</div>
-												</div>
-												<div class="slider-b-body__center">
-													<div class="slider-b-body__show flex">
-														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
-													</div>
-													<div class="slider-b-body__goshow opacity-0">
-														<div class="slider-b-body__example">
-															To <i>agree</i> is to have the same opinion or belief as another person.
-														</div>
-														<div class="slider-b-body__text">
-															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
-														</div>
-													</div>
-												</div>
-												<div class="slider-b-body__bottom flex">
-													<div class="slider-b-body__get flex">
-														<span
-															>Добавить в<br />
-															сложные слова</span
-														>
-														<label >
-																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-																<span></span>
-														</label>
-													</div>
-													<div class="slider-b-body__more">
-														<span>Agree - [əgríː] - согласна</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="swiper-slide card">
-										<div class="slider-block__complexity">
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-										</div>
-										<div class="slider-block__info">
-											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
-											<div class="slider-block__body slider-b-body flex">
-												<div class="slider-b-body__top">
-													<div class="slider-b-body__title">
-														The students <input type="text" placeholder="agree" /> they have too much homework.
-													</div>
-													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
-												</div>
-												<div class="slider-b-body__center">
-													<div class="slider-b-body__show flex">
-														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
-													</div>
-													<div class="slider-b-body__goshow opacity-0">
-														<div class="slider-b-body__example">
-															To <i>agree</i> is to have the same opinion or belief as another person.
-														</div>
-														<div class="slider-b-body__text">
-															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
-														</div>
-													</div>
-												</div>
-												<div class="slider-b-body__bottom flex">
-													<div class="slider-b-body__get flex">
-														<span
-															>Добавить в<br />
-															сложные слова</span
-														>
-														<label >
-																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-																<span></span>
-														</label>
-													</div>
-													<div class="slider-b-body__more">
-														<span>Agree - [əgríː] - согласна</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="swiper-slide card">
-										<div class="slider-block__complexity">
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-										</div>
-										<div class="slider-block__info">
-											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
-											<div class="slider-block__body slider-b-body flex">
-												<div class="slider-b-body__top">
-													<div class="slider-b-body__title">
-														The students <input type="text" placeholder="agree" /> they have too much homework.
-													</div>
-													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
-												</div>
-												<div class="slider-b-body__center">
-													<div class="slider-b-body__show flex">
-														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
-													</div>
-													<div class="slider-b-body__goshow opacity-0">
-														<div class="slider-b-body__example">
-															To <i>agree</i> is to have the same opinion or belief as another person.
-														</div>
-														<div class="slider-b-body__text">
-															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
-														</div>
-													</div>
-												</div>
-												<div class="slider-b-body__bottom flex">
-													<div class="slider-b-body__get flex">
-														<span
-															>Добавить в<br />
-															сложные слова</span
-														>
-														<label >
-																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-																<span></span>
-														</label>
-													</div>
-													<div class="slider-b-body__more">
-														<span>Agree - [əgríː] - согласна</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="swiper-slide card">
-										<div class="slider-block__complexity">
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-											<span class="slider-block__circle"></span>
-										</div>
-										<div class="slider-block__info">
-											<div class="slider-block__img"><img src="/assets/img/people.jpg" alt="" /></div>
-											<div class="slider-block__body slider-b-body flex">
-												<div class="slider-b-body__top">
-													<div class="slider-b-body__title">
-														The students <input type="text" placeholder="agree" /> they have too much homework.
-													</div>
-													<div class="slider-b-body__sub">Студенты согласны, что у них слишком много домашней работы</div>
-												</div>
-												<div class="slider-b-body__center">
-													<div class="slider-b-body__show flex">
-														<span>Показать объяснение значения слова</span>
-														<img class="slider-b-body__accordionshow closeArrow" src="/assets/img/arrowDown.png" alt="1" />
-													</div>
-													<div class="slider-b-body__goshow opacity-0">
-														<div class="slider-b-body__example">
-															To <i>agree</i> is to have the same opinion or belief as another person.
-														</div>
-														<div class="slider-b-body__text">
-															Согласиться - значит иметь то же мнение или убеждение, что и другой человек
-														</div>
-													</div>
-												</div>
-												<div class="slider-b-body__bottom flex">
-													<div class="slider-b-body__get flex">
-														<span
-															>Добавить в<br />
-															сложные слова</span
-														>
-														<label >
-																<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-																<span></span>
-														</label>
-													</div>
-													<div class="slider-b-body__more">
-														<span>Agree - [əgríː] - согласна</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
-								
-							</div>
-							<div class="swiper-button-next"></div>
-								<div class="swiper-button-prev"></div>
-						</div>
-							
-						<div class="block__lvl lvl-block flex">
-							<div class="lvl-block__item"><span>Снова</span></div>
-							<div class="lvl-block__item"><span>Легко</span></div>
-							<div class="lvl-block__item"><span>Хорошо</span></div>
-							<div class="lvl-block__item"><span>Трудно</span></div>
-						</div>
-						<div class="block__bar bar-block flex">
-							<div class="bar-block__numone"></div>
-							<div class="bar-block__line">
-								<div class="bar-block__linebar"></div>
-							</div>
-							<div class="bar-block__numtwo"></div>
-						</div>
-					</div>
-					
-        </section> 
-
-        <!-- <section class="settings center">
-				<div class="card settings__card">
-					<div class="settings__set">
-						Настройки
-					</div>
-					<div class="settings__other">
-						<div class="settings__item flex">
-							<div class="settings__text">Режим изучения слов</div>
-							<select class="settings__mode">
-								<option value="random">Вперемешку</option>
-								<option value="onlyNew">Только новые слова</option>
-								<option value="onlyLerning">Только изучаемые слова</option>
-							</select>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Количество новых слов</div>
-							<input type="text" class="settings__square-big">
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Количество карточке в день</div>
-							<input type="text" class="settings__square-big">
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Предложение с объяснением</div>
-							<label >
-									<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-									<span></span>
-								</label>		
-						</div>
-						<div class="settings__item flex">			
-							<div class="settings__text">Пример использования</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Перевод слова</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Картинка-ассоциация</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Транскрипция</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Кнопка показать ответ</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Кнопка удалить</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-						<div class="settings__item flex">
-							<div class="settings__text">Кнопка добавить в сложные слова</div>
-							<label >
-								<input type="checkbox" class="custom-checkbox" name="happy" value="yes" />
-								<span></span>
-							</label>
-						</div>
-					</div>
-					<div class="settings__logout"><a>Выйти из аккаунта</a></div>
-				</div>
-			</section>  -->
-        <!-- <section class="vocabulary card">
-          <div class="vocabulary__title flex">
-            <div class="vocabulary__about">Словарь</div>
-          </div>
-          <div class="vocabulary__info flex">
-            <div class="vocabulary__info-title vocabulary__info-title-active"><a>Изучаемые&nbsp;слова</a></div>
-            <div class="vocabulary__info-title"><a>Сложные</a></div>
-            <div class="vocabulary__info-title"><a>Удалённые</a></div>
-          </div>
-          <div class="vocabulary__num">Всeго слов: 330</div>
-          <div class="vocabulary__template template-vocabulary">
-            <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title flex">
-                <div class="template-vocabulary__lvl">
-                  <div class="complexity flex">
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                  </div>
-                </div>
-                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-              </div>
-              <div class="template-vocabulary__all flex">
-                <div class="template-vocabulary__info">
-                  <div class="template-vocabulary__word flex">
-                    <span>Agree - [əgríː] - согласна</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                    </svg>
-                  </div>
-                  <div class="template-vocabulary__example">
-                    <span>Пример:</span>
-                    <span>The students <b>agree</b> they have too much homework.</span>
-                  </div>
-                  <div class="template-vocabulary__value">
-                    <span>Значение:</span>
-                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-                  </div>
-                  <div class="template-vocabulary__time flex">
-                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-                    <div class="template-vocabulary__num">Повторения: 6</div>
-                  </div>
-                </div>
-                <div class="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
-              </div>
-            </div>
-            <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title flex">
-                <div class="template-vocabulary__lvl">
-                  <div class="complexity flex">
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                  </div>
-                </div>
-                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-              </div>
-              <div class="template-vocabulary__all flex">
-                <div class="template-vocabulary__info">
-                  <div class="template-vocabulary__word flex">
-                    <span>Agree - [əgríː] - согласна</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                    </svg>
-                  </div>
-                  <div class="template-vocabulary__example">
-                    <span>Пример:</span>
-                    <span>The students <b>agree</b> they have too much homework.</span>
-                  </div>
-                  <div class="template-vocabulary__value">
-                    <span>Значение:</span>
-                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-                  </div>
-                  <div class="template-vocabulary__time flex">
-                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-                    <div class="template-vocabulary__num">Повторения: 6</div>
-                  </div>
-                </div>
-                <div class="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
-              </div>
-            </div>
-            <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title flex">
-                <div class="template-vocabulary__lvl">
-                  <div class="complexity flex">
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                  </div>
-                </div>
-                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-              </div>
-              <div class="template-vocabulary__all flex">
-                <div class="template-vocabulary__info">
-                  <div class="template-vocabulary__word flex">
-                    <span>Agree - [əgríː] - согласна</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                    </svg>
-                  </div>
-                  <div class="template-vocabulary__example">
-                    <span>Пример:</span>
-                    <span>The students <b>agree</b> they have too much homework.</span>
-                  </div>
-                  <div class="template-vocabulary__value">
-                    <span>Значение:</span>
-                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-                  </div>
-                  <div class="template-vocabulary__time flex">
-                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-                    <div class="template-vocabulary__num">Повторения: 6</div>
-                  </div>
-                </div>
-                <div class="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
-              </div>
-            </div>
-
-            <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title flex">
-                <div class="template-vocabulary__lvl">
-                  <div class="complexity flex">
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                  </div>
-                </div>
-                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-              </div>
-              <div class="template-vocabulary__all flex">
-                <div class="template-vocabulary__info">
-                  <div class="template-vocabulary__word flex">
-                    <span>Agree - [əgríː] - согласна</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                    </svg>
-                  </div>
-                  <div class="template-vocabulary__example">
-                    <span>Пример:</span>
-                    <span>The students <b>agree</b> they have too much homework.</span>
-                  </div>
-                  <div class="template-vocabulary__value">
-                    <span>Значение:</span>
-                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-                  </div>
-                  <div class="template-vocabulary__time flex">
-                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-                    <div class="template-vocabulary__num">Повторения: 6</div>
-                  </div>
-                </div>
-                <div class="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
-              </div>
-            </div>
-            <div class="template-vocabulary__body flex">
-              <div class="template-vocabulary__title flex">
-                <div class="template-vocabulary__lvl">
-                  <div class="complexity flex">
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                    <span class="complexity__circle"></span>
-                  </div>
-                </div>
-                <div class="template-vocabulary__restore"><a href="">Восстановить</a></div>
-              </div>
-              <div class="template-vocabulary__all flex">
-                <div class="template-vocabulary__info">
-                  <div class="template-vocabulary__word flex">
-                    <span>Agree - [əgríː] - согласна</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-												d="M11.6227 0.732372C11.3907 0.621705 11.1173 0.651038 10.9173 0.812372L4.432 6.00037H1.33333C0.598667 6.00037 0 6.59904 0 7.3337V12.667C0 13.403 0.598667 14.0004 1.33333 14.0004H4.432L10.916 19.1884C11.0373 19.2844 11.1853 19.3337 11.3333 19.3337C11.432 19.3337 11.5307 19.311 11.6227 19.267C11.8533 19.1564 12 18.923 12 18.667V1.3337C12 1.0777 11.8533 0.844372 11.6227 0.732372Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M15.3746 5.28569C15.112 5.02702 14.6906 5.03102 14.432 5.29102C14.1733 5.55369 14.176 5.97502 14.4373 6.23502C15.4453 7.22969 16 8.56702 16 10.0004C16 11.4337 15.4453 12.771 14.4373 13.7657C14.176 14.023 14.1733 14.4457 14.432 14.7084C14.5626 14.8404 14.7346 14.9057 14.9053 14.9057C15.0746 14.9057 15.244 14.8417 15.3746 14.7124C16.6386 13.4684 17.3333 11.7937 17.3333 10.0004C17.3333 8.20702 16.6386 6.53236 15.3746 5.28569Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                      <path
-												d="M17.256 3.40704C16.9933 3.14704 16.572 3.14971 16.312 3.41104C16.0533 3.67237 16.056 4.09504 16.316 4.35371C17.832 5.85637 18.6667 7.86171 18.6667 10.0004C18.6667 12.139 17.832 14.143 16.316 15.6457C16.056 15.9057 16.0533 16.3284 16.312 16.5897C16.444 16.7204 16.6147 16.7857 16.7853 16.7857C16.9547 16.7857 17.1253 16.7217 17.256 16.5924C19.0267 14.839 20 12.4977 20 10.0004C20 7.50304 19.0267 5.16171 17.256 3.40704Z"
-												stroke="black"
-      									stroke-opacity="0.56"
-                      />
-                    </svg>
-                  </div>
-                  <div class="template-vocabulary__example">
-                    <span>Пример:</span>
-                    <span>The students <b>agree</b> they have too much homework.</span>
-                  </div>
-                  <div class="template-vocabulary__value">
-                    <span>Значение:</span>
-                    <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
-                  </div>
-                  <div class="template-vocabulary__time flex">
-                    <div class="template-vocabulary__lasttime">Последие повторение: 2020.05.10</div>
-                    <div class="template-vocabulary__nexttime">Следующее повторение: 2020.06.25</div>
-                    <div class="template-vocabulary__num">Повторения: 6</div>
-                  </div>
-                </div>
-                <div class="template-vocabulary__image"><img src="/assets/img/imagecard.jpg" alt="" /></div>
-              </div>
-            </div>
-          </div>
-        </section> -->
-
-        <!-- <section class="statistics card">
-				<div class="statistics__title">Статистика</div>
-				<div class="statistics__graph">
-					<div class="statistics__text">Место для графика</div>
-				</div>
-			</section> -->
-      </div>
-      <div class="menu__burger">
-        <span></span>
-      </div>
-    </main>
-    <!-- <script src="js/script.min.js"></script> -->
-  </body>
+    </div>
+</section>
+<footer class="footer">
+    <div class="wrapper footer__wrapper">
+        <a href="#" class="logo">
+            <object type="image/svg+xml" data="/assets/img/Logo.svg" class="logo-object">
+                Your browser does not support SVG
+             </object>
+        </a>
+    </div>
+</footer>
+</body>
 </html>

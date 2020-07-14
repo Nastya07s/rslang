@@ -8,7 +8,7 @@
   .slider-b-body__title {
     font-size: 37px;
   }
-  .slider-b-body__title input {
+  .slider-b-body__input input , .slider-b-body__input div {
     font-size: 37px;
     line-height: 30px;
   }
@@ -37,7 +37,7 @@
   .slider-b-body__text {
     margin-bottom: 30px;
   }
-  .slider-b-body__title input {
+  .slider-b-body__input input , .slider-b-body__input div {
     font-size: 29px;
   }
   .slider-block__img {
@@ -51,23 +51,25 @@
     width: 648px;
     height: 328px;
   }
-  .vocabulary__info-title a {
-    width: 316px;
-  }
   .vocabulary {
     max-height: 690px;
   }
 }
 @media (max-width: 1108px) {
-  .vocabulary__info-title a {
+  .vocabulary__info-title {
     width: 100%;
   }
-  .vocabulary__info-title:nth-child(2) a {
-    border: none;
+  .vocabulary__info-title {
+    border-right: none;
+    border-bottom: none;
+
+    &:last-child{
+      border-bottom: 1px solid rgba($lightGrey, 0.56);
+    }
   }
 
   .vocabulary__template {
-    max-height: 393px;
+    max-height: 307px;
   }
   .vocabulary__info {
     flex-direction: column;
@@ -85,10 +87,12 @@
     flex-direction: column;
   }
   .slider-block__img {
-    text-align: center;
-    img {
-      width: 30%;
-    }
+    margin-right: 0;
+    width: auto;
+    height: auto;
+  }
+  .slider-block__body{
+    width: auto;
   }
   .lvl-block {
     margin-top: 20px;
@@ -111,7 +115,7 @@
     min-width: 432px;
     width: 100%;
   }
-  .vocabulary__info-title a {
+  .vocabulary__info-title{
     font-size: 15px;
   }
   .vocabulary__trening {
@@ -166,7 +170,7 @@
     font-size: 25px;
     line-height: 20px;
   }
-  .slider-b-body__title input {
+  .slider-b-body__input input , .slider-b-body__input div {
     font-size: 25px;
   }
   .slider-b-body__sub {
@@ -200,13 +204,13 @@
     height: 209px;
   }
   .vocabulary__info-title a {
-    width: 150px;
-    font-size: 15px;
-    border: none;
+    // width: 150px;
+    // font-size: 15px;
+    // border: none;
   }
-  .vocabulary__info-title:nth-child(2) a {
-    border: none;
-  }
+  // .vocabulary__info-title:nth-child(2) a {
+  //   border: none;
+  // }
   .vocabulary__info {
     flex-direction: column;
     text-align: center;
@@ -232,13 +236,13 @@
     font-size: 30px;
     padding-bottom: 10px;
   }
-  .vocabulary__info-title a {
-    width: 370px;
-    font-size: 15px;
-  }
-  .vocabulary__info-title:nth-child(2) a {
-    font-size: 15px;
-  }
+  // .vocabulary__info-title a {
+  //   width: 370px;
+  //   font-size: 15px;
+  // }
+  // .vocabulary__info-title:nth-child(2) a {
+  //   font-size: 15px;
+  // }
   .template-vocabulary__all {
     flex-direction: column;
   }
@@ -270,6 +274,10 @@
   .template-vocabulary__body {
     margin-bottom: 50px;
   }
+  .template-vocabulary__image {
+    width: auto;
+    height: auto;
+  }
 }
 @media (max-width: 522px) {
   .statistics__graph {
@@ -283,10 +291,10 @@
     font-size: 25px;
     line-height: 23px;
   }
-  .vocabulary__info-title a {
-    width: 300px;
-    font-size: 15px;
-  }
+  // .vocabulary__info-title a {
+  //   width: 300px;
+  //   font-size: 15px;
+  // }
   .vocabulary {
     max-height: 450px;
   }
@@ -300,7 +308,7 @@
   .slider-b-body__title {
     font-size: 20px;
   }
-  .slider-b-body__title input {
+  .slider-b-body__input input , .slider-b-body__input div {
     font-size: 20px;
     line-height: 20px;
   }
@@ -337,9 +345,8 @@
     width: 279px;
     height: 140px;
   }
-  .vocabulary__info-title a {
-    width: 250px;
-    font-size: 15px;
+  .vocabulary__info-title {
+    padding: 7px 50px;
   }
   .vocabulary {
     max-height: 450px;
@@ -398,12 +405,16 @@
   .slider-b-body__title {
     font-size: 35px;
     line-height: 39px;
-    input {
+  }
+
+  .slider-b-body__input {
+    input, div {
       font-size: 35px;
       line-height: 39px;
-      width: 120px;
+      // width: 120px;
     }
   }
+
   .slider-b-body__sub {
     font-size: 20px;
     line-height: 25px;
@@ -497,9 +508,9 @@
     font-size: 16px;
   }
 
-  .slider-b-body__title input {
+  .slider-b-body__input input, .slider-b-body__input div {
     font-size: 16px;
-    width: 63px;
+    // width: 63px;
     line-height: 18px;
   }
 
@@ -602,9 +613,9 @@
     padding: 20px;
   }
 
-  .vocabulary__info-title:nth-child(2) {
-    border: none;
-  }
+  // .vocabulary__info-title:nth-child(2) {
+  //   border: none;
+  // }
 
   .vocabulary__num {
     font-size: 18px;
