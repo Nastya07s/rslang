@@ -56,50 +56,56 @@ export default class Words {
    * @param difficulty
    * @returns {Promise<unknown>}
    */
-  updateKnowledge(wordId, difficulty) {
-    this.api.getUserWordById(wordId)
-      .then((response) => {
-        const word = response;
-        word.optional = word.optional || {};
-        if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
-          word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
-          if (word.optional.degreeOfKnowledge === DEGREE_OF_KNOWLEDGE_MAX) {
-            word.optional.becameLearned = Date.now();
-          }
-        } else if (!word.optional.degreeOfKnowledge) {
-          word.optional.degreeOfKnowledge = 1;
+  async updateKnowledge(wordId, difficulty) {
+    const response = await this.api.getUsersAggregatedWordsById(wordId);
+    if (!response || !response[0]) {
+      return;
+    }
+    const word = response[0].userWord;
+    if (!word) {
+      const newWord = Words.getNewWord(difficulty);
+      newWord.optional.countRepetition = 1;
+      this.api.createUserWord(wordId, newWord);
+    } else {
+      word.optional = word.optional || {};
+      if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
+        word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
+        if (word.optional.degreeOfKnowledge === DEGREE_OF_KNOWLEDGE_MAX) {
+          word.optional.becameLearned = Date.now();
         }
-        return this.api.updateUserWordById(wordId, {
-          difficulty: word.difficulty,
-          optional: word.optional,
-        });
-      }, () => {
-        const newWord = Words.getNewWord(difficulty);
-        newWord.optional.degreeOfKnowledge = 1;
-        this.api.createUserWord(wordId, newWord);
+      } else if (!word.optional.degreeOfKnowledge) {
+        word.optional.degreeOfKnowledge = 1;
+      }
+      this.api.updateUserWordById(wordId, {
+        difficulty: word.difficulty,
+        optional: word.optional,
       });
+    }
   }
 
-  updateRepetition(wordId, difficulty) {
-    this.api.getUserWordById(wordId)
-      .then((response) => {
-        const word = response;
-        word.optional = word.optional || {};
-        if (word.optional.countRepetition) {
-          word.optional.countRepetition += 1;
-        } else {
-          word.optional.countRepetition = 1;
-        }
-        word.optional.lastRepetition = Date.now();
-        return this.api.updateUserWordById(wordId, {
-          difficulty: word.difficulty,
-          optional: word.optional,
-        });
-      }, () => {
-        const newWord = Words.getNewWord(difficulty);
-        newWord.optional.countRepetition = 1;
-        this.api.createUserWord(wordId, newWord);
+  async updateRepetition(wordId, difficulty) {
+    const response = await this.api.getUsersAggregatedWordsById(wordId);
+    if (!response || !response[0]) {
+      return;
+    }
+    const word = response[0].userWord;
+    if (!word) {
+      const newWord = Words.getNewWord(difficulty);
+      newWord.optional.countRepetition = 1;
+      this.api.createUserWord(wordId, newWord);
+    } else {
+      word.optional = word.optional || {};
+      if (word.optional.countRepetition) {
+        word.optional.countRepetition += 1;
+      } else {
+        word.optional.countRepetition = 1;
+      }
+      word.optional.lastRepetition = Date.now();
+      this.api.updateUserWordById(wordId, {
+        difficulty: word.difficulty,
+        optional: word.optional,
       });
+    }
   }
 
   /**
