@@ -23,10 +23,12 @@ export default {
     eventEmitter.on('changeMode', this.loaded.bind(this));
     eventEmitter.on('userStart', this.start.bind(this));
     eventEmitter.on('sayWord', (() => {
-      new Audio(this.state.getters.getAudioWord()).play();
+      this.audio.src = this.state.getters.getAudioWord();
+      this.audio.play();
     }));
     eventEmitter.on('sayPhrase', (() => {
-      new Audio(this.state.getters.getAudioPhrase()).play();
+      this.audio.src = this.state.getters.getAudioPhrase();
+      this.audio.play();
     }));
     eventEmitter.on('dontKnow', this.onDontKnow.bind(this));
     eventEmitter.on('droped', this.onDropped.bind(this));
