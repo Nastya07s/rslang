@@ -118,6 +118,10 @@ export default class Model {
     this.audio.muted = this.audioMute;
     const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
     this.audio.src = `${url}/${this.gameWord.audio}`;
-    this.audio.play();
+    try {
+      this.audio.play();
+    } catch (e) {
+      console.log('la la la');
+    }
   }
 }

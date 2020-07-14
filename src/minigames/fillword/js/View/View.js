@@ -23,6 +23,7 @@ export default class View {
     this.containerStatistics = document.getElementById('statistic');
     this.sound = document.querySelector('.audio');
     this.close = document.querySelector('.close');
+    this.finishStatistics = document.querySelector('.finish-statistics__answers');
     this.validStatistics = document.querySelector('.finish-statistics__answers-valid');
     this.inValidStatistics = document.querySelector('.finish-statistics__answers-invalid');
     this.validStatisticsTitle = document.querySelector('.finish-statistics__answers-valid-title');
@@ -99,6 +100,14 @@ export default class View {
 
   showSound() {
     this.sound.classList.remove('inactive');
+  }
+
+  soundSilince(state) {
+    if (state) {
+      this.sound.classList.add('audio_silence');
+    } else {
+      this.sound.classList.remove('audio_silence');
+    }
   }
 
   showCorrectResult() {
@@ -270,6 +279,27 @@ export default class View {
         createElementDOM('div', 'finish-statistics__answer-dash', statisticsAnswer).textContent = '—';
         createElementDOM('div', 'finish-statistics__answer-ru', statisticsAnswer).textContent = element.ru;
       });
+  }
+
+  bindClickAudioStatistics(handler) {
+    this.finishStatistics.addEventListener('click', (e) => {
+      // console.log(e.target);
+      const { target } = e;
+      if (
+        target.classList.contains('finish-statistics__answer-audio')
+        || target.classList.contains('finish-statistics__answer-eng')
+      ) {
+        this.inActiveAllAudio();
+        const element = e.target.closest('.finish-statistics__answer');
+        element.querySelector('.finish-statistics__answer-audio').classList.add('active');
+        handler(element.dataset.audio);
+      }
+    });
+  }
+
+  inActiveAllAudio() {
+    const elements = this.body.querySelectorAll('.finish-statistics__answer-audio');
+    elements.forEach((item) => item.classList.remove('active'));
   }
 
   static removeSelectCell() {
