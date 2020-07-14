@@ -233,6 +233,7 @@ body {
     width: 85%;
   }
   .finish-statistics__controls-button {
+    flex-direction: column;
     & .finish-training {
       margin-top: 10px;
     }

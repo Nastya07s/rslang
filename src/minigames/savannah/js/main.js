@@ -14,6 +14,6 @@ import Model from './model/Model';
     app.init();
   } catch (e) {
     console.log(e);
-    window.location.href = '/';
+    // window.location.href = '/';
   }
 })();

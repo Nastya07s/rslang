@@ -5,6 +5,7 @@ import randomNumber from '../utils/randomNumber';
 const NUMBER_OF_LIVES = 5;
 const MIN_NUMBER_WORDS_GAME = 4;
 const MAX_NUMBER_WORDS_GAME = 20;
+const MAX_NUMBER_WORDS = 3600;
 const STATE_CRYSTAL = 4;
 /* eslint no-console: "off" */
 const MODE_GAME = {
@@ -110,13 +111,14 @@ export default class Model {
   async initOldWords() {
     try {
       const words = await Api.getUsersAggregatedWords({
-        wordsPerPage: MAX_NUMBER_WORDS_GAME,
+        wordsPerPage: MAX_NUMBER_WORDS,
         filter: {
-          $and: [{ $nor: [{ userWord: null }] }, { 'userWord.optional.degreeOfKnowledge': { $eq: 5 } }],
+          $and: [{ $nor: [{ userWord: null }] },
+            { 'userWord.optional.degreeOfKnowledge': { $eq: 5 } }],
         },
       });
-
-      this.gameWords = [...words[0].paginatedResults];
+      this.gameWords = shuffleArray([...words[0].paginatedResults]).slice(0, MAX_NUMBER_WORDS_GAME);
+      console.log(this.gameWords);
     } catch (e) {
       console.log(e);
     }
@@ -226,7 +228,6 @@ export default class Model {
     return this.gameWords.filter((element) => element.isCorrect !== undefined);
   }
 
-
   async recordStatisticsWords() {
     const words = this.getWordsForStatistics();
     /* eslint no-underscore-dangle: "off" */
@@ -295,10 +296,10 @@ export default class Model {
   }
 
   playSound(src) {
-    this.audio.muted = this.audioMute;
-    const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-    this.audio.src = `${url}/${src}`;
     try {
+      this.audio.muted = this.audioMute;
+      const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
+      this.audio.src = `${url}/${src}`;
       this.audio.play();
     } catch (e) {
       //
