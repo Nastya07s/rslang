@@ -45,8 +45,8 @@ export default class Controller {
     this.view.bindClickNextWord(this.handlerClickNextWord.bind(this));
   }
 
-  init() {
-    this.model.init();
+  async init() {
+    await this.model.init();
     this.view.showDifficulty(this.model.gameSettings.difficulty);
   }
 

@@ -5,15 +5,14 @@ import Words from 'app/js/words';
 import Statistics from 'app/js/statistics';
 import createField from '../createField/createField';
 
-const GAME_NAME = 'ourGame';
+const GAME_NAME = 'fillword';
 const FIELD_LENGTH = 5;
 const FIELD_HEIGHT = 6;
 
 export default class Model {
   constructor() {
-    this.settings = settings;
     this.wordsService = new Words({
-      settings: this.settings,
+      settings,
       gameNameInSettings: GAME_NAME,
     });
     this.audio = new Audio();
@@ -34,11 +33,14 @@ export default class Model {
   }
 
   init() {
-    this.api = api;
-    this.api.checkLogin()
+    return api.checkLogin()
       .then(async () => {
-        await this.settings.getSettings();
+        await settings.getSettings();
         this.statisticsService = new Statistics();
+        this.gameSettings = {
+          ...this.gameSettings,
+          ...settings.minigames[GAME_NAME],
+        };
       }, () => {
         document.location.href = '/';
       });
@@ -90,20 +92,17 @@ export default class Model {
   setMuteAudio() {
     this.audioMute = !this.audioMute;
     this.gameSettings.isMute = this.audioMute;
-    this.settings.localUpdates(GAME_NAME, this.gameSettings);
-    this.settings.postUpdates();
+    settings.update(GAME_NAME, this.gameSettings);
   }
 
   setRound(number) {
     this.gameSettings.difficulty = number;
-    this.settings.localUpdates(GAME_NAME, this.gameSettings);
-    this.settings.postUpdates();
+    settings.update(GAME_NAME, this.gameSettings);
   }
 
   setLevel(number) {
     this.gameSettings.round = number;
-    this.settings.localUpdates(GAME_NAME, this.gameSettings);
-    this.settings.postUpdates();
+    settings.update(GAME_NAME, this.gameSettings);
   }
 
   isCorrectAnswer() {
