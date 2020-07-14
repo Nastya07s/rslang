@@ -110,7 +110,6 @@ export default class Controller {
 
   handlerClickClose() {
     if (!this.model.gameActive) {
-      // console.log();
       window.location.href = '/';
     } else {
       this.view.showGameClose();
@@ -177,13 +176,6 @@ export default class Controller {
   }
 
   handlerClickSound() {
-    // console.log(this.timerGame);
-    // const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-    // const audio = new Audio(`${url}/files/04_0061.mp3`);
-    // audio.();
-    // audio.scrollTop
-    // audio.
-    // this.model.playSound('files/04_0061.mp3');
     this.model.setMuteAudio();
   }
 

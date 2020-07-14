@@ -141,10 +141,6 @@ export default class Model {
 
   async fillGameWordsAnswers() {
     if (this.gameWords.length < MIN_NUMBER_WORDS_GAME) {
-      // const words = await Api.getUsersAggregatedWords(
-      //   MAX_NUMBER_WORDS_GAME - this.gameWords.length, { $and: [{ userWord: null }] },
-      // );
-
       const words = await Api.getUsersAggregatedWords({
         group: Number(this.round),
         wordsPerPage: MAX_NUMBER_WORDS_GAME - this.gameWords.length,
@@ -160,9 +156,8 @@ export default class Model {
 
   async initGameMode() {
     try {
-      // this.gameMode = await Api.getSettings();
-      // const res = await Api.getSettings();
-      this.gameMode = 'new';
+      const res = await Api.getSettings();
+      this.gameMode = res.optional.learningMode;
     } catch (e) {
       console.log(e);
     }
@@ -237,7 +232,6 @@ export default class Model {
     /* eslint no-underscore-dangle: "off" */
     try {
       words.forEach(async (element) => {
-        // const word = this.isUserWord(element);
         if (element.userWord) {
           await this.updateUserWord(element);
         } else {

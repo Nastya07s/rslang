@@ -113,7 +113,6 @@ export default class View {
   }
 
   hideSound() {
-    // if()
     this.sound.classList.add('icon_inactive');
   }
 
@@ -191,17 +190,14 @@ export default class View {
     this.wordDown.className = 'game__down-word';
   }
 
-  // animate = > animation
   animateWordDown() {
     this.wordDown.classList.add('game__down-word_fall');
   }
 
-  // animate = > animation
 
   animateWordDownLose() {
     this.wordDown.classList.add('game__down-word_lose');
   }
-  // animate = > animation
 
   animateWordDownWin() {
     this.wordDown.classList.add('game__down-word_win');
@@ -244,7 +240,6 @@ export default class View {
   }
 
   updateCrystal(state) {
-    // console.log(state);
     this.crystal.className = `crystal crystal_state-${state}`;
   }
 
@@ -289,7 +284,6 @@ export default class View {
 
   bindClickAudioStatistics(handler) {
     this.finishStatistics.addEventListener('click', (e) => {
-      // console.log(e.target);
       const { target } = e;
       if (
         target.classList.contains('finish-statistics__answer-audio')
