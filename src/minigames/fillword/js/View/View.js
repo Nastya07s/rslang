@@ -29,6 +29,10 @@ export default class View {
     this.inValidStatisticsTitle = document.querySelector('.finish-statistics__answers-invalid-title');
     this.restartTraining = document.querySelector('.restart-training');
     this.finishTraining = document.querySelector('.finish-training');
+    this.dropGame = document.querySelector('.drop-game');
+    this.dropGameBtn = document.querySelector('.drop-game-window__exit');
+    this.dropGameBtnStatistics = document.querySelector('.finish-training');
+    this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
   }
 
   innerTextLocalResult(result) {
@@ -43,6 +47,14 @@ export default class View {
     while (this.table.firstChild) {
       this.table.removeChild(this.table.firstChild);
     }
+  }
+
+  showGameClose() {
+    this.dropGame.classList.remove('inactive');
+  }
+
+  hideGameClose() {
+    this.dropGame.classList.add('inactive');
   }
 
   hideLouder() {
@@ -110,9 +122,18 @@ export default class View {
     });
   }
 
-  bindClickFinishTraining(handler) {
-    this.finishTraining.addEventListener('click', () => {
+  bindClickCancel(handler) {
+    this.cancelDropGame.addEventListener('click', () => {
       handler();
+    });
+  }
+
+  bindClickFinish() {
+    this.finishTraining.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+    this.dropGameBtn.addEventListener('click', () => {
+      window.location.href = '/';
     });
   }
 

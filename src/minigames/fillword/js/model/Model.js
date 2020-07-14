@@ -29,6 +29,7 @@ export default class Model {
     this.gameRound = 0;
     this.arrayAnswer = [];
     this.audioMute = false;
+    this.gameActive = false;
     this.fillWordStorage = '';
   }
 

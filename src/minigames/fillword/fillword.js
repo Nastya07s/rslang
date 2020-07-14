@@ -41,7 +41,8 @@ export default class Controller {
     this.view.bindClickRefresh(this.handlerClickRefresh.bind(this));
     this.view.bindClickTable(this.handlerMouseUp.bind(this));
     this.view.bindClickRestartTraining(this.handlerClickRestartTraining.bind(this));
-    this.view.bindClickFinishTraining(this.handlerClickFinishTraining.bind(this));
+    this.view.bindClickFinish();
+    this.view.bindClickCancel(this.handlerClickCancel.bind(this));
     this.view.bindClickNextWord(this.handlerClickNextWord.bind(this));
   }
 
@@ -56,6 +57,7 @@ export default class Controller {
     this.view.hideDropOptions();
     this.view.hideStartPage();
     this.view.showLouder();
+    this.model.gameActive = true;
     await this.model.initGameWords();
     setTimeout(() => {
       this.view.hideLouder();
@@ -65,6 +67,7 @@ export default class Controller {
   }
 
   async handlerClickRestartTraining() {
+    this.model.gameActive = true;
     this.view.clearStyleResult();
     this.view.clearChooseWordContainer();
     this.view.deleteOldGameTable();
@@ -112,12 +115,18 @@ export default class Controller {
     this.model.setLevel(level);
   }
 
-  handlerClickClose() {
-    window.location.href = '/';
+  handlerClickCancel() {
+    this.model.gameActive = true;
+    this.view.hideGameClose();
   }
 
-  handlerClickFinishTraining() {
-    window.location.href = '/fillword';
+  handlerClickClose() {
+    if (!this.model.gameActive) {
+      window.location.href = '/';
+    } else {
+      this.model.gameActive = false;
+      this.view.showGameClose();
+    }
   }
 
   handlerClickNextWord() {
@@ -140,6 +149,7 @@ export default class Controller {
     this.model.gameRound += 1;
 
     if (this.model.gameRound === this.model.gameWords.length) {
+      this.model.gameActive = false;
       this.model.gameRound = 0;
       this.view.hideFillWord();
       this.view.renderStatistics(this.model.arrayAnswer);
