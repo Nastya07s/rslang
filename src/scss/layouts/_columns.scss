@@ -1,0 +1,24 @@
+.layout-4-column {
+    @include columns($width: 21%);
+}
+
+.layout-3-column {
+    @include columns($width: 30%);
+    &:after{
+        content:'';
+        width:30%;
+        display: none;
+    }
+    @media (max-width: 1019px) {
+        @include columns($width: 45%);
+      }
+
+      @media (max-width: 767px) {
+        @include columns($width: 100%);
+        justify-content: center;
+      }
+}
+
+.layout-2-column {
+    @include columns($width: 48%);
+}

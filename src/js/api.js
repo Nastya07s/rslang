@@ -45,7 +45,7 @@ class Api {
         body: JSON.stringify(data),
       }).then((response) => {
         // Check token expiration and refresh if expired
-        if (this.userToken) {
+        if (this.userToken && !isRefreshToken) {
           const tokenInfo = JSON.parse(atob(this.userToken.split('.')[1]));
           if (tokenInfo.exp * 1000 - Date.now() < TIME_TO_REFRESH_TOKEN) {
             this.getNewUserTokens();
@@ -249,5 +249,4 @@ class Api {
 }
 
 const api = new Api();
-
 export default api;

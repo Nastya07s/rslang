@@ -24,6 +24,7 @@ module.exports = {
     extensions: ['.js'],
   },
   entry: {
+    promo: `${PATHS.src}/js/main.js`,
     main: `${PATHS.main}/js/main.js`,
     speakit: `${PATHS.speakit}/speakit.js`,
   },
@@ -89,7 +90,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      chunks: [],
+      chunks: ['promo'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,
