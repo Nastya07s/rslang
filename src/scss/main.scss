@@ -1,82 +1,32 @@
-@import "utils/_null";
+@import "base/normalize";
+
+// Utils
+// @import "utils/_libs";
+@import "utils/_vars";
+@import "utils/_mixins";
 @import "utils/_fonts";
-@import "utils/variables";
+// @import "utils/_media";
+@import "utils/placeholders";
 
-@import 'swiper/swiper';
-@import 'swiper/components/navigation/navigation';
+// Base
+@import "base/buttons";
+@import "base/base";
+@import "base/logo";
+@import "base/icons";
+@import "base/tags";
+@import "base/modals";
 
-.flex {
-  display: flex;
-}
+// Layouts
+@import "layouts/wrapper";
+@import "layouts/header";
+@import "layouts/columns";
+@import "layouts/footer";
 
-.d-none {
-  display: none;
-}
-
-.opacity-0 {
-  opacity: 0;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-body {
-  min-height: 100vh;
-}
-
-body,
-select,
-option {
-  font-family: "Montserrat", sans-serif;
-}
-
-main {
-  height: 100%;
-  min-height: 100vh;
-  overflow: hidden;
-}
-
-.wrapper {
-  background: $backgroundYellow;
-  width: 100%;
-}
-
-.complexity {
-  &__circle {
-    width: 10px;
-    height: 10px;
-    background: $grey;
-    margin-right: 5px;
-    border-radius: 50%;
-
-    &-active {
-      background: #ff934d;
-    }
-  }
-}
-
-.card {
-  background: $yellow;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
-  border-radius: 21px;
-  padding: 26px;
-}
-
-.openArrow {
-  transition: 0.3s;
-  transform: rotate(-180deg);
-}
-
-.closeArrow {
-  transform: rotate(0);
-}
-
-@import "menu.scss";
-@import "cards-block.scss";
-@import "settings.scss";
-@import "vocabulary.scss";
-@import "statistics.scss";
-@import "utils/_media";
+// Components
+@import "components/promo";
+@import "components/login";
+@import "components/navigation";
+@import "components/method";
+@import "components/tools";
+@import "components/strategies";
+@import "components/about-us";

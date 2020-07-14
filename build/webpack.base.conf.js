@@ -24,6 +24,7 @@ module.exports = {
   },
   entry: {
     main: `${PATHS.main}/js/main.js`,
+    promo: `${PATHS.src}/js/main.js`,
     sprint: PATHS.sprint,
   },
   output: {
@@ -88,7 +89,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      excludeChunks: ['main'],
+      chunks: ['promo'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,
