@@ -1,4 +1,3 @@
-import api from '../../../../js/api';
 import createElementDOM from '../helpers/createElementDOM';
 
 export default class View {
@@ -19,6 +18,7 @@ export default class View {
     this.buttonStartGame = document.getElementById('button-game-start');
     this.buttonHelp = document.getElementById('help');
     this.buttonRefresh = document.getElementById('refresh');
+    this.buttonNext = document.getElementById('next');
     this.localResultContainer = document.getElementById('localResult');
     this.containerStatistics = document.getElementById('statistic');
     this.sound = document.querySelector('.audio');
@@ -116,6 +116,12 @@ export default class View {
     });
   }
 
+  bindClickNextWord(handler) {
+    this.buttonNext.addEventListener('click', () => {
+      handler();
+    });
+  }
+
   bindClickTable(handler) {
     this.table.addEventListener('mouseup', () => {
       handler();
@@ -186,52 +192,6 @@ export default class View {
         element.classList.add('active');
       }
     });
-  }
-
-  addRoundWords(data) {
-    if (this.roundWords.length < 5) {
-      this.roundWords.push(
-        {
-          en: data.word,
-          ru: data.wordTranslate,
-        },
-      );
-    }
-    return this.roundWords;
-  }
-
-  async getDefaultWords() {
-    this.data = await api.getWords(1, 0);
-    this.data.forEach((el) => {
-      this.addRoundWords(el);
-    });
-    return this.roundWords;
-  }
-
-  addRoundWordsWithSetting(dataWithSetting) {
-    this.roundWordsWithSetting.push(
-      {
-        en: dataWithSetting.word,
-        ru: dataWithSetting.wordTranslate,
-      },
-    );
-    return this.roundWordsWithSetting;
-  }
-
-  async initMixWords() {
-    this.dataWithSetting = await api.getUsersAggregatedWords({
-      group: 0,
-      wordsPerPage: 3,
-      filter: {
-        $and: [
-          { userWord: null },
-        ],
-      },
-    });
-    this.dataWithSetting[0].paginatedResults.forEach((el) => {
-      this.addRoundWordsWithSetting(el);
-    });
-    return this.roundWordsWithSetting;
   }
 
   renderField(newField, mouseMoveHandler, mouseDownHandler) {

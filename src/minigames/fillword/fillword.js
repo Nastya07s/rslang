@@ -42,10 +42,12 @@ export default class Controller {
     this.view.bindClickTable(this.handlerMouseUp.bind(this));
     this.view.bindClickRestartTraining(this.handlerClickRestartTraining.bind(this));
     this.view.bindClickFinishTraining(this.handlerClickFinishTraining.bind(this));
+    this.view.bindClickNextWord(this.handlerClickNextWord.bind(this));
   }
 
   init() {
     this.model.init();
+    this.view.showDifficulty(this.model.gameSettings.difficulty);
   }
 
   async handlerClickStartGame() {
@@ -54,7 +56,7 @@ export default class Controller {
     this.view.hideDropOptions();
     this.view.hideStartPage();
     this.view.showLouder();
-    await this.model.initGame();
+    await this.model.initGameWords();
     setTimeout(() => {
       this.view.hideLouder();
       this.view.showFillWord();
@@ -63,9 +65,12 @@ export default class Controller {
   }
 
   async handlerClickRestartTraining() {
+    this.view.clearStyleResult();
+    this.view.clearChooseWordContainer();
+    this.view.deleteOldGameTable();
     this.view.hideStatistics();
     this.view.showLouder();
-    await this.model.initGame();
+    await this.model.initGameWords();
     setTimeout(() => {
       this.view.hideLouder();
       this.view.showFillWord();
@@ -92,7 +97,7 @@ export default class Controller {
   }
 
   handlerClickHelp() {
-    console.log('help');
+    this.model.playSound();
   }
 
   handlerClickSound() {
@@ -112,11 +117,18 @@ export default class Controller {
   }
 
   handlerClickFinishTraining() {
-    window.location.href = '/';
+    window.location.href = '/fillword';
+  }
+
+  handlerClickNextWord() {
+    this.model.addAnswerResult();
+    this.model.gameRound += 1;
+    this.initRound();
   }
 
   handlerMouseUp() {
     this.isMouseDown = false;
+
     if (this.isUserRight) {
       this.view.showCorrectResult();
       this.model.wordsService.updateKnowledge(this.model.gameWord.id, this.difficultGroup);
@@ -126,28 +138,34 @@ export default class Controller {
     }
     this.model.addAnswerResult();
     this.model.gameRound += 1;
+
     if (this.model.gameRound === this.model.gameWords.length) {
       this.model.gameRound = 0;
       this.view.hideFillWord();
       this.view.renderStatistics(this.model.arrayAnswer);
       return;
     }
+
     setTimeout(() => {
-      this.model.getWord();
-      this.model.coordinate = [];
-      this.model.initGameField();
-      this.model.chooseCoord = [];
-      this.view.deleteOldGameTable();
-      this.view.addWordTranslateText(this.model.gameWord.ru);
-      this.view.renderField(this.model.field,
-        this.mouseMoveHandler.bind(this),
-        this.mouseDownHandler.bind(this));
-      this.view.clearStyleResult();
-      this.view.clearChooseWordContainer();
-      View.removeSelectCell();
+      this.initRound();
       this.isUserRight = false;
       this.selectLetters = [];
     }, 1000);
+  }
+
+  initRound() {
+    this.model.getWord();
+    this.model.coordinate = [];
+    this.model.initGameField();
+    this.model.chooseCoord = [];
+    this.view.deleteOldGameTable();
+    this.view.addWordTranslateText(this.model.gameWord.ru);
+    this.view.renderField(this.model.field,
+      this.mouseMoveHandler.bind(this),
+      this.mouseDownHandler.bind(this));
+    this.view.clearStyleResult();
+    this.view.clearChooseWordContainer();
+    View.removeSelectCell();
   }
 
   mouseMoveHandler(event) {

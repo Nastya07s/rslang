@@ -5,8 +5,7 @@ import Words from 'app/js/words';
 import Statistics from 'app/js/statistics';
 import createField from '../createField/createField';
 
-const MAX_SCORE = 'max-score';
-const GAME_NAME = 'fillWord';
+const GAME_NAME = 'ourGame';
 const FIELD_LENGTH = 5;
 const FIELD_HEIGHT = 6;
 
@@ -17,14 +16,17 @@ export default class Model {
       settings: this.settings,
       gameNameInSettings: GAME_NAME,
     });
-    this.difficultGroup = 0;
-    this.level = 6;
+    this.audio = new Audio();
+    this.gameSettings = {
+      isMute: false,
+      difficulty: 0,
+      round: 0,
+    };
     this.field = [];
     this.coordinate = [];
     this.chooseCoord = [];
     this.gameWord = {};
     this.gameWords = [];
-    this.gameWords2 = [];
     this.gameRound = 0;
     this.arrayAnswer = [];
     this.audioMute = false;
@@ -36,18 +38,14 @@ export default class Model {
     this.api.checkLogin()
       .then(async () => {
         await this.settings.getSettings();
-        this.countCorrectAnswer = 0;
-        this.totalScore = 0;
-        this.maxScore = localStorage.getItem(MAX_SCORE) || 0;
         this.statisticsService = new Statistics();
       }, () => {
         document.location.href = '/';
       });
   }
 
-  async initGame() {
+  async initGameWords() {
     this.gameWords = [];
-    this.gameWords2 = [];
     await this.getWordsList();
     this.getWord(this.gameWords, this.gameRound);
   }
@@ -64,6 +62,9 @@ export default class Model {
   }
 
   getGameWords(data) {
+    if (this.gameWords.length > 10) {
+      return;
+    }
     this.gameWords.push(
       {
         id: data.id,
@@ -88,20 +89,21 @@ export default class Model {
 
   setMuteAudio() {
     this.audioMute = !this.audioMute;
-    localStorage.setItem('fillWord',
-      JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
+    this.gameSettings.isMute = this.audioMute;
+    this.settings.localUpdates(GAME_NAME, this.gameSettings);
+    this.settings.postUpdates();
   }
 
   setRound(number) {
-    this.difficultGroup = number;
-    localStorage.setItem('fillWord',
-      JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
+    this.gameSettings.difficulty = number;
+    this.settings.localUpdates(GAME_NAME, this.gameSettings);
+    this.settings.postUpdates();
   }
 
   setLevel(number) {
-    this.level = number;
-    localStorage.setItem('fillWord',
-      JSON.stringify({ round: this.difficultGroup, level: this.level, audioMute: this.audioMute }));
+    this.gameSettings.round = number;
+    this.settings.localUpdates(GAME_NAME, this.gameSettings);
+    this.settings.postUpdates();
   }
 
   isCorrectAnswer() {
@@ -110,5 +112,12 @@ export default class Model {
 
   addAnswerResult() {
     this.arrayAnswer.push(this.gameWord);
+  }
+
+  playSound() {
+    this.audio.muted = this.audioMute;
+    const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
+    this.audio.src = `${url}/${this.gameWord.audio}`;
+    this.audio.play();
   }
 }
