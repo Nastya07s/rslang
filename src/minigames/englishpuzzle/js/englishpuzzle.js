@@ -187,6 +187,6 @@ export default {
   },
 
   goHome() {
-    window.location.href = '/app';
+    window.location.href = '/main';
   },
 };
