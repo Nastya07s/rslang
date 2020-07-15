@@ -14,7 +14,6 @@ class VocabularyPage {
   }
 
   async init() {
-    await settings.getSettings();
     const params = {
       wordsPerPage: 3600,
       filter: { $nor: [{ userWord: null }] },
@@ -106,7 +105,7 @@ class VocabularyPage {
             <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
           </div>
           <div class="template-vocabulary__time flex">
-            <div class="template-vocabulary__lasttime">Последие повторение: <span>${new Date(
+            <div class="template-vocabulary__lasttime">Последние повторение: <span>${new Date(
     +word.userWord.optional.lastRepetition,
   ).toLocaleDateString()}</span></div>
             <div class="template-vocabulary__nexttime">Следующее повторение: <span>${nextRepetitionDate}</span></div>

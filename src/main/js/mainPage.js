@@ -611,12 +611,11 @@ class MainPage {
 
         let degreeOfKnowledge = slide.dataset.firstattempt === 'true'
           ? word.userWord.optional.degreeOfKnowledge + 1
-          : word.userWord.optional.degreeOfKnowledge - 1;
+          : 0;
 
         const becameLearned = degreeOfKnowledge === 5
           ? Date.now() : word.userWord.optional.becameLearned;
 
-        if (degreeOfKnowledge === -1) degreeOfKnowledge = 0;
         if (degreeOfKnowledge === 6) degreeOfKnowledge = 5;
 
         console.log('RESULT: ', {

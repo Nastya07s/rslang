@@ -125,6 +125,7 @@ const markup = {
           </label>
         </div>
       </div>
+      <div class="settings__logout show-tooltip_btn"><a>Пройти обучение заново</a></a></div>
       <div class="settings__logout"><a>Выйти из аккаунта</a></div>
     </div>
   </section> 
