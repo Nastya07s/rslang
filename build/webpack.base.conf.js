@@ -7,6 +7,8 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  main: path.join(__dirname, '../src/main'),
+  sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
   audiocall: path.join(__dirname, '../src/minigames/audio-call'),
   assets: 'assets',
 };
@@ -18,13 +20,15 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
-      audiocall: PATHS.audiocall,
     },
     extensions: ['.js'],
   },
   entry: {
-    main: `${PATHS.src}/js/main.js`,
+    main: `${PATHS.main}/js/main.js`,
+    promo: `${PATHS.src}/js/main.js`,
+    sprint: PATHS.sprint,
     audiocall: `${PATHS.audiocall}/audiocall.js`,
+    // savannah: `${PATHS.savannah}/savannah.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -85,22 +89,25 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}/css/[name].[contenthash].css`,
     }),
-    // new HtmlWebpackPlugin({
-    //   template: `${PATHS.src}/index.html`,
-    //   filename: './index.html',
-    //   chunks: ['main'],
-    // }),
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      // to exclude mini-games' chunks & prevent running their code in the main app '/'
-      excludeChunks: ['audiocall'],
+      chunks: ['promo'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.main}/index.html`,
+      filename: './main/index.html',
+      chunks: ['main'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.src}/minigames/sprint/index.html`,
+      filename: './sprint',
+      chunks: ['sprint'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.audiocall}/index.html`,
       filename: './audiocall/index.html',
-      inject: true, // if true - to insert link & script tags into html
-      chunks: ['audiocall', 'vendors', 'app'], // include exact this chunk of needed code
+      chunks: ['audiocall'],
     }),
     new CopyWebpackPlugin([
       {
