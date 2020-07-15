@@ -74,6 +74,9 @@ main {
   transform: rotate(0);
 }
 
+.pointerEvents{
+  pointer-events: none;
+}
 
 .modal {
   div {

@@ -419,8 +419,10 @@ class MainPage {
 
       if (this.slides[this.mySwiper.activeIndex].dataset.isguessed === 'true') {
         this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+        this.parent.querySelector('.block__lvl').classList.remove('pointerEvents');
       } else {
         this.parent.querySelector('.block__lvl').classList.add('opacity-0');
+        this.parent.querySelector('.block__lvl').classList.add('pointerEvents');
       }
     });
 
@@ -466,6 +468,7 @@ class MainPage {
           this.mySwiper.keyboard.enable();
           this.parent.querySelector('.swiper-button-next').classList.remove('swiper-button-disabled');
           this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+          this.parent.querySelector('.block__lvl').classList.remove('pointerEvents');
 
           form.querySelector('input').blur();
           form.querySelector('input').setAttribute('disabled', 'disabled');
@@ -647,6 +650,7 @@ class MainPage {
         target.closest('.swiper-slide').setAttribute('data-firstattempt', 'false');
         target.closest('.slider-block__body').querySelector('.slider-b-body__title').requestSubmit();
         this.parent.querySelector('.block__lvl').classList.remove('opacity-0');
+        this.parent.querySelector('.block__lvl').classList.remove('pointerEvents');
       });
     });
 
