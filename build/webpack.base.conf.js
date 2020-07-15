@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
   englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
   sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
@@ -20,11 +21,14 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
+      fillword: PATHS.fillword,
       englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
   },
   entry: {
+    app: `${PATHS.src}/index.js`,
+    fillword: `${PATHS.fillword}/fillword.js`,
     englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
     main: `${PATHS.main}/js/main.js`,
     promo: `${PATHS.src}/js/main.js`,
@@ -93,6 +97,11 @@ module.exports = {
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
       chunks: ['promo'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.fillword}/index.html`,
+      filename: './fillword/index.html',
+      chunks: ['fillword'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,
