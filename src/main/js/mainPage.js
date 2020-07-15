@@ -223,7 +223,11 @@ class MainPage {
     }
 
     const sliderContainer = document.querySelector('.swiper-wrapper');
+    if (settings.learningMode === 'new') this.words = this.words.filter((word) => !word.userWord);
+    if (settings.learningMode === 'learning') this.words = this.words.filter((word) => word.userWord && word.userWord.optional.degreeOfKnowledge < 5);
+    if (settings.learningMode === 'old') this.words = this.words.filter((word) => word.userWord && word.userWord.optional.degreeOfKnowledge === 5);
     // this.words.pop();
+    console.log('this.words: ', this.words);
     this.words.forEach((word) => {
       // console.log('word: ', word);
       const {

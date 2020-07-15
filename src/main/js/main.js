@@ -6,7 +6,7 @@ import settings from 'app/js/settings';
 import '../scss/main.scss';
 import './animate';
 
-import vocabularyPage from './vocabularyPage';
+import settingsPage from './settingsPage';
 
 const processData = (data) => {
   const [responseResults] = data;
@@ -17,7 +17,7 @@ const processData = (data) => {
   return paginatedResults;
 };
 
-api.loginUser({ email: 'test3@mail.ru', password: 'QQQwww123.' }).then(async () => {
+api.checkLogin().then(async () => {
   await settings.getSettings();
   const params = {
     wordsPerPage: 3600,
@@ -74,5 +74,5 @@ api.loginUser({ email: 'test3@mail.ru', password: 'QQQwww123.' }).then(async () 
   document.querySelector('.opportunities-menu__item-on').classList.toggle('d-none', settings.isGlobalMute);
   document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none', !settings.isGlobalMute);
 
-  vocabularyPage.init();
+  settingsPage.init();
 });
