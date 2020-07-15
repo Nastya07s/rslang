@@ -35,6 +35,21 @@ document
     });
   });
 
+document.querySelectorAll('.nav-menu__item, .settings-page, .opportunities-menu__item-off, .opportunities-menu__item-on').forEach((item) => {
+  item.addEventListener('click', () => {
+    document.querySelector('.menu').classList.remove('menu__extended');
+    document.querySelector('.openArrow').classList.remove('closeArrow');
+    document.querySelector('.menu__tеxtlogo').classList.add('d-none');
+
+    document.querySelectorAll('.nav-menu__about').forEach((el) => {
+      el.classList.add('d-none');
+    });
+    document.querySelectorAll('.opportunities-menu__about').forEach((el) => {
+      el.classList.add('d-none');
+    });
+  });
+});
+
 document.querySelector('.menu__burger').addEventListener('click', ({ target }) => {
   target.closest('.menu__burger').classList.toggle('BurgerLock');
   document.querySelector('.menu__burger').classList.toggle('menu__burger-open');

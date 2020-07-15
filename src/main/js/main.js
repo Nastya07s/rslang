@@ -6,7 +6,7 @@ import settings from 'app/js/settings';
 import '../scss/main.scss';
 import './animate';
 
-import settingsPage from './settingsPage';
+import mainPage from './mainPage';
 
 const processData = (data) => {
   const [responseResults] = data;
@@ -74,7 +74,7 @@ api.checkLogin().then(async () => {
   document.querySelector('.opportunities-menu__item-on').classList.toggle('d-none', settings.isGlobalMute);
   document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none', !settings.isGlobalMute);
 
-  settingsPage.init();
+  mainPage.init();
 }, () => {
   window.location.href = '/';
 });
