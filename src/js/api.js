@@ -143,7 +143,10 @@ class Api {
   }
 
   checkLogin() {
-    return this.getUserById(this.userId);
+    if (this.userId) {
+      return this.getUserById(this.userId);
+    }
+    return Promise.reject();
   }
 
   getUserWords() {
@@ -248,5 +251,4 @@ class Api {
 }
 
 const api = new Api();
-
 export default api;

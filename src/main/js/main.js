@@ -1,5 +1,5 @@
 import 'app/index';
-import 'app/scss/main.scss';
+import 'app/main/scss/main.scss';
 import api from 'app/js/api';
 import Login from 'app/js/login';
 import Registration from 'app/js/registration';
@@ -14,6 +14,6 @@ const registration = new Registration('#registration');
 console.log(login);
 console.log(registration);
 
-api.loginUser({ email: 'test3@gmail.com', password: 'AAbb1234!' }).then(() => {
+api.loginUser({ email: 'gabrielljihk@gmail.com', password: 'AAaaBBbb12!' }).then(() => {
   mainPage.init();
 });

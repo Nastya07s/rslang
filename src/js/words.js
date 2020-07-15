@@ -56,50 +56,56 @@ export default class Words {
    * @param difficulty
    * @returns {Promise<unknown>}
    */
-  updateKnowledge(wordId, difficulty) {
-    this.api.getUserWordById(wordId)
-      .then((response) => {
-        const word = response;
-        word.optional = word.optional || {};
-        if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
-          word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
-          if (word.optional.degreeOfKnowledge === DEGREE_OF_KNOWLEDGE_MAX) {
-            word.optional.becameLearned = Date.now();
-          }
-        } else if (!word.optional.degreeOfKnowledge) {
-          word.optional.degreeOfKnowledge = 1;
+  async updateKnowledge(wordId, difficulty) {
+    const response = await this.api.getUsersAggregatedWordsById(wordId);
+    if (!response || !response[0]) {
+      return;
+    }
+    const word = response[0].userWord;
+    if (!word) {
+      const newWord = Words.getNewWord(difficulty);
+      newWord.optional.countRepetition = 1;
+      this.api.createUserWord(wordId, newWord);
+    } else {
+      word.optional = word.optional || {};
+      if (word.optional.degreeOfKnowledge < DEGREE_OF_KNOWLEDGE_MAX) {
+        word.optional.degreeOfKnowledge = parseInt(word.optional.degreeOfKnowledge, 10) + 1;
+        if (word.optional.degreeOfKnowledge === DEGREE_OF_KNOWLEDGE_MAX) {
+          word.optional.becameLearned = Date.now();
         }
-        return this.api.updateUserWordById(wordId, {
-          difficulty: word.difficulty,
-          optional: word.optional,
-        });
-      }, () => {
-        const newWord = Words.getNewWord(difficulty);
-        newWord.optional.degreeOfKnowledge = 1;
-        this.api.createUserWord(wordId, newWord);
+      } else if (!word.optional.degreeOfKnowledge) {
+        word.optional.degreeOfKnowledge = 1;
+      }
+      this.api.updateUserWordById(wordId, {
+        difficulty: word.difficulty,
+        optional: word.optional,
       });
+    }
   }
 
-  updateRepetition(wordId, difficulty) {
-    this.api.getUserWordById(wordId)
-      .then((response) => {
-        const word = response;
-        word.optional = word.optional || {};
-        if (word.optional.countRepetition) {
-          word.optional.countRepetition += 1;
-        } else {
-          word.optional.countRepetition = 1;
-        }
-        word.optional.lastRepetition = Date.now();
-        return this.api.updateUserWordById(wordId, {
-          difficulty: word.difficulty,
-          optional: word.optional,
-        });
-      }, () => {
-        const newWord = Words.getNewWord(difficulty);
-        newWord.optional.countRepetition = 1;
-        this.api.createUserWord(wordId, newWord);
+  async updateRepetition(wordId, difficulty) {
+    const response = await this.api.getUsersAggregatedWordsById(wordId);
+    if (!response || !response[0]) {
+      return;
+    }
+    const word = response[0].userWord;
+    if (!word) {
+      const newWord = Words.getNewWord(difficulty);
+      newWord.optional.countRepetition = 1;
+      this.api.createUserWord(wordId, newWord);
+    } else {
+      word.optional = word.optional || {};
+      if (word.optional.countRepetition) {
+        word.optional.countRepetition += 1;
+      } else {
+        word.optional.countRepetition = 1;
+      }
+      word.optional.lastRepetition = Date.now();
+      this.api.updateUserWordById(wordId, {
+        difficulty: word.difficulty,
+        optional: word.optional,
       });
+    }
   }
 
   /**
@@ -127,7 +133,15 @@ export default class Words {
       this.group = parseInt(group, 10);
       this.page = parseInt(page, 10);
     }
-    const words = await this.api.getWords(this.group, this.page);
+    let words = await this.api.getUsersAggregatedWords({
+      filter: {
+        $and: [
+          { userWord: null },
+        ],
+      },
+      wordsPerPage: 20,
+    });
+    words = Words.mapPaginatedResults(words);
     if (shuffle) {
       return shuffleArray(words);
     }
@@ -137,24 +151,21 @@ export default class Words {
   async getWordsByDegreeOfKnowledge(degreeOfKnowledgeArray, shuffle = false) {
     if (!this.userWords) {
       const userWordsResponse = await this.getUserWords(degreeOfKnowledgeArray);
-      this.userWords = userWordsResponse[0].paginatedResults;
+      this.userWords = Words.mapPaginatedResults(userWordsResponse);
     }
     if (this.userWords && this.userWords.length !== 0) {
-      let wordsToGet;
+      let responseWords;
       if (this.userWords.length > WORDS_PER_PAGE) {
-        wordsToGet = this.userWords.slice(0, WORDS_PER_PAGE);
+        responseWords = this.userWords.slice(0, WORDS_PER_PAGE);
         this.userWords = this.userWords.slice(WORDS_PER_PAGE);
       } else {
-        wordsToGet = Array.from(this.userWords);
+        responseWords = Array.from(this.userWords);
         this.userWords.length = 0;
       }
-      // eslint-disable-next-line no-underscore-dangle
-      const promises = wordsToGet.map((element) => this.api.getWordById(element._id));
-      const responseUserWords = await Promise.all(promises);
       if (shuffle) {
-        return shuffleArray(responseUserWords);
+        return shuffleArray(responseWords);
       }
-      return responseUserWords;
+      return responseWords;
     }
     return this.getWordsNew();
   }
@@ -195,5 +206,19 @@ export default class Words {
         becameLearned: 0,
       },
     };
+  }
+
+  static mapPaginatedResults(response) {
+    if (!response || !response[0] || !response[0].paginatedResults) {
+      return null;
+    }
+    const result = response[0].paginatedResults;
+    const id = '_id';
+    return result.map((element) => {
+      const newElement = { ...element };
+      newElement.id = newElement[id];
+      newElement.wordId = newElement[id];
+      return newElement;
+    });
   }
 }

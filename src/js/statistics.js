@@ -1,4 +1,4 @@
-import api from 'app/js/api';
+import api from './api';
 
 export default class Statistics {
   /**
