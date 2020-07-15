@@ -9,12 +9,10 @@ import Model from './model/Model';
 
 (async () => {
   try {
-    await Api.loginUser({ email: 'test-user@mail.ru', password: '$wVgg123' });
     await Api.checkLogin();
     const app = new Controller(new Model(), new View());
     app.init();
   } catch (e) {
-    console.log(e);
     window.location.href = '/';
   }
 })();

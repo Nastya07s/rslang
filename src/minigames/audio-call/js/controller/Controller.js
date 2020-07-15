@@ -33,7 +33,6 @@ export default class Controller {
     this.view.onDisableAnswers();
     this.view.onDisableControllersGame();
     this.view.updateProgressGame(0);
-    // this.view.hideProgressGame();
     this.view.hideControllers();
     this.view.hideGame();
     this.view.hideCurrentGame();
@@ -129,7 +128,7 @@ export default class Controller {
 
   handlerClickClose() {
     if (!this.model.gameActive) {
-      window.location.href = '/';
+      window.location.href = '/main';
     } else {
       this.view.showGameClose();
     }

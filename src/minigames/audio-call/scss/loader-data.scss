@@ -12,7 +12,6 @@
   &.inactive {
     display: none;
   }
-  // background: linear-gradient(45deg, #6200ea, #d500f9);
 }
 
 .loader-data {
@@ -20,7 +19,6 @@
   align-items: center;
   justify-content: center;
   & .dot {
-    // background: white;
     background: #a142d4;
     margin: 5px;
     animation-name: loader;
