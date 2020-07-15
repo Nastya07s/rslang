@@ -298,8 +298,8 @@ export default class Model {
   playSound(src) {
     try {
       this.audio.muted = this.audioMute;
-      const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-      this.audio.src = `${url}/${src}`;
+      const url = `https://raw.githubusercontent.com/Gabriellji/rslang-data/master/${src}`;
+      this.audio.src = url;
       this.audio.play();
     } catch (e) {
       //

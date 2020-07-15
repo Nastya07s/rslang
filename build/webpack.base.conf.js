@@ -8,7 +8,10 @@ const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
   savannah: path.join(__dirname, '../src/minigames/savannah'),
+  fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
+  englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
+  sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
   assets: 'assets',
 };
 
@@ -19,14 +22,19 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
-      // savannah: PATHS.savannah,
+      savannah: PATHS.savannah,
+      fillword: PATHS.fillword,
+      englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
   },
   entry: {
-    app: PATHS.src,
     savannah: `${PATHS.savannah}/savannah.js`,
+    fillword: `${PATHS.fillword}/fillword.js`,
+    englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
     main: `${PATHS.main}/js/main.js`,
+    promo: `${PATHS.src}/js/main.js`,
+    sprint: PATHS.sprint,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -91,7 +99,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: `${PATHS.src}/index.html`,
       filename: './index.html',
-      chunks: [],
+      chunks: ['promo'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.fillword}/index.html`,
+      filename: './fillword/index.html',
+      chunks: ['fillword'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,
@@ -102,6 +115,16 @@ module.exports = {
       template: `${PATHS.savannah}/index.html`,
       filename: './savannah/index.html',
       chunks: ['savannah'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.englishpuzzle}/index.html`,
+      filename: './englishpuzzle/index.html',
+      chunks: ['englishpuzzle'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.src}/minigames/sprint/index.html`,
+      filename: './sprint',
+      chunks: ['sprint'],
     }),
     new CopyWebpackPlugin([
       {
