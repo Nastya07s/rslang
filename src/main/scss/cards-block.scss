@@ -76,11 +76,11 @@
     background-repeat: no-repeat;
   }
   .swiper-button-prev {
-    background-image: url("../img/prev.png");
+    background-image: url("/assets/img/prev.png");
   }
 
   .swiper-button-next {
-    background-image: url("../img/next.png");
+    background-image: url("/assets/img/next.png");
   }
 }
 
@@ -125,7 +125,7 @@
   &__input {
     display: inline-block;
     position: relative;
-    pointer-events: none;
+    user-select: none;
 
     input,
     div {

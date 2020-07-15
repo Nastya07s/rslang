@@ -24,7 +24,26 @@ const markup = {
         <div class="bar-block__numtwo"></div>
       </div>
     </div>
-  </section> `,
+  </section> 
+  <div class="modal card d-none">
+    <p>Дневная норма выполнена</p>
+    <div class="flex">
+      <p>Карточек завершено:</p>
+      <p class="cardsCompleted">8</p>
+    </div>
+    <div class="flex">
+      <p>Правильные ответы:</p>
+      <p class="correctAnswers">25%</p>
+    </div>
+    <div class="flex">
+      <p>Новые слова:</p>
+      <p class="numberOfNewWords">4</p>
+    </div>
+    <div class="flex">
+      <p>Самая длинная серия правильных ответов:</p>
+      <p class="longestSeriesOfCorrectAnswers">2</p>
+    </div>
+  </div>`,
   settingsPage: `
   <section class="settings center">
     <div class="card settings__card">

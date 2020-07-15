@@ -30,8 +30,8 @@ document
     el.addEventListener('click', async () => {
       document.querySelector('.opportunities-menu__item-on').classList.toggle('d-none');
       document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none');
-      await settings.getSettings();
-      settings.isGlobalMute = document.querySelector('.opportunities-menu__item-on').classList.contains('d-none');
+      // await settings.getSettings();
+      settings.update('isGlobalMute', document.querySelector('.opportunities-menu__item-on').classList.contains('d-none'));
     });
   });
 

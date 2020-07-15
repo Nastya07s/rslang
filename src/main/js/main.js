@@ -1,8 +1,9 @@
 import 'app/index';
-import 'app/scss/main.scss';
 import { checkReadyForRepetition } from 'app/js/intervalRepeatMethod';
 import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
+import settings from 'app/js/settings';
+import '../scss/main.scss';
 import './animate';
 
 import mainPage from './mainPage';
@@ -17,6 +18,7 @@ const processData = (data) => {
 };
 
 api.loginUser({ email: 'test3@mail.ru', password: 'QQQwww123.' }).then(async () => {
+  await settings.getSettings();
   const params = {
     wordsPerPage: 3600,
     filter: {
@@ -48,8 +50,8 @@ api.loginUser({ email: 'test3@mail.ru', password: 'QQQwww123.' }).then(async () 
     } = word;
 
     const isReadyToRepeat = checkReadyForRepetition(degreeOfKnowledge, lastRepetition);
-    console.log('word: ', word);
-    console.log('isReadyToRepeat: ', isReadyToRepeat);
+    // console.log('word: ', word);
+    // console.log('isReadyToRepeat: ', isReadyToRepeat);
 
     promisesForUpdateWords.push(
       api.updateUserWordById.bind(api, id, {
@@ -68,6 +70,9 @@ api.loginUser({ email: 'test3@mail.ru', password: 'QQQwww123.' }).then(async () 
   });
 
   await performRequests(promisesForUpdateWords);
+
+  document.querySelector('.opportunities-menu__item-on').classList.toggle('d-none', settings.isGlobalMute);
+  document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none', !settings.isGlobalMute);
 
   mainPage.init();
 });

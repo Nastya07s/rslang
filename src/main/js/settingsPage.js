@@ -8,7 +8,7 @@ class SettingsPage {
   }
 
   async init() {
-    await settings.getSettings();
+    // await settings.getSettings();
     this.render();
     this.initHandlers();
   }

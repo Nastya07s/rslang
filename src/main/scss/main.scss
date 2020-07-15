@@ -74,6 +74,24 @@ main {
   transform: rotate(0);
 }
 
+
+.modal {
+  div {
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    font-size: 18px;
+  }
+  
+  > p {
+    font-size: 35px;
+    line-height: 43px;
+    border-bottom: 1px solid rgba(205,204,195,.56);
+    padding-bottom: 16px;
+    margin-bottom: 19px;
+  }
+}
+
 @import "menu.scss";
 @import "cards-block.scss";
 @import "settings.scss";
