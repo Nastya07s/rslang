@@ -155,6 +155,16 @@ const markup = {
     </div>
   </section>
   `,
+  loader: `
+  <div class="backdrop">
+    <div class="loader-data">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+  </div>`,
 };
 
 export default markup;

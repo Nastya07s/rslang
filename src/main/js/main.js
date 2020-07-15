@@ -3,8 +3,9 @@ import { checkReadyForRepetition } from 'app/js/intervalRepeatMethod';
 import performRequests from 'app/js/utils/perform-requests';
 import api from 'app/js/api';
 import settings from 'app/js/settings';
-import '../scss/main.scss';
 import './animate';
+import '../scss/main.scss';
+import store from './store';
 
 import mainPage from './mainPage';
 
@@ -12,8 +13,6 @@ const processData = (data) => {
   const [responseResults] = data;
   const [results] = responseResults;
   const { paginatedResults } = results;
-
-  // console.log('paginatedResults;: ', paginatedResults);
   return paginatedResults;
 };
 
@@ -50,8 +49,6 @@ api.checkLogin().then(async () => {
     } = word;
 
     const isReadyToRepeat = checkReadyForRepetition(degreeOfKnowledge, lastRepetition);
-    // console.log('word: ', word);
-    // console.log('isReadyToRepeat: ', isReadyToRepeat);
 
     promisesForUpdateWords.push(
       api.updateUserWordById.bind(api, id, {
@@ -74,7 +71,8 @@ api.checkLogin().then(async () => {
   document.querySelector('.opportunities-menu__item-on').classList.toggle('d-none', settings.isGlobalMute);
   document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none', !settings.isGlobalMute);
 
-  mainPage.init();
+  await mainPage.init();
+  store.isRendered = true;
 }, () => {
   window.location.href = '/';
 });

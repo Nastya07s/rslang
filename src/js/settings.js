@@ -75,7 +75,6 @@ class Settings {
    * @param {Object} settings stores settings usually from backend
    */
   setSettings(settings = {}) {
-    console.log(settings);
     const {
       wordsPerDay = 20,
       optional: {

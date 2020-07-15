@@ -2,6 +2,7 @@
 import settings from 'app/js/settings';
 import api from 'app/js/api';
 import markup from './markup';
+import store from './store';
 
 class SettingsPage {
   constructor() {
@@ -9,7 +10,9 @@ class SettingsPage {
   }
 
   async init() {
-    // await settings.getSettings();
+    store.isRendered = false;
+    this.parent.innerHTML = markup.loader;
+
     this.render();
     this.initHandlers();
   }
@@ -65,13 +68,14 @@ class SettingsPage {
     });
 
     this.parent.querySelectorAll('[data-settings]').forEach((el) => {
-      el.addEventListener('change', ({ target }) => {
+      el.addEventListener('change', async ({ target }) => {
         if (target.type === 'checkbox') {
-          settings.update(target.dataset.settings, target.checked);
+          await settings.update(target.dataset.settings, target.checked);
+          if (this.parent.querySelectorAll('.settings__item input:checked').length === 0) {
+            this.parent.querySelector('.settings__item:nth-child(5) input').click();
+          }
         } else {
           const inputs = this.parent.querySelectorAll('.settings__square-big');
-          console.log('inputs[0].value: ', inputs[0].value);
-          console.log('inputs[1].value: ', inputs[1].value);
           if (inputs[0].value > inputs[1].value) inputs[0].value = inputs[1].value;
           settings.update('countNewWords', +inputs[0].value);
           settings.update('wordsPerDay', +inputs[1].value);
@@ -79,15 +83,16 @@ class SettingsPage {
       });
     });
 
+    if (this.parent.querySelectorAll('.settings__item input:checked').length === 0) {
+      this.parent.querySelector('.settings__item:nth-child(5) input').click();
+    }
+
     this.parent.querySelectorAll('.settings__square-big').forEach((el) => {
       let init = true;
       el.addEventListener('focus', () => {
         if (init) {
           const isChange = confirm('Это действие приведет к сбросу дневной нормы. Вы уверены что хотите это сделать?');
-          console.log('isChange: ', isChange);
           if (!isChange) {
-            //   el.focus();
-            // } else {
             el.blur();
           }
           init = false;

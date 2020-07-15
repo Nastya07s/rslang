@@ -1,5 +1,6 @@
 import performRequests from 'app/js/utils/perform-requests';
 import markup from './markup';
+import store from './store';
 import api from '../../js/api';
 import settings from '../../js/settings';
 import { nextRepetition } from '../../js/intervalRepeatMethod';
@@ -14,23 +15,16 @@ class VocabularyPage {
   }
 
   async init() {
+    store.isRendered = false;
+    this.parent.innerHTML = markup.loader;
     const params = {
       wordsPerPage: 3600,
       filter: { $nor: [{ userWord: null }] },
     };
-    // const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
     const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
     const [responseResults] = data;
     const [results] = responseResults;
     const { paginatedResults: words } = results;
-    // const words = await api.getUsersAggregatedWords(0, 3, false, {
-    //   $and: [
-    //     {
-    //       $nor: [{ userWord: null }],
-    //     },
-    //   ],
-    // });
-    console.log('words.paginatedResults: ', words);
     this.words = shuffleArray(words);
     this.render();
     this.initHandlers();
@@ -40,16 +34,13 @@ class VocabularyPage {
     this.parent.innerHTML = markup.vocabularyPage;
     const vocabularyCountainer = document.querySelector('.vocabulary__template');
     this.words.forEach((word) => {
-      // console.log('word: ', word);
       const { _id: id } = word;
-      // console.log('settings: ', settings);
       let count = +word.userWord.optional.degreeOfKnowledge;
       const { lastRepetition, isDelete, isHard } = word.userWord.optional;
       const nextRepetitionTimeStamp = nextRepetition(count, lastRepetition);
       const nextRepetitionDate = typeof nextRepetitionTimeStamp === 'number'
         ? new Date(nextRepetitionTimeStamp).toLocaleDateString()
         : nextRepetitionTimeStamp;
-      // console.log('nextRepetitionDate: ', nextRepetitionDate);
       const wordElement = document.createElement('div');
       wordElement.classList.add('template-vocabulary__body', 'flex');
       wordElement.dataset.id = id;
@@ -134,7 +125,6 @@ class VocabularyPage {
   determineCountVisibleWords() {
     const countVisibleWords = this.parent.querySelectorAll('.template-vocabulary__body:not(.d-none)').length;
     if (countVisibleWords === 0) {
-      console.log('countVisibleWords: ', countVisibleWords);
       this.parent.querySelector('.template-vocabulary__body').classList.remove('d-none');
       this.parent.querySelector('.vocabulary__template').classList.add('opacity-0');
     }
@@ -153,21 +143,15 @@ class VocabularyPage {
     this.parent.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
       this.parent.querySelector('.vocabulary__template').classList.remove('opacity-0');
       this.parent.querySelectorAll('.template-vocabulary__body').forEach((el) => {
-        // console.log('el: ', el);
         el.classList.remove('d-none');
         if (el.dataset[target.dataset.word] !== 'true') el.classList.add('d-none');
-        console.log('target.dataset.word: ', target.dataset.word);
-        // console.log('el.dataset[target.dataset.word]: ', el.dataset[target.dataset.word]);
         if (target.dataset.word === 'hard' || target.dataset.word === 'delete') {
           el.querySelectorAll('.template-vocabulary__restore').forEach((word) => {
             word.classList.remove('d-none');
             word.addEventListener('click', async (event) => {
               event.preventDefault();
               const idWord = el.dataset.id;
-              console.log('el: ', el);
-              console.log('idWord: ', idWord);
               const [wordObject] = await api.getUsersAggregatedWordsById(idWord);
-              console.log('word: ', wordObject);
               const {
                 countRepetition,
                 degreeOfKnowledge,
@@ -178,9 +162,8 @@ class VocabularyPage {
                 becameLearned,
               } = wordObject.userWord.optional;
               const deleteResult = el.dataset.delete === 'true' ? !isDelete : isDelete;
-              console.log('deleteResult: ', deleteResult);
               const hardResult = el.dataset.hard === 'true' ? !isHard : isHard;
-              console.log('hardResult: ', hardResult);
+
               api.updateUserWordById(idWord, {
                 difficulty: String(wordObject.group),
                 optional: {
