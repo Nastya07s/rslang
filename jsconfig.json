@@ -4,8 +4,10 @@
     // "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
-      "app/*": ["src/*"]
+      "app/*": ["src/*"],
+      "speakit/*": ["src/minigames/speakit/*"],
+      "englishpuzzle/*": ["src/minigames/englishpuzzle/*"]
     }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

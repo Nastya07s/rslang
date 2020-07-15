@@ -1,9 +1,12 @@
 import 'app/index';
-import 'app/scss/main.scss';
+import 'app/main/scss/main.scss';
 import api from 'app/js/api';
 import './animate';
 import mainPage from './mainPage';
 
-api.loginUser({ email: 'gabrielljihk@gmail.com', password: 'AAaaBBbb12!' }).then(() => {
+api.checkLogin().then((user) => {
+  console.log('AUTHORIZED as', user);
   mainPage.init();
+}, () => {
+  console.log('UNAUTHORIZED');
 });

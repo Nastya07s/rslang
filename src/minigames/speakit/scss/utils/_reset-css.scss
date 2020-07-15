@@ -1,0 +1,33 @@
+/* CSS Reset */
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+
+  font: {
+    family: inherit;
+    weight: inherit;
+  }
+  line-height: 1;
+}
+
+li {
+  list-style: none;
+}
+
+fieldset,
+input,
+button {
+  border: none;
+}
+
+button,
+select {
+  outline: none;
+}
+
+button {
+  background-color: initial;
+}
