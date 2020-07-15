@@ -1,0 +1,38 @@
+.tooltip {
+  position: relative;
+}
+
+%tooltip-content {
+  position: absolute;
+
+  padding: 2rem 1rem;
+
+  background-color: lightgrey;
+  border-radius: 5px;
+
+  color: lightslategray;
+
+  transform: scale(1);
+  transition: 0.35s all cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+
+.tooltip-content {
+  &_hidden {
+    transform: scale(0);
+  }
+}
+
+.tooltip-content-left {
+  @extend %tooltip-content;
+
+  top: 100%;
+  right: 0;
+  transform-origin: top right;
+}
+
+.tooltip-content-right {
+  @extend %tooltip-content;
+
+  left: 0;
+  transform-origin: top left;
+}

@@ -75,7 +75,6 @@ class Api {
     });
   }
 
-
   getWords(group = 0, page = 0) {
     return Api.request(`${this.basicUrl}/words?page=${page}&group=${group}`, 'GET');
   }
