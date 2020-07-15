@@ -46,7 +46,6 @@ export default class Controller {
     this.view.showDifficulty(this.model.round);
     this.view.showLevel(this.model.level);
     this.view.soundSilince(this.model.audioMute);
-    // console.log(this.model.gameMode);
     if (this.model.gameMode !== 'mix') {
       this.view.hideOptions();
     }
@@ -69,7 +68,6 @@ export default class Controller {
       this.nextWord();
       console.log('GAME WORDS', this.model.gameWords);
       console.log('WORDS FOR ANSWER', this.model.gameWordsAnswers);
-      // console.log(this.model.currentWordNumber);
     }, PRELAUNCH_TIME);
   }
 
