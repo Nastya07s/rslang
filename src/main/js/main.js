@@ -75,4 +75,6 @@ api.checkLogin().then(async () => {
   document.querySelector('.opportunities-menu__item-off').classList.toggle('d-none', !settings.isGlobalMute);
 
   settingsPage.init();
+}, () => {
+  window.location.href = '/';
 });

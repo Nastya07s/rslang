@@ -60,3 +60,33 @@ document.querySelector('.vocabulary-page').addEventListener('click', (event) => 
   event.preventDefault();
   vocabularyPage.init();
 });
+
+document.querySelector('.speakit').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/speakit';
+});
+
+document.querySelector('.english-puzzle').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/englishpuzzle';
+});
+
+document.querySelector('.audiocall').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/audiocall';
+});
+
+document.querySelector('.savannah').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/savannah';
+});
+
+document.querySelector('.sprint').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/sprint';
+});
+
+document.querySelector('.fillword').addEventListener('click', (event) => {
+  event.preventDefault();
+  window.location.href = '/fillword';
+});
