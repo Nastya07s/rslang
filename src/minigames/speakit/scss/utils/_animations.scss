@@ -85,4 +85,39 @@
 .animation-float-background {
   animation: float-background 60s linear alternate-reverse infinite;
 }
+
+@keyframes pop-up {
+  0% {
+    top: 200px;
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+}
+
+@keyframes pop-down {
+  0% {
+    top: 0;
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+
+  100% {
+    top: 200px;
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+}
+
+.animation-pop-up {
+  animation: pop-up 0.5s forwards;
+}
+
+.animation-pop-down {
+  animation: pop-down 0.5s forwards;
+}
 /* ---------------- ANIMATIONS END ---------------- */

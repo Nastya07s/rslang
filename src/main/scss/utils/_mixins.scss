@@ -7,3 +7,21 @@
 		font-style: #{$style};
 	}
 }
+
+// Breakpoints mixins
+// uses _vars with the given width
+@mixin for-small-phone {
+  @media (min-width: $small-phone-width) { @content; }
+}
+@mixin for-phone {
+  @media (min-width: $phone-width) { @content; }
+}
+@mixin for-tablet {
+  @media (min-width: $tablet-width) { @content; }
+}
+@mixin for-desktop {
+  @media (min-width: $desktop-width) { @content; }
+}
+@mixin for-big-desktop {
+  @media (min-width: $big-desktop-width) { @content; }
+}

@@ -75,7 +75,6 @@ api.checkLogin().then(async () => {
   await mainPage.init();
   store.isRendered = true;
   tooltip.init();
-
 }, () => {
   window.location.href = '/';
 });

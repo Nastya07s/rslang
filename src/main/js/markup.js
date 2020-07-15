@@ -151,7 +151,6 @@ const markup = {
   <section class="statistics card">
     <div class="statistics__title">Статистика</div>
     <div class="statistics__graph">
-      <div class="statistics__text">Место для графика</div>
     </div>
   </section>
   `,

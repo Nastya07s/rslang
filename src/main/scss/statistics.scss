@@ -1,19 +1,19 @@
 .statistics {
+  & {
+    max-width: 95%;
+  }
+
   &__title {
-    font-size: 35px;
-    line-height: 43px;
+    padding-bottom: 13px;
     color: #000000;
     border-bottom: 1px solid rgba($lightGrey, 0.56);
-    padding-bottom: 13px;
   }
 
   &__graph {
     position: relative;
-    width: 1014px;
-    height: 514px;
-    background-color: $grey;
-    margin: 32px 0px 40px 0px;
+    max-width: 100%;
   }
+
   &__text {
     position: absolute;
     top: 50%;
