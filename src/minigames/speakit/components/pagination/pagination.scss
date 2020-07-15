@@ -1,0 +1,33 @@
+.pagination {
+  &__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    color: black;
+    font-size: 14px;
+
+    user-select: none;
+  }
+
+  &__item {
+    & {
+      padding: 10px;
+      margin-right: 5px;
+
+      border: 1px solid black;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    &_active {
+      & {
+        background-color: lightcoral;
+      }
+    }
+  }
+}

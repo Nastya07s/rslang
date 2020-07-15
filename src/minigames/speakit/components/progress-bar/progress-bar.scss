@@ -1,0 +1,39 @@
+.progress-bar {
+  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+  }
+
+  &__current-value,
+  &__max-value {
+    color: black;
+    font: {
+      size: 2.5rem;
+      weight: 400;
+    }
+  }
+  
+  &__progress {
+    & {
+      margin: 0 10px;
+      height: 10px;
+
+      border: 1px solid grey;
+      border-radius: 5px;
+    }
+    
+    &::-webkit-progress-bar {
+      border-radius: 5px;
+      background-color: white;
+    }
+
+    &::-webkit-progress-value {
+      border-radius: 5px;
+      background-color: rgb(240, 128, 128);
+
+      transition: width 1s ease-out;
+    }
+  }
+}
