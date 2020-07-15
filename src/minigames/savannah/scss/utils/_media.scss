@@ -1,0 +1,34 @@
+// @media screen and (max-width: 660px) {
+//   .game__answers {
+//     flex-direction: column;
+//     // justify-content: left;
+//     // width: 100%;
+//     // flex-wrap: wrap;
+//     // height: 50%;
+//   }
+//   // .game__answer:hover {
+//   //   background: none !important;
+//   // }
+// }
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 6px;
+  }
+  .controllers .icon {
+    width: 30px;
+    height: 30px;
+  }
+  .controllers .controllers__right .options__settings {
+    width: 200px;
+    height: 140px;
+    top: 50px;
+    right: -26.5px;
+  }
+  //  .options__settings .star {
+  //   width: 200px;
+  //   height: 140px;
+  //   top: 50px;
+  //   right: -26.5px;
+  // }
+}
