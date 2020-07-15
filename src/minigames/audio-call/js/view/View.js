@@ -18,13 +18,8 @@ export default class View {
     this.idkBtns = document.querySelectorAll('.idk');
     this.nextGameBtns = document.querySelectorAll('.arrow-next');
     this.audioBtns = document.querySelectorAll('.game__audio');
-    // this.wordDown = document.querySelector('.game__down-word');
-    // this.crystal = document.querySelector('.game .crystal');
     this.prelaunch = document.querySelector('.prelaunch');
     this.startBtn = document.querySelector('.game-start__start');
-    // this.counterLoader = document.querySelector('.loader__counter');
-    // this.containerHearts = document.querySelector('.hearts');
-    // this.hearts = document.querySelectorAll('.hearts__item');
     this.body = document.body;
     this.controllers = document.querySelector('.controllers');
     this.finishStatistics = document.querySelector('.finish-statistics__answers');
@@ -37,6 +32,8 @@ export default class View {
     this.sound = document.querySelector('.audio');
     this.close = document.querySelector('.close');
     this.dropGame = document.querySelector('.drop-game');
+    this.dropGameBtn = document.querySelector('.drop-game-window__exit');
+    this.dropGameBtnStatistics = document.querySelector('.finish-training');
     this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
   }
 
@@ -311,6 +308,15 @@ export default class View {
     });
   }
 
+  bindClickExitGame() {
+    this.dropGameBtn.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+    this.dropGameBtnStatistics.addEventListener('click', () => {
+      window.location.href = '/';
+    });
+  }
+
   bindClickNextGame(handler) {
     this.nextGameBtns.forEach((element) => {
       element.addEventListener('click', () => {
@@ -371,7 +377,6 @@ export default class View {
   bindClickAnswer(handler) {
     this.containerWordsAnswers.forEach((element) => {
       element.addEventListener('click', (e) => {
-        // console.log('hi');
         const target = e.target.closest('.game__answer');
         if (target) {
           handler(target.textContent);
@@ -383,9 +388,19 @@ export default class View {
   bindKeyDownAnswer() {
     document.addEventListener('keydown', (e) => {
       if (e.key >= 1 && e.key <= 5) {
-        // console.log('click : ', e.key);
         const currentAnswersWrapper = this.body.querySelectorAll('.game__current .game__answer');
         currentAnswersWrapper[e.key - 1].click();
+      }
+      if (e.key === 'Enter') {
+        const currentNextBtn = this.body.querySelector('.game__current .arrow-next');
+        const currentIDK = this.body.querySelector('.game__current .idk');
+
+        if (!currentNextBtn.classList.contains('inactive')) {
+          currentNextBtn.click();
+        }
+        if (!currentIDK.classList.contains('inactive')) {
+          currentIDK.click();
+        }
       }
     });
   }

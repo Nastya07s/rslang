@@ -2,10 +2,9 @@ import Api from '../../../../js/api';
 import shuffleArray from '../utils/shuffleArray';
 import randomNumber from '../utils/randomNumber';
 
-// const NUMBER_OF_LIVES = 5;
 const MIN_NUMBER_WORDS_GAME = 5;
 const MAX_NUMBER_WORDS_GAME = 20;
-// const STATE_CRYSTAL = 4;
+const MAX_NUMBER_WORDS = 3600;
 /* eslint no-console: "off" */
 const MODE_GAME = {
   new: 'new',
@@ -102,13 +101,14 @@ export default class Model {
   async initOldWords() {
     try {
       const words = await Api.getUsersAggregatedWords({
-        wordsPerPage: MAX_NUMBER_WORDS_GAME,
+        wordsPerPage: MAX_NUMBER_WORDS,
         filter: {
-          $and: [{ $nor: [{ userWord: null }] }, { 'userWord.optional.degreeOfKnowledge': { $eq: 5 } }],
+          $and: [{ $nor: [{ userWord: null }] },
+            { 'userWord.optional.degreeOfKnowledge': { $eq: 5 } }],
         },
       });
-
-      this.gameWords = [...words[0].paginatedResults];
+      this.gameWords = shuffleArray([...words[0].paginatedResults]).slice(0, MAX_NUMBER_WORDS_GAME);
+      console.log(this.gameWords);
     } catch (e) {
       console.log(e);
     }
@@ -148,9 +148,8 @@ export default class Model {
 
   async initGameMode() {
     try {
-      // this.gameMode = await api.getSettings();
-      // const res = await Api.getSettings();
-      this.gameMode = 'mix';
+      const res = await Api.getSettings();
+      this.gameMode = res.optional.learningMode;
     } catch (e) {
       console.log(e);
     }
@@ -216,7 +215,6 @@ export default class Model {
     /* eslint no-underscore-dangle: "off" */
     try {
       words.forEach(async (element) => {
-        // const word = this.isUserWord(element);
         if (element.userWord) {
           await this.updateUserWord(element);
         } else {
@@ -280,9 +278,13 @@ export default class Model {
   }
 
   playSound(src) {
-    this.audio.muted = this.audioMute;
-    const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-    this.audio.src = `${url}/${src}`;
-    this.audio.play();
+    try {
+      this.audio.muted = this.audioMute;
+      const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
+      this.audio.src = `${url}/${src}`;
+      this.audio.play();
+    } catch (e) {
+      //
+    }
   }
 }

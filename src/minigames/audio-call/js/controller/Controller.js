@@ -20,7 +20,7 @@ export default class Controller {
     this.view.bindKeyDownAnswer();
     this.view.bindClickAudioGame(this.handlerAudioGame.bind(this));
     this.view.bindClickAnswer(this.handlerAnswer.bind(this));
-
+    this.view.bindClickExitGame();
     this.view.bindClickAudioStatistics(this.handlerClickAudioStatistics.bind(this));
     this.model.audio.addEventListener('ended', () => {
       if (!this.model.gameActive) {
@@ -30,25 +30,23 @@ export default class Controller {
   }
 
   async init() {
+    this.view.onDisableAnswers();
+    this.view.onDisableControllersGame();
     this.view.hideControllers();
     this.view.hideGame();
     this.view.hideCurrentGame();
     this.view.hideStartScreen();
+    this.view.hideStatistics();
     this.view.showDataLoader();
     await this.model.init();
     this.view.hideDataLoader();
-    // console.log(this.model.gameMode);
-
     this.view.showClose();
-    this.view.onDisableAnswers();
-    // this.view.hidePrelaunch();
     this.view.hideStatistics();
     this.view.showOptions();
-
     this.view.showDifficulty(this.model.round);
     this.view.showLevel(this.model.level);
     this.view.soundSilince(this.model.audioMute);
-    console.log(this.model.gameMode);
+    // console.log(this.model.gameMode);
     if (this.model.gameMode !== 'mix') {
       this.view.hideOptions();
     }
@@ -163,6 +161,7 @@ export default class Controller {
         this.view.hideAnswerDescription();
       }, DELAY_NEXT_WORD);
     } else {
+      this.view.onDisableControllersGame();
       this.view.hideGame();
       this.view.hideClose();
       this.view.hideControllers();
