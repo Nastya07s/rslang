@@ -207,7 +207,7 @@ class VocabularyPage {
 
     this.parent.querySelectorAll('[data-settings="isGlobalMute"]:not(.d-none)').forEach((el) => {
       el.addEventListener('click', () => {
-        el.nextElementSibling.play();
+        if (settings.isGlobalMute) el.nextElementSibling.play();
       });
     });
   }
