@@ -1,5 +1,5 @@
 import 'app/index';
-import '../scss/main.scss';
+import 'app/main/scss/main.scss';
 import api from 'app/js/api';
 import './animate';
 import mainPage from './mainPage';

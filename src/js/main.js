@@ -1,7 +1,7 @@
 import 'app/index';
-import promoPage from './promo';
 import Login from './login';
 import Registration from './registration';
+import promoPage from './promo';
 
 const login = new Login();
 const registration = new Registration();
