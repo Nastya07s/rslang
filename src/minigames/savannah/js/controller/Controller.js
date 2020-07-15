@@ -110,7 +110,7 @@ export default class Controller {
 
   handlerClickClose() {
     if (!this.model.gameActive) {
-      window.location.href = '/';
+      window.location.href = '/main';
     } else {
       this.view.showGameClose();
       this.pauseGame();

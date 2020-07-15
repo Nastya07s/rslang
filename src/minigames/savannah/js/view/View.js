@@ -275,10 +275,10 @@ export default class View {
 
   bindClickExitGame() {
     this.dropGameBtn.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
     this.dropGameBtnStatistics.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
   }
 
