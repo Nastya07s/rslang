@@ -395,8 +395,6 @@
 }
 
 .show-tooltip_btn {
-  position: absolute;
-  left: calc(50% - 30px);
   @media (max-width: 900px){
     display: none;
   }
