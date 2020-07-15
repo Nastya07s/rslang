@@ -125,6 +125,7 @@
   &__input {
     display: inline-block;
     position: relative;
+    user-select: none;
 
     input,
     div {

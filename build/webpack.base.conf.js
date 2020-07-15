@@ -7,9 +7,12 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  savannah: path.join(__dirname, '../src/minigames/savannah'),
+  fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
   speakit: path.join(__dirname, '../src/minigames/speakit'),
-  sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
+  sprint: path.join(__dirname, '../src/minigames/sprint'),
+  englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
   assets: 'assets',
 };
 
@@ -21,6 +24,9 @@ module.exports = {
     alias: {
       app: PATHS.src,
       speakit: PATHS.speakit,
+      savannah: PATHS.savannah,
+      fillword: PATHS.fillword,
+      englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
   },
@@ -28,12 +34,16 @@ module.exports = {
     promo: `${PATHS.src}/js/main.js`,
     main: `${PATHS.main}/js/main.js`,
     speakit: `${PATHS.speakit}/speakit.js`,
-    sprint: PATHS.sprint,
+    sprint: `${PATHS.sprint}/index-sprint.js`,
+    englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
+    fillword: `${PATHS.fillword}/fillword.js`,
+    savannah: `${PATHS.savannah}/savannah.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
     path: PATHS.dist,
   },
+
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -105,9 +115,29 @@ module.exports = {
       chunks: ['speakit'], // include exact this chunk of needed code
     }),
     new HtmlWebpackPlugin({
+      template: `${PATHS.sprint}/index.html`,
+      filename: './sprint/index.html',
+      chunks: ['sprint'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.savannah}/index.html`,
+      filename: './savannah/index.html',
+      chunks: ['savannah'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.englishpuzzle}/index.html`,
+      filename: './englishpuzzle/index.html',
+      chunks: ['englishpuzzle'], // include exact this chunk of needed code
+    }),
+    new HtmlWebpackPlugin({
       template: `${PATHS.src}/minigames/sprint/index.html`,
       filename: './sprint',
       chunks: ['sprint'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.fillword}/index.html`,
+      filename: './fillword/index.html',
+      chunks: ['fillword'],
     }),
     new CopyWebpackPlugin([
       {

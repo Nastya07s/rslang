@@ -5,13 +5,13 @@ const timeToThirdRepeat = 86400;
 const timeToFourthRepeat = 1209600;
 const timeToFifthRepeat = 5184000;
 
-const checkReadyForRepetition = (countRepetition, lastRepetition) => {
+const checkReadyForRepetition = (degreeOfKnowledge, lastRepetition) => {
   const today = new Date();
   const timePassedInSeconds = (today - lastRepetition) / millisecondsPerSecond;
 
   const isTimeForRepeat = (timeToRepeat) => timePassedInSeconds >= timeToRepeat;
 
-  switch (String(countRepetition)) {
+  switch (String(degreeOfKnowledge)) {
     case '0': return isTimeForRepeat(timeToFirstRepeat);
     case '1': return isTimeForRepeat(timeToSecondRepeat);
     case '2': return isTimeForRepeat(timeToThirdRepeat);
@@ -21,8 +21,8 @@ const checkReadyForRepetition = (countRepetition, lastRepetition) => {
   }
 };
 
-const nextRepetition = (countRepetition, lastRepetition) => {
-  switch (String(countRepetition)) {
+const nextRepetition = (degreeOfKnowledge, lastRepetition) => {
+  switch (String(degreeOfKnowledge)) {
     case '0': return lastRepetition + timeToFirstRepeat * 1000;
     case '1': return lastRepetition + timeToSecondRepeat * 1000;
     case '2': return lastRepetition + timeToThirdRepeat * 1000;

@@ -29,7 +29,7 @@ class Settings {
         round: undefined, // 0
         difficulty: undefined, // 0
       },
-      ourGame: {
+      fillword: {
         isMute: undefined, // false
         round: undefined, // 0
         difficulty: undefined, // 0
@@ -75,7 +75,6 @@ class Settings {
    * @param {Object} settings stores settings usually from backend
    */
   setSettings(settings = {}) {
-    console.log(settings);
     const {
       wordsPerDay = 20,
       optional: {
@@ -105,7 +104,7 @@ class Settings {
             round: 0,
             difficulty: 0,
           },
-          ourGame: {
+          fillword: {
             isMute: false,
             round: 0,
             difficulty: 0,
@@ -114,14 +113,14 @@ class Settings {
         isGlobalMute = false,
         learningMode = 'mix',
         countNewWords = 10,
-        definitionSentence = false,
-        exampleSentence = false,
-        translateWord = false,
-        associationImage = false,
-        transcription = false,
-        answerButton = false,
-        deleteButton = false,
-        hardWordsButton = false,
+        definitionSentence = true,
+        exampleSentence = true,
+        translateWord = true,
+        associationImage = true,
+        transcription = true,
+        answerButton = true,
+        deleteButton = true,
+        hardWordsButton = true,
       } = {},
     } = settings;
 
@@ -157,7 +156,7 @@ class Settings {
       case 'savannah':
       case 'audioCall':
       case 'sprint':
-      case 'ourGame':
+      case 'fillword':
         this.minigames[key] = value;
         break;
       default:
