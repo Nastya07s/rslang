@@ -24,7 +24,26 @@ const markup = {
         <div class="bar-block__numtwo"></div>
       </div>
     </div>
-  </section> `,
+  </section> 
+  <div class="modal card d-none">
+    <p>Дневная норма выполнена</p>
+    <div class="flex">
+      <p>Карточек завершено:</p>
+      <p class="cardsCompleted">8</p>
+    </div>
+    <div class="flex">
+      <p>Правильные ответы:</p>
+      <p class="correctAnswers">25%</p>
+    </div>
+    <div class="flex">
+      <p>Новые слова:</p>
+      <p class="numberOfNewWords">4</p>
+    </div>
+    <div class="flex">
+      <p>Самая длинная серия правильных ответов:</p>
+      <p class="longestSeriesOfCorrectAnswers">2</p>
+    </div>
+  </div>`,
   settingsPage: `
   <section class="settings center">
     <div class="card settings__card">
@@ -46,7 +65,7 @@ const markup = {
           <input type="number" class="settings__square-big" data-settings=countNewWords>
         </div>
         <div class="settings__item flex">
-          <div class="settings__text">Количество карточке в день</div>
+          <div class="settings__text">Количество карточек в день</div>
           <input type="number" class="settings__square-big" data-settings=wordsPerDay>
         </div>
         <div class="settings__item flex">
@@ -136,6 +155,16 @@ const markup = {
     </div>
   </section>
   `,
+  loader: `
+  <div class="backdrop">
+    <div class="loader-data">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+  </div>`,
 };
 
 export default markup;

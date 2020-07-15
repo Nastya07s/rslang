@@ -10,8 +10,9 @@ const PATHS = {
   savannah: path.join(__dirname, '../src/minigames/savannah'),
   fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
+  speakit: path.join(__dirname, '../src/minigames/speakit'),
+  sprint: path.join(__dirname, '../src/minigames/sprint'),
   englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
-  sprint: path.join(__dirname, '../src/minigames/sprint/index-sprint.js'),
   assets: 'assets',
 };
 
@@ -22,17 +23,20 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
+      speakit: PATHS.speakit,
       savannah: PATHS.savannah,
       fillword: PATHS.fillword,
     },
     extensions: ['.js'],
   },
   entry: {
-    savannah: `${PATHS.savannah}/savannah.js`,
-    fillword: `${PATHS.fillword}/fillword.js`,
-    main: `${PATHS.main}/js/main.js`,
     promo: `${PATHS.src}/js/main.js`,
-    sprint: PATHS.sprint,
+    main: `${PATHS.main}/js/main.js`,
+    speakit: `${PATHS.speakit}/speakit.js`,
+    sprint: `${PATHS.sprint}/index-sprint.js`,
+    englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
+    fillword: `${PATHS.fillword}/fillword.js`,
+    savannah: `${PATHS.savannah}/savannah.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -100,14 +104,19 @@ module.exports = {
       chunks: ['promo'],
     }),
     new HtmlWebpackPlugin({
-      template: `${PATHS.fillword}/index.html`,
-      filename: './fillword/index.html',
-      chunks: ['fillword'],
-    }),
-    new HtmlWebpackPlugin({
       template: `${PATHS.main}/index.html`,
       filename: './main/index.html',
       chunks: ['main'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.speakit}/index.html`,
+      filename: './speakit/index.html',
+      chunks: ['speakit'], // include exact this chunk of needed code
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.sprint}/index.html`,
+      filename: './sprint/index.html',
+      chunks: ['sprint'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.savannah}/index.html`,
@@ -115,9 +124,19 @@ module.exports = {
       chunks: ['savannah'],
     }),
     new HtmlWebpackPlugin({
+      template: `${PATHS.englishpuzzle}/index.html`,
+      filename: './englishpuzzle/index.html',
+      chunks: ['englishpuzzle'], // include exact this chunk of needed code
+    }),
+    new HtmlWebpackPlugin({
       template: `${PATHS.src}/minigames/sprint/index.html`,
       filename: './sprint',
       chunks: ['sprint'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.fillword}/index.html`,
+      filename: './fillword/index.html',
+      chunks: ['fillword'],
     }),
     new CopyWebpackPlugin([
       {

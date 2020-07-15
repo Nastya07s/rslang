@@ -1,13 +1,10 @@
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
-
-import Login from 'app/js/login';
+import 'app/index';
+import Login from './login';
+import Registration from './registration';
 import promoPage from './promo';
 
-import Registration from './registration';
-
-const login = new Login('#login');
-const registration = new Registration('#registration');
+const login = new Login();
+const registration = new Registration();
 // eslint shows errors without console.log (no-unused-vars)
 console.log(login);
 console.log(registration);

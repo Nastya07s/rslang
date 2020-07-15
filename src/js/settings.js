@@ -75,7 +75,6 @@ class Settings {
    * @param {Object} settings stores settings usually from backend
    */
   setSettings(settings = {}) {
-    console.log(settings);
     const {
       wordsPerDay = 20,
       optional: {
@@ -114,14 +113,14 @@ class Settings {
         isGlobalMute = false,
         learningMode = 'mix',
         countNewWords = 10,
-        definitionSentence = false,
-        exampleSentence = false,
-        translateWord = false,
-        associationImage = false,
-        transcription = false,
-        answerButton = false,
-        deleteButton = false,
-        hardWordsButton = false,
+        definitionSentence = true,
+        exampleSentence = true,
+        translateWord = true,
+        associationImage = true,
+        transcription = true,
+        answerButton = true,
+        deleteButton = true,
+        hardWordsButton = true,
       } = {},
     } = settings;
 

@@ -1,5 +1,6 @@
 import performRequests from 'app/js/utils/perform-requests';
 import markup from './markup';
+import store from './store';
 import api from '../../js/api';
 import settings from '../../js/settings';
 import { nextRepetition } from '../../js/intervalRepeatMethod';
@@ -14,24 +15,16 @@ class VocabularyPage {
   }
 
   async init() {
-    await settings.getSettings();
+    store.isRendered = false;
+    this.parent.innerHTML = markup.loader;
     const params = {
       wordsPerPage: 3600,
       filter: { $nor: [{ userWord: null }] },
     };
-    // const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
     const data = await performRequests([api.getUsersAggregatedWords.bind(api, params)]);
     const [responseResults] = data;
     const [results] = responseResults;
     const { paginatedResults: words } = results;
-    // const words = await api.getUsersAggregatedWords(0, 3, false, {
-    //   $and: [
-    //     {
-    //       $nor: [{ userWord: null }],
-    //     },
-    //   ],
-    // });
-    console.log('words.paginatedResults: ', words);
     this.words = shuffleArray(words);
     this.render();
     this.initHandlers();
@@ -41,17 +34,16 @@ class VocabularyPage {
     this.parent.innerHTML = markup.vocabularyPage;
     const vocabularyCountainer = document.querySelector('.vocabulary__template');
     this.words.forEach((word) => {
-      // console.log('word: ', word);
-
-      // console.log('settings: ', settings);
+      const { _id: id } = word;
       let count = +word.userWord.optional.degreeOfKnowledge;
       const { lastRepetition, isDelete, isHard } = word.userWord.optional;
-      const nextRepetitionTimeStamp = +nextRepetition(count, lastRepetition);
-      const nextRepetitionDate = nextRepetitionTimeStamp
+      const nextRepetitionTimeStamp = nextRepetition(count, lastRepetition);
+      const nextRepetitionDate = typeof nextRepetitionTimeStamp === 'number'
         ? new Date(nextRepetitionTimeStamp).toLocaleDateString()
         : nextRepetitionTimeStamp;
       const wordElement = document.createElement('div');
       wordElement.classList.add('template-vocabulary__body', 'flex');
+      wordElement.dataset.id = id;
       wordElement.dataset.hard = isHard;
       wordElement.dataset.delete = isDelete;
       wordElement.dataset.learning = count < 5 ? 'true' : 'false';
@@ -104,12 +96,17 @@ class VocabularyPage {
             <span>To <i>agree</i> is to have the same opinion or belief as another person.</span>
           </div>
           <div class="template-vocabulary__time flex">
-            <div class="template-vocabulary__lasttime">Последие повторение: <span>${new Date(+word.userWord.optional.lastRepetition).toLocaleDateString()}</span></div>
+            <div class="template-vocabulary__lasttime">Последние повторение: <span>${new Date(
+    +word.userWord.optional.lastRepetition,
+  ).toLocaleDateString()}</span></div>
             <div class="template-vocabulary__nexttime">Следующее повторение: <span>${nextRepetitionDate}</span></div>
-            <div class="template-vocabulary__num">Повторения: <span>${+word.userWord.optional.countRepetition}</span></div>
+            <div class="template-vocabulary__num">Повторения: <span>${+word.userWord.optional
+    .countRepetition}</span></div>
           </div>
         </div>
-        <div class="template-vocabulary__image d-none" data-settings="associationImage"><img src="https://raw.githubusercontent.com/kamikozz/rslang-data/master/${word.image}" alt="" /></div>
+        <div class="template-vocabulary__image d-none" data-settings="associationImage"><img src="https://raw.githubusercontent.com/kamikozz/rslang-data/master/${
+  word.image
+}" alt="" /></div>
       </div>`;
       wordElement.querySelectorAll('.complexity__circle').forEach((el) => {
         if (count) {
@@ -125,6 +122,15 @@ class VocabularyPage {
     this.parent.querySelector('.vocabulary__num span').textContent = this.words.length;
   }
 
+  determineCountVisibleWords() {
+    const countVisibleWords = this.parent.querySelectorAll('.template-vocabulary__body:not(.d-none)').length;
+    if (countVisibleWords === 0) {
+      this.parent.querySelector('.template-vocabulary__body').classList.remove('d-none');
+      this.parent.querySelector('.vocabulary__template').classList.add('opacity-0');
+    }
+    this.parent.querySelector('.vocabulary__num span').textContent = countVisibleWords;
+  }
+
   initHandlers() {
     this.parent.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
       this.parent.querySelectorAll('.vocabulary__info-title').forEach((el) => {
@@ -137,27 +143,54 @@ class VocabularyPage {
     this.parent.querySelector('.vocabulary__info').addEventListener('click', ({ target }) => {
       this.parent.querySelector('.vocabulary__template').classList.remove('opacity-0');
       this.parent.querySelectorAll('.template-vocabulary__body').forEach((el) => {
-        // console.log('el: ', el);
         el.classList.remove('d-none');
         if (el.dataset[target.dataset.word] !== 'true') el.classList.add('d-none');
-        // console.log('target.dataset.word: ', target.dataset.word);
-        // console.log('el.dataset[target.dataset.word]: ', el.dataset[target.dataset.word]);
+        if (target.dataset.word === 'hard' || target.dataset.word === 'delete') {
+          el.querySelectorAll('.template-vocabulary__restore').forEach((word) => {
+            word.classList.remove('d-none');
+            word.addEventListener('click', async (event) => {
+              event.preventDefault();
+              const idWord = el.dataset.id;
+              const [wordObject] = await api.getUsersAggregatedWordsById(idWord);
+              const {
+                countRepetition,
+                degreeOfKnowledge,
+                isDelete,
+                isHard,
+                isReadyToRepeat,
+                lastRepetition,
+                becameLearned,
+              } = wordObject.userWord.optional;
+              const deleteResult = el.dataset.delete === 'true' ? !isDelete : isDelete;
+              const hardResult = el.dataset.hard === 'true' ? !isHard : isHard;
+
+              api.updateUserWordById(idWord, {
+                difficulty: String(wordObject.group),
+                optional: {
+                  countRepetition,
+                  isDelete: deleteResult,
+                  isHard: hardResult,
+                  isReadyToRepeat,
+                  lastRepetition,
+                  degreeOfKnowledge,
+                  becameLearned,
+                },
+              });
+              el.classList.add('d-none');
+              el.setAttribute('data-hard', hardResult);
+              el.setAttribute('data-delete', deleteResult);
+
+              this.determineCountVisibleWords();
+            });
+          });
+        } else el.querySelectorAll('.template-vocabulary__restore').forEach((word) => word.classList.add('d-none'));
       });
-      const countVisibleWords = this.parent.querySelectorAll('.template-vocabulary__body:not(.d-none)').length;
-      if (countVisibleWords === 0) {
-        console.log('countVisibleWords: ', countVisibleWords);
-        this.parent.querySelector('.template-vocabulary__body').classList.remove('d-none');
-        console.log('this.parent.querySelector.className ', this.parent.querySelector('.vocabulary__template').className);
-        this.parent.querySelector('.vocabulary__template').classList.add('opacity-0');
-        console.log('this.parent.querySelector.className ', this.parent.querySelector('.vocabulary__template').className);
-        console.log('this.parent.querySelector ', this.parent.querySelector('.vocabulary__template'));
-      }
-      this.parent.querySelector('.vocabulary__num span').textContent = countVisibleWords;
+      this.determineCountVisibleWords();
     });
 
     this.parent.querySelectorAll('[data-settings="isGlobalMute"]:not(.d-none)').forEach((el) => {
       el.addEventListener('click', () => {
-        el.nextElementSibling.play();
+        if (settings.isGlobalMute) el.nextElementSibling.play();
       });
     });
   }
