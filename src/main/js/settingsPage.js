@@ -58,6 +58,13 @@ class SettingsPage {
   }
 
   initHandlers() {
+    document.querySelector('.show-tooltip_btn').addEventListener('click', () => {
+      document.querySelector('.tooltip').style.display = 'flex';
+      document.querySelector('.tooltip').classList.add('fade-in');
+      setTimeout(() => {
+        document.querySelector('.tooltip').classList.remove('fade-in');
+      }, 500);
+    });
     this.parent.querySelector('.settings__logout').addEventListener('mousedown', ({ target }) => {
       target.closest('.settings__logout').classList.add('settings__logout-active');
     });
