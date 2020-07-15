@@ -26,7 +26,6 @@ module.exports = {
       speakit: PATHS.speakit,
       savannah: PATHS.savannah,
       fillword: PATHS.fillword,
-      englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
   },

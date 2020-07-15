@@ -16,6 +16,15 @@
     }
 }
 
+.github-object {
+    width: 60px;
+    height: 40px;
+    cursor: pointer;
+    & svg {
+        cursor: pointer;
+    }
+}
+
 .logo-path {
     @extend %transition;
 }
