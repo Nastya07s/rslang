@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
   speakit: path.join(__dirname, '../src/minigames/speakit'),
   sprint: path.join(__dirname, '../src/minigames/sprint'),
@@ -22,6 +23,7 @@ module.exports = {
     alias: {
       app: PATHS.src,
       speakit: PATHS.speakit,
+      fillword: PATHS.fillword,
       englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
@@ -32,6 +34,7 @@ module.exports = {
     speakit: `${PATHS.speakit}/speakit.js`,
     sprint: `${PATHS.sprint}/index-sprint.js`,
     englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
+    fillword: `${PATHS.fillword}/fillword.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -116,6 +119,11 @@ module.exports = {
       template: `${PATHS.englishpuzzle}/index.html`,
       filename: './englishpuzzle/index.html',
       chunks: ['englishpuzzle'], // include exact this chunk of needed code
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.fillword}/index.html`,
+      filename: './fillword/index.html',
+      chunks: ['fillword'],
     }),
     new CopyWebpackPlugin([
       {
