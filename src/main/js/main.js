@@ -5,7 +5,14 @@ import './animate';
 import mainPage from './mainPage';
 import tooltip from './tooltip';
 
-api.loginUser({ email: 'gabrielljihk@gmail.com', password: 'AAaaBBbb12!' }).then(() => {
-  tooltip.init();
+api.checkLogin().then(async (user) => {
   mainPage.init();
+  tooltip.init();
+  console.log(user);
+}, () => {
+  console.log('Couldnt login');
 });
+
+// api.loginUser({ email: 'test3@mail.ru', password: 'QQQwww123.' }).then(() => {
+//   mainPage.init();
+// });

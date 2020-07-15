@@ -103,6 +103,7 @@ $image-gap: 32px;
      @media (max-width: 480px) {
         padding: 3rem 3rem 2rem 1rem;
         left: 61%;
+        max-width: 300px;
      }
      @media (max-width: 380px) {
         left: 73%;
@@ -114,6 +115,9 @@ $image-gap: 32px;
     flex-direction: column;
     @media (max-width: 480px) {
         font-size: 1.2rem;
+        & li {
+            font-size: 1rem;
+        }
     }
 }
 
