@@ -117,7 +117,12 @@ export default class Model {
   playSound() {
     this.audio.muted = this.audioMute;
     const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-    this.audio.src = `${url}/${this.gameWord.audio}`;
+    console.log(typeof this.gameWord.audio);
+    if (this.gameWord.audio.startsWith('files')) {
+      this.audio.src = `${url}/${this.gameWord.audio}`;
+    } else {
+      this.audio.src = `data:audio/mpeg;base64,${this.gameWord.audio}`;
+    }
     try {
       this.audio.play();
     } catch (e) {
