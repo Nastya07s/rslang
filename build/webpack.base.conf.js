@@ -7,6 +7,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
+  savannah: path.join(__dirname, '../src/minigames/savannah'),
   fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
   englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
@@ -21,13 +22,14 @@ module.exports = {
   resolve: {
     alias: {
       app: PATHS.src,
+      savannah: PATHS.savannah,
       fillword: PATHS.fillword,
       englishpuzzle: PATHS.englishpuzzle,
     },
     extensions: ['.js'],
   },
   entry: {
-    app: `${PATHS.src}/index.js`,
+    savannah: `${PATHS.savannah}/savannah.js`,
     fillword: `${PATHS.fillword}/fillword.js`,
     englishpuzzle: `${PATHS.englishpuzzle}/index.js`,
     main: `${PATHS.main}/js/main.js`,
@@ -38,6 +40,7 @@ module.exports = {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
     path: PATHS.dist,
   },
+
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -109,9 +112,16 @@ module.exports = {
       chunks: ['main'],
     }),
     new HtmlWebpackPlugin({
+      template: `${PATHS.savannah}/index.html`,
+      filename: './savannah/index.html',
+      chunks: ['savannah'],
+    }),
+    new HtmlWebpackPlugin({
       template: `${PATHS.englishpuzzle}/index.html`,
       filename: './englishpuzzle/index.html',
-      chunks: ['englishpuzzle'], // include exact this chunk of needed code
+      chunks: ['englishpuzzle'],
+    }),
+    new HtmlWebpackPlugin({
       template: `${PATHS.src}/minigames/sprint/index.html`,
       filename: './sprint',
       chunks: ['sprint'],
