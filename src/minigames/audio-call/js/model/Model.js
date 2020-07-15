@@ -20,6 +20,8 @@ export default class Model {
     this.gameMode = '';
     this.round = 0;
     this.level = 0;
+    this.valueMoveProgress = 0;
+    this.currentValueMoveProgress = 0;
     this.audioMute = false;
     this.gameActive = false;
     this.gameWords = [];
@@ -48,6 +50,8 @@ export default class Model {
     await this.initWordDetalization();
     this.gameWords = shuffleArray(this.gameWords);
     this.gameWordsAnswers = shuffleArray(this.gameWordsAnswers);
+    this.valueMoveProgress = 100 / this.gameWords.length;
+    this.currentValueMoveProgress = 0;
     this.currentWordNumber = this.gameWords.length - 1;
   }
 
@@ -197,6 +201,10 @@ export default class Model {
     this.audioMute = !this.audioMute;
     localStorage.setItem('audiocall',
       JSON.stringify({ round: this.round, level: this.level, audioMute: this.audioMute }));
+  }
+
+  updateProgress() {
+    this.currentValueMoveProgress += this.valueMoveProgress;
   }
 
   setNextWord() {

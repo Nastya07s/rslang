@@ -32,6 +32,8 @@ export default class Controller {
   async init() {
     this.view.onDisableAnswers();
     this.view.onDisableControllersGame();
+    this.view.updateProgressGame(0);
+    // this.view.hideProgressGame();
     this.view.hideControllers();
     this.view.hideGame();
     this.view.hideCurrentGame();
@@ -79,6 +81,8 @@ export default class Controller {
     this.view.onDisableAnswers();
     this.view.showAnswerDescription();
     this.inCorrectAnswer();
+    this.model.updateProgress();
+    this.view.updateProgressGame(this.model.currentValueMoveProgress);
     console.log('click idk');
   }
 
@@ -91,6 +95,8 @@ export default class Controller {
     this.view.onDisableAnswers();
     this.view.swapVisibleBtnsControllerGame();
     this.view.showAnswerDescription();
+    this.model.updateProgress();
+    this.view.updateProgressGame(this.model.currentValueMoveProgress);
     if (word === this.model.currentCorrectWord.ru) {
       this.correctAnswer(word);
     } else {
@@ -149,6 +155,7 @@ export default class Controller {
       this.view.showWordAnsers(this.model.currentWordsAnswers);
       this.view.showCurrentGame();
       this.view.onDisableControllersGame();
+
       setTimeout(() => {
         this.view.swapClassListGame();
         this.view.clickAudioGame();

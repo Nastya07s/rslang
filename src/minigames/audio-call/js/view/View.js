@@ -35,6 +35,7 @@ export default class View {
     this.dropGameBtn = document.querySelector('.drop-game-window__exit');
     this.dropGameBtnStatistics = document.querySelector('.finish-training');
     this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
+    this.progressGame = document.querySelector('.progress-game');
   }
 
   showControllers() {
@@ -171,6 +172,18 @@ export default class View {
       element.textContent = words[index];
       element.className = 'game__answer';
     });
+  }
+
+  showProgressGame() {
+    this.progressGame.classList.remove('inactive');
+  }
+
+  updateProgressGame(value) {
+    this.progressGame.style.width = `${value}%`;
+  }
+
+  hideProgressGame() {
+    this.progressGame.classList.add('inactive');
   }
 
   showCurrentGame() {
