@@ -28,7 +28,7 @@ export default class Statistics {
   }
 
   initStatistics() {
-    const gamesArray = ['speakit', 'englishPuzzle', 'savannah', 'audioCall', 'sprint', 'ourGame'];
+    const gamesArray = ['speakit', 'englishPuzzle', 'savannah', 'audioCall', 'sprint', 'fillWord'];
     let isChangedStatistics = false;
     gamesArray.forEach((element) => {
       if (!this.statistics.optional[element]) {

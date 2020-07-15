@@ -9,6 +9,7 @@ const PATHS = {
   dist: path.join(__dirname, '../dist'),
   main: path.join(__dirname, '../src/main'),
   speakit: path.join(__dirname, '../src/minigames/speakit'),
+  sprint: path.join(__dirname, '../src/minigames/sprint'),
   assets: 'assets',
 };
 
@@ -27,6 +28,7 @@ module.exports = {
     promo: `${PATHS.src}/js/main.js`,
     main: `${PATHS.main}/js/main.js`,
     speakit: `${PATHS.speakit}/speakit.js`,
+    sprint: `${PATHS.sprint}/index-sprint.js`,
   },
   output: {
     filename: `${PATHS.assets}/js/[name].[hash].js`,
@@ -101,6 +103,11 @@ module.exports = {
       template: `${PATHS.speakit}/index.html`,
       filename: './speakit/index.html',
       chunks: ['speakit'], // include exact this chunk of needed code
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.sprint}/index.html`,
+      filename: './sprint',
+      chunks: ['sprint'],
     }),
     new CopyWebpackPlugin([
       {
