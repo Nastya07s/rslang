@@ -1,6 +1,6 @@
 import Api from '../../../../js/api';
 import shuffleArray from '../utils/shuffleArray';
-import randomNumber from '../utils/randomNumber';
+import wordDetalization from '../utils/wordDetalization';
 
 const MIN_NUMBER_WORDS_GAME = 5;
 const MAX_NUMBER_WORDS_GAME = 20;
@@ -45,6 +45,7 @@ export default class Model {
     this.initRoundLevel();
     await this.initGameWords();
     await this.fillGameWordsAnswers();
+    await this.initWordDetalization();
     this.gameWords = shuffleArray(this.gameWords);
     this.gameWordsAnswers = shuffleArray(this.gameWordsAnswers);
     this.currentWordNumber = this.gameWords.length - 1;
@@ -146,6 +147,20 @@ export default class Model {
     }
   }
 
+  async initWordDetalization() {
+    this.gameWords.forEach(async (item) => {
+      const element = item;
+      const res = await wordDetalization(element.word);
+      element.partOfSpeechCode = res[0].meanings[0].partOfSpeechCode;
+    });
+
+    this.gameWordsAnswers.forEach(async (item) => {
+      const element = item;
+      const res = await wordDetalization(element.word);
+      element.partOfSpeechCode = res[0].meanings[0].partOfSpeechCode;
+    });
+  }
+
   async initGameMode() {
     try {
       const res = await Api.getSettings();
@@ -189,15 +204,22 @@ export default class Model {
     this.currentCorrectWord.ru = this.gameWords[this.currentWordNumber].wordTranslate;
 
     this.currentWordsAnswers = [];
-    this.currentWordsAnswers.push(this.currentCorrectWord.ru);
 
     let helpGameWords = [...this.gameWordsAnswers];
     helpGameWords = helpGameWords.filter((i) => i.wordTranslate !== this.currentCorrectWord.ru);
+    helpGameWords = shuffleArray(helpGameWords);
 
-    randomNumber(0, helpGameWords.length - 1, 4).forEach((number) => {
-      this.currentWordsAnswers.push(helpGameWords[number].wordTranslate);
-    });
+    let helpGameWordsToo = helpGameWords
+      .filter((i) => i.partOfSpeechCode
+        === this.gameWords[this.currentWordNumber].partOfSpeechCode);
+    helpGameWordsToo = shuffleArray(helpGameWordsToo);
+    console.log(helpGameWordsToo);
 
+    this.currentWordsAnswers = [...new Set([...helpGameWordsToo, ...helpGameWords])]
+      .slice(0, 4)
+      .map((element) => element.wordTranslate);
+
+    this.currentWordsAnswers.push(this.currentCorrectWord.ru);
     this.currentWordsAnswers = shuffleArray(this.currentWordsAnswers);
   }
 
