@@ -554,6 +554,7 @@ class PageMain {
     const isCardAudioSourceChanged = audioPlayer.src !== audioSrc;
 
     if (isCardAudioSourceChanged) {
+      audioPlayer.src = '';
       audioPlayer.src = audioSrc;
     }
 

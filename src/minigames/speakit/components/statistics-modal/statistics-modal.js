@@ -25,6 +25,7 @@ class StatisticsModal {
     this.volume = props.volume;
     this.isHidden = true;
     this.audioPlayer = null;
+    this.isPlaying = false;
   }
 
   init() {
@@ -156,6 +157,10 @@ class StatisticsModal {
   initAudioPlayer() {
     this.audioPlayer = new Audio();
     this.audioPlayer.volume = this.volume;
+    // Audio pLayer handlers
+    this.audioPlayer.onended = () => {
+      this.isPlaying = false;
+    };
   }
 
   changeVolume(volume) {
@@ -169,16 +174,17 @@ class StatisticsModal {
   playSound(card) {
     const baseUrl = 'https://raw.githubusercontent.com/kamikozz/rslang-data/master/';
     const audioSrc = `${baseUrl}${card.dataset.audio}`;
+
+    if (this.isPlaying) {
+      return;
+    }
+
     const isCardAudioSourceChanged = this.audioPlayer.src !== audioSrc;
 
     if (isCardAudioSourceChanged) {
       this.audioPlayer.src = audioSrc;
-    }
-
-    try {
       this.audioPlayer.play();
-    } catch (e) {
-      // DOMException: The play() request was interrupted by a new load request. https://goo.gl/LdLk22
+      this.isPlaying = true;
     }
   }
 
