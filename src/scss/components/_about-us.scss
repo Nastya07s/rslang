@@ -74,13 +74,14 @@ $image-gap: 32px;
 .employee__modal-window {
     position: fixed;
     display: none;
+    max-width: 400px;
     flex-direction: column;
     align-items: flex-end;
     width: fit-content;
     height: fit-content;
     background: #fff;
     padding: 5rem 5rem 2rem 2rem;
-    bottom: 25%;
+    bottom: 10%;
     left: 50%;
     margin-left: -190px;
     box-shadow: 0 4px 4px rgba(0,0,0,.25);
