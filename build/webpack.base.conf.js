@@ -137,6 +137,11 @@ module.exports = {
       chunks: ['englishpuzzle'], // include exact this chunk of needed code
     }),
     new HtmlWebpackPlugin({
+      template: `${PATHS.src}/minigames/sprint/index.html`,
+      filename: './sprint',
+      chunks: ['sprint'],
+    }),
+    new HtmlWebpackPlugin({
       template: `${PATHS.fillword}/index.html`,
       filename: './fillword/index.html',
       chunks: ['fillword'],

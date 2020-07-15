@@ -36,6 +36,10 @@
     .settings__custoncheckbox {
       margin-right: -5px;
     }
+
+    span{
+      cursor: pointer;
+    }
   }
 
   &__square-big {
@@ -56,8 +60,12 @@
   }
 
   &__logout {
-    margin-top: 50px;
+    margin-top: 17px;
     cursor: pointer;
+
+    &:first-child {
+      margin-top: 50px;
+    }
 
     a {
       width: 100%;
