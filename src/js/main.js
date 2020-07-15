@@ -1,8 +1,9 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+import Login from 'app/js/login';
 import promoPage from './promo';
-import Login from './login';
+
 import Registration from './registration';
 
 const login = new Login('#login');
