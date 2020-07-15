@@ -68,6 +68,7 @@ class Controller {
   }
 
   async handlerClickRestartTraining() {
+    this.model.arrayAnswer = [];
     this.model.gameActive = true;
     this.view.clearStyleResult();
     this.view.clearChooseWordContainer();
