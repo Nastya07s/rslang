@@ -1,9 +1,7 @@
-
 import Statistics from 'app/js/statistics';
 import Round from './view/Round';
 import QuickStatistic from './view/OuickStatistic';
 import eventEmitter from './services/eventEmitter';
-
 
 export default {
   init(state, api, settings) {

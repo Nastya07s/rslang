@@ -16,10 +16,11 @@ $image-gap: 32px;
 }
 
 .employee-container {
-    padding-right: $image-gap;
+  padding-right: $image-gap;
 }
 
 .employee {
+  & {
     display: flex;
     padding: 30px;
     margin-bottom: 45px;
@@ -27,24 +28,26 @@ $image-gap: 32px;
     width: calc(30% - 32px);
     cursor: pointer;
     transition: all .25s;
-    &:hover {
-        box-shadow: 1px 4px 50px rgba(0,0,0,.17);
-    }
+
     @media (max-width: 425px) {
-        padding: 15px 15px;
+      padding: 15px 15px;
     }
-}
+  }
 
-.employee__name {
+  &:hover {
+    box-shadow: 1px 4px 50px rgba(0,0,0,.17);
+  }
+
+  &__name {
     margin: 0;
-}
+  }
 
-.employee__title {
+  &__title {
     @include font($size: 1.4rem, $weight: normal);
     margin: 0;
-}
+  }
 
-.employee__contact {
+  &__contact {
     @include font($size: 1.4rem, $weight: normal);
     color: $color-link;
     text-decoration: none;
@@ -54,9 +57,9 @@ $image-gap: 32px;
     @media (max-width: 480px) {
         font-size: 1.2rem;
     }
-}
+  }
 
-.employee__photo {
+  &__photo {
     width: 98px;
     height: 98px;
     border-radius: 50%;
@@ -64,67 +67,95 @@ $image-gap: 32px;
     right: -$image-gap;
     top: -22px;
     box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.15);
-    @media (max-width: 425px) {
-        top: -4px;
-        width: 68px;
-        height: 68px;
-    }
-}
 
-.employee__modal-window {
-    position: fixed;
-    display: none;
-    max-width: 400px;
-    flex-direction: column;
-    align-items: flex-end;
-    width: fit-content;
-    height: fit-content;
-    background: #fff;
-    padding: 5rem 5rem 2rem 2rem;
-    bottom: 10%;
-    left: 50%;
-    margin-left: -190px;
-    box-shadow: 0 4px 4px rgba(0,0,0,.25);
-    border-radius: 10px;
-     .close_modal {
+    @media (max-width: 425px) {
+      top: -4px;
+      width: 68px;
+      height: 68px;
+    }
+  }
+
+  &__modal-window {
+    & {
+      position: fixed;
+      bottom: 10%;
+      left: 50%;
+
+      display: flex;
+      margin-left: calc(-400px / 2);
+      padding: 5rem 5rem 2rem 2rem;
+      max-width: 400px;
+      width: fit-content;
+      height: fit-content;
+
+      background: #fff;
+      box-shadow: 0 4px 4px rgba(0,0,0,.25);
+      border-radius: 10px;
+
+      flex-direction: column;
+      align-items: flex-end;
+
+      animation: show_modal 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+      @media (max-width: 480px) {
+        margin-left: calc(-300px / 2);
+        padding: 3rem 3rem 2rem 1rem;
+        max-width: 300px;
+      }
+    }
+
+    &_hidden {
+      display: none;
+    }
+
+    & .close_modal {
+      & {
         display: flex;
         justify-content: center;
-        .btn-close_modal {
-            background: #ff9900c7;
-            outline: none;
-            border: 1px solid $color-border;
-            border-radius: 3px;
-            transition: all .25s;
-            &:hover {
-                background: $color-primary;
-            }
-        }
-     }
-     @media (max-width: 480px) {
-        padding: 3rem 3rem 2rem 1rem;
-        left: 61%;
-        max-width: 300px;
-     }
-     @media (max-width: 380px) {
-        left: 73%;
-     }
-}
+      }
 
-.employee__stuff {
-    display: flex;
-    flex-direction: column;
-    @media (max-width: 480px) {
+      & .btn-close_modal {
+        & {
+          background-color: #ff9900c7;
+          outline: none;
+          border: 1px solid $color-border;
+          border-radius: 3px;
+          transition: all .25s;
+        }
+
+        &:hover {
+            background-color: $color-primary;
+        }
+      }
+    }
+  }
+
+  &__stuff {
+    & {
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+      max-height: 264px;
+
+      @media (max-width: 480px) {
         font-size: 1.2rem;
         & li {
-            font-size: 1rem;
+          font-size: 1rem;
         }
+      }
     }
-}
 
-.show_employee_modal {
-    display: flex;
-    animation: show_modal 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    /* styling scrollbar */
+    &::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(255, 153, 0, 0.78);
+    }
+
+    &::-webkit-scrollbar{
+      width: 6px;
+    }
   }
+}
 
 .scale-out-center {
 	animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
@@ -154,4 +185,3 @@ $image-gap: 32px;
       opacity: 1;
     }
   }
-  

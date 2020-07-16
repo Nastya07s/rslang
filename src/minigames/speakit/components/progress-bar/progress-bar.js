@@ -68,7 +68,6 @@ class ProgressBar {
     let newValue;
     const isValueInBound = value >= 0 && value <= this.maxValue;
 
-
     if (isValueInBound) {
       newValue = value;
     } else {
