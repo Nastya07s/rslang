@@ -1,4 +1,3 @@
-
 import setters from './setters';
 import getters from './getters';
 import eventEmitter from '../services/eventEmitter';
