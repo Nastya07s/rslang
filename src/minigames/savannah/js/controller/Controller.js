@@ -25,6 +25,7 @@ export default class Controller {
     this.view.bindClickCancel(this.handlerClickCancel.bind(this));
     this.view.bindClickAudioStatistics(this.handlerClickAudioStatistics.bind(this));
     this.view.bindClickExitGame();
+    this.view.bindClickBulb(this.handlerClickBulb.bind(this));
     this.model.audio.addEventListener('ended', () => {
       this.view.inActiveAllAudio();
     });
@@ -32,6 +33,7 @@ export default class Controller {
 
   async init() {
     this.view.hideSound();
+    this.view.hideBulb();
     this.view.showClose();
     this.view.onDisableAnswers();
     this.view.showDataLoader();
@@ -70,6 +72,7 @@ export default class Controller {
       this.view.showGame();
       this.view.showControllers();
       this.view.showHearts();
+      this.view.showBulb();
       this.nextWord();
     }, PRELAUNCH_TIME);
     console.log('GAME WORDS', this.model.gameWords);
@@ -79,6 +82,7 @@ export default class Controller {
   handlerAnswer(word) {
     this.view.setPositionFallWord();
     this.view.onDisableAnswers();
+    this.view.onDisableBulb();
     clearTimeout(this.timerGame);
     this.timeDifference = 0;
     this.delayBeforeNextWord();
@@ -87,6 +91,10 @@ export default class Controller {
     } else {
       this.inCorrectAnswer(word);
     }
+  }
+
+  handlerClickBulb() {
+    this.view.hintAnswer(this.model.currentCorrectWord.ru);
   }
 
   handlerChangeRound(round) {
@@ -190,6 +198,7 @@ export default class Controller {
       this.model.setNextWord();
       this.model.currentWordNumber -= 1;
       this.view.offDisableAnswers();
+      this.view.offDisableBulb();
       this.view.showWordDown(this.model.currentCorrectWord.en);
       this.view.showWordsAnswers(this.model.currentWordsAnswers);
       this.view.animateWordDown();
@@ -200,6 +209,7 @@ export default class Controller {
     } else {
       this.view.hideGame();
       this.view.hideHearts();
+      this.view.hideBulb();
       this.view.hideClose();
       this.view.hideControllers();
       this.view.showDataLoader();

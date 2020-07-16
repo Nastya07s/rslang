@@ -34,6 +34,7 @@ export default class View {
     this.dropGameBtn = document.querySelector('.drop-game-window__exit');
     this.dropGameBtnStatistics = document.querySelector('.finish-training');
     this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
+    this.bulb = document.querySelector('.bulb');
   }
 
   showControllers() {
@@ -78,6 +79,26 @@ export default class View {
 
   hideGameClose() {
     this.dropGame.classList.add('inactive');
+  }
+
+  showBulb() {
+    this.bulb.classList.remove('icon_inactive');
+  }
+
+  hideBulb() {
+    this.bulb.classList.add('icon_inactive');
+  }
+
+  onDisableBulb() {
+    this.bulb.disabled = true;
+  }
+
+  offDisableBulb() {
+    this.bulb.disabled = false;
+  }
+
+  hintAnswer(word) {
+    this.findWord(word).classList.add('hint');
   }
 
   hideDataLoader() {
@@ -171,13 +192,13 @@ export default class View {
 
   showCorrectWord(word) {
     if (word) {
-      this.findWord(word).classList.add('correct');
+      this.findWord(word).className = 'game__answer correct';
     }
   }
 
   showInCorrectWord(word) {
     if (word) {
-      this.findWord(word).classList.add('incorrect');
+      this.findWord(word).className = 'game__answer incorrect';
     }
   }
 
@@ -322,6 +343,13 @@ export default class View {
       if (target) {
         handler(target.textContent);
       }
+    });
+  }
+
+  bindClickBulb(handler) {
+    this.bulb.addEventListener('click', () => {
+      this.hideBulb();
+      handler();
     });
   }
 
