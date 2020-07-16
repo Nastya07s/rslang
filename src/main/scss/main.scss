@@ -1,3 +1,4 @@
+@import "utils/_mixins";
 @import "utils/_null";
 @import "utils/_fonts";
 @import "utils/variables";
@@ -160,4 +161,7 @@ main {
 @import "vocabulary.scss";
 @import "tooltip.scss";
 @import "statistics.scss";
-@import "utils/media";
+@import "components/global-statistics";
+@import "speakit/components/pop-up/pop-up";
+@import "speakit/scss/utils/_animations";
+@import "utils/_media";
