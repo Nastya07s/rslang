@@ -235,7 +235,6 @@ export default class View {
     this.wordDown.classList.add('game__down-word_fall');
   }
 
-
   animateWordDownLose() {
     this.wordDown.classList.add('game__down-word_lose');
   }

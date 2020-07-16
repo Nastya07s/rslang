@@ -7,7 +7,6 @@ import settings from 'app/js/settings';
 import state from './js/state';
 import englishPuzzle from './js/englishpuzzle';
 
-
 api.checkLogin()
   .then(async () => {
     await settings.getSettings();

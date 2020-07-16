@@ -60,7 +60,6 @@ export default class Controller {
     this.view.showStartScreen();
   }
 
-
   async handlerStartGame() {
     this.view.hideStartScreen();
     this.view.hideOptions();

@@ -1,4 +1,3 @@
-
 export default {
   init() {
     this.tooltipLayer = document.querySelector('.tooltip');

@@ -281,7 +281,6 @@ export default class Model {
     }
   }
 
-
   async recordStatisticsGame() {
     const { learnedWords, optional } = await Api.getStatistics();
 
