@@ -180,7 +180,6 @@ export default class Round {
     this.audio.play();
   }
 
-
   puzzleReload(inArr, outArr) {
     this.puzzle.reDrawPuzzle(inArr, outArr);
   }
