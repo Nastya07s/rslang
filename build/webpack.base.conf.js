@@ -10,6 +10,7 @@ const PATHS = {
   savannah: path.join(__dirname, '../src/minigames/savannah'),
   fillword: path.join(__dirname, '../src/minigames/fillword'),
   main: path.join(__dirname, '../src/main'),
+  audiocall: path.join(__dirname, '../src/minigames/audio-call'),
   speakit: path.join(__dirname, '../src/minigames/speakit'),
   sprint: path.join(__dirname, '../src/minigames/sprint'),
   englishpuzzle: path.join(__dirname, '../src/minigames/englishpuzzle'),
@@ -32,6 +33,7 @@ module.exports = {
   },
   entry: {
     promo: `${PATHS.src}/js/main.js`,
+    audiocall: `${PATHS.audiocall}/audiocall.js`,
     main: `${PATHS.main}/js/main.js`,
     speakit: `${PATHS.speakit}/speakit.js`,
     sprint: `${PATHS.sprint}/index-sprint.js`,
@@ -118,6 +120,11 @@ module.exports = {
       template: `${PATHS.sprint}/index.html`,
       filename: './sprint/index.html',
       chunks: ['sprint'],
+    }),
+    new HtmlWebpackPlugin({
+      template: `${PATHS.audiocall}/index.html`,
+      filename: './audiocall/index.html',
+      chunks: ['audiocall'],
     }),
     new HtmlWebpackPlugin({
       template: `${PATHS.savannah}/index.html`,
