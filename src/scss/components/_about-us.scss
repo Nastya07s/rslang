@@ -69,20 +69,22 @@ $image-gap: 32px;
         width: 68px;
         height: 68px;
     }
+  }
 }
 
 .employee__modal-window {
     position: fixed;
     display: none;
+    max-width: 400px;
     flex-direction: column;
     align-items: flex-end;
     width: fit-content;
     height: fit-content;
     background: #fff;
     padding: 5rem 5rem 2rem 2rem;
-    bottom: 25%;
+    bottom: 10%;
     left: 50%;
-    margin-left: -190px;
+    margin-left: calc(-400px / 2); 
     box-shadow: 0 4px 4px rgba(0,0,0,.25);
     border-radius: 10px;
      .close_modal {
@@ -101,10 +103,8 @@ $image-gap: 32px;
      }
      @media (max-width: 480px) {
         padding: 3rem 3rem 2rem 1rem;
-        left: 61%;
-     }
-     @media (max-width: 380px) {
-        left: 73%;
+        max-width: 300px;
+        margin-left: calc(-300px / 2);
      }
 }
 
@@ -113,6 +113,9 @@ $image-gap: 32px;
     flex-direction: column;
     @media (max-width: 480px) {
         font-size: 1.2rem;
+        & li {
+            font-size: 1rem;
+        }
     }
 }
 
