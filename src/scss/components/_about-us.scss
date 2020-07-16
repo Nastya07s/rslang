@@ -185,3 +185,16 @@ $image-gap: 32px;
       opacity: 1;
     }
   }
+
+  .login-errors {
+      display: none;
+      position: absolute;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+        height: fit-content;
+        background: #efbf78;
+        border: 2px solid red;
+        z-index: 10;
+  }
+  
