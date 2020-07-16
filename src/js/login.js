@@ -7,6 +7,7 @@ export default class Login {
     this.inputEmail = document.querySelector('#login-email');
     this.inputPassword = document.querySelector('#login-password');
     this.formLogin = document.querySelector('.form-login');
+    this.showWarnings = document.querySelector('.login-errors');
     this.formLogin.addEventListener('submit', this.onSubmit.bind(this));
   }
 
@@ -15,14 +16,10 @@ export default class Login {
     const email = this.inputEmail.value;
     const password = this.inputPassword.value;
     if (!email) {
-      this.showEmailErrors('Введите почту');
-    } else {
-      this.showEmailErrors('');
+      this.showErrors('Введите почту');
     }
     if (!password) {
-      this.showPassErrors('Введите пароль');
-    } else {
-      this.showPassErrors('');
+      this.showErrors('Введите пароль');
     }
     if (!email || !password) {
       return false;
@@ -39,15 +36,17 @@ export default class Login {
         await this.settings.getSettings();
         window.location.href = '/main';
       }, () => {
-        this.showPassErrors('Неверная почта или пароль');
+        this.showErrors('Неверная почта или пароль');
       });
   }
 
-  showPassErrors(text) {
-    this.inputPassword.setCustomValidity(text);
-  }
-
-  showEmailErrors(text) {
-    this.inputEmail.setCustomValidity(text);
+  showErrors(text) {
+    this.showWarnings.textContent = text;
+    this.showWarnings.classList.add('show_modal');
+    this.showWarnings.style.display = 'flex';
+    setTimeout(() => {
+      this.showWarnings.style.display = 'none';
+      this.showWarnings.textContent = '';
+    }, 4500);
   }
 }
