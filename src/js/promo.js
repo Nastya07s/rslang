@@ -15,7 +15,6 @@ export default {
     this.modalWrap = document.querySelector('.modal-wrapper');
     this.preStartButton = document.querySelector('.modal_wrap');
 
-
     this.employeeContainer = document.querySelector('.employee-container');
     this.employeeModal = document.querySelector('.employee__modal-window');
     this.modalCloseBtn = document.querySelector('.btn-close_modal');
@@ -122,7 +121,6 @@ export default {
     });
     this.app();
   },
-
 
   onScroll() {
     const currentPosition = window.scrollY;

@@ -201,7 +201,6 @@ export default class View {
       this.gameNext.classList] = [this.gameNext.className, this.gameCurrent.className];
   }
 
-
   onDisableControllersGame() {
     [...this.nextGameBtns, ...this.idkBtns].forEach((element) => {
       const item = element;
@@ -272,7 +271,6 @@ export default class View {
   showLevel(level) {
     this.levels.children[level].selected = 'true';
   }
-
 
   swapVisibleBtnsControllerGame() {
     const currentIDK = this.body.querySelector('.game__current .idk');
