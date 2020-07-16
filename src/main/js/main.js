@@ -8,6 +8,7 @@ import '../scss/main.scss';
 import store from './store';
 
 import mainPage from './mainPage';
+import tooltip from './tooltip';
 
 const processData = (data) => {
   const [responseResults] = data;
@@ -73,6 +74,7 @@ api.checkLogin().then(async () => {
 
   await mainPage.init();
   store.isRendered = true;
+  tooltip.init();
 }, () => {
   window.location.href = '/';
 });
