@@ -49,12 +49,6 @@ class StatisticsPage {
       statisticsGraph,
     };
   }
-
-  // initHandlers() {
-  //   const { statisticsGraph } = this.elements;
-
-
-  // }
 }
 
 const statisticsPage = new StatisticsPage();

@@ -239,7 +239,6 @@ export default class Model {
     return this.gameWords.filter((element) => element.isCorrect !== undefined);
   }
 
-
   async recordStatisticsWords() {
     const words = this.getWordsForStatistics();
     /* eslint no-underscore-dangle: "off" */
@@ -292,7 +291,6 @@ export default class Model {
       console.log(this);
     }
   }
-
 
   async recordStatisticsGame() {
     const { learnedWords, optional } = await Api.getStatistics();

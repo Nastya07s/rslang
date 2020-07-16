@@ -1,4 +1,3 @@
-
 import store from './store';
 import getters from './getters';
 import setters from './setters';

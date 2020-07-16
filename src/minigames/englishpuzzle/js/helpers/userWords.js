@@ -1,4 +1,3 @@
-
 const chunkArray = (myArray, chunkSize) => {
   const results = [];
   while (myArray.length) {
