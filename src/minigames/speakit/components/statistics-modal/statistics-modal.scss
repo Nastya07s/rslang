@@ -7,8 +7,13 @@
     margin: 0 auto;
 
     font-weight: 400;
+    font-size: 0.8em;
 
     transition: all 0.35s ease-out;
+
+    @include for-phone {
+      font-size: 1em;
+    }
   }
 }
 
@@ -135,6 +140,7 @@
   &__controls-button {
     & {
       height: 40px;
+      margin-bottom: 10px;
       padding: 0 20px;
 
       background-color: rgba(37, 130, 231, 0.08);
