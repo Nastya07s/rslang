@@ -241,7 +241,7 @@
 
 .tooltip_wrapper {
   display: flex;
-  width: 230px;
+  width: fit-content;
   flex-direction: column;
   justify-content: space-between;
   & .tooltip_upsteirs {
@@ -267,6 +267,7 @@
 
 .card-tooltip_main {
   width: 100%;
+  margin-top: 4rem;
   display: flex;
 }
 
