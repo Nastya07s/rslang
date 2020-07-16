@@ -65,13 +65,17 @@ class SettingsPage {
         document.querySelector('.tooltip').classList.remove('fade-in');
       }, 500);
     });
-    this.parent.querySelector('.settings__logout').addEventListener('mousedown', ({ target }) => {
+    this.parent.querySelectorAll('.settings__logout').forEach((el) => el.addEventListener('mousedown', ({ target }) => {
       target.closest('.settings__logout').classList.add('settings__logout-active');
-    });
+    }));
 
-    this.parent.querySelector('.settings__logout').addEventListener('mouseup', ({ target }) => {
+    this.parent.querySelectorAll('.settings__logout').forEach((el) => el.addEventListener('mouseup', ({ target }) => {
       target.closest('.settings__logout').classList.remove('settings__logout-active');
+    }));
+
+    this.parent.querySelector('.settings__logout:last-child').addEventListener('mouseup', () => {
       api.logoutUser();
+      window.location.href = '/';
     });
 
     this.parent.querySelectorAll('[data-settings]').forEach((el) => {
