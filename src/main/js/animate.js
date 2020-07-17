@@ -47,6 +47,8 @@ document
 document.querySelectorAll('.nav-menu__item, .settings-page, .opportunities-menu__item-off, .opportunities-menu__item-on').forEach((item) => {
   item.addEventListener('click', () => {
     if (store.isRendered) {
+      document.querySelector('.menu__burger').classList.toggle('BurgerLock');
+      document.querySelector('.menu__burger').classList.toggle('menu__burger-open');
       document.querySelector('.menu').classList.remove('menu__extended');
       document.querySelector('.openArrow').classList.remove('closeArrow');
       document.querySelector('.menu__tеxtlogo').classList.add('d-none');
@@ -100,47 +102,3 @@ document.querySelector('.vocabulary-page').addEventListener('click', async (even
     store.isRendered = true;
   }
 });
-
-document.querySelector('.speakit').addEventListener('click', (event) => {
-  event.preventDefault();
-  if (store.isRendered) {
-    window.location.href = '/speakit';
-  }
-});
-
-document.querySelector('.english-puzzle').addEventListener('click', (event) => {
-  event.preventDefault();
-  if (store.isRendered) {
-    window.location.href = '/englishpuzzle';
-  }
-});
-
-document.querySelector('.audiocall').addEventListener('click', (event) => {
-  event.preventDefault();
-  if (store.isRendered) {
-    window.location.href = '/audiocall';
-  }
-});
-
-document.querySelector('.savannah').addEventListener('click', (event) => {
-  event.preventDefault();
-  if (store.isRendered) {
-    window.location.href = '/savannah';
-  }
-});
-
-document.querySelector('.sprint').addEventListener('click', (event) => {
-  event.preventDefault();
-  if (store.isRendered) {
-    window.location.href = '/sprint';
-  }
-});
-
-document.querySelector('.fillword').addEventListener('click', (event) => {
-  event.preventDefault();
-  if (store.isRendered) {
-    window.location.href = '/fillword';
-  }
-});
-
-// export default store.isRendered;
