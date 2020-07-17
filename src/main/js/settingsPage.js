@@ -87,6 +87,8 @@ class SettingsPage {
     this.parent.querySelector('.settings__logout:last-child').addEventListener('mouseup', () => {
       api.logoutUser();
       localStorage.removeItem('tooltip');
+      localStorage.removeItem('mainWords');
+      localStorage.removeItem('mainStatistics');
       window.location.href = '/';
     });
 
