@@ -7,7 +7,7 @@ html {
 }
 .body-sprint {
   font-family: "Montserrat", sans-serif;
-  background: url("/src/img/sprint/background.png") no-repeat center center;
+  background: url("/assets/img/sprint/background.png") no-repeat center center;
   background-size: cover;
   background-color: #1B2A2D;
   height: 100vh;
@@ -48,7 +48,7 @@ html {
   top: 30px;
   width: 50px;
   height: 50px;
-  background-image: url('/src/img/close.svg');
+  background-image: url('/assets/img/close.svg');
 }
 
 .progressbar-text {
@@ -629,18 +629,4 @@ html {
   .timer {
     transform: scale(.5);
   }
-}
-.error-info-message {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-
-  padding: 5px;
-
-  background-color: lightgrey;
-  border: 1px solid crimson;
-
-  font-size: 1.4rem;
-  color: crimson;
 }

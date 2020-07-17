@@ -50,21 +50,6 @@ body {
   visibility: hidden;
 }
 
-.error-info-message {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-
-  padding: 5px;
-
-  background-color: lightgrey;
-  border: 1px solid crimson;
-
-  font-size: 1.4rem;
-  color: crimson;
-}
-
 .loader {
   & {
     position: fixed;

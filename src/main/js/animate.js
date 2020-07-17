@@ -82,7 +82,7 @@ document.querySelector('.main-page').addEventListener('click', async (event) => 
 document.querySelector('.statistics-page').addEventListener('click', async (event) => {
   event.preventDefault();
   if (store.isRendered) {
-    statisticsPage.init();
+    await statisticsPage.init();
     store.isRendered = true;
   }
 });

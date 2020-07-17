@@ -37,11 +37,11 @@ header {
     width: 50%;
 
     & .audio {
-      background-image: url('/src/img/start-page/speaker.svg');
+      background-image: url('/assets/img/start-page/speaker.svg');
     }
 
     & .audio_silence {
-      background-image: url('/src/img/start-page/silence.svg');
+      background-image: url('/assets/img/start-page/silence.svg');
     }
   }
 
@@ -55,11 +55,11 @@ header {
     }
 
     & .close {
-      background-image: url('/src/img/start-page/close.svg');
+      background-image: url('/assets/img/start-page/close.svg');
     }
 
     & .options {
-      background-image: url('/src/img/start-page/option.svg');
+      background-image: url('/assets/img/start-page/option.svg');
       position: relative;
     }
 
