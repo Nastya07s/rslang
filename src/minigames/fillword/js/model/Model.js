@@ -43,7 +43,7 @@ export default class Model {
           ...settings.minigames[GAME_NAME],
         };
       }, () => {
-        document.location.href = '/';
+        document.location.href = '/main';
       });
   }
 

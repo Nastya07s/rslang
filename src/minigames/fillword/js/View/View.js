@@ -139,10 +139,10 @@ export default class View {
 
   bindClickFinish() {
     this.finishTraining.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
     this.dropGameBtn.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
   }
 
