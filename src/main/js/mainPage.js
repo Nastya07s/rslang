@@ -79,17 +79,20 @@ const getMixWords = async () => {
 
   wordLeft = settings.wordsPerDay - learningWords.length - wordLeft - 2;
 
-  const newWordsResponse = await performRequests([
-    api.getUsersAggregatedWords.bind(api, {
-      wordsPerPage: wordLeft,
-      filter: {
-        $and: [{ userWord: null }],
-      },
-    }),
-  ]);
-  const newWords = processData(newWordsResponse);
+  if (wordLeft > 0) {
+    const newWordsResponse = await performRequests([
+      api.getUsersAggregatedWords.bind(api, {
+        wordsPerPage: wordLeft,
+        filter: {
+          $and: [{ userWord: null }],
+        },
+      }),
+    ]);
+    const newWords = processData(newWordsResponse);
+    return [...oldWords, ...learningWords, ...newWords];
+  }
 
-  return [...oldWords, ...learningWords, ...newWords];
+  return [...oldWords, ...learningWords];
 };
 
 const switchClasses = (arrayElements, many = false) => {

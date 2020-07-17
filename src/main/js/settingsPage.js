@@ -20,14 +20,24 @@ class SettingsPage {
   render() {
     this.parent.innerHTML = markup.settingsPage;
 
+    console.log('settings: ', settings);
     this.parent.querySelectorAll('.settings__mode option').forEach(async (option) => {
-      const words = await api.getUserWords();
+      // const words = await api.getUserWords();
+      const words = JSON.parse(localStorage.getItem('mainWords'));
 
       if (settings.learningMode === 'new' && option.value === 'new') {
         const countWords = words.filter((word) => !word.userWord).length;
+        console.log('countWords: ', countWords);
 
-        if (countWords) option.classList.remove('d-none');
-        else option.classList.remove('d-none');
+        if (countWords && settings.countNewWords !== 0) {
+          console.log(1);
+          option.classList.remove('d-none');
+        } else {
+          option.classList.add('d-none');
+          this.parent.querySelector('.settings__mode option[value=mix]').selected = true;
+          settings.update('learningMode', 'mix');
+        }
+        console.log('option.classList: ', option.classList);
       }
 
       if (settings.learningMode === 'learning' && option.value === 'learning') {
@@ -35,7 +45,7 @@ class SettingsPage {
           && word.userWord.optional.degreeOfKnowledge < 5).length;
 
         if (countWords) option.classList.remove('d-none');
-        else option.classList.remove('d-none');
+        else option.classList.add('d-none');
       }
 
       if (settings.learningMode === 'old' && option.value === 'old') {
@@ -43,7 +53,7 @@ class SettingsPage {
           && word.userWord.optional.degreeOfKnowledge === 5).length;
 
         if (countWords) option.classList.remove('d-none');
-        else option.classList.remove('d-none');
+        else option.classList.add('d-none');
       }
     });
 
@@ -59,6 +69,7 @@ class SettingsPage {
 
   initHandlers() {
     document.querySelector('.show-tooltip_btn').addEventListener('click', () => {
+      localStorage.removeItem('tooltip');
       document.querySelector('.tooltip').style.display = 'flex';
       document.querySelector('.tooltip').classList.add('fade-in');
       setTimeout(() => {
@@ -75,21 +86,39 @@ class SettingsPage {
 
     this.parent.querySelector('.settings__logout:last-child').addEventListener('mouseup', () => {
       api.logoutUser();
+      localStorage.removeItem('tooltip');
       window.location.href = '/';
     });
 
     this.parent.querySelectorAll('[data-settings]').forEach((el) => {
       el.addEventListener('change', async ({ target }) => {
+        console.log('target.type: ', target.type);
         if (target.type === 'checkbox') {
           await settings.update(target.dataset.settings, target.checked);
           if (this.parent.querySelectorAll('.settings__item input:checked').length === 0) {
             this.parent.querySelector('.settings__item:nth-child(5) input').click();
           }
-        } else {
+        } else if (target.type === 'number') {
           const inputs = this.parent.querySelectorAll('.settings__square-big');
-          if (inputs[0].value > inputs[1].value) inputs[0].value = inputs[1].value;
+          console.log('inputs: ', inputs);
+          console.log('inputs[0].value: ', inputs[0].value);
+          if (+inputs[0].value < 0) {
+            inputs[0].value = 0;
+          }
+          if (+inputs[0].value === 0) {
+            console.log(5);
+            this.parent.querySelector('.settings__mode option[value=new]').classList.add('d-none');
+            this.parent.querySelector('.settings__mode option[value=mix]').selected = true;
+            settings.update('learningMode', 'mix');
+          } else this.parent.querySelector('.settings__mode option[value=new]').classList.remove('d-none');
+          if (+inputs[1].value < 1) inputs[1].value = 1;
+          if (+inputs[0].value > 50) inputs[0].value = 50;
+          if (+inputs[1].value > 50) inputs[1].value = 50;
+          if (+inputs[0].value > +inputs[1].value) inputs[0].value = inputs[1].value;
           settings.update('countNewWords', +inputs[0].value);
           settings.update('wordsPerDay', +inputs[1].value);
+        } else {
+          settings.update(target.dataset.settings, target.value);
         }
       });
     });
