@@ -22,6 +22,7 @@ export default class View {
     this.body = document.body;
     this.controllers = document.querySelector('.controllers');
     this.finishStatistics = document.querySelector('.finish-statistics__answers');
+    this.finishStatisticsTitle = document.querySelector('.finish-statistics__title');
     this.validStatistics = document.querySelector('.finish-statistics__answers-valid');
     this.inValidStatistics = document.querySelector('.finish-statistics__answers-invalid');
     this.validStatisticsTitle = document.querySelector('.finish-statistics__answers-valid-title');
@@ -34,6 +35,12 @@ export default class View {
     this.dropGameBtn = document.querySelector('.drop-game-window__exit');
     this.dropGameBtnStatistics = document.querySelector('.finish-training');
     this.cancelDropGame = document.querySelector('.drop-game-window__cancel');
+    this.bulb = document.querySelector('.bulb');
+    this.titles = {
+      bad: 'В этот раз не получилось, но продолжай тренироваться!',
+      normal: 'Неплохо,но есть над чем поработать !',
+      good: 'Отличная работа !',
+    };
   }
 
   showControllers() {
@@ -80,6 +87,26 @@ export default class View {
     this.dropGame.classList.add('inactive');
   }
 
+  showBulb() {
+    this.bulb.classList.remove('icon_inactive');
+  }
+
+  hideBulb() {
+    this.bulb.classList.add('icon_inactive');
+  }
+
+  onDisableBulb() {
+    this.bulb.disabled = true;
+  }
+
+  offDisableBulb() {
+    this.bulb.disabled = false;
+  }
+
+  hintAnswer(word) {
+    this.findWord(word).classList.add('hint');
+  }
+
   hideDataLoader() {
     this.dataLoader.classList.add('inactive');
   }
@@ -117,12 +144,16 @@ export default class View {
   }
 
   showStatistics(data) {
+    const valueCorrectWords = data.filter((e) => e.isCorrect === true).length;
+    const valueInCorrectWords = data.filter((e) => e.isCorrect === false).length;
     this.containerStatistics.classList.remove('inactive');
     let statisticsAnswer = '';
     this.validStatistics.textContent = '';
     this.inValidStatistics.textContent = '';
-    this.validStatisticsTitle.textContent = `ЗНАЮ: ${data.filter((e) => e.isCorrect === true).length}`;
-    this.inValidStatisticsTitle.textContent = `ОШИБОК: ${data.filter((e) => e.isCorrect === false).length}`;
+    this.validStatisticsTitle.textContent = `ЗНАЮ: ${valueCorrectWords}`;
+    this.inValidStatisticsTitle.textContent = `ОШИБОК: ${valueInCorrectWords}`;
+    this.finishStatisticsTitle.textContent = this
+      .getFinishStatisticsTitle(valueCorrectWords, valueInCorrectWords);
     data
       .forEach((element) => {
         if (element.isCorrect === true) {
@@ -137,6 +168,16 @@ export default class View {
         createElementDOM('div', 'finish-statistics__answer-dash', statisticsAnswer).textContent = '—';
         createElementDOM('div', 'finish-statistics__answer-ru', statisticsAnswer).textContent = element.wordTranslate;
       });
+  }
+
+  getFinishStatisticsTitle(correct, incorrect) {
+    if (incorrect === 0) {
+      return this.titles.good;
+    }
+    if (correct === 0) {
+      return this.titles.bad;
+    }
+    return this.titles.normal;
   }
 
   hideStatistics() {
@@ -171,13 +212,13 @@ export default class View {
 
   showCorrectWord(word) {
     if (word) {
-      this.findWord(word).classList.add('correct');
+      this.findWord(word).className = 'game__answer correct';
     }
   }
 
   showInCorrectWord(word) {
     if (word) {
-      this.findWord(word).classList.add('incorrect');
+      this.findWord(word).className = 'game__answer incorrect';
     }
   }
 
@@ -321,6 +362,13 @@ export default class View {
       if (target) {
         handler(target.textContent);
       }
+    });
+  }
+
+  bindClickBulb(handler) {
+    this.bulb.addEventListener('click', () => {
+      this.hideBulb();
+      handler();
     });
   }
 
