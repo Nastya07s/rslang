@@ -21,10 +21,21 @@ export default {
 
     this.employeeContainer.addEventListener('click', (e) => {
       let { target } = e;
-      if (!target.classList.contains('employee')) {
-        target = target.parentElement;
+      const EMPLOYEE_CLASSNAME = 'employee';
+      const isCorrectTarget = target.classList.contains(EMPLOYEE_CLASSNAME);
+
+      if (!isCorrectTarget) {
+        const parentElement = target.closest(`.${EMPLOYEE_CLASSNAME}`);
+
+        if (!parentElement) {
+          return;
+        }
+
+        target = parentElement;
       }
+
       const id = target.getAttribute('data-id');
+
       if (id) {
         const nameBox = this.employeeModal.querySelector('.employee__name');
         const positionBox = this.employeeModal.querySelector('.employee__title');
@@ -40,10 +51,11 @@ export default {
 
         employeeData[id].list.forEach((el) => {
           const li = document.createElement('li');
+
           li.textContent = el;
           descriptionBox.appendChild(li);
         });
-        this.employeeModal.classList.add('show_employee_modal');
+        this.employeeModal.classList.remove('employee__modal-window_hidden');
         this.employeeModal.classList.remove('scale-out-center');
       }
     });
@@ -51,7 +63,7 @@ export default {
     this.modalCloseBtn.addEventListener('click', () => {
       this.employeeModal.classList.add('scale-out-center');
       setTimeout(() => {
-        this.employeeModal.classList.remove('show_employee_modal');
+        this.employeeModal.classList.add('employee__modal-window_hidden');
       }, 500);
     });
 

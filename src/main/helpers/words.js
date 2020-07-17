@@ -82,7 +82,16 @@ class WordsGlobalStatistics {
       const processData = () => {
         const [responseResults] = data;
         const [results] = responseResults;
-        const { paginatedResults, totalCount: [{ count }] } = results;
+        const {
+          paginatedResults,
+          totalCount: [
+            {
+              count,
+            } = {
+              count: 0,
+            },
+          ],
+        } = results;
 
         return {
           results: paginatedResults,

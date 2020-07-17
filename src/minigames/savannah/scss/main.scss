@@ -172,7 +172,10 @@ body {
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.1);
   }
-
+  &.hint {
+    // background: rgba(255, 255, 255, 0.1);
+    animation: animation-hint 1.5s linear reverse infinite;
+  }
   &.incorrect {
     background: rgba(255, 109, 127, 0.3);
   }
@@ -205,6 +208,16 @@ body {
     content: "4";
   }
 }
+
+@keyframes animation-hint {
+  0% {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    background: rgba(255, 255, 255, 0.5);
+  }
+}
+
 @media screen and (max-width: 768px) {
   body {
     font-size: 6px;
