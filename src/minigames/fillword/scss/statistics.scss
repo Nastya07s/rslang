@@ -29,8 +29,8 @@
   justify-content: center;
   align-self: center;
   flex-direction: column;
-  width: 80%;
-  height: 248px;
+  width: 90%;
+  height: 340px;
   overflow-y: auto;
   position: relative;
   margin: 30px 0;
@@ -69,6 +69,8 @@
   align-items: center;
   font-size: 1.6em;
   margin-top: 15px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .finish-statistics__answer-audio {
@@ -109,6 +111,7 @@
 .finish-statistics__answer-ru {
   color: #37383c;
   padding: 0 3px;
+  overflow: hidden;
 }
 .finish-statistics__controls-button {
   display: flex;
@@ -120,7 +123,7 @@
   color: #2582e7;
   background-color: rgba(37, 130, 231, 0.08);
   border: none;
-  height: 40px;
+  height: 100%;
   font-size: 2em;
   padding: 0 20px;
   border-radius: 5px;
@@ -137,4 +140,18 @@
 
 .statistic::-webkit-scrollbar{
   width: 8px;
+}
+
+@media screen and (max-width: 480px) {
+  .finish-statistics__answer {
+    display: flex;
+    font-size: 1.2em;
+    margin-top: 15px;
+  }
+
+  .finish-statistics__controls-button button {
+    margin-top: 0.4rem;
+    font-size: 1.4em;
+    padding: 1rem 2rem;
+  }
 }
