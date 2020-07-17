@@ -133,6 +133,7 @@ class MainPage {
 
   async init() {
     store.isRendered = false;
+    this.isSlided = true;
     const wordsResponse = await this.getWords(settings);
     const words = shuffleArray(wordsResponse);
 
@@ -218,7 +219,6 @@ class MainPage {
     if (settings.learningMode === 'old') this.words = this.words.filter((word) => word.userWord && word.userWord.optional.degreeOfKnowledge === 5);
 
     this.words.forEach((word) => {
-      console.log('word: ', word);
       const {
         textExample, textExampleTranslate, image, textMeaning, textMeaningTranslate, _id: id,
       } = word;
@@ -401,6 +401,8 @@ class MainPage {
       this.parent.querySelector('.swiper-button-next').classList.add('swiper-button-disabled');
       this.parent.querySelector('.swiper-button-prev').classList.add('swiper-button-disabled');
       this.parent.querySelector('.bar-block__numone').textContent = this.mySwiper.realIndex + 1;
+
+      this.isSlided = true;
 
       const idWord = this.slides[this.mySwiper.activeIndex].dataset.id;
       const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
@@ -625,30 +627,105 @@ class MainPage {
 
     this.parent.querySelectorAll('.slider-block__close').forEach((el) => {
       el.addEventListener('click', async () => {
-        const slide = this.slides[this.mySwiper.activeIndex];
-        const idWord = slide.dataset.id;
-        const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+        if (this.isSlided) {
+          this.isSlided = false;
+          const slide = this.slides[this.mySwiper.activeIndex];
+          const idWord = slide.dataset.id;
+          const response = await performRequests(
+            [api.getUsersAggregatedWordsById.bind(api, idWord)],
+          );
 
-        if (!response) return;
+          if (!response) return;
 
-        const [[word]] = response;
-        const { countRepetition, degreeOfKnowledge } = word.userWord.optional;
+          let indexWord;
+          this.words.forEach((word, i) => {
+            const { _id: id } = word;
+            if (id === idWord) {
+              indexWord = i;
+            }
+          });
+          this.words[indexWord].isDelete = true;
+          localStorage.setItem('mainWords', JSON.stringify(this.words));
+          const mainStatistics = JSON.parse(localStorage.getItem('mainStatistics'));
+          this.longestSeriesOfCorrectAnswers.push(0);
+          mainStatistics.longestSeriesOfCorrectAnswers = this.longestSeriesOfCorrectAnswers;
+          this.cardsCompleted = mainStatistics.cardsCompleted + 1;
+          mainStatistics.cardsCompleted = this.cardsCompleted;
+          localStorage.setItem('mainStatistics', JSON.stringify(mainStatistics));
 
-        const params = {
-          difficulty: String(word.group),
-          optional: {
-            countRepetition,
-            isDelete: true,
-            isHard: word.userWord.optional.isHard,
-            isReadyToRepeat: false,
-            lastRepetition: Date.now(),
-            degreeOfKnowledge,
-            becameLearned: word.userWord.optional.becameLearned,
-          },
-        };
-        performRequests([api.updateUserWordById.bind(api, idWord, params)]);
-        this.mySwiper.slideNext();
+          const [[word]] = response;
+          const { countRepetition, degreeOfKnowledge } = word.userWord.optional;
+
+          const params = {
+            difficulty: String(word.group),
+            optional: {
+              countRepetition,
+              isDelete: true,
+              isHard: word.userWord.optional.isHard,
+              isReadyToRepeat: false,
+              lastRepetition: Date.now(),
+              degreeOfKnowledge,
+              becameLearned: word.userWord.optional.becameLearned,
+            },
+          };
+          await performRequests([api.updateUserWordById.bind(api, idWord, params)]);
+          if (this.cardsCompleted >= settings.wordsPerDay
+              && this.cardsCompleted >= this.slides.length) {
+            this.parent.querySelector('section').innerHTML = '';
+            this.parent.querySelector('section').classList.add('d-none');
+            this.parent.querySelector('section').style.width = '0';
+
+            const modal = this.parent.querySelector('.modal');
+            this.parent.querySelector('.modal').classList.remove('d-none');
+            modal.querySelector('.cardsCompleted').textContent = this.cardsCompleted;
+            const correctAnswers = this.longestSeriesOfCorrectAnswers
+              .slice(0, settings.wordsPerDay)
+              .filter((num) => num === 1).length;
+            modal.querySelector('.correctAnswers').textContent = `${(correctAnswers * 100) / settings.wordsPerDay}%`;
+            modal.querySelector('.numberOfNewWords').textContent = this.numberOfNewWords;
+            let max = 0;
+            let currentMax = 0;
+            this.longestSeriesOfCorrectAnswers.forEach((num) => {
+              if (num === 1) currentMax += 1;
+              else {
+                if (max < currentMax) max = currentMax;
+                currentMax = 0;
+              }
+            });
+            modal.querySelector('.longestSeriesOfCorrectAnswers').textContent = max;
+            return;
+          }
+          this.mySwiper.slideNext();
+        }
       });
+    });
+
+    this.parent.querySelector('.swiper-button-next').addEventListener('click', () => {
+      if (this.cardsCompleted >= settings.wordsPerDay
+        && this.cardsCompleted >= this.slides.length) {
+        this.parent.querySelector('section').innerHTML = '';
+        this.parent.querySelector('section').classList.add('d-none');
+        this.parent.querySelector('section').style.width = '0';
+
+        const modal = this.parent.querySelector('.modal');
+        this.parent.querySelector('.modal').classList.remove('d-none');
+        modal.querySelector('.cardsCompleted').textContent = this.cardsCompleted;
+        const correctAnswers = this.longestSeriesOfCorrectAnswers
+          .slice(0, settings.wordsPerDay)
+          .filter((num) => num === 1).length;
+        modal.querySelector('.correctAnswers').textContent = `${(correctAnswers * 100) / settings.wordsPerDay}%`;
+        modal.querySelector('.numberOfNewWords').textContent = this.numberOfNewWords;
+        let max = 0;
+        let currentMax = 0;
+        this.longestSeriesOfCorrectAnswers.forEach((num) => {
+          if (num === 1) currentMax += 1;
+          else {
+            if (max < currentMax) max = currentMax;
+            currentMax = 0;
+          }
+        });
+        modal.querySelector('.longestSeriesOfCorrectAnswers').textContent = max;
+      }
     });
 
     this.parent.querySelectorAll('.slider-b-body__get').forEach((el) => {
