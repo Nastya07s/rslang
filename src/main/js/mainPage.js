@@ -359,10 +359,14 @@ class MainPage {
     this.parent.querySelector('.bar-block__numtwo').textContent = this.mySwiper.slides.length;
 
     const idWord = this.slides[this.mySwiper.activeIndex].dataset.id;
-    const [word] = await api.getUsersAggregatedWordsById(idWord);
+    const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+
+    if (!response) return;
+
+    const [[word]] = response;
 
     if (!word.userWord) {
-      api.createUserWord(idWord, {
+      const params = {
         difficulty: String(word.group),
         optional: {
           countRepetition: 1,
@@ -373,7 +377,8 @@ class MainPage {
           degreeOfKnowledge: 0,
           becameLearned: 0,
         },
-      });
+      };
+      performRequests([api.createUserWord.bind(api, idWord, params)]);
     }
   }
 
@@ -397,10 +402,14 @@ class MainPage {
       this.parent.querySelector('.bar-block__numone').textContent = this.mySwiper.realIndex + 1;
 
       const idWord = this.slides[this.mySwiper.activeIndex].dataset.id;
-      const [word] = await api.getUsersAggregatedWordsById(idWord);
+      const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+
+      if (!response) return;
+
+      const [[word]] = response;
 
       if (!word.userWord) {
-        api.createUserWord(idWord, {
+        const params = {
           difficulty: String(word.group),
           optional: {
             countRepetition: 1,
@@ -411,7 +420,8 @@ class MainPage {
             degreeOfKnowledge: 0,
             becameLearned: 0,
           },
-        });
+        };
+        performRequests([api.createUserWord.bind(api, idWord, params)]);
       }
 
       this.parent.querySelectorAll('.lvl-block__item').forEach((el) => {
@@ -442,7 +452,11 @@ class MainPage {
         slide.querySelector('.slider-b-body__get ').classList.remove('opacity-0');
 
         const idWord = slide.dataset.id;
-        const [word] = await api.getUsersAggregatedWordsById(idWord);
+        const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+
+        if (!response) return;
+
+        const [[word]] = response;
         let { countRepetition } = word.userWord.optional;
 
         const typedWord = slide.querySelector('.slider-b-body__input input').value.split('');
@@ -484,7 +498,13 @@ class MainPage {
 
             const newSlide = slide.cloneNode(true);
 
-            const [wordObject] = await api.getUsersAggregatedWordsById(idWord);
+            const responseWord = await performRequests(
+              [api.getUsersAggregatedWordsById.bind(api, idWord)],
+            );
+
+            if (!responseWord) return;
+
+            const [wordObject] = responseWord;
             this.words.push(wordObject);
             localStorage.setItem('mainWords', JSON.stringify(this.words));
 
@@ -569,16 +589,14 @@ class MainPage {
           ]);
         }
 
-        let degreeOfKnowledge = slide.dataset.firstattempt === 'true'
-          ? word.userWord.optional.degreeOfKnowledge + 1
-          : 0;
+        let degreeOfKnowledge = slide.dataset.firstattempt === 'true' ? word.userWord.optional.degreeOfKnowledge + 1 : 0;
 
         const becameLearned = degreeOfKnowledge === 5
           ? Date.now() : word.userWord.optional.becameLearned;
 
         if (degreeOfKnowledge === 6) degreeOfKnowledge = 5;
 
-        api.updateUserWordById(idWord, {
+        const params = {
           difficulty: String(word.group),
           optional: {
             countRepetition,
@@ -589,7 +607,8 @@ class MainPage {
             degreeOfKnowledge,
             becameLearned,
           },
-        });
+        };
+        performRequests([api.updateUserWordById.bind(api, idWord, params)]);
       });
     });
 
@@ -607,10 +626,14 @@ class MainPage {
       el.addEventListener('click', async () => {
         const slide = this.slides[this.mySwiper.activeIndex];
         const idWord = slide.dataset.id;
-        const [word] = await api.getUsersAggregatedWordsById(idWord);
+        const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+
+        if (!response) return;
+
+        const [[word]] = response;
         const { countRepetition, degreeOfKnowledge } = word.userWord.optional;
 
-        api.updateUserWordById(idWord, {
+        const params = {
           difficulty: String(word.group),
           optional: {
             countRepetition,
@@ -621,7 +644,8 @@ class MainPage {
             degreeOfKnowledge,
             becameLearned: word.userWord.optional.becameLearned,
           },
-        });
+        };
+        performRequests([api.updateUserWordById.bind(api, idWord, params)]);
         this.mySwiper.slideNext();
       });
     });
@@ -630,10 +654,14 @@ class MainPage {
       el.addEventListener('click', async () => {
         const slide = this.slides[this.mySwiper.activeIndex];
         const idWord = slide.dataset.id;
-        const [word] = await api.getUsersAggregatedWordsById(idWord);
+        const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+
+        if (!response) return;
+
+        const [[word]] = response;
         const { countRepetition, degreeOfKnowledge } = word.userWord.optional;
 
-        api.updateUserWordById(idWord, {
+        const params = {
           difficulty: String(word.group),
           optional: {
             countRepetition,
@@ -644,7 +672,8 @@ class MainPage {
             degreeOfKnowledge,
             becameLearned: word.userWord.optional.becameLearned,
           },
-        });
+        };
+        performRequests([api.updateUserWordById.bind(api, idWord, params)]);
       });
     });
 
@@ -662,7 +691,11 @@ class MainPage {
 
       const slide = this.slides[this.mySwiper.activeIndex];
       const idWord = slide.dataset.id;
-      const [word] = await api.getUsersAggregatedWordsById(idWord);
+      const response = await performRequests([api.getUsersAggregatedWordsById.bind(api, idWord)]);
+
+      if (!response) return;
+
+      const [[word]] = response;
       const { countRepetition } = word.userWord.optional;
 
       const degreeOfKnowledge = +element.dataset.degreeofknowledge;
@@ -675,7 +708,7 @@ class MainPage {
         this.parent.querySelector('.bar-block__numtwo').textContent = this.mySwiper.slides.length;
       }
 
-      api.updateUserWordById(idWord, {
+      const params = {
         difficulty: String(word.group),
         optional: {
           countRepetition,
@@ -686,7 +719,8 @@ class MainPage {
           degreeOfKnowledge,
           becameLearned: word.userWord.optional.becameLearned,
         },
-      });
+      };
+      performRequests([api.updateUserWordById.bind(api, idWord, params)]);
     });
 
     window.addEventListener('resize', () => {
