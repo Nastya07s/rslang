@@ -218,6 +218,7 @@ class MainPage {
     if (settings.learningMode === 'old') this.words = this.words.filter((word) => word.userWord && word.userWord.optional.degreeOfKnowledge === 5);
 
     this.words.forEach((word) => {
+      console.log('word: ', word);
       const {
         textExample, textExampleTranslate, image, textMeaning, textMeaningTranslate, _id: id,
       } = word;
@@ -504,7 +505,7 @@ class MainPage {
 
             if (!responseWord) return;
 
-            const [wordObject] = responseWord;
+            const [[wordObject]] = responseWord;
             this.words.push(wordObject);
             localStorage.setItem('mainWords', JSON.stringify(this.words));
 
