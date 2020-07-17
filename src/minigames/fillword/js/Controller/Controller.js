@@ -102,11 +102,11 @@ class Controller {
   }
 
   handlerClickHelp() {
-    this.model.playSound();
+    this.model.playSound(this.model.gameWord.audio);
   }
 
-  handlerClickAudioStatistics() {
-    this.model.playSound();
+  handlerClickAudioStatistics(src) {
+    this.model.playSound(src);
   }
 
   handlerClickSound() {
@@ -128,7 +128,7 @@ class Controller {
 
   handlerClickClose() {
     if (!this.model.gameActive) {
-      window.location.href = '/';
+      window.location.href = '/main';
     } else {
       this.model.gameActive = false;
       this.view.showGameClose();
@@ -138,7 +138,20 @@ class Controller {
   handlerClickNextWord() {
     this.model.addAnswerResult();
     this.model.gameRound += 1;
+
+    if (this.model.gameRound === this.model.gameWords.length) {
+      this.gameFinish();
+      return;
+    }
+
     this.initRound();
+  }
+
+  gameFinish() {
+    this.model.gameActive = false;
+    this.model.gameRound = 0;
+    this.view.hideFillWord();
+    this.view.renderStatistics(this.model.arrayAnswer);
   }
 
   handlerMouseUp() {
@@ -151,14 +164,12 @@ class Controller {
     } else {
       this.view.showIncorrectResult();
     }
+
     this.model.addAnswerResult();
     this.model.gameRound += 1;
 
     if (this.model.gameRound === this.model.gameWords.length) {
-      this.model.gameActive = false;
-      this.model.gameRound = 0;
-      this.view.hideFillWord();
-      this.view.renderStatistics(this.model.arrayAnswer);
+      this.gameFinish();
       return;
     }
 
@@ -171,9 +182,7 @@ class Controller {
 
   initRound() {
     this.model.getWord();
-    this.model.coordinate = [];
     this.model.initGameField();
-    this.model.chooseCoord = [];
     this.view.deleteOldGameTable();
     this.view.addWordTranslateText(this.model.gameWord.ru);
     this.view.renderField(this.model.field,
