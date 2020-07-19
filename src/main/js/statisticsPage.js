@@ -53,7 +53,6 @@ class StatisticsPage {
   // initHandlers() {
   //   const { statisticsGraph } = this.elements;
 
-
   // }
 }
 
