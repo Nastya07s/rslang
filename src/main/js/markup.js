@@ -62,11 +62,11 @@ const markup = {
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Количество новых слов</div>
-          <input type="number" class="settings__square-big" data-settings=countNewWords>
+          <input type="number" class="settings__square-big" data-settings=countNewWords min="0" max="50">
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Количество карточек в день</div>
-          <input type="number" class="settings__square-big" data-settings=wordsPerDay>
+          <input type="number" class="settings__square-big" data-settings=wordsPerDay min="1" max="50">
         </div>
         <div class="settings__item flex">
           <div class="settings__text">Предложение с объяснением</div>
