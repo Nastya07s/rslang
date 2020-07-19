@@ -163,10 +163,10 @@ header {
   }
 
   & .game-start__description {
-    font-size: 1.5em;
-    margin-top: 40px;
+    font-size: 2em;
+    margin-top: 1em;
     text-align: center;
-    line-height: 1.5em;
+    line-height: 2em;
   }
 
   & .game-start__start {
@@ -193,9 +193,21 @@ header {
 }
 
 @media screen and (max-width: 768px) {
-  .game-start .game-start__title {
-    font-size: 4em;
+  .game-start {
+    padding: 7rem 0;
+    & .game-start__title {
+      font-size: 3em;
+    }
+  
+    & .game-start__description {
+      font-size: 1.5em;
+    }
+  
+    & .game-start__start {
+      font-size: 2.5em;
+    }
   }
+
   .controllers .icon {
     width: 30px;
     height: 30px;
@@ -206,6 +218,34 @@ header {
     top: 50px;
     right: -26.5px;
   }
+
+  .main__wrapper {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .game-start .game-start__title {
+    font-size: 4em;
+  }
+  & .game-start__description {
+    font-size: 2em;
+    margin-top: 0.8em;
+    text-align: center;
+    line-height: 2em;
+  }
+
+  .controllers{
+    & .controllers__right {
+      & .options__settings {
+        cursor: default;
+        top: 50px;
+        right: -26px;;
+        padding: 20px;
+      }
+    }
+  }
+
 
   .main__wrapper {
     width: 90%;

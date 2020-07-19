@@ -139,10 +139,10 @@ export default class View {
 
   bindClickFinish() {
     this.finishTraining.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
     this.dropGameBtn.addEventListener('click', () => {
-      window.location.href = '/';
+      window.location.href = '/main';
     });
   }
 
@@ -283,23 +283,18 @@ export default class View {
 
   bindClickAudioStatistics(handler) {
     this.finishStatistics.addEventListener('click', (e) => {
-      // console.log(e.target);
       const { target } = e;
       if (
         target.classList.contains('finish-statistics__answer-audio')
         || target.classList.contains('finish-statistics__answer-eng')
       ) {
-        this.inActiveAllAudio();
+        const elements = document.querySelectorAll('.finish-statistics__answer-audio');
+        elements.forEach((item) => item.classList.remove('active'));
         const element = e.target.closest('.finish-statistics__answer');
         element.querySelector('.finish-statistics__answer-audio').classList.add('active');
         handler(element.dataset.audio);
       }
     });
-  }
-
-  inActiveAllAudio() {
-    const elements = this.body.querySelectorAll('.finish-statistics__answer-audio');
-    elements.forEach((item) => item.classList.remove('active'));
   }
 
   static removeSelectCell() {

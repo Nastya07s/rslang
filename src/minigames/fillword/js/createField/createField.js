@@ -49,9 +49,10 @@ function createField(hiddenWord, width, height, coordinate) {
     return null;
   }
 
-  const result = createZeroField(width, height);
   let x = getRandomArbitrary(0, width - 1);
   let y = getRandomArbitrary(0, height - 1);
+
+  const result = createZeroField(width, height);
 
   coordinate.push([y, x]);
   result[y][x] = hiddenWord[0];
@@ -59,6 +60,11 @@ function createField(hiddenWord, width, height, coordinate) {
   for (let i = 1; i < hiddenWord.length; i += 1) {
     const possibleCoordinates = createNextCoordinates(x, y, width, height, result);
     const nextPoint = getRandomArbitrary(0, possibleCoordinates.length - 1);
+
+    if (possibleCoordinates.length === 0) {
+      coordinate.splice(0, coordinate.length);
+      return createField(hiddenWord, width, height, coordinate);
+    }
 
     x = possibleCoordinates[nextPoint][0];
     y = possibleCoordinates[nextPoint][1];

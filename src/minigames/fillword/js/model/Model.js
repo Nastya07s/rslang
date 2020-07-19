@@ -43,7 +43,7 @@ export default class Model {
           ...settings.minigames[GAME_NAME],
         };
       }, () => {
-        document.location.href = '/';
+        document.location.href = '/main';
       });
   }
 
@@ -54,6 +54,8 @@ export default class Model {
   }
 
   initGameField() {
+    this.coordinate = [];
+    this.chooseCoord = [];
     this.field = createField(this.gameWord.en, FIELD_LENGTH, FIELD_HEIGHT, this.coordinate);
   }
 
@@ -114,14 +116,13 @@ export default class Model {
     this.arrayAnswer.push(this.gameWord);
   }
 
-  playSound() {
+  playSound(data) {
     this.audio.muted = this.audioMute;
     const url = 'https://raw.githubusercontent.com/Gabriellji/rslang-data/master';
-    console.log(typeof this.gameWord.audio);
     if (this.gameWord.audio.startsWith('files')) {
-      this.audio.src = `${url}/${this.gameWord.audio}`;
+      this.audio.src = `${url}/${data}`;
     } else {
-      this.audio.src = `data:audio/mpeg;base64,${this.gameWord.audio}`;
+      this.audio.src = `data:audio/mpeg;base64,${data}`;
     }
     try {
       this.audio.play();
