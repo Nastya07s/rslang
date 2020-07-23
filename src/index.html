@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSLang. Промостраница</title>
+</head>
+<body hidden>
+  <header class="header">
+    <div class="wrapper header__wrapper">
+        <div class="nav-but-wrap">
+            <div class="menu-icon">
+                <span class="menu-icon__line menu-icon__line-left"></span>
+                <span class="menu-icon__line"></span>
+                <span class="menu-icon__line menu-icon__line-right"></span>
+            </div>					
+        </div>
+        <div class="nav">
+            <div class="nav__content">
+                <ul class="nav__list">
+                    <li class="nav__list-item active-nav"><a href="#home" class="hover-target">Домой</a></li>
+                    <li class="nav__list-item"><a href="#our-app" class="hover-target">Наше приложение</a></li>
+                    <li class="nav__list-item"><a href="#mini-games" class="hover-target">Мини-игры</a></li>
+                    <li class="nav__list-item"><a href="#about-us" class="hover-target last-link">О нас</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="header__logo-line">
+            <a href="#" class="logo">
+                <object type="image/svg+xml" data="/assets/img/Logo.svg" class="logo-object">
+                    Your browser does not support SVG
+                 </object>
+            </a>
+        <div class="header__buttons">
+            <a href="#home" class="hover-target button button_bordered switcher-login">Войти</a>
+            <a href="#home" class="hover-target button button_colored switcher-signup">Регистрация</a>
+        </div>
+    </div>
+</header>
+
+<section class="promo" id="home">
+    <div class="wrapper promo__wrapper">
+        <div class="login-errors"></div>
+        <div class="promo__content">
+            <h1 class="promo__title">Приложение<br>RSLang</h1>
+            <p class="promo__text">Приложение для изучения английского языка,
+                использующее инновационный метод повторения, а также мини-игры для закрепления пройденного материала.</p>
+            <div class="promo__buttons">
+                <button class="button button_colored modal_wrap">Начать</button>
+                <a
+                  class="link-button"
+                  href="https://rslang-team55-nastya07s-redirect-video.netlify.app/"
+                  target="_blank"
+                  >
+                    <span class="ico ico_play"></span>
+                    <span class="link-button__text">Смотреть видео</span>
+                </a>
+            </div>
+            <div class="modal-wrapper">
+                <p>Чтобы начать использование приложения, вам
+                    нужно ВОЙТИ или ЗАРЕГЕСТРИРОВАТЬСЯ, после чего вы автоматически перейдете на главную страницу приложения</p>
+            </div>
+        </div>
+        <div class="wrap">
+            
+            <div class="login front">
+                <form class="form form-login">
+                        <p class="form-login__text">ВОЙТИ</p>
+                      <div class="input-block">
+                        <input class="input-email" id="login-email" type="email" autocomplete="off" required placeholder="Почта">
+                      </div>
+                      <div class="input-block">
+                        <div class="eye-box">
+                          <img class="eye" src="/assets/img/icons/eye.svg" alt="">
+                        </div>
+                        <input class="input-password password" id="login-password" type="password" autocomplete="off" required placeholder="Пароль">
+                      </div>
+                      <div class="form-btn">
+                        <button type="submit" class="btn-login">ВОЙТИ</button>
+                      </div>
+                      <div class="links">
+                        <span class="inner-switch toggler">СОЗДАТЬ АККАУНТ</span>
+                    </div>
+                  </form>
+            </div>
+            <div class="register back">
+                <form action="/" method="post" class="form form-signup form-registration">
+                        <p class="form-login__text">РЕГИСТРАЦИЯ</p>
+                      <div class="input-block">
+                        <input id="signup-email" type="email" autocomplete="off" required placeholder="Почта">
+                      </div>
+                      <div class="input-block">
+                          <div class="eye-box">
+                        <img class="eye" src="/assets/img/icons/eye.svg" alt="">
+                    </div>
+                        <input class="input-password password" id="signup-password" type="password" autocomplete="off" required placeholder="Пароль">
+                      </div>
+                      <button type="submit" class="btn-signup">СОЗДАТЬ АККАУНТ</button>
+                    <div class="links">
+                        <span class="inner-switch toggler">У МЕНЯ УЖЕ ЕСТЬ АККАУНТ</span>
+                    </div>
+                  </form>
+            </div>
+        </div>
+        <div class="arrow-down">
+            <a href="#our-app" class="hover-target shake-vertical"><img class="arrow" src="/assets/img/icons/download.svg" alt=""></a>
+        </div>
+    </div>
+</section>
+<section class="method" id="our-app">
+    <div class="wrapper method__wrapper">
+        <img src="/assets/img/backgrounds/steps.svg" alt="" class="steps">
+        <img src="/assets/img/backgrounds/steps-mob.svg" alt="" class="steps-mob">
+    </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="tools">
+    <div class="wrapper tools__wrapper">
+        <h2 class="tools__title">Наше приложение развивает следующие навыки</h2>
+        <div class="layout-4-column tool-container">
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_violet">
+                        <span class="ico ico_arrow"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Восприятие на слух</h4>
+                <p class="tool__text">Развивай понимание услышанного и практикуй фокусировку.</p>
+            </div>
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_yellow">
+                        <span class="ico ico_snake"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Чтения и письма</h4>
+                <p class="tool__text">Получи своевременную помощь при проблемах с грамматикой.</p>
+            </div>
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_red">
+                        <span class="ico ico_heart"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Память</h4>
+                <p class="tool__text">Учи новые слова быстро и проверяй словарный запас в мини-играх.</p>
+            </div>
+            <div class="tool">
+                <div class="tool__icon">
+                    <span class="icon-square icon-square_blue">
+                        <span class="ico ico_clock"></span>
+                    </span>
+                </div>
+                <h4 class="tool__title">Произношение</h4>
+                <p class="tool__text">Тренеруй и практикуй разговорную речь с комфортом.</p>
+            </div>
+        </div>
+        <div class="tools__button">
+                <a href="#home" class="hover-target button button_colored register-now">Зарегистрироваться сейчас</a>
+        </div>
+    </div>
+</section>
+<section class="strategies" id="mini-games">
+    <div class="wrapper">
+        <h2 class="strategies__title">Мини-игры</h2>
+        <p class="strategies__description">Все игры интерактивны и основаны на проверенных методиках. С их помощью ты освоишь грамматические правила,
+           расширишь словарный запас, улучшишь навыки чтения и аудирования.
+        </p>
+        <div class="layout-3-column strategy-wrapper">
+            <article class="strategy block-shadowed">
+                <img class="strategy__image" src="/assets/img/strategies/fillword.png" alt="strategy">
+                <div class="strategy__content">
+                    <h3 class="strategy__name">Fillword</h3>
+                    <h4 class="strategy__description">Увеличивает словарный запас</h3>
+                      <div class="strategy__tags tags">
+                        <span class="tag tag_colored">Память</span>
+                        <span class="tag tag_colored">Понимание</span>
+                    </div>
+                </div>
+            </article>
+            <article class="strategy block-shadowed">
+                <img class="strategy__image" src="/assets/img/strategies/puzzle.png" alt="strategy">
+                <div class="strategy__content">
+                    <h3 class="strategy__name">English-puzzle</h3>
+                    <h4 class="strategy__description">Улучшает навыки чтения и письма</h3>
+                      <div class="strategy__tags tags">
+                        <span class="tag tag_colored">Понимание</span>
+                        <span class="tag tag_colored">Память</span>
+                    </div>
+                </div>
+            </article>
+            <article class="strategy block-shadowed">
+                <img class="strategy__image" src="/assets/img/strategies/goal.png" alt="strategy">
+                <div class="strategy__content">
+                    <h3 class="strategy__name">Аудиовызов</h3>
+                    <h4 class="strategy__description">Улучшает восприятие английской речи на слух</h3>
+                      <div class="strategy__tags tags">
+                        <span class="tag tag_colored">Понимание</span>
+                    </div>
+                </div>
+            </article>
+            <article class="strategy block-shadowed">
+              <img class="strategy__image" src="/assets/img/strategies/savannah.svg" alt="strategy">
+              <div class="strategy__content">
+                  <h3 class="strategy__name">Саванна</h3>
+                  <h4 class="strategy__description">Помогает не забыть выученные слова</h3>
+                    <div class="strategy__tags tags">
+                      <span class="tag tag_colored">Скорость перевода</span>
+                  </div>
+              </div>
+          </article>
+          <article class="strategy block-shadowed">
+              <img class="strategy__image" src="/assets/img/strategies/speakit.png" alt="strategy">
+              <div class="strategy__content">
+                  <h3 class="strategy__name">SpeakIt</h3>
+                  <h4 class="strategy__description">Улучшает<br>произношение</h3>
+                    <div class="strategy__tags tags">
+                      <span class="tag tag_colored">Память</span>
+                      <span class="tag tag_colored">Понимание</span>
+                  </div>
+              </div>
+          </article>
+          <article class="strategy block-shadowed">
+              <img class="strategy__image" src="/assets/img/strategies/sprint.png" alt="strategy">
+              <div class="strategy__content">
+                  <h3 class="strategy__name">Спринт</h3>
+                  <h4 class="strategy__description">Увеличивает скорость понимания и перевода</h3>
+                    <div class="strategy__tags tags">
+                      <span class="tag tag_colored">Скорость перевода</span>
+                  </div>
+              </div>
+          </article>
+        </div>
+    </div>
+</section>
+<section class="about-us" id="about-us">
+    <div class="wrapper">
+        <h2 class="about-us__title">Наша команда</h2>
+        <p class="about-us__description">Мы - команда активных и амбициозных молодых людей,
+             которые ставят перед собой большие цели и не боятся трудностей их реализации.
+             У членов нашей команды разные истории, и у каждого за плечами свой путь самурая,
+             но мы разделяем общую страсть к программированию. Мы верим, что, чтобы оставаться хорошим
+             front-end разработчиком, нужно развиваться, поэтому мы постоянно ищем способы, как стать лучше в том, что мы делаем.</p>
+        <div class="layout-3-column employee-container">
+            <div class="employee block-shadowed" data-id="0">
+                <div class="employee__content">
+                    <h5 class="employee__name">Анастасия Котович</h5>
+                    <p class="employee__title">Team Lead</p>
+                    <a class="employee__contact" href="mailto:nastya.kotovich07@gmail.com">nastya.kotovich07@gmail.com</a>
+                </div>
+                <img class="employee__photo" src="/assets/img/employees/nastya.png" alt="Anastasiya Kotovich">
+            </div>
+            <div class="employee block-shadowed" data-id="1">
+                <div class="employee__content">
+                    <h5 class="employee__name">Павел Свирид</h5>
+                    <p class="employee__title">Front-end developer </p>
+                    <a class="employee__contact" href="mailto:psvirid@gmail.com">psvirid@gmail.com</a>
+                </div>
+                <img class="employee__photo" src="/assets/img/employees/pavel.png" alt="Pavel Svirid">
+            </div>
+            <div class="employee block-shadowed" data-id="2">
+                <div class="employee__content">
+                    <h5 class="employee__name">Евгения Габрикова</h5>
+                    <p class="employee__title">Front-end developer</p>
+                    <a class="employee__contact" href="mailto:gabriellji@yahoo.com">gabriellji@yahoo.com</a>
+                </div>
+                <img class="employee__photo" src="/assets/img/employees/3.png" alt="Evgeniya Gabrikova">
+            </div>
+            <div class="employee block-shadowed" data-id="3">
+              <div class="employee__content">
+                  <h5 class="employee__name">Алексей Шевченко</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:kamikozz@mail.ru">kamikozz@mail.ru</a>
+              </div>
+              <img class="employee__photo" src="/assets/img/employees/lesha.png" alt="Alexey Shevchenko">
+          </div>
+          <div class="employee block-shadowed" data-id="4">
+              <div class="employee__content">
+                  <h5 class="employee__name">Антон Мулярчук</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:antowa_muliarchyk@mail.ru">antowa_muliarchyk@mail.ru</a>
+              </div>
+              <img class="employee__photo" src="/assets/img/employees/anton.png" alt="Anton Muliarchyk">
+          </div>
+          <div class="employee block-shadowed" data-id="5">
+              <div class="employee__content">
+                  <h5 class="employee__name">Татьяна Томина</h5>
+                  <p class="employee__title">Front-end developer</p>
+                  <a class="employee__contact" href="mailto:tominanusha@gmail.com">tominanusha@gmail.com</a>
+              </div>
+              <img class="employee__photo" src="/assets/img/employees/tanya.png" alt="Tatyana Tomina">
+          </div>
+        </div>
+        <div class="employee__modal-window employee__modal-window_hidden">
+            <h5 class="employee__name">Татьяна Томина</h5>
+            <p class="employee__title">Front-end developer</p>
+            <a
+              class="employee__contact"
+              href="mailto:tominanusha@gmail.com">tominanusha@gmail.com</a>
+            <ol class="employee__stuff"></ol>
+            <div class="close_modal"><button class="btn-close_modal">Закрыть</button></div>
+          </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <div class="wrapper footer__wrapper">
+        <a href="#" class="logo">
+            <object type="image/svg+xml" data="/assets/img/Logo.svg" class="logo-object">
+                Your browser does not support SVG
+             </object>
+        </a>
+        <a href="https://github.com/Nastya07s/rslang" class="github">
+          <img class="github-object" src="/assets/img/github.svg" alt="github">
+        </a>
+    </div>
+</footer>
+</body>
+</html>
+

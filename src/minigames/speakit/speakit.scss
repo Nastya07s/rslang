@@ -1,0 +1,83 @@
+@import "./scss/utils/_vars";
+@import "./scss/utils/_mixins";
+@import "./scss/utils/_reset-css";
+@import "./scss/utils/_fonts";
+@import "./scss/utils/_animations";
+
+html {
+  box-sizing: border-box;
+
+  font-size: 10px;
+}
+
+body {
+  min-width: $small-phone-width;
+  min-height: 100vh;
+
+  font: {
+    family: $main-font;
+    weight: $main-font-weight;
+  }
+
+  overflow-x: hidden;
+
+  /* styling scrollbar */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color:#dd8680;
+  }
+
+  &::-webkit-scrollbar{
+    width: 8px;
+  }
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 100vw;
+
+  transition: padding 0.5s ease-out, margin 0.5s ease-out;
+
+  @include for-small-phone { padding: 0 20px; }
+  @include for-desktop { padding: 0 40px; }
+}
+
+.hidden {
+  display: none;
+}
+
+.visually-hidden {
+  visibility: hidden;
+}
+
+.loader {
+  & {
+    position: fixed;
+    z-index: 10;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: inherit;
+    min-width: inherit;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+
+    background-color: #ffffff;
+
+    transition: opacity 0.35s ease-out;
+  }
+
+  &_hidden {
+    opacity: 0;
+  }
+}
+
+@import "./components/tooltip/tooltip";
+@import "./components/progress-bar/progress-bar";
+@import "./components/pagination/pagination";
+@import "./components/page-intro/page-intro";
+@import "./components/page-main/page-main";
+@import "./components/statistics-modal/statistics-modal";
+@import "./components/pop-up/pop-up";

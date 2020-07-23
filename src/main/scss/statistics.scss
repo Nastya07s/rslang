@@ -1,0 +1,28 @@
+.statistics {
+  & {
+    max-width: 95%;
+  }
+
+  &__title {
+    padding-bottom: 13px;
+    color: #000000;
+    border-bottom: 1px solid rgba($lightGrey, 0.56);
+  }
+
+  &__graph {
+    position: relative;
+    max-width: 100%;
+  }
+
+  &__text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    font-size: 35px;
+    line-height: 43px;
+    color: #000000;
+  }
+}

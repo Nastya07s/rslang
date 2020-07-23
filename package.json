@@ -1,0 +1,79 @@
+{
+  "name": "rslang",
+  "version": "1.0.0",
+  "description": "Application for learning english",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open --config ./build/webpack.dev.conf.js",
+    "build": "webpack --config ./build/webpack.build.conf.js",
+    "lint": "eslint ./src --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.(js)": [
+      "npm run lint"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nastya07s/rslang.git"
+  },
+  "keywords": [
+    "webpack",
+    "english",
+    "sass"
+  ],
+  "browserslist": [
+    "> 1%",
+    "last 3 version"
+  ],
+  "author": "Nastya07s",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nastya07s/rslang/issues"
+  },
+  "homepage": "https://github.com/Nastya07s/rslang#rslang",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-import-resolver-webpack": "^0.12.2",
+    "eslint-loader": "^4.0.0",
+    "eslint-plugin-html": "^6.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "file-loader": "^6.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "node-sass": "^4.14.1",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^2.0.2",
+    "sass-loader": "^8.0.2",
+    "style-loader": "^1.1.3",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^9.7.6",
+    "copy-webpack-plugin": "^5.1.1",
+    "core-js": "^3.6.5",
+    "cssnano": "^4.1.10",
+    "html-webpack-plugin": "^4.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "normalize.css": "^8.0.1",
+    "path": "^0.12.7",
+    "progressbar.js": "^1.1.0",
+    "regenerator-runtime": "^0.13.5",
+    "swiper": "^5.4.5",
+    "webpack": "^4.43.0",
+    "webpack-merge": "^4.2.2"
+  }
+}

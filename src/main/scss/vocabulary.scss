@@ -1,0 +1,155 @@
+.vocabulary__template::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: $grey;
+}
+
+.vocabulary__template::-webkit-scrollbar {
+  width: 8px;
+}
+
+.vocabulary {
+  color: #000000;
+  font-size: 21px;
+  line-height: 26px;
+
+  &__title {
+    justify-content: space-between;
+  }
+
+  &__about {
+    font-size: 35px;
+    line-height: 43px;
+  }
+
+  &__info {
+    justify-content: space-between;
+    margin: 17px 0;
+  }
+
+  &__info-title {
+    color: #000000;
+    padding: 7px 20px;
+    display: inline-block;
+    width: 20%;
+    border-top: 1px solid rgba($lightGrey, 0.56);
+    border-bottom: 1px solid rgba($lightGrey, 0.56);
+    border-right: 1px solid rgba($lightGrey, 0.56);
+    text-align: center;
+    cursor: pointer;
+
+    &:last-child {
+      border-right: none;
+    }
+
+    &:hover {
+      background-color: rgba($lightGrey, 0.56);
+    }
+  }
+
+  &__info-title-active {
+    background-color: rgba($lightGrey, 0.56);
+  }
+
+  &__num {
+    border-bottom: 1px solid rgba($lightGrey, 0.56);
+    padding-bottom: 9px;
+    margin-bottom: 16px;
+  }
+
+  &__template {
+    max-height: 490px;
+    overflow: auto;
+  }
+}
+.template-vocabulary {
+  font-size: 18px;
+  line-height: 22px;
+
+  &__title {
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 20px;
+  }
+
+  &__restore {
+    a {
+      font-weight: 300;
+      text-decoration-line: none;
+      color: #000000;
+    }
+
+    a:hover {
+      opacity: 0.7;
+      text-decoration-line: underline;
+    }
+  }
+
+  &__info {
+    margin-bottom: 16px;
+  }
+
+  &__word {
+    align-items: center;
+
+    span {
+      margin-right: 4px;
+      font-size: 20px;
+      line-height: 24px;
+    }
+
+    svg {
+      cursor: pointer;
+    }
+
+    svg:hover path {
+      fill: black;
+      fill-opacity: 0.56;
+    }
+  }
+
+  &__example {
+    margin-top: 15px;
+    font-weight: 300;
+
+    span:nth-child(2) {
+      color: $translate;
+    }
+  }
+
+  &__value {
+    font-weight: 300;
+    margin-bottom: 8px;
+
+    span:nth-child(2) {
+      color: $translate;
+    }
+  }
+
+  &__time {
+    div {
+      margin-right: 20px;
+    }
+  }
+
+  &__all {
+    justify-content: space-between;
+    margin-top: 12px;
+    margin-right: 20px;
+  }
+
+  &__body {
+    justify-content: space-between;
+    flex-direction: column;
+    border-bottom: 1px solid rgba($lightGrey, 0.56);
+    margin-top: 12px;
+  }
+
+  &__image {
+    width: 80px;
+    height: 76px;
+
+    img {
+      width: 100%;
+    }
+  }
+}

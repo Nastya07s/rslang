@@ -1,0 +1,260 @@
+.page-intro {
+  & {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    min: {
+      height: inherit;
+      width: inherit;
+    }
+
+    background: {
+      blend-mode: soft-light;
+      position: 70%;
+      size: cover;
+      repeat: no-repeat;
+    }
+
+    transition: opacity 1s ease-out;
+  }
+
+  &_hidden {
+    position: absolute;
+    opacity: 0;
+
+    pointer-events: none;
+  }
+
+  &__controls-block {
+    padding-top: 32px;
+    height: 84px; // высота блока с управляющими элементами (52px, например) + отступ сверху
+  }
+
+  &__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 20px 0;
+    min-height: calc(100vh - 84px); // отнимаем явно высоту верхнего блока
+  }
+
+  &__text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+
+    @include for-small-phone { font-size: 4rem; }
+    @include for-phone { font-size: 5rem; }
+    text: {
+      transform: uppercase;
+      shadow: 1px 1px 2px black;
+      align: center;
+    }
+    color: $default-color;
+
+    transition: font-size 0.25s ease-out;
+  }
+  
+  &__app-name {
+    margin-bottom: 10px;
+
+    font-weight: 400;
+
+    @include for-small-phone { font-size: 1.6em; }
+    @include for-phone { font-size: 2em; }
+  }
+
+  &__app-description {
+    margin-bottom: 20px;
+    padding: 15px;
+    @include for-small-phone { width: 95%; }
+    @include for-phone { width: 90%; }
+    @include for-tablet { width: 80%; }
+    @include for-desktop { width: 60%; }
+
+    border-radius: 10px;
+
+    font: {
+      size: 0.4em;
+      weight: 300;
+    }
+
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  &__app-how-to-use {
+    & {
+      margin-bottom: 10px;
+
+      text-transform: initial;
+      font: {
+        size: 0.6em;
+        weight: 300;
+      }
+    }
+  }
+
+  &__first-word {
+    font-weight: 700;
+  }
+
+  &__start-button {
+    & {
+      margin-top: 30px;
+      padding: 20px 40px;
+
+
+      border: none;
+      border-radius: 10px;
+
+      font: {
+        size: 0.5em;
+        weight: 400;
+      }
+      text: {
+        transform: uppercase;
+        shadow: 1px 1px 2px #000000;
+      }
+      color: $default-color;
+  
+      cursor: pointer;
+      transition: box-shadow 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 4px 0px #ffffff;
+    }
+
+    &:active {
+      transform: scale(1.05);
+    }
+  }
+
+  &__pagination {
+    margin-bottom: 20px;
+  }
+
+  &__select {
+    & {
+      width: 70px;
+
+      border: 1px solid #000;
+      border-radius: 5px;
+
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.controls-container {
+  & {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button {
+    & {
+      cursor: pointer;
+      transition: opacity 0.35s ease-out;
+    }
+
+    &:hover {
+      opacity: 0.55;
+    }
+
+    &_active {
+      opacity: 0.55;
+    }
+  }
+
+  &__audio-button {
+    position: relative;
+  }
+
+  &__close-button {
+    margin-left: 20px;
+  }
+}
+
+.icon {
+  & {
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.35s ease-out;
+  }
+
+  &_hidden {
+    opacity: 0;
+  }
+
+  &__speaker,
+  &__speaker-mute {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &__star {
+    & {
+    }
+  }
+}
+
+// Some of the properties will be @overridden & some of them will be just added like new props
+.settings {
+  & {
+    font-weight: 400;
+  }
+
+  &__container {
+    & {
+      top: 150%;
+      right: -16px;
+      padding: 2rem;
+
+      background-color: #ffffff;
+
+      border-radius: 20px;
+
+      font-size: 1.8rem;
+
+      transform-origin: 82% -15%;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: -4px;
+      right: 16px;
+
+      width: 0;
+      height: 0;
+
+      border: 25px solid;
+      border-color: white transparent transparent white;
+      transform: rotate(45deg);
+    }
+  }
+
+  &__title {
+    margin-bottom: 5px;
+
+    color: #000000;
+  }
+
+  &__difficulty-star {
+    & {
+      padding: 0;
+
+      border: none;
+      background-color: initial;
+    }
+  }
+}

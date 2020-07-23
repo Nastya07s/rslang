@@ -1,0 +1,39 @@
+.logo {
+    display: flex;
+    align-items: center;
+    margin-left: 4rem;
+    @media (max-width: 620px) {
+        margin-left: 2rem;
+    }
+}
+
+.logo-object {
+    width: 160px;
+    height: 30px;
+    @media (max-width: 530px) {
+        width: 110px;
+        height: 20px;
+    }
+}
+
+.github-object {
+    width: 60px;
+    height: 40px;
+    cursor: pointer;
+    & svg {
+        cursor: pointer;
+    }
+}
+
+.logo-path {
+    @extend %transition;
+}
+
+.logo-svg {
+    cursor: pointer;
+    &:hover {
+        .logo-path {
+            fill: $color-primary;
+        }
+    }
+}
